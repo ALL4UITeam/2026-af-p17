@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="si:layers-duotone" clip-path="url(#clip0_0_856)">
+<path id="Vector" d="M1 8L8 11.8889L15 8M1 11.1111L8 15L15 11.1111M1 4.88889L8 1L15 4.88889L8 8.77778L1 4.88889Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_856">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
