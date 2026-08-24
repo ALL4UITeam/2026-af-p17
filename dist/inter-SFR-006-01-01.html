@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFR-006-01-01 기본정보 | 내부망</title>
+  <meta name="description" content="기본정보">
+  <script type="module" crossorigin src="./assets/modulepreload-polyfill.js"></script>
+  <script type="module" crossorigin src="./assets/inter.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/inter.css">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <nav class="i-step" aria-label="작성 단계">
+          <ol class="i-step__list">
+            <li class="i-step__item is-on">
+              <a class="i-step__link" href="./inter-SFR-006-01-01.html" aria-current="step">
+                <span class="i-step__num" aria-hidden="true">1</span>
+                <span class="i-step__label">기본정보</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-02.html">
+                <span class="i-step__num" aria-hidden="true">2</span>
+                <span class="i-step__label">공유수면<br>매립면허 현황</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-03.html">
+                <span class="i-step__num" aria-hidden="true">3</span>
+                <span class="i-step__label">공유수면<br>점용·사용 허가 현황</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-04.html">
+                <span class="i-step__num" aria-hidden="true">4</span>
+                <span class="i-step__label">해양공간<br>적합성협의 현황</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-05.html">
+                <span class="i-step__num" aria-hidden="true">5</span>
+                <span class="i-step__label">어업면허 현황</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-06.html">
+                <span class="i-step__num" aria-hidden="true">6</span>
+                <span class="i-step__label">이용 및<br>개발사업 현황</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-07.html">
+                <span class="i-step__num" aria-hidden="true">7</span>
+                <span class="i-step__label">지역위원회<br>구성, 운영</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-08.html">
+                <span class="i-step__num" aria-hidden="true">8</span>
+                <span class="i-step__label">지역협의회<br>구성, 운영</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-09.html">
+                <span class="i-step__num" aria-hidden="true">9</span>
+                <span class="i-step__label">지역역량 강화</span>
+              </a>
+            </li>
+            <li class="i-step__item ">
+              <a class="i-step__link" href="./inter-SFR-006-01-10.html">
+                <span class="i-step__num" aria-hidden="true">10</span>
+                <span class="i-step__label">해양용도구역<br>지정 및 변경</span>
+              </a>
+            </li>
+          </ol>
+        </nav>
+
+        <section class="i-panel" aria-labelledby="stepTitle">
+          <header class="i-panel__head">
+            <p class="i-panel__step">STEP 1 / 10</p>
+            <h2 id="stepTitle" class="i-panel__title">기본정보</h2>
+          </header>
+
+          <div class="tbl-col-wrap i-form">
+            <table>
+              <colgroup>
+                <col style="width: 200px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="seaArea">해역선택</label></th>
+                  <td>
+                    <select id="seaArea" name="seaArea" class="form-control i-form__select" title="해역선택">
+                      <option value="">선택</option>
+                      <option value="0002">경기도</option>
+                      <option value="0003">강원특별자치도</option>
+                      <option value="0004">경상남도</option>
+                      <option value="0005">경상북도</option>
+                      <option value="0006">부산광역시</option>
+                      <option value="0007">울산광역시</option>
+                      <option value="0008">인천광역시</option>
+                      <option value="0009">전남광주통합특별시</option>
+                      <option value="0010">전북특별자치도</option>
+                      <option value="0011">제주도</option>
+                      <option value="0012">충청남도</option>
+                      <option value="9999">해역미지정</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="overview">점검 개요</label></th>
+                  <td>
+                    <input type="text" id="overview" name="overview" class="form-control i-form__full" title="점검 개요">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="baseDate">점검기준일자</label></th>
+                  <td>
+                    <div class="i-form__date">
+                      <input type="text" id="baseDate" name="baseDate" class="form-control datepicker" title="점검기준일자" value="2026-07-29" readonly>
+                      <button type="button" class="i-form__cal" aria-label="달력 열기">
+                        <span class="i-form__cal-ico" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">작성기관</th>
+                  <td>
+                    <div class="i-form__org">
+                      <button type="button" class="i-form__btn-org" id="btnOrgSearch" onclick="$('#orgSearchModal').fadeIn(); return false;">기관조회</button>
+                      <span class="i-form__org-name" id="orgSelectedName"></span>
+                      <input type="hidden" id="orgSelected" name="orgSelected" value="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="tel1">담당자 연락처</label></th>
+                  <td>
+                    <div class="i-form__tel">
+                      <select id="tel1" name="tel1" class="form-control" title="연락처 앞자리">
+                        <option value="">선택</option>
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                        <option value="02">02</option>
+                        <option value="031">031</option>
+                        <option value="032">032</option>
+                        <option value="033">033</option>
+                        <option value="041">041</option>
+                        <option value="042">042</option>
+                        <option value="043">043</option>
+                        <option value="044">044</option>
+                        <option value="051">051</option>
+                        <option value="052">052</option>
+                        <option value="053">053</option>
+                        <option value="054">054</option>
+                        <option value="055">055</option>
+                        <option value="061">061</option>
+                        <option value="062">062</option>
+                        <option value="063">063</option>
+                        <option value="064">064</option>
+                      </select>
+                      <span class="i-form__dash" aria-hidden="true">-</span>
+                      <input type="text" id="tel2" name="tel2" class="form-control" title="연락처 중간" maxlength="4" inputmode="numeric">
+                      <span class="i-form__dash" aria-hidden="true">-</span>
+                      <input type="text" id="tel3" name="tel3" class="form-control" title="연락처 끝" maxlength="4" inputmode="numeric">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">첨부파일 업로드</th>
+                  <td>
+                    <div class="drag-box i-form__upload">
+                      <div class="drag-file_com">
+                        <p class="i-form__upload-msg">파일을 선택하거나 여기에 드래그 하세요.</p>
+                        <p class="i-form__upload-cap">0MB / 100MB</p>
+                      </div>
+                      <button type="button" class="drag-file_btn" id="attachFileBtn">파일 선택</button>
+                      <input type="file" class="sr-only" id="attachFile" name="attachFile" multiple>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="i-panel__foot">
+            <button type="button" class="i-btn i-btn--ghost">임시저장</button>
+            <a href="./inter-SFR-006-01-02.html" class="i-btn i-btn--primary">다음</a>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <section class="modal _content draggable" id="orgSearchModal" style="display:none;">
+    <div class="st_view">
+      <div class="st_container st_container--org">
+        <header class="st_header_g">
+          <h1>기관 조회</h1>
+          <button type="button" title="창닫기" onclick="$('#orgSearchModal').fadeOut();"></button>
+        </header>
+  
+        <div class="org-search">
+          <div class="org-search__col">
+            <h2 class="org-search__ti">기관</h2>
+            <div class="org-search__ctrl org-search__ctrl--org">
+              <select id="orgType" class="form-control" title="기관 유형">
+                <option value="gov" selected>정부기관</option>
+                <option value="local">지자체</option>
+                <option value="public">공공기관</option>
+              </select>
+              <input type="text" id="orgKeyword" class="form-control" title="기관명" value="국토해양부">
+              <button type="button" class="org-search__btn" id="orgSearchBtn">조회</button>
+            </div>
+            <ul class="org-search__list" id="orgList">
+              <li class="is-on">국토해양부</li>
+              <li>해양수산부</li>
+              <li>환경부</li>
+            </ul>
+          </div>
+  
+          <div class="org-search__col">
+            <h2 class="org-search__ti">부서</h2>
+            <div class="org-search__ctrl org-search__ctrl--dept">
+              <input type="text" id="deptKeyword" class="form-control" title="부서명" placeholder="부서를 입력하세요.">
+              <button type="button" class="org-search__btn" id="deptSearchBtn">조회</button>
+            </div>
+            <ul class="org-search__list org-search__list--empty" id="deptList">
+              <li class="org-search__empty">조회된 부서가 없습니다.</li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="org-search__foot">
+          <button type="button" class="org-search__act org-search__act--ok" onclick="$('#orgSearchModal').fadeOut();">선택</button>
+          <button type="button" class="org-search__act org-search__act--cancel" onclick="$('#orgSearchModal').fadeOut();">취소</button>
+        </div>
+      </div>
+      <div class="dimmed" onclick="$('#orgSearchModal').fadeOut();"></div>
+    </div>
+  </section>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script>
+    $(function () {
+      $('#orgSearchModal .st_container').draggable({
+        handle: '.st_header_g',
+        containment: 'window'
+      });
+
+      $('#attachFileBtn').on('click', function () {
+        $('#attachFile').trigger('click');
+      });
+    });
+  </script>
+</body>
+</html>

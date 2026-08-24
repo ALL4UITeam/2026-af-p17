@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFR-006-04 이행점검 결과 목록 | 내부망</title>
+  <meta name="description" content="이행점검 결과 목록">
+  <script type="module" crossorigin src="./assets/modulepreload-polyfill.js"></script>
+  <script type="module" crossorigin src="./assets/inter.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/inter.css">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <div class="i-scards" role="group" aria-label="이행점검 단계 필터">
+          <button type="button" class="i-scard is-on" data-step="1" aria-pressed="true">
+            <strong class="i-scard__num">29</strong>
+            <span class="i-scard__lab">기초 지자체<br>이행점검 결과등록</span>
+          </button>
+          <button type="button" class="i-scard" data-step="2" aria-pressed="false">
+            <strong class="i-scard__num">0</strong>
+            <span class="i-scard__lab">시도 담당자 검토</span>
+          </button>
+          <button type="button" class="i-scard" data-step="3" aria-pressed="false">
+            <strong class="i-scard__num">0</strong>
+            <span class="i-scard__lab">해양수산부<br>1차 검토</span>
+          </button>
+          <button type="button" class="i-scard" data-step="4" aria-pressed="false">
+            <strong class="i-scard__num">0</strong>
+            <span class="i-scard__lab">전문기관 검토</span>
+          </button>
+          <button type="button" class="i-scard" data-step="5" aria-pressed="false">
+            <strong class="i-scard__num">0</strong>
+            <span class="i-scard__lab">해양수산부<br>최종 검토 및 승인</span>
+          </button>
+          <button type="button" class="i-scard-reset" id="btnScardReset" title="필터 초기화">
+            <span class="i-scard-reset__ico" aria-hidden="true"></span>
+            초기화
+          </button>
+        </div>
+
+        <div class="i-search">
+          <div class="i-search__row">
+            <div class="i-search__field">
+              <label for="listArea" class="i-search__lab">지역</label>
+              <select id="listArea" name="listArea" class="form-control" title="지역">
+                <option value="">전체</option>
+                <option value="0002">경기도</option>
+                <option value="0003">강원특별자치도</option>
+                <option value="0004">경상남도</option>
+                <option value="0005">경상북도</option>
+                <option value="0006">부산광역시</option>
+                <option value="0007">울산광역시</option>
+                <option value="0008">인천광역시</option>
+                <option value="0009">전남광주통합특별시</option>
+                <option value="0010">전북특별자치도</option>
+                <option value="0011">제주도</option>
+                <option value="0012">충청남도</option>
+                <option value="9999">해역미지정</option>
+              </select>
+            </div>
+            <div class="i-search__field">
+              <label for="listCond" class="i-search__lab">검색조건</label>
+              <select id="listCond" name="listCond" class="form-control" title="검색조건">
+                <option value="">선택</option>
+                <option value="title">점검개요</option>
+                <option value="org">기관</option>
+              </select>
+            </div>
+            <div class="i-search__field i-search__field--grow">
+              <label for="listKeyword" class="i-search__lab">검색어</label>
+              <input type="text" id="listKeyword" name="listKeyword" class="form-control" title="검색어" placeholder="검색어를 입력하세요">
+            </div>
+            <button type="button" class="i-btn i-btn--primary i-search__btn" id="btnListSearch">검색</button>
+          </div>
+          <div class="i-search__row">
+            <div class="i-search__field i-search__field--date">
+              <span class="i-search__lab">등록일자</span>
+              <div class="i-search__dates">
+                <div class="i-form__date">
+                  <input type="text" id="listBeginDate" name="listBeginDate" class="form-control datepicker" title="등록시작일" readonly>
+                  <button type="button" class="i-form__cal" aria-label="시작일 달력 열기">
+                    <span class="i-form__cal-ico" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <span class="i-search__tilde" aria-hidden="true">~</span>
+                <div class="i-form__date">
+                  <input type="text" id="listEndDate" name="listEndDate" class="form-control datepicker" title="등록종료일" readonly>
+                  <button type="button" class="i-form__cal" aria-label="종료일 달력 열기">
+                    <span class="i-form__cal-ico" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="i-search__field">
+              <label for="listStatus" class="i-search__lab">상태</label>
+              <select id="listStatus" name="listStatus" class="form-control" title="상태">
+                <option value="">전체</option>
+                <option value="1">기초 지자체 이행점검 결과등록</option>
+                <option value="2">시도 담당자 검토</option>
+                <option value="3">해양수산부 1차 검토</option>
+                <option value="4">전문기관 검토</option>
+                <option value="5">해양수산부 최종 검토 및 승인</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="i-llist">
+          <div class="i-llist__head">
+            <p class="i-llist__total">총 <strong>29</strong>건</p>
+            <div class="i-llist__acts">
+              <button type="button" class="i-btn i-btn--cancel i-btn--sm">선택삭제</button>
+              <a href="./inter-SFR-006-01-01.html" class="i-btn i-btn--solid i-btn--sm">이행점검 등록</a>
+            </div>
+          </div>
+
+          <div class="tbl-wrap i-llist__tbl">
+            <table>
+              <caption>이행점검 결과 목록</caption>
+              <colgroup>
+                <col style="width: 56px">
+                <col>
+                <col style="width: 120px">
+                <col style="width: 420px">
+                <col style="width: 140px">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <label class="i-check">
+                      <input type="checkbox" id="chkAll" title="전체 선택">
+                      <span class="sr-only">전체 선택</span>
+                    </label>
+                  </th>
+                  <th scope="col">점검개요</th>
+                  <th scope="col">점검기준연도</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">기관</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="i-check">
+                      <input type="checkbox" name="chkItem" value="1" title="선택">
+                      <span class="sr-only">선택</span>
+                    </label>
+                  </td>
+                  <td class="ta-l"><a href="./inter-SFR-006-04-01.html" class="i-llist__link">경기도 이행점검_2024년</a></td>
+                  <td>2024년</td>
+                  <td><div class="i-pstep" aria-label="현재 단계 1">
+  <div class="i-pstep__item is-on">
+    <span class="i-pstep__lab">기초 지자체<br>이행점검 결과등록</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">시도 담당자<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>1차 검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">전문기관<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>최종 검토 및 승인</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+</div>
+</td>
+                  <td>해양수산부</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="i-check">
+                      <input type="checkbox" name="chkItem" value="2" title="선택">
+                      <span class="sr-only">선택</span>
+                    </label>
+                  </td>
+                  <td class="ta-l"><a href="./inter-SFR-006-04-02.html" class="i-llist__link">경상남도 해양공간관리계획 이행점검(2024)</a></td>
+                  <td>2024년</td>
+                  <td><div class="i-pstep" aria-label="현재 단계 2">
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">기초 지자체<br>이행점검 결과등록</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-on">
+    <span class="i-pstep__lab">시도 담당자<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>1차 검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">전문기관<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>최종 검토 및 승인</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+</div>
+</td>
+                  <td>경상남도청</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="i-check">
+                      <input type="checkbox" name="chkItem" value="3" title="선택">
+                      <span class="sr-only">선택</span>
+                    </label>
+                  </td>
+                  <td class="ta-l"><a href="./inter-SFR-006-04-03.html" class="i-llist__link">충청남도 이행점검 결과_2023</a></td>
+                  <td>2023년</td>
+                  <td><div class="i-pstep" aria-label="현재 단계 3">
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">기초 지자체<br>이행점검 결과등록</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">시도 담당자<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-on">
+    <span class="i-pstep__lab">해양수산부<br>1차 검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">전문기관<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>최종 검토 및 승인</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+</div>
+</td>
+                  <td>충청남도</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="i-check">
+                      <input type="checkbox" name="chkItem" value="4" title="선택">
+                      <span class="sr-only">선택</span>
+                    </label>
+                  </td>
+                  <td class="ta-l"><a href="./inter-SFR-006-04-04.html" class="i-llist__link">인천광역시 해양공간 이행점검 2024</a></td>
+                  <td>2024년</td>
+                  <td><div class="i-pstep" aria-label="현재 단계 4">
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">기초 지자체<br>이행점검 결과등록</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">시도 담당자<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">해양수산부<br>1차 검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-on">
+    <span class="i-pstep__lab">전문기관<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item ">
+    <span class="i-pstep__lab">해양수산부<br>최종 검토 및 승인</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+</div>
+</td>
+                  <td>인천광역시</td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="i-check">
+                      <input type="checkbox" name="chkItem" value="5" title="선택">
+                      <span class="sr-only">선택</span>
+                    </label>
+                  </td>
+                  <td class="ta-l"><a href="./inter-SFR-006-04-05.html" class="i-llist__link">전북특별자치도 이행점검_2024년</a></td>
+                  <td>2024년</td>
+                  <td><div class="i-pstep" aria-label="현재 단계 5">
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">기초 지자체<br>이행점검 결과등록</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">시도 담당자<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">해양수산부<br>1차 검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-done">
+    <span class="i-pstep__lab">전문기관<br>검토</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+  <div class="i-pstep__item is-on">
+    <span class="i-pstep__lab">해양수산부<br>최종 검토 및 승인</span>
+    <span class="i-pstep__dot" aria-hidden="true"></span>
+  </div>
+</div>
+</td>
+                  <td>전북특별자치도</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script>
+    $(function () {
+      $('.i-scard').on('click', function () {
+        $('.i-scard').removeClass('is-on').attr('aria-pressed', 'false');
+        $(this).addClass('is-on').attr('aria-pressed', 'true');
+        $('#listStatus').val($(this).data('step'));
+      });
+
+      $('#btnScardReset').on('click', function () {
+        $('.i-scard').removeClass('is-on').attr('aria-pressed', 'false');
+        $('#listStatus').val('');
+        $('#listArea, #listCond, #listKeyword, #listBeginDate, #listEndDate').val('');
+      });
+
+      $('#chkAll').on('change', function () {
+        $('input[name="chkItem"]').prop('checked', this.checked);
+      });
+    });
+  </script>
+</body>
+</html>

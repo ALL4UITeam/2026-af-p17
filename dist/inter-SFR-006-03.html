@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFR-006-03 이행점검 상세 | 내부망</title>
+  <meta name="description" content="이행점검 상세 조회">
+  <script type="module" crossorigin src="./assets/modulepreload-polyfill.js"></script>
+  <script type="module" crossorigin src="./assets/inter.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/inter.css">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <section class="i-view-base" aria-labelledby="viewBaseTitle">
+          <h2 id="viewBaseTitle" class="i-view-base__ti">01 기본정보</h2>
+          <div class="tbl-col-wrap i-view">
+            <table>
+              <colgroup>
+                <col style="width: 200px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row">해역선택</th>
+                  <td>경기도</td>
+                </tr>
+                <tr>
+                  <th scope="row">점검 개요</th>
+                  <td>2026년도 경기도 해양공간관리계획 이행점검 결과</td>
+                </tr>
+                <tr>
+                  <th scope="row">점검기준일자</th>
+                  <td>2026-07-31</td>
+                </tr>
+                <tr>
+                  <th scope="row">작성기관</th>
+                  <td>경기도청 해양수산과</td>
+                </tr>
+                <tr>
+                  <th scope="row">담당자 연락처</th>
+                  <td>031-8008-1234</td>
+                </tr>
+                <tr>
+                  <th scope="row">첨부파일</th>
+                  <td>
+                    <a href="#" class="i-view__file">경기도_해양공간관리계획_이행점검결과.pdf</a>
+                    <span class="i-view__size">2.4MB</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <nav class="i-vtab" role="tablist" aria-label="이행점검 상세 항목">
+          <button type="button" class="i-vtab__btn is-on" role="tab" aria-selected="true" aria-controls="vtab02" id="vtabBtn02" data-vtab="vtab02">02 공유수면<br>매립면허 현황</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab03" id="vtabBtn03" data-vtab="vtab03">03 공유수면<br>점용사용 허가 현황</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab04" id="vtabBtn04" data-vtab="vtab04">04 해양공간적합성<br>협의 현황</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab05" id="vtabBtn05" data-vtab="vtab05">05 어업면허<br>현황</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab06" id="vtabBtn06" data-vtab="vtab06">06 이용 및<br>개발사업 현황</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab07" id="vtabBtn07" data-vtab="vtab07">07 지역위원회<br>구성·운영</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab08" id="vtabBtn08" data-vtab="vtab08">08 지역협의회<br>구성·운영</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab09" id="vtabBtn09" data-vtab="vtab09">09 지역역량<br>강화</button>
+          <button type="button" class="i-vtab__btn" role="tab" aria-selected="false" aria-controls="vtab10" id="vtabBtn10" data-vtab="vtab10">10 해양용도구역<br>지정 및 변경</button>
+        </nav>
+
+        <div class="i-vtab__panels">
+          <div class="i-vtab__panel is-on" id="vtab02" role="tabpanel" aria-labelledby="vtabBtn02">
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>02. 공유수면 매립면허 현황</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list">
+                <table>
+                  <caption>공유수면 매립면허 현황</caption>
+                  <colgroup>
+                    <col style="width:48px">
+                    <col style="width:72px">
+                    <col style="width:140px">
+                    <col style="width:120px">
+                    <col>
+                    <col style="width:80px">
+                    <col style="width:80px">
+                    <col style="width:72px">
+                    <col style="width:90px">
+                    <col style="width:80px">
+                    <col style="width:110px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">순번</th>
+                      <th scope="col">기초지자체</th>
+                      <th scope="col">면허번호 (발급일자)</th>
+                      <th scope="col">매립명/매립목적</th>
+                      <th scope="col">위치 (전면해상)</th>
+                      <th scope="col">해양용도구역</th>
+                      <th scope="col">매립면허관청</th>
+                      <th scope="col">매립주체</th>
+                      <th scope="col">매립기본계획<br>반영여부</th>
+                      <th scope="col">매립규모<br>(m2)</th>
+                      <th scope="col">진행 현황</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ㅇㅇ군</td>
+                      <td>ㅇㅇ시 제20XX-XX호<br>(2023.01.01.)</td>
+                      <td>ㅇㅇ / 공공시설용지</td>
+                      <td>ㅇㅇ군 ㅁㅁ읍 --리 연안 전면해상</td>
+                      <td>어업활동</td>
+                      <td>ㅇㅇ광역시</td>
+                      <td>ㅁㅁ군</td>
+                      <td>3차</td>
+                      <td>10,000</td>
+                      <td>공사중('22. 1월 착공)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>ㅇㅇ군</td>
+                      <td>ㅇㅇ시 제20XX-XX호<br>(2023.01.03.)</td>
+                      <td>ㅇㅇ항 물양장 조성공사</td>
+                      <td>ㅇㅇ군 ㅁㅁ읍 --리 000번지 지선</td>
+                      <td>어업활동</td>
+                      <td>ㅇㅇ광역시</td>
+                      <td>ㅁㅁ군</td>
+                      <td>미반영(소규모)</td>
+                      <td>20,000</td>
+                      <td>완료('23. 1월 준공)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab03" role="tabpanel" aria-labelledby="vtabBtn03" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>03. 공유수면 점용사용 허가 현황</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list">
+                <table>
+                  <caption>공유수면 점용사용 허가 현황</caption>
+                  <colgroup>
+                    <col style="width:48px">
+                    <col style="width:64px">
+                    <col style="width:72px">
+                    <col>
+                    <col style="width:80px">
+                    <col style="width:110px">
+                    <col style="width:110px">
+                    <col style="width:88px">
+                    <col style="width:88px">
+                    <col style="width:100px">
+                    <col style="width:80px">
+                    <col style="width:64px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">순번</th>
+                      <th scope="col">구분</th>
+                      <th scope="col">허가번호</th>
+                      <th scope="col">위치</th>
+                      <th scope="col">면적 (m2)</th>
+                      <th scope="col">목적</th>
+                      <th scope="col">설치 구조물</th>
+                      <th scope="col">시작일자</th>
+                      <th scope="col">종료일자</th>
+                      <th scope="col">해양용도구역</th>
+                      <th scope="col">공유수면<br>관리청</th>
+                      <th scope="col">비고</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ㅇㅇ군</td>
+                      <td>'2023-1</td>
+                      <td>ㅁㅁ군 △△리 00-0 지선</td>
+                      <td>1,000.00</td>
+                      <td>해수담수화 취배수 시설</td>
+                      <td>해수담수화 취배수 시설</td>
+                      <td>2015.01.01</td>
+                      <td>2041.08.01</td>
+                      <td>어업활동, 안전관리</td>
+                      <td>ㅇㅇ군</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>ㅇㅇ군</td>
+                      <td>'2023-2</td>
+                      <td>ㅁㅁ군 △△리 00-0 지선</td>
+                      <td>2,000.00</td>
+                      <td>해수인용(발전용수)</td>
+                      <td>해수인용시설</td>
+                      <td>2015.01.01</td>
+                      <td>2024.09.28</td>
+                      <td>어업활동</td>
+                      <td>ㅇㅇ군</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab04" role="tabpanel" aria-labelledby="vtabBtn04" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>04. 해양공간적합성협의 현황</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list">
+                <table>
+                  <caption>해양공간적합성협의 현황</caption>
+                  <colgroup>
+                    <col style="width:48px">
+                    <col style="width:72px">
+                    <col>
+                    <col style="width:80px">
+                    <col style="width:110px">
+                    <col style="width:100px">
+                    <col style="width:100px">
+                    <col style="width:64px">
+                    <col style="width:140px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">순번</th>
+                      <th scope="col">기초지자체</th>
+                      <th scope="col">협의대상</th>
+                      <th scope="col">해양용도구역</th>
+                      <th scope="col">요청기관</th>
+                      <th scope="col">협의요청일<br>(최종)</th>
+                      <th scope="col">협의완료일<br>(최종)</th>
+                      <th scope="col">협의결과</th>
+                      <th scope="col">해양공간적합성협의<br>이행점검 결과</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>ㅇㅇ 군</td>
+                      <td>어장·면허양식장 이용개발계획</td>
+                      <td>어업활동</td>
+                      <td>ㅇㅇ군청</td>
+                      <td>2022.01.01.</td>
+                      <td>2022.04.01.</td>
+                      <td>동의</td>
+                      <td>이행적절('22년)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>ㅇㅇ 군</td>
+                      <td>국가어항 ㅇㅇ항 물양장 건설공사 기본 및 실시설계</td>
+                      <td>어업활동</td>
+                      <td>ㅇㅇ지방해양수산청</td>
+                      <td>2022.01.01.</td>
+                      <td>2022.04.01.</td>
+                      <td>동의</td>
+                      <td>이행적절('22년)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab05" role="tabpanel" aria-labelledby="vtabBtn05" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>05. 어업면허 현황</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list i-list--merge">
+                <table>
+                  <caption>어업면허 현황</caption>
+                  <colgroup>
+                    <col style="width:72px">
+                    <col style="width:72px">
+                    <col>
+                    <col style="width:64px">
+                    <col style="width:88px">
+                    <col style="width:88px">
+                    <col style="width:110px">
+                    <col style="width:110px">
+                    <col style="width:90px">
+                    <col style="width:56px">
+                    <col style="width:160px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col" rowspan="2">어업종류</th>
+                      <th scope="col" rowspan="2">구분</th>
+                      <th scope="col" rowspan="2">위치</th>
+                      <th scope="col" rowspan="2">면적(ha)</th>
+                      <th scope="col" colspan="2">면허기간</th>
+                      <th scope="col" colspan="2">위치정보</th>
+                      <th scope="col" rowspan="2">해양용도구역</th>
+                      <th scope="col" colspan="2">해양공간적합성협의 결과</th>
+                    </tr>
+                    <tr>
+                      <th scope="col">시작일자</th>
+                      <th scope="col">종료일자</th>
+                      <th scope="col">위도</th>
+                      <th scope="col">경도</th>
+                      <th scope="col">연도</th>
+                      <th scope="col">협의 결과</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="3">양식어업</td>
+                      <td rowspan="3">제100호</td>
+                      <td rowspan="3">○○군 ○○면 △△리</td>
+                      <td rowspan="3">3.000</td>
+                      <td rowspan="3">2008.07.16</td>
+                      <td rowspan="3">2024.10.31</td>
+                      <td>35° 17' 45.720"</td>
+                      <td rowspan="2">129° 16' 12.800"</td>
+                      <td rowspan="3">어업활동</td>
+                      <td>2022</td>
+                      <td>22년 협의 불요 (기개발)</td>
+                    </tr>
+                    <tr>
+                      <td>40° 17' 45.720"</td>
+                      <td>2021</td>
+                      <td>21년 협의 불요 (기개발)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>2020</td>
+                      <td>20년 협의 불요 (기개발)</td>
+                    </tr>
+            
+                    <tr>
+                      <td rowspan="3">양식어업</td>
+                      <td rowspan="3">제200호</td>
+                      <td rowspan="3">○○군 ○○면 △△리</td>
+                      <td rowspan="3">2.500</td>
+                      <td rowspan="3">2011.09.15</td>
+                      <td rowspan="3">2024.07.25</td>
+                      <td>35° 17' 45.720"</td>
+                      <td rowspan="2">129° 16' 14.740"</td>
+                      <td rowspan="3">어업활동, 안전관리</td>
+                      <td>2022</td>
+                      <td>22년 협의 불요 (기개발)</td>
+                    </tr>
+                    <tr>
+                      <td>40° 17' 45.720"</td>
+                      <td>2021</td>
+                      <td>21년 협의 불요 (기개발)</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>2020</td>
+                      <td>20년 협의 불요 (기개발)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab06" role="tabpanel" aria-labelledby="vtabBtn06" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>06. 이용 및 개발사업 현황</h3>
+            <div class="i-vtab__body">
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 기존<span class="i-block__sub">(관리계획에 반영/검토)</span> 해양공간관리계획 수립 시 해양용도구역으로 반영되었거나 검토·고려된 사업</h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>기존 이용 및 개발사업 현황</caption>
+                    <colgroup>
+                      <col style="width:80px">
+                      <col>
+                      <col>
+                      <col style="width:90px">
+                      <col style="width:72px">
+                      <col style="width:72px">
+                      <col style="width:220px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">기초지자체</th>
+                        <th scope="col">사업명</th>
+                        <th scope="col">위치</th>
+                        <th scope="col">해양용도구역</th>
+                        <th scope="col">반영여부</th>
+                        <th scope="col">기간</th>
+                        <th scope="col">사업 진행 현황</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ㅇㅇ구</td>
+                        <td>ㅇㅇ 해상풍력단지개발사업</td>
+                        <td>ㅇㅇ구 ☆☆동 591-15번지 해상</td>
+                        <td>어업활동</td>
+                        <td>미반영</td>
+                        <td>'23~'25</td>
+                        <td class="ta-l">공유수면 점·사용허가 진행 중 ('17. 발전사업허가 완료)</td>
+                      </tr>
+                      <tr>
+                        <td>ㅁㅁ구</td>
+                        <td>ㅁㅁ만 마리나 조성사업(요트경기장 재개발)</td>
+                        <td>ㅇㅇ구 ☆☆동 84번지 해상</td>
+                        <td>해양관광</td>
+                        <td>반영</td>
+                        <td>18~'22</td>
+                        <td class="ta-l">사업계획서 제출('19.), 라운드테이블 개최('22), 추진 지연 중</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 신규<span class="i-block__sub">(관리계획 반영수요)</span> 해당 해양공간관리계획 수립 시 검토 혹은 반영되지 않은 사업으로 향후 관리계획 변경 시 검토가 필요한 사업</h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>신규 이용 및 개발사업 현황</caption>
+                    <colgroup>
+                      <col style="width:80px">
+                      <col>
+                      <col>
+                      <col style="width:120px">
+                      <col style="width:72px">
+                      <col style="width:72px">
+                      <col style="width:220px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">기초지자체</th>
+                        <th scope="col">사업명</th>
+                        <th scope="col">위치</th>
+                        <th scope="col">해양용도구역</th>
+                        <th scope="col">반영여부</th>
+                        <th scope="col">기간</th>
+                        <th scope="col">사업 진행 현황</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>△△구</td>
+                        <td>△△ 해상풍력발전사업</td>
+                        <td>△△구 ㅁㅁ동 산 145지선 남쪽해상</td>
+                        <td>항만·항행, 어업활동, 안전관리</td>
+                        <td>반영</td>
+                        <td>'23~'25</td>
+                        <td class="ta-l">해상교통안전진단 진행 중 ('20.7. 발전사업허가 완료)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab07" role="tabpanel" aria-labelledby="vtabBtn07" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>07. 지역위원회 구성·운영</h3>
+            <div class="i-vtab__body">
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 구성: <span class="i-block__sub">('21년)</span></h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>지역위원회 구성</caption>
+                    <colgroup>
+                      <col style="width:56px">
+                      <col style="width:88px">
+                      <col style="width:100px">
+                      <col>
+                      <col style="width:100px">
+                      <col style="width:140px">
+                      <col style="width:88px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">순번</th>
+                        <th scope="col">구분</th>
+                        <th scope="col">위원명</th>
+                        <th scope="col">소속</th>
+                        <th scope="col">직위</th>
+                        <th scope="col">임명기간</th>
+                        <th scope="col">비고</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>1</td><td>위원장</td><td>ooo</td><td></td><td></td><td></td><td>당연직</td></tr>
+                      <tr><td>2</td><td>당연직</td><td>ooo</td><td></td><td></td><td></td><td>임명직</td></tr>
+                      <tr><td>3</td><td>당연직</td><td>ooo</td><td></td><td></td><td></td><td>임명직</td></tr>
+                      <tr><td>4</td><td>당연직</td><td>ooo</td><td></td><td></td><td></td><td>임명직</td></tr>
+                      <tr><td>5</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>6</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>7</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>연임</td></tr>
+                      <tr><td>8</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>연임</td></tr>
+                      <tr><td>9</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>10</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>11</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>연임</td></tr>
+                      <tr><td>12</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>13</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>연임</td></tr>
+                      <tr><td>14</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>15</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>16</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>연임</td></tr>
+                      <tr><td>17</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                      <tr><td>18</td><td>위촉직</td><td>ooo</td><td></td><td></td><td></td><td>신규</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 운영현황</h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>지역위원회 운영현황</caption>
+                    <colgroup>
+                      <col style="width:64px">
+                      <col style="width:140px">
+                      <col>
+                      <col>
+                      <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">연번</th>
+                        <th scope="col">개최 시기</th>
+                        <th scope="col">주요 안건</th>
+                        <th scope="col">주요 결과</th>
+                        <th scope="col">비고</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab08" role="tabpanel" aria-labelledby="vtabBtn08" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>08. 지역협의회 구성·운영</h3>
+            <div class="i-vtab__body">
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 구성</h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>지역협의회 구성</caption>
+                    <colgroup>
+                      <col style="width:56px">
+                      <col style="width:100px">
+                      <col>
+                      <col style="width:100px">
+                      <col style="width:140px">
+                      <col style="width:88px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">순번</th>
+                        <th scope="col">위원명</th>
+                        <th scope="col">소속 / 직업</th>
+                        <th scope="col">직위</th>
+                        <th scope="col">임명기간</th>
+                        <th scope="col">비고</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>5</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>6</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>7</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>8</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>9</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>10</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>11</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>12</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>13</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>14</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>15</td><td></td><td></td><td></td><td></td><td></td></tr>
+                      <tr><td>16</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+              <div class="i-block">
+                <h4 class="i-block__ti">■ 운영현황</h4>
+                <div class="tbl-wrap i-list">
+                  <table>
+                    <caption>지역협의회 운영현황</caption>
+                    <colgroup>
+                      <col style="width:64px">
+                      <col style="width:140px">
+                      <col>
+                      <col>
+                      <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">연번</th>
+                        <th scope="col">개회 시기</th>
+                        <th scope="col">주요 안건</th>
+                        <th scope="col">주요 결과</th>
+                        <th scope="col">비고</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab09" role="tabpanel" aria-labelledby="vtabBtn09" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>09. 지역역량 강화</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list">
+                <table>
+                  <caption>지역역량 강화</caption>
+                  <colgroup>
+                    <col style="width:56px">
+                    <col style="width:200px">
+                    <col>
+                    <col style="width:200px">
+                    <col style="width:140px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">순번</th>
+                      <th scope="col">역량강화 프로그램명</th>
+                      <th scope="col">주요내용</th>
+                      <th scope="col">주요참석자/대상</th>
+                      <th scope="col">일시</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>해양공간정책 발전방안 워크숍</td>
+                      <td class="ta-l">관리계획 수립 성과 및 한계, 개선방안 논의 등</td>
+                      <td class="ta-l">ㅁㅁㅁ 주무관 / 해양공간관리계획 담당자</td>
+                      <td>'22.9.22.(목)~23.(금)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="i-vtab__panel" id="vtab10" role="tabpanel" aria-labelledby="vtabBtn10" hidden>
+            <h3 class="i-vtab__title"><span class="i-vtab__bullet" aria-hidden="true"></span>10. 해양용도구역 지정 및 변경</h3>
+            <div class="i-vtab__body">
+              <div class="tbl-wrap i-list i-list--merge">
+                <table>
+                  <caption>해양용도구역 지정 및 변경</caption>
+                  <colgroup>
+                    <col style="width:140px">
+                    <col>
+                    <col style="width:100px">
+                    <col style="width:160px">
+                    <col style="width:180px">
+                    <col style="width:100px">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">고시번호</th>
+                      <th scope="col">위치(좌표)</th>
+                      <th scope="col">면적</th>
+                      <th scope="col">변경내용</th>
+                      <th scope="col">변경사유</th>
+                      <th scope="col">고시일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="8">제2020-11호<br>(최초 지정)</td>
+                      <td>위도 37.1250° / 경도 126.5600°</td>
+                      <td>701.7 ㎢</td>
+                      <td>어업활동보호구역</td>
+                      <td rowspan="8">경기도 해양공간관리계획 수립</td>
+                      <td rowspan="8">2020.02.03.</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.1185° / 경도 126.5722°</td>
+                      <td>1.08 ㎢</td>
+                      <td>골재광물자원개발구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.1098° / 경도 126.5881°</td>
+                      <td>61.54 ㎢</td>
+                      <td>해양관광구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.0962° / 경도 126.6015°</td>
+                      <td>158.73 ㎢</td>
+                      <td>환경생태관리구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.0837° / 경도 126.6170°</td>
+                      <td>9.26 ㎢</td>
+                      <td>연구교육보전구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.0709° / 경도 126.6338°</td>
+                      <td>409.87 ㎢</td>
+                      <td>항만항행구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.0584° / 경도 126.6491°</td>
+                      <td>957.16 ㎢</td>
+                      <td>군사활동구역</td>
+                    </tr>
+                    <tr>
+                      <td>위도 37.0448° / 경도 126.6655°</td>
+                      <td>248.35 ㎢</td>
+                      <td>안전관리구역</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script>
+    $(function () {
+      function openVtab(id) {
+        $('.i-vtab__btn').removeClass('is-on').attr('aria-selected', 'false');
+        $('.i-vtab__btn[data-vtab="' + id + '"]').addClass('is-on').attr('aria-selected', 'true');
+        $('.i-vtab__panel').removeClass('is-on').prop('hidden', true);
+        $('#' + id).addClass('is-on').prop('hidden', false);
+      }
+
+      $('.i-vtab__btn').on('click', function () {
+        openVtab($(this).data('vtab'));
+      });
+
+      // ?tab=03 형태 지원
+      var q = new URLSearchParams(location.search).get('tab');
+      if (q) {
+        var id = 'vtab' + String(q).padStart(2, '0');
+        if ($('#' + id).length) openVtab(id);
+      }
+    });
+  </script>
+</body>
+</html>

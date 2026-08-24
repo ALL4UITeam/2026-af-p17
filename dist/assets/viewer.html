@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>목업 뷰어 | 통합 해양공간 GIS 플랫폼</title>
+</head>
+<body class="viewer-app">
+  <header class="viewer-toolbar">
+    <div class="viewer-toolbar__brand">
+      <strong>통합 해양공간 GIS</strong>
+      <span>목업 뷰어 · PC</span>
+    </div>
+    <div class="viewer-toolbar__actions">
+      <span class="viewer-toolbar__size" id="viewerSizeLabel">PC · 1280 × —</span>
+      <button type="button" class="viewer-btn" id="viewerOpenTab">새 탭에서 열기</button>
+    </div>
+  </header>
+  <div class="viewer-layout">
+    <aside class="viewer-sidebar" aria-label="페이지 목록">
+      <div class="viewer-sidebar__head">
+        <h1>페이지 목록</h1>
+        <p id="viewerPageCount">0개 화면</p>
+      </div>
+      <nav class="viewer-nav" id="viewerNav"></nav>
+    </aside>
+    <main class="viewer-stage">
+      <div class="viewer-frame viewer-frame--desktop" id="viewerFrame">
+        <iframe id="viewerIframe" title="페이지 미리보기" src="./map.html"></iframe>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="./src/viewer/viewer.js"></script>
+</body>
+</html>

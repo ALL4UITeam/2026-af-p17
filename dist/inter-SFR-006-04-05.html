@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SFR-006-04-05 이행점검 결과 | 내부망</title>
+  <meta name="description" content="해양수산부 최종 검토 및 승인">
+  <script type="module" crossorigin src="./assets/modulepreload-polyfill.js"></script>
+  <script type="module" crossorigin src="./assets/inter.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/inter.css">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <header class="i-rpage__head">
+          <h1 class="i-rpage__ti">이행점검 결과</h1>
+          <p class="i-rpage__badge">현재 단계 : 해양수산부 최종 검토 및 승인</p>
+        </header>
+
+        <section class="i-rpage__sec" aria-labelledby="rstepTitle">
+          <h2 id="rstepTitle" class="i-sec-ti">이행점검 단계</h2>
+          <nav class="i-rstep" aria-label="이행점검 단계">
+            <ol class="i-rstep__list">
+              <li class="i-rstep__item is-done">
+                <a class="i-rstep__link" href="./inter-SFR-006-04-01.html">
+                  <span class="i-rstep__num" aria-hidden="true">1</span>
+                  <span class="i-rstep__label">기초 지자체<br>이행점검 결과 등록</span>
+                </a>
+              </li>
+              <li class="i-rstep__item is-done">
+                <a class="i-rstep__link" href="./inter-SFR-006-04-02.html">
+                  <span class="i-rstep__num" aria-hidden="true">2</span>
+                  <span class="i-rstep__label">시도 담당자 검토</span>
+                </a>
+              </li>
+              <li class="i-rstep__item is-done">
+                <a class="i-rstep__link" href="./inter-SFR-006-04-03.html">
+                  <span class="i-rstep__num" aria-hidden="true">3</span>
+                  <span class="i-rstep__label">해양수산부<br>1차 검토</span>
+                </a>
+              </li>
+              <li class="i-rstep__item is-done">
+                <a class="i-rstep__link" href="./inter-SFR-006-04-04.html">
+                  <span class="i-rstep__num" aria-hidden="true">4</span>
+                  <span class="i-rstep__label">전문기관 검토</span>
+                </a>
+              </li>
+              <li class="i-rstep__item is-on">
+                <a class="i-rstep__link" href="./inter-SFR-006-04-05.html" aria-current="step">
+                  <span class="i-rstep__num" aria-hidden="true">5</span>
+                  <span class="i-rstep__label">해양수산부<br>최종 검토 및 승인</span>
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </section>
+
+        <section class="i-rpage__sec" aria-labelledby="rhistTitle">
+          <div class="i-rhist__head">
+            <h2 id="rhistTitle" class="i-sec-ti">이행점검 진행 이력</h2>
+            <button type="button" class="i-btn i-btn--solid i-btn--sm" id="btnReviewOpinion" onclick="$('#reviewOpinionModal').fadeIn(); return false;">검토의견 등록</button>
+          </div>
+        
+          <div class="tbl-wrap i-list i-rhist">
+            <table>
+              <caption>이행점검 진행 이력</caption>
+              <colgroup>
+                <col style="width: 16%">
+                <col style="width: 12%">
+                <col style="width: 8%">
+                <col style="width: 12%">
+                <col>
+                <col style="width: 16%">
+                <col style="width: 12%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">진행단계</th>
+                  <th scope="col">상세단계</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">일자</th>
+                  <th scope="col">내용</th>
+                  <th scope="col">첨부파일</th>
+                  <th scope="col">등록자</th>
+                </tr>
+              </thead>
+              <tbody>
+                      <tr>
+                        <td>해양수산부 1차 검토</td>
+                        <td>검토 진행</td>
+                        <td>진행</td>
+                        <td>2026-07-29</td>
+                        <td class="ta-l">시도 검토결과 및 제출자료 검토 중</td>
+                        <td>-</td>
+                        <td>김해진(해양수산부)</td>
+                      </tr>
+                      <tr>
+                        <td>해양수산부 1차 검토</td>
+                        <td>보완 등록 확인</td>
+                        <td>완료</td>
+                        <td>2026-07-28</td>
+                        <td class="ta-l"><a href="#" class="i-view__file" onclick="$('#supRegViewModal').fadeIn(); return false;">보완 등록 상세</a></td>
+                        <td><a href="#" class="i-view__file">이행실적_증빙자료.pdf</a></td>
+                        <td>김해진(해양수산부)</td>
+                      </tr>
+                      <tr>
+                        <td>시도 담당자 검토</td>
+                        <td>보완 등록</td>
+                        <td>완료</td>
+                        <td>2026-07-28</td>
+                        <td class="ta-l">보완의견 및 첨부파일 제출</td>
+                        <td><a href="#" class="i-view__file">이행실적_증빙자료.pdf</a></td>
+                        <td>박성한(충청남도)</td>
+                      </tr>
+                      <tr>
+                        <td>해양수산부 1차 검토</td>
+                        <td>보완 요청</td>
+                        <td>완료</td>
+                        <td>2026-07-25</td>
+                        <td class="ta-l"><a href="#" class="i-view__file" onclick="$('#supReqModal').fadeIn(); return false;">보완요청 상세</a></td>
+                        <td><a href="#" class="i-view__file">세부검토의견서.pdf</a></td>
+                        <td>김해진(해양수산부)</td>
+                      </tr>
+                      <tr>
+                        <td>시도 담당자 검토</td>
+                        <td>검토완료</td>
+                        <td>완료</td>
+                        <td>2026-07-24</td>
+                        <td class="ta-l">관할 기초 지자체 제출자료 검토 완료</td>
+                        <td>-</td>
+                        <td>박성한(충청남도)</td>
+                      </tr>
+                      <tr>
+                        <td>시도 담당자 검토</td>
+                        <td>보완 등록 확인</td>
+                        <td>완료</td>
+                        <td>2026-07-23</td>
+                        <td class="ta-l">기초 지자체 보완내용 확인</td>
+                        <td><a href="#" class="i-view__file">보완자료.zip</a></td>
+                        <td>박성한(충청남도)</td>
+                      </tr>
+                      <tr>
+                        <td>기초 지자체 결과 등록</td>
+                        <td>보완 등록</td>
+                        <td>완료</td>
+                        <td>2026-07-22</td>
+                        <td class="ta-l">보완의견 및 첨부파일 제출</td>
+                        <td><a href="#" class="i-view__file">보완자료.zip</a></td>
+                        <td>이고은(당진시)</td>
+                      </tr>
+                      <tr>
+                        <td>시도 담당자 검토</td>
+                        <td>보완 요청</td>
+                        <td>완료</td>
+                        <td>2026-07-21</td>
+                        <td class="ta-l">실적 증빙자료 추가 제출 요청</td>
+                        <td>-</td>
+                        <td>박성한(충청남도)</td>
+                      </tr>
+                      <tr>
+                        <td>기초 지자체 결과 등록</td>
+                        <td>결과 등록</td>
+                        <td>완료</td>
+                        <td>2026-07-20</td>
+                        <td class="ta-l">이행점검 결과 등록</td>
+                        <td><a href="#" class="i-view__file">이행점검결과서.pdf</a></td>
+                        <td>이고은(당진시)</td>
+                      </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <section class="modal _content draggable" id="reviewOpinionModal" style="display:none;">
+    <div class="st_view">
+      <div class="st_container st_container--review">
+        <header class="st_header_g">
+          <h1>검토의견 등록 · 5단계</h1>
+          <button type="button" title="창닫기" onclick="$('#reviewOpinionModal').fadeOut();"></button>
+        </header>
+  
+        <div class="i-review">
+          <nav class="i-mstep" aria-label="이행점검 단계">
+            <ol class="i-mstep__list">
+              <li class="i-mstep__item is-done">
+                <span class="i-mstep__num" aria-hidden="true">1</span>
+                <span class="i-mstep__label">기초 지자체<br>이행점검 결과 등록</span>
+              </li>
+              <li class="i-mstep__item is-done">
+                <span class="i-mstep__num" aria-hidden="true">2</span>
+                <span class="i-mstep__label">시도 담당자 검토</span>
+              </li>
+              <li class="i-mstep__item is-done">
+                <span class="i-mstep__num" aria-hidden="true">3</span>
+                <span class="i-mstep__label">해양수산부<br>1차 검토</span>
+              </li>
+              <li class="i-mstep__item is-done">
+                <span class="i-mstep__num" aria-hidden="true">4</span>
+                <span class="i-mstep__label">전문기관 검토</span>
+              </li>
+              <li class="i-mstep__item is-on">
+                <span class="i-mstep__num" aria-hidden="true">5</span>
+                <span class="i-mstep__label">해양수산부<br>최종 검토 및 승인</span>
+              </li>
+            </ol>
+          </nav>
+  
+          <form class="i-review__form" id="reviewOpinionForm" onsubmit="return false;">
+            <div class="tbl-col-wrap i-form i-form--review">
+              <table>
+                <colgroup>
+                  <col style="width: 160px">
+                  <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row"><label for="reviewDate">검토일자 <span class="i-req" aria-hidden="true">*</span></label></th>
+                    <td>
+                      <span class="i-review__date" id="reviewDate">2026-07-30</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="subOrg">하위기관 선택 <span class="i-req" aria-hidden="true">*</span></label></th>
+                    <td>
+                      <select id="subOrg" name="subOrg" class="form-control i-form__full" title="하위기관 선택" required>
+                        <option value="">하위기관을 선택하세요.</option>
+                          <optgroup label="시도 담당자">
+                            <option value="chungnam">충청남도</option>
+                            <option value="gyeonggi">경기도</option>
+                          </optgroup>
+                          <optgroup label="기초 지자체">
+                            <option value="dangjin">당진시</option>
+                            <option value="seosan">서산시</option>
+                            <option value="taean">태안군</option>
+                            <option value="boryeong">보령시</option>
+                          </optgroup>
+                      </select>
+                        <p class="i-form__hint">선택 가능: 기초 지자체, 시도 담당자</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">검토결과 <span class="i-req" aria-hidden="true">*</span></th>
+                    <td>
+                      <div class="i-form__radios" role="radiogroup" aria-label="검토결과">
+                        <label class="i-form__radio">
+                          <input type="radio" name="reviewResult" value="supplement" checked>
+                          <span>보완요청</span>
+                        </label>
+                        <label class="i-form__radio">
+                          <input type="radio" name="reviewResult" value="reject">
+                          <span>반려</span>
+                        </label>
+                        <label class="i-form__radio">
+                          <input type="radio" name="reviewResult" value="done">
+                          <span>검토완료</span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="reviewOpinion">검토의견 <span class="i-req" aria-hidden="true">*</span></label></th>
+                    <td>
+                      <textarea id="reviewOpinion" name="reviewOpinion" class="form-control i-form__area" title="검토의견" required></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="i-review__attach">
+              <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+              <div class="drag-box i-form__upload">
+                <div class="drag-file_com">
+                  <p class="i-form__upload-msg">첨부 파일을 선택하거나 이 영역에 드래그하세요.</p>
+                  <p class="i-form__upload-note">총 5개 · 200MB 이하 · hwp, doc, xls, ppt, pdf, zip, shp, txt, jpg 등</p>
+                </div>
+                <button type="button" class="drag-file_btn" id="reviewFileBtn">파일 선택</button>
+                <input type="file" class="sr-only" id="reviewAttachFile" name="reviewAttachFile" multiple accept=".hwp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.zip,.shp,.txt,.jpg,.jpeg,.png">
+              </div>
+            </div>
+  
+            <div class="i-review__foot">
+              <button type="button" class="i-btn i-btn--cancel" onclick="$('#reviewOpinionModal').fadeOut();">취소</button>
+              <button type="button" class="i-btn i-btn--primary" id="reviewSubmitBtn" onclick="$('#reviewOpinionModal').fadeOut();">등록</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="dimmed" onclick="$('#reviewOpinionModal').fadeOut();"></div>
+    </div>
+  </section>
+  <section class="modal _content draggable" id="supReqModal" style="display:none;">
+    <div class="st_view">
+      <div class="st_container st_container--review">
+        <header class="st_header_g">
+          <h1>보완요청 상세: 하위기관 열람</h1>
+          <button type="button" title="창닫기" onclick="$('#supReqModal').fadeOut();"></button>
+        </header>
+  
+        <div class="i-review">
+          <div class="i-alert i-alert--warn" role="status">
+            <span class="i-alert__ico" aria-hidden="true">!</span>
+            <div class="i-alert__body">
+              <p class="i-alert__ti">해양수산부 1차 검토에서 보완 요청이 도착했습니다.</p>
+              <p class="i-alert__desc">요청기관과 보완내용을 확인한 후 보완자료를 등록해 주세요.</p>
+            </div>
+          </div>
+  
+          <div class="tbl-col-wrap i-form i-form--review">
+            <table>
+              <colgroup>
+                <col style="width: 160px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row">요청기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>해양수산부 1차 검토 · 해양공간정책과</td>
+                </tr>
+                <tr>
+                  <th scope="row">대상기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>시도 담당자 · 충청남도</td>
+                </tr>
+                <tr>
+                  <th scope="row">요청일자 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>2026-07-25</td>
+                </tr>
+                <tr>
+                  <th scope="row">검토결과 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>보완 요청</td>
+                </tr>
+                <tr>
+                  <th scope="row">검토의견 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>
+                    <div class="i-review__box">이행 근거자료와 실적 증빙파일을 추가 제출해 주세요.</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="i-review__attach">
+            <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+            <div class="i-filebox">
+              <a href="#" class="i-filebox__item">
+                <span class="i-filebox__clip" aria-hidden="true"></span>
+                <span>세부검토의견서.pdf · 1.2MB</span>
+              </a>
+            </div>
+          </div>
+  
+          <div class="i-review__foot">
+            <button type="button" class="i-btn i-btn--cancel" onclick="$('#supReqModal').fadeOut();">닫기</button>
+            <button type="button" class="i-btn i-btn--primary" onclick="$('#supReqModal').fadeOut(); $('#supRegModal').fadeIn();">보완 등록하기</button>
+          </div>
+        </div>
+      </div>
+      <div class="dimmed" onclick="$('#supReqModal').fadeOut();"></div>
+    </div>
+  </section>
+  <section class="modal _content draggable" id="supRegModal" style="display:none;">
+    <div class="st_view">
+      <div class="st_container st_container--review">
+        <header class="st_header_g">
+          <h1>하위기관 보완 등록</h1>
+          <button type="button" title="창닫기" onclick="$('#supRegModal').fadeOut();"></button>
+        </header>
+  
+        <div class="i-review">
+          <div class="i-alert i-alert--warn" role="status">
+            <span class="i-alert__ico" aria-hidden="true">!</span>
+            <div class="i-alert__body">
+              <p class="i-alert__ti">해양수산부 1차 검토의 보완 요청에 답변합니다.</p>
+              <p class="i-alert__desc">요청내용을 확인하고 보완의견과 첨부파일을 등록해 주세요.</p>
+            </div>
+          </div>
+  
+          <form class="i-review__form" id="supRegForm" onsubmit="return false;">
+            <div class="tbl-col-wrap i-form i-form--review">
+              <table>
+                <colgroup>
+                  <col style="width: 160px">
+                  <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row">요청기관 <span class="i-req" aria-hidden="true">*</span></th>
+                    <td>해양수산부 1차 검토 · 해양공간정책과</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">등록기관 <span class="i-req" aria-hidden="true">*</span></th>
+                    <td>시도 담당자 · 충청남도</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">등록일자 <span class="i-req" aria-hidden="true">*</span></th>
+                    <td>2026-07-28</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="supOpinion">보완의견 <span class="i-req" aria-hidden="true">*</span></label></th>
+                    <td>
+                      <textarea id="supOpinion" name="supOpinion" class="form-control i-form__area" title="보완의견" required>요청한 이행실적 증빙자료를 보완하여 제출합니다.</textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="i-review__attach">
+              <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+              <div class="drag-box i-form__upload">
+                <div class="drag-file_com">
+                  <p class="i-form__upload-msg">첨부 파일을 선택하거나 이 영역에 드래그하세요.</p>
+                  <p class="i-form__upload-note">총 5개 · 200MB 이하 · hwp, doc, xls, ppt, pdf, zip, shp, txt, jpg 등</p>
+                </div>
+                <button type="button" class="drag-file_btn" id="supRegFileBtn">파일 선택</button>
+                <input type="file" class="sr-only" id="supRegAttachFile" name="supRegAttachFile" multiple accept=".hwp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.zip,.shp,.txt,.jpg,.jpeg,.png">
+              </div>
+            </div>
+  
+            <div class="i-review__foot">
+              <button type="button" class="i-btn i-btn--cancel" onclick="$('#supRegModal').fadeOut();">취소</button>
+              <button type="button" class="i-btn i-btn--primary" onclick="$('#supRegModal').fadeOut();">보완 등록</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="dimmed" onclick="$('#supRegModal').fadeOut();"></div>
+    </div>
+  </section>
+  <section class="modal _content draggable" id="supRegViewModal" style="display:none;">
+    <div class="st_view">
+      <div class="st_container st_container--review">
+        <header class="st_header_g">
+          <h1>보완 등록 상세: 상위기관 열람</h1>
+          <button type="button" title="창닫기" onclick="$('#supRegViewModal').fadeOut();"></button>
+        </header>
+  
+        <div class="i-review">
+          <div class="i-alert i-alert--ok" role="status">
+            <span class="i-alert__ico i-alert__ico--ok" aria-hidden="true">✓</span>
+            <div class="i-alert__body">
+              <p class="i-alert__ti">시도 담당자가 보완자료를 등록했습니다.</p>
+              <p class="i-alert__desc">등록된 보완의견, 세부 보완사항 및 첨부파일을 확인해 주세요.</p>
+            </div>
+          </div>
+  
+          <div class="tbl-col-wrap i-form i-form--review">
+            <table>
+              <colgroup>
+                <col style="width: 160px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row">요청기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>해양수산부 1차 검토 · 해양공간정책과</td>
+                </tr>
+                <tr>
+                  <th scope="row">등록기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>시도 담당자 · 충청남도</td>
+                </tr>
+                <tr>
+                  <th scope="row">등록일자 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>2026-07-28</td>
+                </tr>
+                <tr>
+                  <th scope="row">보완의견 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>
+                    <div class="i-review__box">요청한 이행실적 증빙자료를 보완하여 제출합니다.</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="i-review__attach">
+            <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+            <div class="i-filebox">
+              <a href="#" class="i-filebox__item">
+                <span class="i-filebox__clip" aria-hidden="true"></span>
+                <span>이행실적_증빙자료.pdf · 2.4MB</span>
+              </a>
+            </div>
+          </div>
+  
+          <div class="i-review__foot">
+            <button type="button" class="i-btn i-btn--cancel" onclick="$('#supRegViewModal').fadeOut();">닫기</button>
+          </div>
+        </div>
+      </div>
+      <div class="dimmed" onclick="$('#supRegViewModal').fadeOut();"></div>
+    </div>
+  </section>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script>
+    $(function () {
+      var $modals = $('#reviewOpinionModal, #supReqModal, #supRegModal, #supRegViewModal');
+      $modals.find('.st_container').draggable({
+        handle: '.st_header_g',
+        containment: 'window'
+      });
+
+      $('#reviewFileBtn').on('click', function () {
+        $('#reviewAttachFile').trigger('click');
+      });
+
+      $('#supRegFileBtn').on('click', function () {
+        $('#supRegAttachFile').trigger('click');
+      });
+    });
+  </script>
+</body>
+</html>
