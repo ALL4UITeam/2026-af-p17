@@ -215,6 +215,34 @@ export default defineConfig({
         return { ...data }
       },
     }),
+    /** file:// 로컬 열기용: crossorigin / module 제거 */
+    {
+      name: 'file-protocol-friendly',
+      apply: 'build',
+      enforce: 'post',
+      transformIndexHtml(html) {
+        return html
+          .replace(/\s+crossorigin(?:="[^"]*")?/gi, '')
+          .replace(/<link\s+rel="modulepreload"[^>]*>\s*/gi, '')
+          .replace(
+            /<script[^>]*src="\.\/assets\/modulepreload-polyfill\.js"[^>]*><\/script>\s*/gi,
+            '',
+          )
+          .replace(/<script\s+type="module"/gi, '<script defer')
+      },
+      generateBundle(_options, bundle) {
+        for (const file of Object.values(bundle)) {
+          if (file.type !== 'chunk' || !file.code) continue
+          file.code = file.code
+            .replace(/import\s*["']\.\/modulepreload-polyfill\.js["'];?/g, '')
+            .replace(
+              /(?:""\+)?new URL\((["'][^"']+["']),\s*import\.meta\.url\)\.href/g,
+              'new URL($1,(document.currentScript&&document.currentScript.src)||location.href).href',
+            )
+            .replace(/import\.meta\.url/g, '((document.currentScript&&document.currentScript.src)||location.href)')
+        }
+      },
+    },
   ],
   css: {
     preprocessorOptions: {
@@ -225,6 +253,7 @@ export default defineConfig({
   },
   build: {
     assetsInlineLimit: 0,
+    modulePreload: false,
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, 'index.html'),

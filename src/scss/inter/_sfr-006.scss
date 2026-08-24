@@ -128,6 +128,19 @@
   margin-bottom: 20px;
 }
 
+.i-panel__head--split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.i-panel__head-main {
+  flex: 1;
+  min-width: 240px;
+}
+
 .i-panel__step {
   margin-bottom: 6px;
   font-size: 13px;
@@ -164,18 +177,63 @@
   margin-top: 24px;
 }
 
+/* 엑셀 업로드 */
+.i-excel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 22px;
+}
+
+.i-excel__file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid #c5ccd8;
+  border-radius: 2px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.i-excel__pick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 12px;
+  border-right: 1px solid #c5ccd8;
+  background: #f5f6f8;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.i-excel__name {
+  width: 180px;
+  height: 34px;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  font-size: 12px;
+  color: #555;
+}
+
 /* 작성방법 */
 .i-guide {
   margin-bottom: 20px;
-  padding: 16px 18px;
+  padding: 16px 20px;
   border: 1px solid #c5daf8;
-  border-radius: 4px;
+  border-radius: 6px;
   background: #eef5ff;
 }
 
 .i-guide__ti {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: 700;
   color: #1e4f9a;
@@ -183,14 +241,36 @@
 
 .i-guide__list {
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
+  list-style: none !important;
+  list-style-image: none !important;
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: #333;
+}
 
-  li + li {
-    margin-top: 4px;
-  }
+.i-guide__list > li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 14px;
+  list-style: none !important;
+  list-style-image: none !important;
+  word-break: keep-all;
+}
+
+.i-guide__list > li + li {
+  margin-top: 8px;
+}
+
+.i-guide__list > li::before {
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2f6fed;
+  content: '';
 }
 
 .i-row-act {
