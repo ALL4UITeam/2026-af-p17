@@ -1,0 +1,70 @@
+{{!-- 보완요청 상세: 하위기관 열람 --}}
+<section class="modal _content draggable" id="supReqModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--review">
+      <header class="st_header_g">
+        <h1>보완요청 상세: 하위기관 열람</h1>
+        <button type="button" title="창닫기" onclick="$('#supReqModal').fadeOut();"></button>
+      </header>
+
+      <div class="i-review">
+        <div class="i-alert i-alert--warn" role="status">
+          <span class="i-alert__ico" aria-hidden="true">!</span>
+          <div class="i-alert__body">
+            <p class="i-alert__ti">해양수산부 1차 검토에서 보완 요청이 도착했습니다.</p>
+            <p class="i-alert__desc">요청기관과 보완내용을 확인한 후 보완자료를 등록해 주세요.</p>
+          </div>
+        </div>
+
+        <div class="tbl-col-wrap i-form i-form--review">
+          <table>
+            <colgroup>
+              <col style="width: 160px">
+              <col>
+            </colgroup>
+            <tbody>
+              <tr>
+                <th scope="row">요청기관 <span class="i-req" aria-hidden="true">*</span></th>
+                <td>해양수산부 1차 검토 · 해양공간정책과</td>
+              </tr>
+              <tr>
+                <th scope="row">대상기관 <span class="i-req" aria-hidden="true">*</span></th>
+                <td>시도 담당자 · 충청남도</td>
+              </tr>
+              <tr>
+                <th scope="row">요청일자 <span class="i-req" aria-hidden="true">*</span></th>
+                <td>2026-07-25</td>
+              </tr>
+              <tr>
+                <th scope="row">검토결과 <span class="i-req" aria-hidden="true">*</span></th>
+                <td>보완 요청</td>
+              </tr>
+              <tr>
+                <th scope="row">검토의견 <span class="i-req" aria-hidden="true">*</span></th>
+                <td>
+                  <div class="i-review__box">이행 근거자료와 실적 증빙파일을 추가 제출해 주세요.</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="i-review__attach">
+          <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+          <div class="i-filebox">
+            <a href="#" class="i-filebox__item">
+              <span class="i-filebox__clip" aria-hidden="true"></span>
+              <span>세부검토의견서.pdf · 1.2MB</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="i-review__foot">
+          <button type="button" class="i-btn i-btn--cancel" onclick="$('#supReqModal').fadeOut();">닫기</button>
+          <button type="button" class="i-btn i-btn--primary" onclick="$('#supReqModal').fadeOut(); $('#supRegModal').fadeIn();">보완 등록하기</button>
+        </div>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#supReqModal').fadeOut();"></div>
+  </div>
+</section>

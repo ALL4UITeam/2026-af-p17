@@ -1,0 +1,65 @@
+{{!-- 해양공간관리계획 작성 10단계 — currentStep: is-on / is-done --}}
+<nav class="i-step" aria-label="작성 단계">
+  <ol class="i-step__list">
+    <li class="i-step__item {{stepState currentStep 1}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-01.html"{{#ifeq currentStep 1}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">1</span>
+        <span class="i-step__label">기본정보</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 2}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-02.html"{{#ifeq currentStep 2}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">2</span>
+        <span class="i-step__label">공유수면<br>매립면허 현황</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 3}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-03.html"{{#ifeq currentStep 3}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">3</span>
+        <span class="i-step__label">공유수면<br>점용·사용 허가 현황</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 4}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-04.html"{{#ifeq currentStep 4}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">4</span>
+        <span class="i-step__label">해양공간<br>적합성협의 현황</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 5}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-05.html"{{#ifeq currentStep 5}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">5</span>
+        <span class="i-step__label">어업면허 현황</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 6}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-06.html"{{#ifeq currentStep 6}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">6</span>
+        <span class="i-step__label">이용 및<br>개발사업 현황</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 7}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-07.html"{{#ifeq currentStep 7}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">7</span>
+        <span class="i-step__label">지역위원회<br>구성, 운영</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 8}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-08.html"{{#ifeq currentStep 8}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">8</span>
+        <span class="i-step__label">지역협의회<br>구성, 운영</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 9}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-09.html"{{#ifeq currentStep 9}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">9</span>
+        <span class="i-step__label">지역역량 강화</span>
+      </a>
+    </li>
+    <li class="i-step__item {{stepState currentStep 10}}">
+      <a class="i-step__link" href="./inter-SFR-006-01-10.html"{{#ifeq currentStep 10}} aria-current="step"{{/ifeq}}>
+        <span class="i-step__num" aria-hidden="true">10</span>
+        <span class="i-step__label">해양용도구역<br>지정 및 변경</span>
+      </a>
+    </li>
+  </ol>
+</nav>

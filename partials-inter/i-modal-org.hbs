@@ -1,0 +1,48 @@
+{{!-- 기관 조회 — 레거시 modal / st_view / st_header_g 패턴 --}}
+<section class="modal _content draggable" id="orgSearchModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--org">
+      <header class="st_header_g">
+        <h1>기관 조회</h1>
+        <button type="button" title="창닫기" onclick="$('#orgSearchModal').fadeOut();"></button>
+      </header>
+
+      <div class="org-search">
+        <div class="org-search__col">
+          <h2 class="org-search__ti">기관</h2>
+          <div class="org-search__ctrl org-search__ctrl--org">
+            <select id="orgType" class="form-control" title="기관 유형">
+              <option value="gov" selected>정부기관</option>
+              <option value="local">지자체</option>
+              <option value="public">공공기관</option>
+            </select>
+            <input type="text" id="orgKeyword" class="form-control" title="기관명" value="국토해양부">
+            <button type="button" class="org-search__btn" id="orgSearchBtn">조회</button>
+          </div>
+          <ul class="org-search__list" id="orgList">
+            <li class="is-on">국토해양부</li>
+            <li>해양수산부</li>
+            <li>환경부</li>
+          </ul>
+        </div>
+
+        <div class="org-search__col">
+          <h2 class="org-search__ti">부서</h2>
+          <div class="org-search__ctrl org-search__ctrl--dept">
+            <input type="text" id="deptKeyword" class="form-control" title="부서명" placeholder="부서를 입력하세요.">
+            <button type="button" class="org-search__btn" id="deptSearchBtn">조회</button>
+          </div>
+          <ul class="org-search__list org-search__list--empty" id="deptList">
+            <li class="org-search__empty">조회된 부서가 없습니다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="org-search__foot">
+        <button type="button" class="org-search__act org-search__act--ok" onclick="$('#orgSearchModal').fadeOut();">선택</button>
+        <button type="button" class="org-search__act org-search__act--cancel" onclick="$('#orgSearchModal').fadeOut();">취소</button>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#orgSearchModal').fadeOut();"></div>
+  </div>
+</section>

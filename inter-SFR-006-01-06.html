@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        {{> i-step}}
+
+        <section class="i-panel" aria-labelledby="stepTitle">
+          <header class="i-panel__head">
+            <p class="i-panel__step">STEP {{currentStep}} / 10</p>
+            <h2 id="stepTitle" class="i-panel__title">{{pageTitle}}</h2>
+            <p class="i-panel__desc">단계를 작성 중입니다. 저장 후 지역위원회 구성, 운영으로 이동합니다.</p>
+          </header>
+
+          <div class="i-guide" role="note">
+            <strong class="i-guide__ti">작성방법</strong>
+            <ul class="i-guide__list">
+              <li>기존 사업과 신규 사업을 구분해 입력합니다. 여러 건인 경우 각 구역의 [+ 추가]로 행을 늘려 작성합니다.</li>
+              <li>기존: 관리계획 수립 시 해양용도구역으로 반영되었거나 검토·고려된 사업입니다.</li>
+              <li>신규: 수립 시 미검토·미반영으로, 향후 관리계획 변경 시 검토가 필요한 사업입니다.</li>
+              <li>해양용도구역의 반영여부는 ‘반영’ 또는 ‘미반영’을 선택합니다.</li>
+            </ul>
+          </div>
+
+          <!-- 기존 사업 -->
+          <div class="i-block">
+            <h3 class="i-block__ti">■ 기존<span class="i-block__sub">(관리계획에 반영/검토)</span> 해양공간관리계획 수립 시 해양용도구역으로 반영되었거나 검토·고려된 사업</h3>
+
+            <div class="tbl-col-wrap i-form">
+              <table>
+                <colgroup>
+                  <col style="width: 200px">
+                  <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row"><label for="exLocalGov">기초지자체</label></th>
+                    <td><input type="text" id="exLocalGov" name="exLocalGov" class="form-control i-form__full" title="기초지자체"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="exName">사업명</label></th>
+                    <td><input type="text" id="exName" name="exName" class="form-control i-form__full" title="사업명"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="exLoc">위치</label></th>
+                    <td><input type="text" id="exLoc" name="exLoc" class="form-control i-form__full" title="위치"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="exZone">해양용도구역</label></th>
+                    <td>
+                      <div class="i-form__with-opt">
+                        <input type="text" id="exZone" name="exZone" class="form-control i-form__full" title="해양용도구역">
+                        <fieldset class="i-opt">
+                          <legend class="i-opt__lab">반영여부</legend>
+                          <label class="i-opt__item"><input type="radio" name="exReflect" value="Y" class="form-control"> 반영</label>
+                          <label class="i-opt__item"><input type="radio" name="exReflect" value="N" class="form-control"> 미반영</label>
+                        </fieldset>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="exPeriod">기간</label></th>
+                    <td><input type="text" id="exPeriod" name="exPeriod" class="form-control i-form__full" title="기간"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="exProgress">사업 진행 현황</label></th>
+                    <td><input type="text" id="exProgress" name="exProgress" class="form-control i-form__full" title="사업 진행 현황"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="i-row-act">
+              <button type="button" class="i-row-btn i-row-btn--add">+ 추가</button>
+              <button type="button" class="i-row-btn i-row-btn--del">- 삭제</button>
+            </div>
+          </div>
+
+          <!-- 신규 사업 -->
+          <div class="i-block">
+            <h3 class="i-block__ti">■ 신규<span class="i-block__sub">(관리계획 반영수요)</span> 해당 해양공간관리계획 수립 시 검토 혹은 반영되지 않은 사업으로 향후 관리계획 변경 시 검토가 필요한 사업</h3>
+
+            <div class="tbl-col-wrap i-form">
+              <table>
+                <colgroup>
+                  <col style="width: 200px">
+                  <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row"><label for="nwLocalGov">기초지자체</label></th>
+                    <td><input type="text" id="nwLocalGov" name="nwLocalGov" class="form-control i-form__full" title="기초지자체"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="nwName">사업명</label></th>
+                    <td><input type="text" id="nwName" name="nwName" class="form-control i-form__full" title="사업명"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="nwLoc">위치</label></th>
+                    <td><input type="text" id="nwLoc" name="nwLoc" class="form-control i-form__full" title="위치"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="nwZone">해양용도구역</label></th>
+                    <td>
+                      <div class="i-form__with-opt">
+                        <input type="text" id="nwZone" name="nwZone" class="form-control i-form__full" title="해양용도구역">
+                        <fieldset class="i-opt">
+                          <legend class="i-opt__lab">반영여부</legend>
+                          <label class="i-opt__item"><input type="radio" name="nwReflect" value="Y" class="form-control"> 반영</label>
+                          <label class="i-opt__item"><input type="radio" name="nwReflect" value="N" class="form-control"> 미반영</label>
+                        </fieldset>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="nwPeriod">기간</label></th>
+                    <td><input type="text" id="nwPeriod" name="nwPeriod" class="form-control i-form__full" title="기간"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><label for="nwProgress">사업 진행 현황</label></th>
+                    <td><input type="text" id="nwProgress" name="nwProgress" class="form-control i-form__full" title="사업 진행 현황"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="i-row-act">
+              <button type="button" class="i-row-btn i-row-btn--add">+ 추가</button>
+              <button type="button" class="i-row-btn i-row-btn--del">- 삭제</button>
+            </div>
+          </div>
+
+          <footer class="i-panel__foot">
+            <a href="./inter-SFR-006-01-05.html" class="i-btn i-btn--solid">이전</a>
+            <button type="button" class="i-btn i-btn--ghost">임시저장</button>
+            <a href="./inter-SFR-006-01-07.html" class="i-btn i-btn--primary">다음</a>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./src/js/inter.js"></script>
+</body>
+</html>

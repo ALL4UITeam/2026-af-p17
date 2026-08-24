@@ -1,0 +1,35 @@
+{{!-- 이행점검 결과 5단계 — currentStep: is-on / is-done --}}
+<nav class="i-rstep" aria-label="이행점검 단계">
+  <ol class="i-rstep__list">
+    <li class="i-rstep__item {{stepState currentStep 1}}">
+      <a class="i-rstep__link" href="./inter-SFR-006-04-01.html"{{#ifeq currentStep 1}} aria-current="step"{{/ifeq}}>
+        <span class="i-rstep__num" aria-hidden="true">1</span>
+        <span class="i-rstep__label">기초 지자체<br>이행점검 결과 등록</span>
+      </a>
+    </li>
+    <li class="i-rstep__item {{stepState currentStep 2}}">
+      <a class="i-rstep__link" href="./inter-SFR-006-04-02.html"{{#ifeq currentStep 2}} aria-current="step"{{/ifeq}}>
+        <span class="i-rstep__num" aria-hidden="true">2</span>
+        <span class="i-rstep__label">시도 담당자 검토</span>
+      </a>
+    </li>
+    <li class="i-rstep__item {{stepState currentStep 3}}">
+      <a class="i-rstep__link" href="./inter-SFR-006-04-03.html"{{#ifeq currentStep 3}} aria-current="step"{{/ifeq}}>
+        <span class="i-rstep__num" aria-hidden="true">3</span>
+        <span class="i-rstep__label">해양수산부<br>1차 검토</span>
+      </a>
+    </li>
+    <li class="i-rstep__item {{stepState currentStep 4}}">
+      <a class="i-rstep__link" href="./inter-SFR-006-04-04.html"{{#ifeq currentStep 4}} aria-current="step"{{/ifeq}}>
+        <span class="i-rstep__num" aria-hidden="true">4</span>
+        <span class="i-rstep__label">전문기관 검토</span>
+      </a>
+    </li>
+    <li class="i-rstep__item {{stepState currentStep 5}}">
+      <a class="i-rstep__link" href="./inter-SFR-006-04-05.html"{{#ifeq currentStep 5}} aria-current="step"{{/ifeq}}>
+        <span class="i-rstep__num" aria-hidden="true">5</span>
+        <span class="i-rstep__label">해양수산부<br>최종 검토 및 승인</span>
+      </a>
+    </li>
+  </ol>
+</nav>

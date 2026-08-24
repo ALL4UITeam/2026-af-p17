@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        {{> i-step}}
+
+        <section class="i-panel" aria-labelledby="stepTitle">
+          <header class="i-panel__head">
+            <p class="i-panel__step">STEP {{currentStep}} / 10</p>
+            <h2 id="stepTitle" class="i-panel__title">{{pageTitle}}</h2>
+          </header>
+
+          <div class="tbl-col-wrap i-form">
+            <table>
+              <colgroup>
+                <col style="width: 200px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="seaArea">해역선택</label></th>
+                  <td>
+                    <select id="seaArea" name="seaArea" class="form-control i-form__select" title="해역선택">
+                      <option value="">선택</option>
+                      <option value="0002">경기도</option>
+                      <option value="0003">강원특별자치도</option>
+                      <option value="0004">경상남도</option>
+                      <option value="0005">경상북도</option>
+                      <option value="0006">부산광역시</option>
+                      <option value="0007">울산광역시</option>
+                      <option value="0008">인천광역시</option>
+                      <option value="0009">전남광주통합특별시</option>
+                      <option value="0010">전북특별자치도</option>
+                      <option value="0011">제주도</option>
+                      <option value="0012">충청남도</option>
+                      <option value="9999">해역미지정</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="overview">점검 개요</label></th>
+                  <td>
+                    <input type="text" id="overview" name="overview" class="form-control i-form__full" title="점검 개요">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="baseDate">점검기준일자</label></th>
+                  <td>
+                    <div class="i-form__date">
+                      <input type="text" id="baseDate" name="baseDate" class="form-control datepicker" title="점검기준일자" value="2026-07-29" readonly>
+                      <button type="button" class="i-form__cal" aria-label="달력 열기">
+                        <span class="i-form__cal-ico" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">작성기관</th>
+                  <td>
+                    <div class="i-form__org">
+                      <button type="button" class="i-form__btn-org" id="btnOrgSearch" onclick="$('#orgSearchModal').fadeIn(); return false;">기관조회</button>
+                      <span class="i-form__org-name" id="orgSelectedName"></span>
+                      <input type="hidden" id="orgSelected" name="orgSelected" value="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="tel1">담당자 연락처</label></th>
+                  <td>
+                    <div class="i-form__tel">
+                      <select id="tel1" name="tel1" class="form-control" title="연락처 앞자리">
+                        <option value="">선택</option>
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                        <option value="02">02</option>
+                        <option value="031">031</option>
+                        <option value="032">032</option>
+                        <option value="033">033</option>
+                        <option value="041">041</option>
+                        <option value="042">042</option>
+                        <option value="043">043</option>
+                        <option value="044">044</option>
+                        <option value="051">051</option>
+                        <option value="052">052</option>
+                        <option value="053">053</option>
+                        <option value="054">054</option>
+                        <option value="055">055</option>
+                        <option value="061">061</option>
+                        <option value="062">062</option>
+                        <option value="063">063</option>
+                        <option value="064">064</option>
+                      </select>
+                      <span class="i-form__dash" aria-hidden="true">-</span>
+                      <input type="text" id="tel2" name="tel2" class="form-control" title="연락처 중간" maxlength="4" inputmode="numeric">
+                      <span class="i-form__dash" aria-hidden="true">-</span>
+                      <input type="text" id="tel3" name="tel3" class="form-control" title="연락처 끝" maxlength="4" inputmode="numeric">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">첨부파일 업로드</th>
+                  <td>
+                    <div class="drag-box i-form__upload">
+                      <div class="drag-file_com">
+                        <p class="i-form__upload-msg">파일을 선택하거나 여기에 드래그 하세요.</p>
+                        <p class="i-form__upload-cap">0MB / 100MB</p>
+                      </div>
+                      <button type="button" class="drag-file_btn" id="attachFileBtn">파일 선택</button>
+                      <input type="file" class="sr-only" id="attachFile" name="attachFile" multiple>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <footer class="i-panel__foot">
+            <button type="button" class="i-btn i-btn--ghost">임시저장</button>
+            <a href="./inter-SFR-006-01-02.html" class="i-btn i-btn--primary">다음</a>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  {{> i-modal-org}}
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script type="module" src="./src/js/inter.js"></script>
+  <script>
+    $(function () {
+      $('#orgSearchModal .st_container').draggable({
+        handle: '.st_header_g',
+        containment: 'window'
+      });
+
+      $('#attachFileBtn').on('click', function () {
+        $('#attachFile').trigger('click');
+      });
+    });
+  </script>
+</body>
+</html>

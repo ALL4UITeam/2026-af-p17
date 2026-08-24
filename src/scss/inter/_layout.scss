@@ -1,0 +1,144 @@
+.inter-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.inter-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--i-hdr-h);
+  padding: 0 20px;
+  background: var(--i-surface);
+  border-bottom: 1px solid var(--i-border);
+
+  &__brand {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+
+    strong {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    span {
+      font-size: 13px;
+      color: var(--i-text-sub);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+.inter-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.inter-lnb {
+  flex-shrink: 0;
+  width: var(--i-lnb-w);
+  padding: 16px 12px;
+  background: var(--i-surface);
+  border-right: 1px solid var(--i-border);
+
+  &__title {
+    margin-bottom: 12px;
+    padding: 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--i-text-sub);
+    text-transform: uppercase;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border-radius: var(--i-r);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+
+    &:hover {
+      background: var(--i-primary-soft);
+      color: var(--i-primary);
+    }
+
+    &--on {
+      color: #fff;
+      background: var(--i-primary);
+
+      &:hover {
+        color: #fff;
+        background: #123371;
+      }
+    }
+  }
+}
+
+.inter-main {
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
+  overflow: auto;
+}
+
+.inter-page {
+  &__head {
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--i-text-sub);
+    }
+  }
+
+  &__box {
+    padding: 20px;
+    background: var(--i-surface);
+    border: 1px solid var(--i-border);
+    border-radius: var(--i-r);
+  }
+}
+
+.inter-btn {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--i-border);
+  border-radius: var(--i-r);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--i-primary);
+  background: var(--i-surface);
+
+  &:hover {
+    background: var(--i-primary-soft);
+  }
+
+  &--primary {
+    border-color: var(--i-primary);
+    color: #fff;
+    background: var(--i-primary);
+
+    &:hover {
+      background: #123371;
+    }
+  }
+}

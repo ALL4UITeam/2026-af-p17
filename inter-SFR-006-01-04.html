@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        {{> i-step}}
+
+        <section class="i-panel" aria-labelledby="stepTitle">
+          <header class="i-panel__head">
+            <p class="i-panel__step">STEP {{currentStep}} / 10</p>
+            <h2 id="stepTitle" class="i-panel__title">{{pageTitle}}</h2>
+            <p class="i-panel__desc">단계를 작성 중입니다. 저장 후 어업면허 현황으로 이동합니다.</p>
+          </header>
+
+          <div class="i-guide" role="note">
+            <strong class="i-guide__ti">작성방법</strong>
+            <ul class="i-guide__list">
+              <li>해양공간적합성협의 완료 건을 기준으로 협의요청일·협의완료일·협의결과를 입력합니다.</li>
+              <li>이행점검이 실시된 경우 점검 결과를 함께 기재합니다. 여러 건은 [+ 추가]로 행을 늘려 작성합니다.</li>
+              <li>기초지자체·협의대상·해양용도구역·요청기관을 확인한 뒤 저장합니다.</li>
+            </ul>
+          </div>
+
+          <div class="tbl-col-wrap i-form">
+            <table>
+              <colgroup>
+                <col style="width: 200px">
+                <col>
+                <col style="width: 180px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="stLocalGov">기초지자체</label></th>
+                  <td colspan="3"><input type="text" id="stLocalGov" name="stLocalGov" class="form-control i-form__full" title="기초지자체"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stTarget">협의대상</label></th>
+                  <td colspan="3"><input type="text" id="stTarget" name="stTarget" class="form-control i-form__full" title="협의대상"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stZone">해양용도구역</label></th>
+                  <td colspan="3"><input type="text" id="stZone" name="stZone" class="form-control i-form__full" title="해양용도구역"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stReqOrg">요청기관</label></th>
+                  <td colspan="3"><input type="text" id="stReqOrg" name="stReqOrg" class="form-control i-form__full" title="요청기관"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stReqDate">협의요청일 (최종)</label></th>
+                  <td>
+                    <div class="i-form__date">
+                      <input type="text" id="stReqDate" name="stReqDate" class="form-control datepicker" title="협의요청일 (최종)" readonly>
+                      <button type="button" class="i-form__cal" aria-label="협의요청일 달력 열기">
+                        <span class="i-form__cal-ico" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </td>
+                  <th scope="row"><label for="stDoneDate">협의완료일 (최종)</label></th>
+                  <td>
+                    <div class="i-form__date">
+                      <input type="text" id="stDoneDate" name="stDoneDate" class="form-control datepicker" title="협의완료일 (최종)" readonly>
+                      <button type="button" class="i-form__cal" aria-label="협의완료일 달력 열기">
+                        <span class="i-form__cal-ico" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stResult">협의결과</label></th>
+                  <td colspan="3"><input type="text" id="stResult" name="stResult" class="form-control i-form__full" title="협의결과"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="stCheckResult">해양공간적합성협의<br>이행점검 결과</label></th>
+                  <td colspan="3"><input type="text" id="stCheckResult" name="stCheckResult" class="form-control i-form__full" title="해양공간적합성협의 이행점검 결과"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="i-row-act">
+            <button type="button" class="i-row-btn i-row-btn--add">+ 추가</button>
+            <button type="button" class="i-row-btn i-row-btn--del">- 삭제</button>
+          </div>
+
+          <footer class="i-panel__foot">
+            <a href="./inter-SFR-006-01-03.html" class="i-btn i-btn--solid">이전</a>
+            <button type="button" class="i-btn i-btn--ghost">임시저장</button>
+            <a href="./inter-SFR-006-01-05.html" class="i-btn i-btn--primary">다음</a>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./src/js/inter.js"></script>
+</body>
+</html>

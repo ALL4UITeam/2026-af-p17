@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <header class="i-rpage__head">
+          <h1 class="i-rpage__ti">이행점검 결과</h1>
+          <p class="i-rpage__badge">현재 단계 : {{pageTitle}}</p>
+        </header>
+
+        <section class="i-rpage__sec" aria-labelledby="rstepTitle">
+          <h2 id="rstepTitle" class="i-sec-ti">이행점검 단계</h2>
+          {{> i-rstep}}
+        </section>
+
+        {{> i-rhist}}
+      </div>
+    </div>
+  </div>
+
+  {{> i-modal-review}}
+  {{> i-modal-sup-req}}
+  {{> i-modal-sup-reg}}
+  {{> i-modal-sup-reg-view}}
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script type="module" src="./src/js/inter.js"></script>
+  <script>
+    $(function () {
+      var $modals = $('#reviewOpinionModal, #supReqModal, #supRegModal, #supRegViewModal');
+      $modals.find('.st_container').draggable({
+        handle: '.st_header_g',
+        containment: 'window'
+      });
+
+      $('#reviewFileBtn').on('click', function () {
+        $('#reviewAttachFile').trigger('click');
+      });
+
+      $('#supRegFileBtn').on('click', function () {
+        $('#supRegAttachFile').trigger('click');
+      });
+    });
+  </script>
+</body>
+</html>

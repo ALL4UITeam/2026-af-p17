@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        {{> i-step}}
+
+        <section class="i-panel" aria-labelledby="stepTitle">
+          <header class="i-panel__head">
+            <p class="i-panel__step">STEP {{currentStep}} / 10</p>
+            <h2 id="stepTitle" class="i-panel__title">{{pageTitle}}</h2>
+            <p class="i-panel__desc">단계를 작성 중입니다. 저장 후 해양용도구역 지정 및 변경으로 이동합니다.</p>
+          </header>
+
+          <div class="tbl-col-wrap i-form">
+            <table>
+              <colgroup>
+                <col style="width: 200px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="capName">역량강화 프로그램명</label></th>
+                  <td><input type="text" id="capName" name="capName" class="form-control i-form__full" title="역량강화 프로그램명"></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="capContent">주요내용</label></th>
+                  <td><textarea id="capContent" name="capContent" class="form-control i-form__area" title="주요내용" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="capTarget">주요참석자 / 대상</label></th>
+                  <td><textarea id="capTarget" name="capTarget" class="form-control i-form__area" title="주요참석자 / 대상" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="capDate">일시</label></th>
+                  <td><input type="text" id="capDate" name="capDate" class="form-control i-form__full" title="일시"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="i-row-act">
+            <button type="button" class="i-row-btn i-row-btn--add">+ 추가</button>
+            <button type="button" class="i-row-btn i-row-btn--del">- 삭제</button>
+          </div>
+
+          <footer class="i-panel__foot">
+            <a href="./inter-SFR-006-01-08.html" class="i-btn i-btn--solid">이전</a>
+            <button type="button" class="i-btn i-btn--ghost">임시저장</button>
+            <a href="./inter-SFR-006-01-10.html" class="i-btn i-btn--primary">다음</a>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./src/js/inter.js"></script>
+</body>
+</html>

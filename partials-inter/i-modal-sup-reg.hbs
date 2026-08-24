@@ -1,0 +1,70 @@
+{{!-- 하위기관 보완 등록 --}}
+<section class="modal _content draggable" id="supRegModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--review">
+      <header class="st_header_g">
+        <h1>하위기관 보완 등록</h1>
+        <button type="button" title="창닫기" onclick="$('#supRegModal').fadeOut();"></button>
+      </header>
+
+      <div class="i-review">
+        <div class="i-alert i-alert--warn" role="status">
+          <span class="i-alert__ico" aria-hidden="true">!</span>
+          <div class="i-alert__body">
+            <p class="i-alert__ti">해양수산부 1차 검토의 보완 요청에 답변합니다.</p>
+            <p class="i-alert__desc">요청내용을 확인하고 보완의견과 첨부파일을 등록해 주세요.</p>
+          </div>
+        </div>
+
+        <form class="i-review__form" id="supRegForm" onsubmit="return false;">
+          <div class="tbl-col-wrap i-form i-form--review">
+            <table>
+              <colgroup>
+                <col style="width: 160px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row">요청기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>해양수산부 1차 검토 · 해양공간정책과</td>
+                </tr>
+                <tr>
+                  <th scope="row">등록기관 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>시도 담당자 · 충청남도</td>
+                </tr>
+                <tr>
+                  <th scope="row">등록일자 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>2026-07-28</td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="supOpinion">보완의견 <span class="i-req" aria-hidden="true">*</span></label></th>
+                  <td>
+                    <textarea id="supOpinion" name="supOpinion" class="form-control i-form__area" title="보완의견" required>요청한 이행실적 증빙자료를 보완하여 제출합니다.</textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="i-review__attach">
+            <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+            <div class="drag-box i-form__upload">
+              <div class="drag-file_com">
+                <p class="i-form__upload-msg">첨부 파일을 선택하거나 이 영역에 드래그하세요.</p>
+                <p class="i-form__upload-note">총 5개 · 200MB 이하 · hwp, doc, xls, ppt, pdf, zip, shp, txt, jpg 등</p>
+              </div>
+              <button type="button" class="drag-file_btn" id="supRegFileBtn">파일 선택</button>
+              <input type="file" class="sr-only" id="supRegAttachFile" name="supRegAttachFile" multiple accept=".hwp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.zip,.shp,.txt,.jpg,.jpeg,.png">
+            </div>
+          </div>
+
+          <div class="i-review__foot">
+            <button type="button" class="i-btn i-btn--cancel" onclick="$('#supRegModal').fadeOut();">취소</button>
+            <button type="button" class="i-btn i-btn--primary" onclick="$('#supRegModal').fadeOut();">보완 등록</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#supRegModal').fadeOut();"></div>
+  </div>
+</section>

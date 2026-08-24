@@ -1,0 +1,87 @@
+.hdr {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: var(--lnb-w);
+  height: var(--hdr-h);
+  padding: 0 20px;
+  overflow: hidden;
+  border-right: 1px solid var(--c-border);
+  background: var(--c-lnb);
+  transition: width 0.2s ease;
+
+  &__bg {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__brand {
+    position: relative;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__symbol {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__text {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30px;
+  }
+
+  &__mof {
+    width: 56px;
+    height: 11px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__gis {
+    width: 155px;
+    height: 14px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .app.is-open &,
+  .app.is-tour & {
+    width: calc(var(--lnb-w) + var(--panel-w));
+    background: var(--c-hdr);
+
+    .hdr__bg {
+      display: block;
+    }
+
+    .hdr__text {
+      display: flex;
+    }
+  }
+}

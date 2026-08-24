@@ -1,0 +1,130 @@
+{{!-- 검토의견 등록 모달 — 레거시 modal / st_view 패턴 --}}
+<section class="modal _content draggable" id="reviewOpinionModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--review">
+      <header class="st_header_g">
+        <h1>검토의견 등록 · {{currentStep}}단계</h1>
+        <button type="button" title="창닫기" onclick="$('#reviewOpinionModal').fadeOut();"></button>
+      </header>
+
+      <div class="i-review">
+        <nav class="i-mstep" aria-label="이행점검 단계">
+          <ol class="i-mstep__list">
+            <li class="i-mstep__item {{stepState currentStep 1}}">
+              <span class="i-mstep__num" aria-hidden="true">1</span>
+              <span class="i-mstep__label">기초 지자체<br>이행점검 결과 등록</span>
+            </li>
+            <li class="i-mstep__item {{stepState currentStep 2}}">
+              <span class="i-mstep__num" aria-hidden="true">2</span>
+              <span class="i-mstep__label">시도 담당자 검토</span>
+            </li>
+            <li class="i-mstep__item {{stepState currentStep 3}}">
+              <span class="i-mstep__num" aria-hidden="true">3</span>
+              <span class="i-mstep__label">해양수산부<br>1차 검토</span>
+            </li>
+            <li class="i-mstep__item {{stepState currentStep 4}}">
+              <span class="i-mstep__num" aria-hidden="true">4</span>
+              <span class="i-mstep__label">전문기관 검토</span>
+            </li>
+            <li class="i-mstep__item {{stepState currentStep 5}}">
+              <span class="i-mstep__num" aria-hidden="true">5</span>
+              <span class="i-mstep__label">해양수산부<br>최종 검토 및 승인</span>
+            </li>
+          </ol>
+        </nav>
+
+        <form class="i-review__form" id="reviewOpinionForm" onsubmit="return false;">
+          <div class="tbl-col-wrap i-form i-form--review">
+            <table>
+              <colgroup>
+                <col style="width: 160px">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row"><label for="reviewDate">검토일자 <span class="i-req" aria-hidden="true">*</span></label></th>
+                  <td>
+                    <span class="i-review__date" id="reviewDate">2026-07-30</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="subOrg">하위기관 선택 <span class="i-req" aria-hidden="true">*</span></label></th>
+                  <td>
+                    <select id="subOrg" name="subOrg" class="form-control i-form__full" title="하위기관 선택" required>
+                      <option value="">하위기관을 선택하세요.</option>
+                      {{#ifeq currentStep 2}}
+                        <option value="dangjin">당진시</option>
+                        <option value="seosan">서산시</option>
+                        <option value="taean">태안군</option>
+                        <option value="boryeong">보령시</option>
+                      {{else}}
+                        <optgroup label="시도 담당자">
+                          <option value="chungnam">충청남도</option>
+                          <option value="gyeonggi">경기도</option>
+                        </optgroup>
+                        <optgroup label="기초 지자체">
+                          <option value="dangjin">당진시</option>
+                          <option value="seosan">서산시</option>
+                          <option value="taean">태안군</option>
+                          <option value="boryeong">보령시</option>
+                        </optgroup>
+                      {{/ifeq}}
+                    </select>
+                    {{#ifeq currentStep 2}}
+                      <p class="i-form__hint">선택 가능: 기초 지자체</p>
+                    {{else}}
+                      <p class="i-form__hint">선택 가능: 기초 지자체, 시도 담당자</p>
+                    {{/ifeq}}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">검토결과 <span class="i-req" aria-hidden="true">*</span></th>
+                  <td>
+                    <div class="i-form__radios" role="radiogroup" aria-label="검토결과">
+                      <label class="i-form__radio">
+                        <input type="radio" name="reviewResult" value="supplement" checked>
+                        <span>보완요청</span>
+                      </label>
+                      <label class="i-form__radio">
+                        <input type="radio" name="reviewResult" value="reject">
+                        <span>반려</span>
+                      </label>
+                      <label class="i-form__radio">
+                        <input type="radio" name="reviewResult" value="done">
+                        <span>검토완료</span>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><label for="reviewOpinion">검토의견 <span class="i-req" aria-hidden="true">*</span></label></th>
+                  <td>
+                    <textarea id="reviewOpinion" name="reviewOpinion" class="form-control i-form__area" title="검토의견" required></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="i-review__attach">
+            <h3 class="i-sec-ti i-sec-ti--sm">첨부 파일</h3>
+            <div class="drag-box i-form__upload">
+              <div class="drag-file_com">
+                <p class="i-form__upload-msg">첨부 파일을 선택하거나 이 영역에 드래그하세요.</p>
+                <p class="i-form__upload-note">총 5개 · 200MB 이하 · hwp, doc, xls, ppt, pdf, zip, shp, txt, jpg 등</p>
+              </div>
+              <button type="button" class="drag-file_btn" id="reviewFileBtn">파일 선택</button>
+              <input type="file" class="sr-only" id="reviewAttachFile" name="reviewAttachFile" multiple accept=".hwp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.zip,.shp,.txt,.jpg,.jpeg,.png">
+            </div>
+          </div>
+
+          <div class="i-review__foot">
+            <button type="button" class="i-btn i-btn--cancel" onclick="$('#reviewOpinionModal').fadeOut();">취소</button>
+            <button type="button" class="i-btn i-btn--primary" id="reviewSubmitBtn" onclick="$('#reviewOpinionModal').fadeOut();">등록</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#reviewOpinionModal').fadeOut();"></div>
+  </div>
+</section>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+<body class="inter">
+  <a href="#interMain" class="skip">본문 바로가기</a>
+
+  <div class="brand_wrap">
+    <div class="wrap-content wrap-content--bare" id="interMain">
+      <div class="inner">
+        <div class="i-mtab" role="tablist" aria-label="이행점검 현황">
+          <button type="button" class="i-mtab__btn is-on" role="tab" aria-selected="true" aria-controls="tabMonitor" id="tabBtn1" data-tab="tabMonitor">현황 모니터링</button>
+          <button type="button" class="i-mtab__btn" role="tab" aria-selected="false" aria-controls="tabStats" id="tabBtn2" data-tab="tabStats">현황 및 이력 통계</button>
+        </div>
+
+        <!-- 탭1: 현황 모니터링 -->
+        <div class="SU_wrap SU_list01 i-mtab__panel is-on" id="tabMonitor" role="tabpanel" aria-labelledby="tabBtn1">
+          <div class="content_body">
+            <div class="list-wrap">
+              <h2 class="i-sec-ti">이행점검 모니터링</h2>
+
+              <div class="head-tab">
+                <div class="head-form">
+                  <div class="head-form_col01">
+                    <dl>
+                      <dt>등록일자</dt>
+                      <dd>
+                        <input type="text" id="beginRegDate" name="beginRegDate" title="등록시작일" class="form-control v datepicker" readonly="readonly">
+                        <span>~</span>
+                        <input type="text" id="endRegDate" name="endRegDate" title="등록종료일" class="form-control v datepicker" readonly="readonly">
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt>고시일자</dt>
+                      <dd>
+                        <input type="text" id="beginNtfcDate" name="beginNtfcDate" title="고시시작일" class="form-control v datepicker" readonly="readonly" style="width: 180px;">
+                        <span>~</span>
+                        <input type="text" id="endNtfcDate" name="endNtfcDate" title="고시종료일" class="form-control v datepicker" readonly="readonly" style="width: 180px;">
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt>지역</dt>
+                      <dd>
+                        <select name="searchArea" id="searchArea" title="지역" class="form-control">
+                          <option value="">전체</option>
+                          <option value="0002">경기도</option>
+                          <option value="0003">강원특별자치도</option>
+                          <option value="0004">경상남도</option>
+                          <option value="0005">경상북도</option>
+                          <option value="0006">부산광역시</option>
+                          <option value="0007">울산광역시</option>
+                          <option value="0008">인천광역시</option>
+                          <option value="0009">전남광주통합특별시</option>
+                          <option value="0010">전북특별자치도</option>
+                          <option value="0011">제주도</option>
+                          <option value="0012">충청남도</option>
+                          <option value="9999">해역미지정</option>
+                        </select>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="head-form_col02">
+                    <button type="button" class="reset_btn">초기화</button>
+                    <span>입력한 값으로 정보를 조회 합니다.</span>
+                    <button type="button" class="search_btn" id="mpList_btnSearch">검색</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="i-result">
+                <div class="i-result__head">
+                  <h3 class="i-sec-ti">조회결과 <span class="i-result__period">2019.05.17 - 2026.06.02</span></h3>
+                </div>
+
+                <div class="i-flow">
+                  <div class="i-flow__stages">
+                    <div class="i-flow__stage i-flow__stage--1">이행점검 등록</div>
+                    <div class="i-flow__stage i-flow__stage--2">이행점검 검토</div>
+                    <div class="i-flow__stage i-flow__stage--3">결과 통보</div>
+                  </div>
+
+                  <div class="i-flow__body">
+                    <div class="i-flow__col i-flow__col--reg">
+                      <div class="i-flow__node">
+                        <span class="i-flow__circle">이행점검<br>결과 등록</span>
+                        <strong class="i-flow__cnt">9건</strong>
+                      </div>
+                    </div>
+
+                    <div class="i-flow__col i-flow__col--rev">
+                      <p class="i-flow__group">전문기관의뢰</p>
+                      <div class="i-flow__nodes">
+                        <div class="i-flow__node">
+                          <span class="i-flow__circle">시도 담당자<br>검토</span>
+                          <strong class="i-flow__cnt">0건</strong>
+                        </div>
+                        <div class="i-flow__node">
+                          <span class="i-flow__circle">해양수산부<br>1차 검토</span>
+                          <strong class="i-flow__cnt">1건</strong>
+                        </div>
+                        <div class="i-flow__node">
+                          <span class="i-flow__circle">전문기관<br>검토</span>
+                          <strong class="i-flow__cnt">3건</strong>
+                        </div>
+                        <div class="i-flow__node">
+                          <span class="i-flow__circle">해양수산부<br>최종 검토 및 승인</span>
+                          <strong class="i-flow__cnt">3건</strong>
+                        </div>
+                      </div>
+                      <div class="i-flow__meta">
+                        <span class="i-flow__reject">반려 0</span>
+                        <span class="i-flow__note">검토의견반영</span>
+                      </div>
+                    </div>
+
+                    <div class="i-flow__col i-flow__col--out">
+                      <div class="i-flow__card i-flow__card--ok">
+                        <span class="i-flow__face" aria-hidden="true">☺</span>
+                        <span class="i-flow__card-lab">검토완료</span>
+                        <strong class="i-flow__card-cnt">740건</strong>
+                      </div>
+                      <div class="i-flow__card i-flow__card--ng">
+                        <span class="i-flow__face" aria-hidden="true">☹</span>
+                        <span class="i-flow__card-lab">반려</span>
+                        <strong class="i-flow__card-cnt">2건</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 탭2: 현황 및 이력 통계 -->
+        <div class="SU_wrap SU_list01 i-mtab__panel" id="tabStats" role="tabpanel" aria-labelledby="tabBtn2" hidden>
+          <div class="content_body">
+            <div class="list-wrap">
+              <h2 class="i-sec-ti">이행점검 현황 및 이력 통계</h2>
+
+              <div class="head-tab">
+                <div class="head-form">
+                  <div class="head-form_col01">
+                    <dl>
+                      <dt>등록일자</dt>
+                      <dd>
+                        <input type="text" id="beginRegDate2" name="beginRegDate2" title="등록시작일" class="form-control v datepicker" readonly="readonly">
+                        <span>~</span>
+                        <input type="text" id="endRegDate2" name="endRegDate2" title="등록종료일" class="form-control v datepicker" readonly="readonly">
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt>고시일자</dt>
+                      <dd>
+                        <input type="text" id="beginNtfcDate2" name="beginNtfcDate2" title="고시시작일" class="form-control v datepicker" readonly="readonly" style="width: 180px;">
+                        <span>~</span>
+                        <input type="text" id="endNtfcDate2" name="endNtfcDate2" title="고시종료일" class="form-control v datepicker" readonly="readonly" style="width: 180px;">
+                      </dd>
+                    </dl>
+                    <dl>
+                      <dt>지역</dt>
+                      <dd>
+                        <select name="searchArea2" id="searchArea2" title="지역" class="form-control">
+                          <option value="">전체</option>
+                          <option value="0002">경기도</option>
+                          <option value="0003">강원특별자치도</option>
+                          <option value="0004">경상남도</option>
+                          <option value="0005">경상북도</option>
+                          <option value="0006">부산광역시</option>
+                          <option value="0007">울산광역시</option>
+                          <option value="0008">인천광역시</option>
+                          <option value="0009">전남광주통합특별시</option>
+                          <option value="0010">전북특별자치도</option>
+                          <option value="0011">제주도</option>
+                          <option value="0012">충청남도</option>
+                          <option value="9999">해역미지정</option>
+                        </select>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="head-form_col02">
+                    <button type="button" class="reset_btn">초기화</button>
+                    <span>입력한 값으로 정보를 조회 합니다.</span>
+                    <button type="button" class="search_btn" id="mpList_btnSearch2">검색</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="i-result">
+                <div class="i-result__head i-result__head--row">
+                  <h3 class="i-sec-ti">조회결과 <span class="i-result__period">2019.05.17 - 2026.06.02</span></h3>
+                  <button type="button" class="i-btn i-btn--ghost i-btn--sm">엑셀다운로드</button>
+                </div>
+
+                <div class="i-charts">
+                  <div class="i-chart">
+                    <h4 class="i-chart__ti">요청기관별</h4>
+                    <div class="i-chart__box" aria-label="이행점검 등록 기관별 차트 영역">
+                      <p class="i-chart__ph">차트 영역<br><span>이행점검 등록 기관별</span></p>
+                    </div>
+                  </div>
+                  <div class="i-chart">
+                    <h4 class="i-chart__ti">보완요청 차수별</h4>
+                    <div class="i-chart__box" aria-label="보완요청 차수별 차트 영역">
+                      <p class="i-chart__ph">차트 영역<br><span>보완요청 차수별</span></p>
+                    </div>
+                  </div>
+                  <div class="i-chart i-chart--wide">
+                    <h4 class="i-chart__ti">이행점검 결과별</h4>
+                    <div class="i-chart__box i-chart__box--pie" aria-label="이행점검 결과별 차트 영역">
+                      <p class="i-chart__ph">차트 영역<br><span>이행점검 결과별</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script type="module" src="./src/js/inter.js"></script>
+  <script>
+    $(function () {
+      $('.i-mtab__btn').on('click', function () {
+        var id = $(this).data('tab');
+        $('.i-mtab__btn').removeClass('is-on').attr('aria-selected', 'false');
+        $(this).addClass('is-on').attr('aria-selected', 'true');
+        $('.i-mtab__panel').removeClass('is-on').prop('hidden', true);
+        $('#' + id).addClass('is-on').prop('hidden', false);
+      });
+    });
+  </script>
+</body>
+</html>
