@@ -215,6 +215,52 @@ export default defineConfig({
         return { ...data }
       },
     }),
+    /**
+     * inter.css / inter-style.css 를 각각 별도 산출물로 유지.
+     * HTML에 걸린 SCSS link는 Vite가 페이지 CSS로 합치므로,
+     * 빌드 시에는 제거하고 rollup 엔트리로만 빌드한 뒤 링크를 주입한다.
+     * (dev는 HTML의 ./src/scss/*.scss link 그대로 사용)
+     */
+    {
+      name: 'inter-split-css',
+      transformIndexHtml: {
+        order: 'pre',
+        handler(html, ctx) {
+          const file = path.basename(ctx.filename || ctx.path || '')
+          if (!/^inter-/i.test(file)) return html
+          if (ctx.server) return html
+          return html.replace(
+            /\s*<link\s+rel="stylesheet"\s+href="\.\/src\/scss\/inter(?:-style)?\.scss"\s*>/gi,
+            '',
+          )
+        },
+      },
+      generateBundle(_options, bundle) {
+        // CSS-only 엔트리가 남기는 빈 JS 제거
+        for (const [fileName, chunk] of Object.entries(bundle)) {
+          if (chunk.type !== 'chunk' || !chunk.isEntry) continue
+          if (chunk.name !== 'inter' && chunk.name !== 'inter-style') continue
+          const code = (chunk.code || '').replace(/\s+/g, '')
+          if (!code || code === '"use strict";') {
+            delete bundle[fileName]
+          }
+        }
+      },
+    },
+    {
+      name: 'inter-split-css-inject',
+      apply: 'build',
+      enforce: 'post',
+      transformIndexHtml(html, ctx) {
+        const file = path.basename(ctx.filename || ctx.path || '')
+        if (!/^inter-/i.test(file)) return html
+        if (html.includes('./assets/inter.css')) return html
+        return html.replace(
+          '</head>',
+          '  <link rel="stylesheet" href="./assets/inter.css">\n  <link rel="stylesheet" href="./assets/inter-style.css">\n</head>',
+        )
+      },
+    },
     /** file:// 로컬 열기용: crossorigin / module 제거 */
     {
       name: 'file-protocol-friendly',
@@ -260,6 +306,8 @@ export default defineConfig({
         map: path.resolve(__dirname, 'map.html'),
         viewer: path.resolve(__dirname, 'viewer.html'),
         ...interInputs(),
+        inter: path.resolve(__dirname, 'src/scss/inter.scss'),
+        'inter-style': path.resolve(__dirname, 'src/scss/inter-style.scss'),
       },
       output: {
         entryFileNames: 'assets/[name].js',
