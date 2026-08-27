@@ -1,264 +1,241 @@
 <aside
   class="panel"
-  id="searchPanel"
-  role="region"
-  aria-labelledby="searchPanelTitle"
+  id="layerPanel"
+  aria-label="공간정보 검색 및 레이어"
   tabindex="-1"
-  hidden
 >
-  <div class="panel__title">
-    <strong id="searchPanelTitle">통합검색</strong>
-    <button type="button" class="panel__close" id="panelClose" aria-label="통합검색 패널 닫기">
-      <img src="./src/assets/icon/chevron.svg" alt="" aria-hidden="true">
-    </button>
-  </div>
-
-  <div class="panel__body panel__body--result">
-    <div class="tabs" role="tablist" aria-label="검색 유형">
-      <button type="button" class="tab tab--on" role="tab" id="tabKw" aria-controls="tabPanelSearch" aria-selected="true" tabindex="0" data-tab="kw">
-        <span class="tab__ico" aria-hidden="true">
-          <img src="./src/assets/icon/tab-kw.svg" alt="">
-        </span>
-        키워드
-      </button>
-      <button type="button" class="tab" role="tab" id="tabList" aria-controls="tabPanelSearch" aria-selected="false" tabindex="-1" data-tab="list">
-        <span class="tab__ico" aria-hidden="true">
-          <img src="./src/assets/icon/tab-list.svg" alt="">
-        </span>
-        목록
-      </button>
-      <button type="button" class="tab" role="tab" id="tabArea" aria-controls="tabPanelSearch" aria-selected="false" tabindex="-1" data-tab="area">
-        <span class="tab__ico tab__ico--area" aria-hidden="true">
-          <img src="./src/assets/icon/tab-area2.svg" alt="">
-          <img src="./src/assets/icon/tab-area.svg" alt="">
-        </span>
-        지역
-      </button>
+  <div class="panel__inner">
+    <div class="panel__wave" aria-hidden="true">
+      <img src="./src/assets/img/panel-wave.png" alt="">
     </div>
 
-    <div class="search" id="tabPanelSearch" role="tabpanel" aria-labelledby="tabKw">
-      <p class="search__hint" id="searchHint">키워드를 입력하여 해양공간 정보를 검색합니다.</p>
-      <div class="search__box">
-        <label class="sr-only" for="searchInput">통합검색 키워드</label>
+    <form class="search" role="search" action="#" method="get">
+      <label class="sr-only" for="placeSearch">지명, 해역명, 구역명 검색</label>
+      <div class="search__field">
         <input
           class="search__input"
-          id="searchInput"
+          id="placeSearch"
           type="search"
-          value="거제 해양관광"
-          placeholder="내용을 입력하세요"
-          aria-describedby="searchHint"
+          name="q"
+          placeholder="지명, 해역명, 구역명 검색"
           autocomplete="off"
         >
-        <button type="button" class="search__btn" aria-label="검색 실행">
-          <img src="./src/assets/icon/search.svg" alt="" aria-hidden="true">
+        <button type="submit" class="search__btn" aria-label="검색">
+          <span class="search__btn-ico" aria-hidden="true">
+            <img src="./src/assets/img/icon/search.svg" alt="">
+          </span>
         </button>
       </div>
-    </div>
+      <button type="button" class="search__filter" aria-label="상세 검색 필터" aria-expanded="false">
+        <span class="search__filter-ico" aria-hidden="true">
+          <img src="./src/assets/img/icon/filter.svg" alt="">
+        </span>
+      </button>
+    </form>
 
-    <div class="result" aria-label="검색 결과">
-      <div class="result__head">
-        <p>
-          <strong>“거제 해양관광”</strong>
-          <span>검색 결과</span>
-        </p>
-        <button type="button" class="result__reset">
-          <img src="./src/assets/result/reset.svg" alt="" aria-hidden="true">
-          초기화
-        </button>
-      </div>
-
-      <section class="sec" aria-labelledby="sec1Title">
-        <h2 class="sr-only" id="sec1Title">공간정보 종합지도 레이어</h2>
-        <button type="button" class="sec__title" aria-expanded="true" aria-controls="sec1List">
-          <span class="sec__left">
-            <span class="sec__ico" aria-hidden="true"><img src="./src/assets/result/sec1.svg" alt=""></span>
-            공간정보 종합지도 레이어
-          </span>
-          <span class="sec__right">
-            <span class="sec__count">총 28건</span>
-            <img src="./src/assets/result/chev-down.svg" alt="" aria-hidden="true">
-          </span>
-        </button>
-        <ul class="sec__list" id="sec1List" role="list">
-          <li class="sec__item" tabindex="0">
-            <span class="dot" style="--dot:#dd5f5f" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong>어업활동보호</strong>
-              <p>공간정보</p>
-            </div>
-            <span class="sec__badge">12건</span>
-          </li>
-          <li class="sec__item">
-            <span class="dot" style="--dot:#00bd73"></span>
-            <div class="sec__txt">
-              <strong>어업자원</strong>
-              <p>공간정보 <img src="./src/assets/result/path.svg" alt=""> 어업활동보호</p>
-            </div>
-            <span class="sec__badge">6건</span>
-          </li>
-          <li class="sec__item">
-            <span class="dot" style="--dot:#e9bd13"></span>
-            <div class="sec__txt">
-              <strong>어업활동특성평가</strong>
-              <p>공간정보 <img src="./src/assets/result/path.svg" alt=""> 어업활동보호</p>
-            </div>
-            <span class="sec__badge">9건</span>
-          </li>
-          <li class="sec__item">
-            <span class="dot" style="--dot:#008cc9"></span>
-            <div class="sec__txt">
-              <strong>어업활동</strong>
-              <p>공간정보</p>
-            </div>
-            <span class="sec__badge">3건</span>
-          </li>
-          <li class="sec__item">
-            <span class="dot" style="--dot:#20b7ca"></span>
-            <div class="sec__txt">
-              <strong>해양용도구역-어업활동보호구역</strong>
-              <p>공간정보 <img src="./src/assets/result/path.svg" alt=""> 해양환경 <img src="./src/assets/result/path.svg" alt=""> 해양생태</p>
-            </div>
-            <span class="sec__badge">1건</span>
-          </li>
-        </ul>
-        <button type="button" class="sec__more">
-          검색 결과 더보기
-          <img src="./src/assets/result/plus.svg" alt="">
-        </button>
-      </section>
-
-      <section class="sec">
-        <button type="button" class="sec__title">
-          <span class="sec__left">
-            <span class="sec__ico"><img src="./src/assets/result/sec2.svg" alt=""></span>
-            해양공간관리 계획도 레이어
-          </span>
-          <span class="sec__right">
-            <span class="sec__count">총 10건</span>
-            <img src="./src/assets/result/chev-down.svg" alt="">
-          </span>
-        </button>
-        <ul class="sec__list">
-          <li class="sec__row">
-            <span class="swatch" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong><em>어업</em>활동특성평가</strong>
-              <p>해양공간 관리계획 <img src="./src/assets/result/path.svg" alt=""> 해양공간특성평가...</p>
-            </div>
-            <span class="sec__acts">
-              <img src="./src/assets/result/star.svg" alt="">
-              <img src="./src/assets/result/loc.svg" alt="">
+    <ul class="layer" role="list">
+      <li>
+        <button
+          type="button"
+          class="layer__item"
+          aria-expanded="false"
+          aria-controls="layerMap"
+        >
+          <span class="layer__left">
+            <span class="layer__ico" aria-hidden="true">
+              <img class="layer__ico-off" src="./src/assets/img/panel/layer-map.svg" alt="">
+              <img class="layer__ico-on" src="./src/assets/img/panel/layer-map-on.svg" alt="">
             </span>
-          </li>
-          <li class="sec__row">
-            <span class="swatch" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong>양식장(면허<em>어업</em>권)</strong>
-              <p>해양공간 관리계획 <img src="./src/assets/result/path.svg" alt=""> 해양공간특성평가...</p>
-            </div>
-            <span class="sec__acts">
-              <img src="./src/assets/result/star.svg" alt="">
-              <img src="./src/assets/result/loc.svg" alt="">
-            </span>
-          </li>
-          <li class="sec__row">
-            <span class="swatch" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong>남해 <em>어업</em>활동 보호구역 관리계획</strong>
-              <p>해양공간 관리계획 <img src="./src/assets/result/path.svg" alt=""> 해양공간특성평가...</p>
-            </div>
-            <span class="sec__acts">
-              <img src="./src/assets/result/star.svg" alt="">
-              <img src="./src/assets/result/loc.svg" alt="">
-            </span>
-          </li>
-          <li class="sec__row">
-            <span class="swatch" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong>부산 <em>어업</em>·항만시설 맵</strong>
-              <p>해양공간 관리계획 <img src="./src/assets/result/path.svg" alt=""> 상충분석결과</p>
-            </div>
-            <span class="sec__acts">
-              <img src="./src/assets/result/star.svg" alt="">
-              <img src="./src/assets/result/loc.svg" alt="">
-            </span>
-          </li>
-          <li class="sec__row">
-            <span class="swatch" aria-hidden="true"></span>
-            <div class="sec__txt">
-              <strong>서해 골재재취 <em>어업</em>허가구역 관리계획</strong>
-              <p>해양공간 관리계획 <img src="./src/assets/result/path.svg" alt=""> 해양공간특성평가...</p>
-            </div>
-            <span class="sec__acts">
-              <img src="./src/assets/result/star.svg" alt="">
-              <img src="./src/assets/result/loc.svg" alt="">
-            </span>
-          </li>
-        </ul>
-        <button type="button" class="sec__more">
-          검색 결과 더보기
-          <img src="./src/assets/result/plus.svg" alt="">
-        </button>
-      </section>
-
-      <section class="sec">
-        <button type="button" class="sec__title">
-          <span class="sec__left">
-            <span class="sec__ico"><img src="./src/assets/result/sec3.svg" alt=""></span>
-            관광정보
+            <span class="layer__name">종합지도</span>
           </span>
-          <span class="sec__right">
-            <span class="sec__count">총 12건</span>
-            <img src="./src/assets/result/chev-down.svg" alt="">
+          <span class="layer__right">
+            <span class="layer__count">19</span>
+            <span class="layer__chev" aria-hidden="true">
+              <img class="layer__chev-off" src="./src/assets/img/icon/chevron-down.svg" width="16" height="16" alt="">
+              <img class="layer__chev-on" src="./src/assets/img/icon/chevron-down-on.svg" width="16" height="16" alt="">
+            </span>
           </span>
         </button>
-        <div class="tgrid">
-          <article class="tcard">
-            <div class="tcard__img">
-              <img src="./src/assets/result/card-thumb.png" alt="">
-              <span>축제/공연/행사</span>
-            </div>
-            <div class="tcard__body">
-              <strong>2026 울산조선해양축제</strong>
-              <p>경상남도 거제시 일운면 지세포해안로 15-44</p>
-              <img class="tcard__arr" src="./src/assets/result/card-arrow.svg" alt="">
-            </div>
-          </article>
-          <article class="tcard">
-            <div class="tcard__img">
-              <img src="./src/assets/result/card-thumb.png" alt="">
-              <span>축제/공연/행사</span>
-            </div>
-            <div class="tcard__body">
-              <strong>2026 울산조선해양축제</strong>
-              <p>경상남도 거제시 일운면 지세포해안로 15-44</p>
-              <img class="tcard__arr" src="./src/assets/result/card-arrow.svg" alt="">
-            </div>
-          </article>
-          <article class="tcard">
-            <div class="tcard__img">
-              <img src="./src/assets/result/card-thumb.png" alt="">
-              <span>축제/공연/행사</span>
-            </div>
-            <div class="tcard__body">
-              <strong>2026 울산조선해양축제</strong>
-              <p>경상남도 거제시 일운면 지세포해안로 15-44</p>
-              <img class="tcard__arr" src="./src/assets/result/card-arrow.svg" alt="">
-            </div>
-          </article>
-          <article class="tcard">
-            <div class="tcard__img">
-              <img src="./src/assets/result/card-thumb.png" alt="">
-              <span>축제/공연/행사</span>
-            </div>
-            <div class="tcard__body">
-              <strong>2026 울산조선해양축제</strong>
-              <p>경상남도 거제시 일운면 지세포해안로 15-44</p>
-              <img class="tcard__arr" src="./src/assets/result/card-arrow.svg" alt="">
-            </div>
-          </article>
+        <div class="layer__body" id="layerMap" hidden>
+          <ul class="sub" role="list">
+            {{#each mapGroups}}
+            <li>
+              <button
+                type="button"
+                class="sub__row{{#if open}} sub__row--on{{/if}}"
+                aria-expanded="{{#if open}}true{{else}}false{{/if}}"
+                aria-controls="{{id}}"
+              >
+                <span class="sub__name">{{name}}</span>
+                <span class="sub__right">
+                  <span class="sub__count">{{count}}</span>
+                  <span class="sub__toggle" aria-hidden="true">
+                    <img class="sub__toggle-plus" src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    <img class="sub__toggle-minus" src="./src/assets/img/icon/minus.svg" width="18" height="18" alt="">
+                  </span>
+                </span>
+              </button>
+              <ul class="leaf" id="{{id}}" {{#unless open}}hidden{{/unless}} role="list">
+                {{#each leaves}}
+                <li class="leaf__row">
+                  <label class="leaf__main">
+                    <input class="leaf__check" type="checkbox" name="layer">
+                    <span class="leaf__legend" aria-hidden="true">
+                      <img src="./src/assets/img/legend/lyr-{{ico}}.svg" width="14" height="14" alt="">
+                    </span>
+                    <span class="leaf__name">{{name}}</span>
+                  </label>
+                  <div class="leaf__acts">
+                    <button type="button" class="leaf__star" aria-label="{{name}} 즐겨찾기" aria-pressed="false">
+                      <img class="leaf__star-off" src="./src/assets/img/icon/star-line.svg" width="16" height="16" alt="">
+                      <img class="leaf__star-on" src="./src/assets/img/icon/star.svg" width="16" height="16" alt="">
+                    </button>
+                    <button type="button" class="leaf__info" aria-label="{{name}} 정보">
+                      <img src="./src/assets/img/icon/info.svg" width="16" height="16" alt="">
+                    </button>
+                  </div>
+                </li>
+                {{/each}}
+              </ul>
+            </li>
+            {{/each}}
+          </ul>
         </div>
-      </section>
-    </div>
+      </li>
+      <li>
+        <button
+          type="button"
+          class="layer__item"
+          aria-expanded="true"
+          aria-controls="layerPlan"
+        >
+          <span class="layer__left">
+            <span class="layer__ico" aria-hidden="true">
+              <img class="layer__ico-off" src="./src/assets/img/panel/layer-plan.svg" alt="">
+              <img class="layer__ico-on" src="./src/assets/img/panel/layer-plan-on.svg" alt="">
+            </span>
+            <span class="layer__name">관리계획</span>
+          </span>
+          <span class="layer__right">
+            <span class="layer__count">6</span>
+            <span class="layer__chev" aria-hidden="true">
+              <img class="layer__chev-off" src="./src/assets/img/icon/chevron-down.svg" width="16" height="16" alt="">
+              <img class="layer__chev-on" src="./src/assets/img/icon/chevron-down-on.svg" width="16" height="16" alt="">
+            </span>
+          </span>
+        </button>
+        <div class="layer__body" id="layerPlan">
+          <ul class="sub" role="list">
+            <li>
+              <button
+                type="button"
+                class="sub__row sub__row--on"
+                aria-expanded="true"
+                aria-controls="treeEval"
+              >
+                <span class="sub__name">해양공간 특성평가 결과</span>
+                <span class="sub__right">
+                  <span class="sub__count">9</span>
+                  <span class="sub__toggle" aria-hidden="true">
+                    <img class="sub__toggle-plus" src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    <img class="sub__toggle-minus" src="./src/assets/img/icon/minus.svg" width="18" height="18" alt="">
+                  </span>
+                </span>
+              </button>
+              {{> tree}}
+            </li>
+            <li>
+              <div class="sub__row">
+                <span class="sub__name">상충분석결과</span>
+                <span class="sub__right">
+                  <span class="sub__count">9</span>
+                  <button type="button" class="sub__add" aria-label="상충분석결과 추가" aria-pressed="false">
+                    <span class="sub__add-ico" aria-hidden="true">
+                      <img src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="sub__row">
+                <span class="sub__name">해양공간관리계획도</span>
+                <span class="sub__right">
+                  <span class="sub__count">9</span>
+                  <button type="button" class="sub__add" aria-label="해양공간관리계획도 추가" aria-pressed="false">
+                    <span class="sub__add-ico" aria-hidden="true">
+                      <img src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="sub__row">
+                <span class="sub__name">해양공간관리계획도 관리구역</span>
+                <span class="sub__right">
+                  <span class="sub__count">9</span>
+                  <button type="button" class="sub__add" aria-label="해양공간관리계획도 관리구역 추가" aria-pressed="false">
+                    <span class="sub__add-ico" aria-hidden="true">
+                      <img src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="sub__row">
+                <span class="sub__name">해양공간계획 기초자료</span>
+                <span class="sub__right">
+                  <span class="sub__count">9</span>
+                  <button type="button" class="sub__add" aria-label="해양공간계획 기초자료 추가" aria-pressed="false">
+                    <span class="sub__add-ico" aria-hidden="true">
+                      <img src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="sub__row">
+                <span class="sub__name">기본공간정보</span>
+                <span class="sub__right">
+                  <span class="sub__count">1</span>
+                  <button type="button" class="sub__add" aria-label="기본공간정보 추가" aria-pressed="false">
+                    <span class="sub__add-ico" aria-hidden="true">
+                      <img src="./src/assets/img/icon/plus.svg" width="18" height="18" alt="">
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <button
+          type="button"
+          class="layer__item"
+          aria-expanded="false"
+          aria-controls="layerBiz"
+        >
+          <span class="layer__left">
+            <span class="layer__ico" aria-hidden="true">
+              <img class="layer__ico-off" src="./src/assets/img/panel/layer-biz.svg" alt="">
+              <img class="layer__ico-on" src="./src/assets/img/panel/layer-biz-on.svg" alt="">
+            </span>
+            <span class="layer__name">사업정보</span>
+          </span>
+          <span class="layer__right">
+            <span class="layer__count">10</span>
+            <span class="layer__chev" aria-hidden="true">
+              <img class="layer__chev-off" src="./src/assets/img/icon/chevron-down.svg" width="16" height="16" alt="">
+              <img class="layer__chev-on" src="./src/assets/img/icon/chevron-down-on.svg" width="16" height="16" alt="">
+            </span>
+          </span>
+        </button>
+        <div class="layer__body" id="layerBiz" hidden></div>
+      </li>
+    </ul>
   </div>
 </aside>

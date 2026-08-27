@@ -2,11 +2,9 @@
 @use 'base/variables';
 @use 'base/reset';
 @use 'base/a11y';
+@use 'components/masthead';
 @use 'components/hdr';
 @use 'components/lnb';
 @use 'components/panel';
-@use 'components/result';
 @use 'components/tools';
-@use 'components/tour';
-@use 'components/detail';
 @use 'pages/map';

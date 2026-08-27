@@ -26,6 +26,7 @@ export function createZoom(options = {}) {
   const rail = root.querySelector('[data-zoom-rail]')
   const fill = root.querySelector('[data-zoom-fill]')
   const knob = root.querySelector('[data-zoom-knob]')
+  const lv = root.querySelector('[data-zoom-lv]')
   const btnIn = root.querySelector('[data-zoom="in"]')
   const btnOut = root.querySelector('[data-zoom="out"]')
 
@@ -55,6 +56,7 @@ export function createZoom(options = {}) {
     knob.setAttribute('aria-valuemax', String(max))
     knob.setAttribute('aria-valuenow', String(level))
     knob.setAttribute('aria-valuetext', `줌 레벨 ${level}`)
+    if (lv) lv.textContent = `Lv.${level}`
     root.dataset.level = String(level)
     root.dataset.max = String(max)
   }

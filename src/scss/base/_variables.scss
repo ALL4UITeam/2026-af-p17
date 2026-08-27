@@ -1,40 +1,53 @@
 :root {
-  /* color */
+  /* KRDS / Figma tokens */
   --c-primary: #175eec;
-  --c-primary-deep: #0054b3;
-  --c-tab: #256ef4;
-  --c-tab-bg: #e8f2fe;
-  --c-lnb: #ecf2fe;
-  --c-util: #e0e9fb;
-  --c-hdr: #f4f7fd;
-  --c-text: #111;
-  --c-text-sub: #444;
-  --c-text-mute: #888;
-  --c-border: #ddd;
-  --c-line: #e8f2fe;
-  --c-recent-bd: #ececec;
+  --c-primary-deep: #0b46ca;
+  --c-primary-95: #001351;
+  --c-primary-20: #c2dbff;
+  --c-cyan: #23aed6;
+  --c-lnb: #f0f5ff;
+  --c-util: #e1edff;
+  --c-hdr: #f0f5ff;
+  --c-masthead: #eef2f7;
+  --c-text: #131416;
+  --c-text-basic: #1e2124;
+  --c-text-sub: #58616a;
+  --c-text-lnb: #313131;
+  --c-text-hdr: #444;
+  --c-gray-70: #464c53;
+  --c-scroll: #c3c8cd;
+  --c-scroll-track: #eee;
+  --c-line: #eee;
+  --c-check: #6b778e;
   --c-white: #fff;
   --c-map: #e8eef5;
-  --c-point: #007aff;
-  --c-badge: #006ee6;
-  --c-select: #b4b4b4;
-  --c-card-bd: #ecedef;
-  --c-meta-line: #e5e5e5;
+  --c-status: rgba(0, 32, 122, 0.6);
+  --c-filter-from: #4441b5;
+  --c-filter-to: #d4669f;
 
   /* size */
-  --lnb-w: 76px;
+  --masthead-h: 32px;
+  --lnb-w: 70px;
   --panel-w: 360px;
-  --hdr-h: 70px;
-  --item-h: 80px;
+  --hdr-h: 60px;
+  --item-h: 90px;
+  --handle-w: 20px;
 
   /* radius */
-  --r-sm: 6px;
+  --r-sm: 4px;
   --r-md: 8px;
   --r-lg: 12px;
-  --r-pill: 24px;
+  --r-pill: 20px;
+  --shell-dur: 0.32s;
+  --shell-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* font */
-  --font: 'Pretendard GOV', 'Pretendard', sans-serif;
+  --font: 'Pretendard GOV', sans-serif;
   --shadow-lnb: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
-  --shadow-tab: 1px 2px 6px rgba(0, 0, 0, 0.12);
+  --shadow-shell: 3px 0 5px rgba(0, 0, 0, 0.15);
+  --shadow-search: 2px 2px 1.5px rgba(0, 0, 0, 0.15);
+  --shadow-layer: 0 2px 2px rgba(0, 0, 0, 0.1);
+  --grad-search: linear-gradient(101.15deg, #23aed6 0%, #175eec 102.73%);
+  --grad-filter: linear-gradient(101.15deg, #4441b5 0%, #d4669f 102.73%);
+  --grad-panel: linear-gradient(180deg, #f0f5ff 0%, #fff 50%);
 }

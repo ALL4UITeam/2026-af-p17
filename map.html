@@ -9,26 +9,38 @@
 <body>
   <a href="#mainMap" class="skip">본문 바로가기</a>
 
-  <div class="app" id="app">
+  {{> masthead}}
+
+  <div class="app is-open" id="app">
     <div class="shell">
-      {{> hdr}}
-      <div class="shell-body">
-        {{> lnb}}
-        {{> panel}}
-        {{> tour}}
+      <div class="shell__main">
+        {{> hdr}}
+        <div class="shell-body">
+          {{> lnb}}
+          {{> panel}}
+        </div>
       </div>
-    </div>
-    {{> detail}}
-    <main class="stage" id="mainMap" tabindex="-1" aria-label="지도 영역">
-      <h1 class="sr-only">통합 해양공간 GIS 플랫폼 지도</h1>
-      <img class="stage__map" src="./src/assets/img/map-view.png" alt="해양공간 지도 화면">
-      {{> quick}}
-      {{> tools}}
-      <button type="button" class="handle" id="panelHandle" aria-label="패널 접기" aria-controls="searchPanel tourPanel">
-        <img src="./src/assets/tool/handle.svg" alt="" aria-hidden="true">
+      <button
+        type="button"
+        class="handle"
+        id="panelHandle"
+        aria-label="패널 접기"
+        aria-controls="layerPanel"
+        aria-expanded="true"
+      >
+        <span class="handle__ico" aria-hidden="true">
+          <img src="./src/assets/img/icon/handle-arrow.svg" width="7" height="12" alt="">
+        </span>
       </button>
+    </div>
+
+    <main class="stage" id="mainMap" tabindex="-1" aria-label="지도 영역">
+      <h1 class="sr-only">해양수산공간정보플랫폼 지도</h1>
+      <img class="stage__map" src="./src/assets/img/map-view.png" alt="">
+      {{> tools}}
     </main>
   </div>
+
   <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
   <script type="module" src="./src/js/map.js"></script>
 </body>

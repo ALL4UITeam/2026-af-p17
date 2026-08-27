@@ -3,72 +3,63 @@
     <li>
       <button
         type="button"
-        class="lnb__item"
-        data-menu="search"
-        aria-controls="searchPanel"
-        aria-expanded="false"
-        aria-current="false"
+        class="lnb__item lnb__item--on"
+        data-menu="map"
+        aria-current="page"
       >
-        <img class="lnb__ico" src="./src/assets/icon/lnb-search.svg" alt="" aria-hidden="true">
-        <img class="lnb__ico-on" src="./src/assets/icon/lnb-search-on.svg" alt="" aria-hidden="true">
-        <span class="lnb__label">통합검색</span>
-      </button>
-    </li>
-    <li>
-      <button type="button" class="lnb__item" data-menu="map" aria-current="false">
-        <img class="lnb__ico" src="./src/assets/icon/lnb-map.svg" alt="" aria-hidden="true">
-        <span class="lnb__label">해양공간<br>지도</span>
-      </button>
-    </li>
-    <li>
-      <button type="button" class="lnb__item" data-menu="plan" aria-current="false">
-        <img class="lnb__ico" src="./src/assets/icon/lnb-plan.svg" alt="" aria-hidden="true">
-        <span class="lnb__label">해양공간<br>관리계획</span>
+        <span class="lnb__bg" aria-hidden="true">
+          <img src="./src/assets/img/lnb-active.png" alt="">
+        </span>
+        <span class="lnb__circle" aria-hidden="true">
+          <img src="./src/assets/img/icon/lnb-info.svg" alt="">
+        </span>
+        <span class="lnb__label">해양공간<br>정보지도</span>
       </button>
     </li>
     <li>
       <button type="button" class="lnb__item" data-menu="research" aria-current="false">
-        <img class="lnb__ico" src="./src/assets/icon/lnb-research.svg" alt="" aria-hidden="true">
+        <span class="lnb__bg" aria-hidden="true">
+          <img src="./src/assets/img/lnb-active.png" alt="">
+        </span>
+        <span class="lnb__circle" aria-hidden="true">
+          <img src="./src/assets/img/icon/lnb-research.svg" alt="">
+        </span>
         <span class="lnb__label">연구분석<br>서비스</span>
       </button>
     </li>
     <li>
-      <button
-        type="button"
-        class="lnb__item"
-        data-menu="tour"
-        aria-controls="tourPanel"
-        aria-expanded="false"
-        aria-current="false"
-      >
-        <img class="lnb__ico" src="./src/assets/icon/lnb-tour.svg" alt="" aria-hidden="true">
-        <img class="lnb__ico-on" src="./src/assets/icon/lnb-tour-on.svg" alt="" aria-hidden="true">
-        <span class="lnb__label">관광정보<br>지도</span>
-      </button>
-    </li>
-    <li>
-      <button type="button" class="lnb__item" data-menu="info" aria-current="false">
-        <img class="lnb__ico" src="./src/assets/icon/lnb-info.svg" alt="" aria-hidden="true">
-        <span class="lnb__label">해양공간<br>정보지도</span>
+      <button type="button" class="lnb__item" data-menu="twin" aria-current="false">
+        <span class="lnb__bg" aria-hidden="true">
+          <img src="./src/assets/img/lnb-active.png" alt="">
+        </span>
+        <span class="lnb__circle" aria-hidden="true">
+          <img src="./src/assets/img/icon/lnb-twin.svg" alt="">
+        </span>
+        <span class="lnb__label">해양<br>디지털트윈</span>
       </button>
     </li>
   </ul>
 
-  <div class="lnb__util" aria-label="유틸리티 메뉴">
+  <div class="lnb__util" aria-label="부가 메뉴">
     <button type="button" class="lnb__util-btn">
       <span class="lnb__util-ico" aria-hidden="true">
-        <img src="./src/assets/icon/catalog.svg" alt="">
+        <img src="./src/assets/img/icon/tour.svg" alt="">
+      </span>
+      관광정보
+    </button>
+    <span class="lnb__line" aria-hidden="true"></span>
+    <button type="button" class="lnb__util-btn">
+      <span class="lnb__util-ico" aria-hidden="true">
+        <img src="./src/assets/img/icon/catalog.svg" alt="">
       </span>
       카달로그
     </button>
-    <div class="lnb__line" aria-hidden="true">
-      <img src="./src/assets/icon/util-line.svg" alt="">
-    </div>
+    <span class="lnb__line" aria-hidden="true"></span>
     <button type="button" class="lnb__util-btn">
-      <span class="lnb__util-ico lnb__util-ico--lg" aria-hidden="true">
-        <img src="./src/assets/icon/mymenu.svg" alt="">
+      <span class="lnb__util-ico" aria-hidden="true">
+        <img src="./src/assets/img/icon/grid.svg" alt="">
       </span>
-      로그인
+      나의 메뉴
     </button>
   </div>
 </nav>

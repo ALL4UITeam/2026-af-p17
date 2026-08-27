@@ -6,10 +6,80 @@ import handlebars from 'vite-plugin-handlebars'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+function pad2(n) {
+  return String(n).padStart(2, '0')
+}
+
+function mockLeaves(count, name) {
+  return Array.from({ length: count }, (_, i) => ({
+    ico: pad2((i % 16) + 1),
+    name: `${name} ${pad2(i + 1)}`,
+  }))
+}
+
+const mapGroups = [
+  {
+    id: 'grpSafety',
+    name: '해양안전·관리',
+    count: 16,
+    open: true,
+    leaves: [
+      { ico: '01', name: '와류' },
+      { ico: '02', name: '묘박지' },
+      { ico: '03', name: '선박사고' },
+      { ico: '04', name: '인명사고' },
+      { ico: '05', name: '추천항로접속항로' },
+      { ico: '06', name: '추천항로연결항로' },
+      { ico: '07', name: '추천항로전체항로' },
+      { ico: '08', name: '침선' },
+      { ico: '09', name: '해월전선' },
+      { ico: '10', name: '통항분리수역' },
+      { ico: '11', name: '해일위험지구' },
+      { ico: '12', name: '시운전금지해역' },
+      { ico: '13', name: '통항분리경계' },
+      { ico: '14', name: '선박교통관제구역' },
+      { ico: '15', name: '수난구호관할구역' },
+      { ico: '16', name: '유조선통항금지해역' },
+    ],
+  },
+  { id: 'grpEco', name: '해양·환경생태', count: 26 },
+  { id: 'grpPort', name: '항만·항행', count: 11 },
+  { id: 'grpFish', name: '어업활동', count: 12 },
+  { id: 'grpTour', name: '해양관광', count: 9 },
+  { id: 'grpEnergy', name: '해양에너지', count: 1 },
+  { id: 'grpMilitary', name: '군사활동', count: 1 },
+  { id: 'grpZone', name: '해양용도구역', count: 1 },
+  { id: 'grpMineral', name: '골재·광물', count: 6 },
+  { id: 'grpWater', name: '해양수자원', count: 6 },
+  { id: 'grpBase', name: '기본공간정보', count: 9 },
+  { id: 'grpStat', name: '해양수산통계', count: 8 },
+  { id: 'grpSpace', name: '해양공간', count: 3 },
+  { id: 'grpShare', name: '공유수면', count: 1 },
+  { id: 'grpPolicy', name: '정책활용지도', count: 25 },
+  { id: 'grpNondigital', name: '비디지털', count: 132 },
+  { id: 'grpObs', name: '관측자료(원자료)', count: 16 },
+  { id: 'grpFusion', name: '융합데이터', count: 10 },
+  { id: 'grpBiz', name: '사업정보', count: 2 },
+].map((group) => ({
+  ...group,
+  leaves: group.leaves ?? mockLeaves(group.count, group.name),
+}))
+
 const pageData = {
   '/map.html': {
-    title: '통합 해양공간 GIS 플랫폼',
-    description: '통합 해양공간 GIS 플랫폼 - 지도',
+    title: '해양수산공간정보플랫폼',
+    description: '해양수산공간정보플랫폼 - 지도',
+    mapGroups,
+    treeCats: [
+      '골재·광물자원특성평가',
+      '에너지개발특성평가',
+      '해양관광특성평가',
+      '환경·생태계특성평가',
+      '연구·교육보전특성평가',
+      '항만·항행특성평가',
+      '군사활동특성평가',
+      '안전관리특성평가',
+    ],
   },
   '/inter-SFR-001-02.html': {
     title: 'SFR-001-02 | 내부망',

@@ -35,6 +35,10 @@ img {
   max-width: 100%;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 ul {
   margin: 0;
   padding: 0;

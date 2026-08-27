@@ -1,37 +1,38 @@
 <div class="tools" role="toolbar" aria-label="지도 도구" aria-orientation="vertical">
   <div class="tools__list">
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/space.svg" alt=""></span>
-      공간검색
-    </button>
-    <button type="button" class="tools__item tools__item--on" aria-pressed="true">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/layer.svg" alt=""></span>
-      레이어
-    </button>
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/basemap.svg" alt=""></span>
+    <button type="button" class="tools__item tools__item--on" data-tool="basemap" aria-pressed="true">
+      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/img/tool/basemap.svg" alt=""></span>
       배경지도
     </button>
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/fullmap.svg" alt=""></span>
+    <button type="button" class="tools__item" data-tool="fullmap" aria-pressed="false">
+      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/img/tool/fullmap.svg" alt=""></span>
       전체지도
     </button>
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/dist.svg" alt=""></span>
+    <button type="button" class="tools__item" data-tool="dist" aria-pressed="false">
+      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/img/tool/dist.svg" alt=""></span>
       거리재기
     </button>
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/area.svg" alt=""></span>
+    <button type="button" class="tools__item" data-tool="area" aria-pressed="false">
+      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/img/tool/area.svg" alt=""></span>
       면적재기
     </button>
-    <button type="button" class="tools__item" aria-pressed="false">
-      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/tool/refresh.svg" alt=""></span>
+    <button type="button" class="tools__item" data-tool="refresh">
+      <span class="tools__ico" aria-hidden="true"><img src="./src/assets/img/tool/refresh.svg" alt=""></span>
       새로고침
     </button>
+  </div>
 
-    <div class="zoom" id="mapZoom" data-max="12" role="group" aria-label="지도 확대 축소">
+  <div class="tools__foot">
+    <button type="button" class="tools__legend" data-tool="legend" aria-pressed="false">
+      <span class="tools__legend-ico" aria-hidden="true">
+        <img src="./src/assets/img/tool/legend.svg" alt="">
+      </span>
+      범례
+    </button>
+
+    <div class="zoom" id="mapZoom" data-max="9" role="group" aria-label="지도 확대 축소">
       <button type="button" class="zoom__btn" data-zoom="in" aria-label="지도 확대">
-        <img src="./src/assets/tool/zoomin.svg" alt="" aria-hidden="true">
+        <img src="./src/assets/img/tool/zoomin.svg" alt="" aria-hidden="true">
       </button>
       <div class="zoom__rail" data-zoom-rail>
         <div class="zoom__track" aria-hidden="true"></div>
@@ -44,43 +45,53 @@
           aria-label="줌 레벨"
           aria-orientation="vertical"
           aria-valuemin="0"
-          aria-valuemax="12"
-          aria-valuenow="6"
-          aria-valuetext="줌 레벨 6"
+          aria-valuemax="9"
+          aria-valuenow="5"
+          aria-valuetext="줌 레벨 5"
         ></div>
       </div>
       <button type="button" class="zoom__btn" data-zoom="out" aria-label="지도 축소">
-        <img src="./src/assets/tool/zoomout.svg" alt="" aria-hidden="true">
+        <img src="./src/assets/img/tool/zoomout.svg" alt="" aria-hidden="true">
       </button>
+      <div class="zoom__lv" data-zoom-lv aria-hidden="true">Lv.5</div>
     </div>
   </div>
 </div>
 
-<button type="button" class="layer-pop" aria-label="레이어 리스트 52개 열기" aria-haspopup="dialog">
-  <span class="layer-pop__box">
-    <span class="layer-pop__left">
-      <img src="./src/assets/tool/layer-ico.svg" alt="" aria-hidden="true">
-      <strong>레이어 리스트</strong>
-      <span aria-hidden="true">52</span>
+<div class="status" role="status" aria-label="지도 위치 정보">
+  <div class="status__loc">
+    <div class="status__select">
+      <button
+        type="button"
+        class="status__fmt-btn"
+        id="coordFormatBtn"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="coordFormatList"
+        aria-label="좌표 형식"
+      >
+        <span class="status__fmt-txt">경위도</span>
+        <span class="status__chev" aria-hidden="true">
+          <img src="./src/assets/img/icon/status-chevron.svg" alt="">
+        </span>
+      </button>
+      <ul class="status__opts" id="coordFormatList" role="listbox" aria-labelledby="coordFormatBtn" hidden>
+        <li role="option" aria-selected="true" data-value="dms" tabindex="-1">경위도</li>
+        <li role="option" aria-selected="false" data-value="dec" tabindex="-1">십진경위도</li>
+        <li role="option" aria-selected="false" data-value="tm" tabindex="-1">TM</li>
+      </ul>
+    </div>
+    <span class="status__coord">
+      <span class="status__ico" aria-hidden="true">
+        <img src="./src/assets/img/icon/status-coord.svg" alt="">
+      </span>
+      <span class="status__coord-txt">36°27′14.8″N · 127°55′19.9″E</span>
     </span>
-    <img class="layer-pop__chev" src="./src/assets/tool/layer-arr.svg" alt="" aria-hidden="true">
-  </span>
-  <img class="layer-pop__tip" src="./src/assets/tool/pop-arr.svg" alt="" aria-hidden="true">
-</button>
-
-<div class="status" role="status" aria-label="지도 상태 정보">
-  <button type="button" class="status__btn">
-    <img src="./src/assets/tool/legend.svg" alt="" aria-hidden="true">
-    범례
-  </button>
-  <div class="status__info">
-    <img src="./src/assets/tool/coord.svg" alt="" aria-hidden="true">
-    <span>좌표 <span class="sr-only">:</span> 36°27′14.8″N · 127°55′19.9″E</span>
+    <button type="button" class="status__find">검색</button>
   </div>
-  <div class="status__info">
-    <span>축척 <span class="sr-only">:</span> 1:250,000</span>
-  </div>
-  <div class="status__scale" aria-label="축척 막대 20킬로미터">
-    <span aria-hidden="true">20km</span>
+  <div class="status__chip">WGS84</div>
+  <div class="status__chip">1:250,000</div>
+  <div class="status__scale" aria-label="축척 막대 50킬로미터">
+    <span aria-hidden="true">50km</span>
   </div>
 </div>
