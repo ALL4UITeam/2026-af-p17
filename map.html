@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
+  <link rel="stylesheet" href="./src/scss/map-mo.scss">
 </head>
 <body>
   <a href="#mainMap" class="skip">본문 바로가기</a>
 
   {{> masthead}}
+  {{> mo-hdr}}
 
   <div class="app is-open" id="app">
     <div class="shell">
@@ -38,10 +40,14 @@
       <h1 class="sr-only">해양수산공간정보플랫폼 지도</h1>
       <img class="stage__map" src="./src/assets/img/map-view.png" alt="">
       {{> tools}}
+      {{> mo-tools}}
+      {{> mo-sheet}}
     </main>
   </div>
 
+  {{> mo-menu}}
   <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  {{> pop-meta}}
   <script type="module" src="./src/js/map.js"></script>
 </body>
 </html>

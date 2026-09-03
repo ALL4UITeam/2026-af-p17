@@ -123,6 +123,131 @@
             </table>
           </div>
 
+          <!-- 26.09.03 추가: 어업면허 그리드 + 불러오기 -->
+          <div class="i-fish">
+            <div class="i-fish__toolbar">
+              <button type="button" class="i-btn i-btn--solid i-btn--sm" id="btnFishLoad" onclick="$('#fishSpaceModal').fadeIn(); return false;">불러오기</button>
+              <button type="button" class="i-row-btn i-row-btn--add" id="btnFishRowAdd">+ 추가</button>
+              <button type="button" class="i-row-btn i-row-btn--del" id="btnFishRowDel">- 삭제</button>
+            </div>
+
+            <div class="i-fish__tbl">
+              <table>
+                <caption>어업면허 현황 목록</caption>
+                <colgroup>
+                  <col style="width: 44px">
+                  <col style="width: 100px">
+                  <col style="width: 120px">
+                  <col style="width: 80px">
+                  <col>
+                  <col style="width: 72px">
+                  <col style="width: 210px">
+                  <col style="width: 180px">
+                  <col style="width: 160px">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <label class="i-check">
+                        <input type="checkbox" id="fishGridCheckAll" title="전체 선택">
+                      </label>
+                    </th>
+                    <th scope="col" class="is-req">시군구명</th>
+                    <th scope="col" class="is-req">어업종류</th>
+                    <th scope="col" class="is-req">구분</th>
+                    <th scope="col" class="is-req">위치</th>
+                    <th scope="col" class="is-req">면적(ha)</th>
+                    <th scope="col" class="is-req">면허기간</th>
+                    <th scope="col" class="is-req">해양용도구역</th>
+                    <th scope="col" class="is-req">해양공간적합성협의 결과</th>
+                  </tr>
+                </thead>
+                <tbody id="fishGridBody">
+                  <tr>
+                    <td>
+                      <label class="i-check"><input type="checkbox" name="fishGridPick"></label>
+                    </td>
+                    <td>
+                      <select class="form-control" title="시군구명">
+                        <option value="">선택</option>
+                        <option value="OO군" selected>OO군</option>
+                        <option value="홍성군">홍성군</option>
+                        <option value="태안군">태안군</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="form-control" title="어업종류" value="해조류양식어업"></td>
+                    <td><input type="text" class="form-control" title="구분" value="면허"></td>
+                    <td><input type="text" class="form-control" title="위치" value="보길면 예송리선착장 인근"></td>
+                    <td><input type="text" class="form-control" title="면적(ha)" value="12.5"></td>
+                    <td>
+                      <div class="i-fish__period">
+                        <div class="i-form__date">
+                          <input type="text" class="form-control datepicker" title="시작일자" value="2008-07-16" readonly>
+                          <button type="button" class="i-form__cal" aria-label="시작일자 달력 열기"><span class="i-form__cal-ico" aria-hidden="true"></span></button>
+                        </div>
+                        <span class="i-search__tilde" aria-hidden="true">~</span>
+                        <div class="i-form__date">
+                          <input type="text" class="form-control datepicker" title="종료일자" value="2024-10-31" readonly>
+                          <button type="button" class="i-form__cal" aria-label="종료일자 달력 열기"><span class="i-form__cal-ico" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul class="i-fish__zones" role="group" aria-label="해양용도구역">
+                        <li><label class="i-fish__zone"><input type="checkbox" checked> 어업활동보호구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 골재·광물자원개발구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 에너지개발구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 해양관광구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 환경·생태계관리구역</label></li>
+                      </ul>
+                    </td>
+                    <td><input type="text" class="form-control" title="해양공간적합성협의 결과" value="22년 협의 불요 (기개발)"></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="i-check"><input type="checkbox" name="fishGridPick"></label>
+                    </td>
+                    <td>
+                      <select class="form-control" title="시군구명">
+                        <option value="" selected>선택</option>
+                        <option value="OO군">OO군</option>
+                        <option value="홍성군">홍성군</option>
+                        <option value="태안군">태안군</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="form-control" title="어업종류"></td>
+                    <td><input type="text" class="form-control" title="구분"></td>
+                    <td><input type="text" class="form-control" title="위치"></td>
+                    <td><input type="text" class="form-control" title="면적(ha)"></td>
+                    <td>
+                      <div class="i-fish__period">
+                        <div class="i-form__date">
+                          <input type="text" class="form-control datepicker" title="시작일자" readonly>
+                          <button type="button" class="i-form__cal" aria-label="시작일자 달력 열기"><span class="i-form__cal-ico" aria-hidden="true"></span></button>
+                        </div>
+                        <span class="i-search__tilde" aria-hidden="true">~</span>
+                        <div class="i-form__date">
+                          <input type="text" class="form-control datepicker" title="종료일자" readonly>
+                          <button type="button" class="i-form__cal" aria-label="종료일자 달력 열기"><span class="i-form__cal-ico" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul class="i-fish__zones" role="group" aria-label="해양용도구역">
+                        <li><label class="i-fish__zone"><input type="checkbox"> 어업활동보호구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 골재·광물자원개발구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 에너지개발구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 해양관광구역</label></li>
+                        <li><label class="i-fish__zone"><input type="checkbox"> 환경·생태계관리구역</label></li>
+                      </ul>
+                    </td>
+                    <td><input type="text" class="form-control" title="해양공간적합성협의 결과"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <footer class="i-panel__foot">
             <a href="./inter-SFR-006-01-04.html" class="i-btn i-btn--solid">이전</a>
             <button type="button" class="i-btn i-btn--ghost">임시저장</button>
@@ -133,6 +258,36 @@
     </div>
   </div>
 
+  {{> i-modal-fish}}
+
   <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script>
+    $(function () {
+      /* 팝업 · 체크박스 — 행 추가/삭제·확인 반영은 개발 연동 */
+      $('#fishSpaceModal .st_container').draggable({
+        handle: '.fish-modal__head',
+        containment: 'window'
+      });
+
+      $('#fishGridCheckAll').on('change', function () {
+        $('#fishGridBody input[name="fishGridPick"]').prop('checked', this.checked);
+      });
+
+      $('#fishSpaceCheckAll').on('change', function () {
+        $('#fishSpaceBody input[name="fishSpacePick"]').prop('checked', this.checked);
+        $('#fishSpaceBody tr').toggleClass('is-on', this.checked);
+      });
+
+      $('#fishSpaceBody').on('change', 'input[name="fishSpacePick"]', function () {
+        $(this).closest('tr').toggleClass('is-on', this.checked);
+        var all = $('#fishSpaceBody input[name="fishSpacePick"]').length;
+        var on = $('#fishSpaceBody input[name="fishSpacePick"]:checked').length;
+        $('#fishSpaceCheckAll').prop('checked', all > 0 && all === on);
+      });
+    });
+  </script>
 </body>
 </html>

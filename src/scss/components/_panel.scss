@@ -404,6 +404,17 @@
     height: 18px;
     overflow: hidden;
     border-radius: 4px;
+    cursor: pointer;
+
+    &[aria-pressed='true'] {
+      .sub__add-plus {
+        display: none;
+      }
+
+      .sub__add-minus {
+        display: block;
+      }
+    }
   }
 
   &__add-ico {
@@ -416,6 +427,10 @@
       height: 100%;
       object-fit: contain;
     }
+  }
+
+  &__add-minus {
+    display: none;
   }
 
   &__toggle {

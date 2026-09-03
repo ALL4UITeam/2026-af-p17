@@ -1,0 +1,31 @@
+{{!-- 모바일 지도 플로팅 도구 — Figma tool --}}
+<div class="mo-float" aria-label="모바일 지도 도구">
+  <button type="button" class="mo-suggest" aria-label="추천레이어">
+    <img src="./src/assets/img/mo/suggest.svg" width="16" height="16" alt="" aria-hidden="true">
+    <span>추천레이어</span>
+    <img src="./src/assets/img/icon/chevron.svg" width="12" height="12" alt="" aria-hidden="true">
+  </button>
+
+  <div class="mo-tools" role="toolbar" aria-label="지도 도구" aria-orientation="vertical">
+    <button type="button" class="mo-tools__btn mo-tools__btn--on" data-mo-tool="layer" aria-pressed="true">
+      <img src="./src/assets/img/mo/tool-layer.svg" width="16" height="16" alt="" aria-hidden="true">
+      <span>레이어</span>
+    </button>
+    <button type="button" class="mo-tools__btn" data-mo-tool="basemap" aria-pressed="false">
+      <img src="./src/assets/img/mo/tool-pin.svg" width="16" height="16" alt="" aria-hidden="true">
+      <span>배경지도</span>
+    </button>
+    <button type="button" class="mo-tools__btn" data-mo-tool="fullmap" aria-pressed="false">
+      <img src="./src/assets/img/mo/tool-map.svg" width="16" height="16" alt="" aria-hidden="true">
+      <span>전체지도</span>
+    </button>
+    <div class="mo-zoom" role="group" aria-label="지도 확대 축소">
+      <button type="button" class="mo-zoom__btn" data-mo-zoom="in" aria-label="지도 확대">
+        <img src="./src/assets/img/mo/plus.svg" width="16" height="16" alt="" aria-hidden="true">
+      </button>
+      <button type="button" class="mo-zoom__btn" data-mo-zoom="out" aria-label="지도 축소">
+        <img src="./src/assets/img/mo/minus.svg" width="16" height="16" alt="" aria-hidden="true">
+      </button>
+    </div>
+  </div>
+</div>

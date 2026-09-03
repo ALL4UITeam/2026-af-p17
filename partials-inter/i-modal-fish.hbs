@@ -1,0 +1,118 @@
+{{!-- 어업면허 공간 조회 및 선택 — 불러오기 --}}
+<section class="modal _content draggable" id="fishSpaceModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--fish">
+      <header class="fish-modal__head">
+        <h1 id="fishSpaceTitle">어업면허 공간 조회 및 선택</h1>
+        <button type="button" class="fish-modal__close" title="창닫기" aria-label="창닫기" onclick="$('#fishSpaceModal').fadeOut();"></button>
+      </header>
+
+      <div class="fish-modal__body">
+        <div class="fish-modal__meta">
+          <p class="fish-modal__sum">총 <strong id="fishSpaceSel">7</strong>건 중 선택 반영</p>
+          <p class="fish-modal__hint">* 체크박스를 선택하여 반영할 어업면허 데이터를 지정하세요.</p>
+        </div>
+
+        <div class="tbl-wrap fish-modal__tbl">
+          <table>
+            <caption>어업면허 공간 목록</caption>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <label class="i-check">
+                    <input type="checkbox" id="fishSpaceCheckAll" title="전체 선택">
+                  </label>
+                </th>
+                <th scope="col">일련번호</th>
+                <th scope="col">시군구코드</th>
+                <th scope="col">시군구명</th>
+                <th scope="col">어업종류코드</th>
+                <th scope="col">시도명</th>
+                <th scope="col">관련부서명</th>
+                <th scope="col">개정년도</th>
+                <th scope="col">어업면허명</th>
+                <th scope="col">어업유형명</th>
+                <th scope="col">어업방법명</th>
+                <th scope="col">양식품종</th>
+              </tr>
+            </thead>
+            <tbody id="fishSpaceBody">
+              <tr class="is-on">
+                <td><label class="i-check"><input type="checkbox" name="fishSpacePick" value="83001" data-sigungu="충청남도 홍성군" data-type="양식어업" data-method="살포식" data-species="바지락" checked></label></td>
+                <td><button type="button" class="fish-modal__id">83001</button></td>
+                <td>44800</td>
+                <td>충청남도 홍성군</td>
+                <td>FS002</td>
+                <td>충청남도</td>
+                <td>해양수산과</td>
+                <td>2023</td>
+                <td>양식어업</td>
+                <td>TY003</td>
+                <td>살포식</td>
+                <td>바지락</td>
+              </tr>
+              <tr>
+                <td><label class="i-check"><input type="checkbox" name="fishSpacePick" value="82008" data-sigungu="충청남도 태안군" data-type="양식어업" data-method="바닥식/살포식" data-species="전복"></label></td>
+                <td><button type="button" class="fish-modal__id">82008</button></td>
+                <td>44825</td>
+                <td>충청남도 태안군</td>
+                <td>FS002</td>
+                <td>충청남도</td>
+                <td>수산과</td>
+                <td>2023</td>
+                <td>양식어업</td>
+                <td>TY004</td>
+                <td>바닥식/살포식</td>
+                <td>전복</td>
+              </tr>
+              <tr>
+                <td><label class="i-check"><input type="checkbox" name="fishSpacePick" value="82003" data-sigungu="충청남도 태안군" data-type="양식어업" data-method="바닥식/살포식" data-species="해삼"></label></td>
+                <td><button type="button" class="fish-modal__id">82003</button></td>
+                <td>44825</td>
+                <td>충청남도 태안군</td>
+                <td>FS002</td>
+                <td>충청남도</td>
+                <td>수산과</td>
+                <td>2023</td>
+                <td>양식어업</td>
+                <td>TY004</td>
+                <td>바닥식/살포식</td>
+                <td>해삼</td>
+              </tr>
+              <tr>
+                <td><label class="i-check"><input type="checkbox" name="fishSpacePick" value="80011" data-sigungu="충청남도 서산시" data-type="양식어업" data-method="간이식" data-species="김"></label></td>
+                <td><button type="button" class="fish-modal__id">80011</button></td>
+                <td>44210</td>
+                <td>충청남도 서산시</td>
+                <td>FS002</td>
+                <td>충청남도</td>
+                <td>해양수산과</td>
+                <td>2022</td>
+                <td>양식어업</td>
+                <td>TY003</td>
+                <td>간이식</td>
+                <td>김</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="fish-modal__page">총 14,852건 중 8번째부터 15번째까지 표시</p>
+
+        <div class="fish-modal__map" aria-label="어업면허 공간 지도">
+          <div class="fish-modal__zoom" role="group" aria-label="지도 확대 축소">
+            <button type="button" aria-label="확대">+</button>
+            <button type="button" aria-label="축소">−</button>
+          </div>
+          <img src="./src/assets/img/map-view.png" alt="어업면허 공간 지도(목업)">
+        </div>
+      </div>
+
+      <div class="fish-modal__foot">
+        <button type="button" class="i-btn i-btn--ghost" id="btnFishSpaceCancel" onclick="$('#fishSpaceModal').fadeOut();">취소</button>
+        <button type="button" class="i-btn i-btn--primary" id="btnFishSpaceOk" onclick="$('#fishSpaceModal').fadeOut();">확인</button>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#fishSpaceModal').fadeOut();"></div>
+  </div>
+</section>

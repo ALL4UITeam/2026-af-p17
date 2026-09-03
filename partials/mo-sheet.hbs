@@ -1,0 +1,116 @@
+{{!-- 모바일 바텀시트 — 공간정보 목록 --}}
+<div class="mo-sheet" id="moSheet" data-state="closed">
+  <button
+    type="button"
+    class="mo-sheet__handle"
+    id="moSheetHandle"
+    aria-label="공간정보 목록 펼치기"
+    aria-expanded="false"
+    aria-controls="moSheetBody"
+  >
+    <img class="mo-sheet__handle-ico" src="./src/assets/img/mo/sheet-up.svg" width="16" height="16" alt="" aria-hidden="true">
+  </button>
+
+  <div class="mo-sheet__tip" id="moSheetTip">
+    <button type="button" class="mo-sheet__tip-btn" id="moSheetOpen">
+      <img src="./src/assets/img/mo/list.svg" width="30" height="30" alt="" aria-hidden="true">
+      <span>공간정보 목록을 보려면 클릭하세요.</span>
+    </button>
+  </div>
+
+  <div class="mo-sheet__body" id="moSheetBody" hidden>
+    <div class="mo-sheet__peek" id="moSheetPeek">
+      <button
+        type="button"
+        class="mo-depth"
+        data-depth="class"
+        aria-expanded="false"
+        aria-controls="moDepthClass"
+      >
+        <span class="mo-depth__left">
+          <img src="./src/assets/img/mo/layer-ico.svg" width="24" height="24" alt="" aria-hidden="true">
+          <span class="mo-depth__name">해양수산정보 분류체계</span>
+        </span>
+        <span class="mo-depth__right">
+          <span class="mo-depth__count">{{mapGroupCount}}</span>
+          <img class="mo-depth__chev" src="./src/assets/img/icon/chevron-down.svg" width="16" height="16" alt="" aria-hidden="true">
+        </span>
+      </button>
+      <button
+        type="button"
+        class="mo-depth"
+        data-depth="theme"
+        aria-expanded="false"
+        aria-controls="moDepthTheme"
+      >
+        <span class="mo-depth__left">
+          <img src="./src/assets/img/mo/layer-ico.svg" width="24" height="24" alt="" aria-hidden="true">
+          <span class="mo-depth__name">해양공간 주제정보</span>
+        </span>
+        <span class="mo-depth__right">
+          <span class="mo-depth__count">{{treeCatCount}}</span>
+          <img class="mo-depth__chev" src="./src/assets/img/icon/chevron-down.svg" width="16" height="16" alt="" aria-hidden="true">
+        </span>
+      </button>
+    </div>
+
+    <div class="mo-sheet__panel" id="moDepthClass" hidden>
+      <div class="mo-sheet__head">
+        <span class="mo-sheet__head-left">
+          <img src="./src/assets/img/mo/layer-ico.svg" width="24" height="24" alt="" aria-hidden="true">
+          <strong>해양수산정보 분류체계</strong>
+        </span>
+        <span class="mo-sheet__head-right">
+          <span class="mo-depth__count mo-depth__count--on">{{mapGroupCount}}</span>
+          <button type="button" class="mo-sheet__collapse" data-collapse="class" aria-label="해양수산정보 분류체계 접기">
+            <img src="./src/assets/img/icon/chevron-down-on.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+        </span>
+      </div>
+      <ul class="mo-groups" role="list">
+        {{#each mapGroups}}
+        <li>
+          <div class="mo-group">
+            <span class="mo-group__name">{{name}}</span>
+            <span class="mo-group__acts">
+              <span class="mo-depth__count">{{count}}</span>
+              <button type="button" class="mo-group__add" aria-label="{{name}} 펼치기" aria-expanded="false" data-group="{{id}}">
+                <img src="./src/assets/img/mo/plus.svg" width="16" height="16" alt="" aria-hidden="true">
+              </button>
+            </span>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="mo-sheet__panel" id="moDepthTheme" hidden>
+      <div class="mo-sheet__head">
+        <span class="mo-sheet__head-left">
+          <img src="./src/assets/img/mo/layer-ico.svg" width="24" height="24" alt="" aria-hidden="true">
+          <strong>해양공간 주제정보</strong>
+        </span>
+        <span class="mo-sheet__head-right">
+          <span class="mo-depth__count mo-depth__count--on">{{treeCatCount}}</span>
+          <button type="button" class="mo-sheet__collapse" data-collapse="theme" aria-label="해양공간 주제정보 접기">
+            <img src="./src/assets/img/icon/chevron-down-on.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+        </span>
+      </div>
+      <ul class="mo-groups" role="list">
+        {{#each treeCats}}
+        <li>
+          <div class="mo-group">
+            <span class="mo-group__name">{{this}}</span>
+            <span class="mo-group__acts">
+              <button type="button" class="mo-group__add" aria-label="{{this}} 펼치기" aria-expanded="false">
+                <img src="./src/assets/img/mo/plus.svg" width="16" height="16" alt="" aria-hidden="true">
+              </button>
+            </span>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,13 @@ const FRAME = { width: 1280, label: 'PC' }
 
 const PAGE_GROUPS = [
   {
+    title: '지도',
+    items: [
+      { id: '01', name: '지도', file: 'map.html', ready: true },
+      { id: 'g1', name: 'MAP 스크립트 가이드', file: 'guide-map.html', ready: true },
+    ],
+  },
+  {
     title: '내부망',
     items: [
       { id: '601', name: '01 기본정보', file: 'inter-SFR-006-01-01.html', ready: true },
@@ -35,7 +42,7 @@ const sizeLabel = document.getElementById('viewerSizeLabel')
 const pageCount = document.getElementById('viewerPageCount')
 const openTabBtn = document.getElementById('viewerOpenTab')
 
-let currentFile = 'inter-SFR-006-01-01.html'
+let currentFile = 'map.html'
 
 function getReadyPages() {
   return PAGE_GROUPS.flatMap((group) => group.items.filter((item) => item.ready && item.file))

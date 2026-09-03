@@ -1,0 +1,9 @@
+@use 'base/fonts';
+@use 'base/variables';
+@use 'base/reset';
+@use 'base/a11y';
+@use 'components/pop';
+
+body {
+  margin: 0;
+}

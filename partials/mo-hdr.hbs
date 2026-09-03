@@ -1,0 +1,37 @@
+{{!-- 모바일 헤더 + 검색 (≤1023px) — Figma A안_M --}}
+<header class="mo-hdr" id="moHdr">
+  <div class="mo-hdr__row">
+    <button type="button" class="mo-hdr__ico" id="moMenuOpen" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="moMenu">
+      <img src="./src/assets/img/mo/hamburger.svg" width="30" height="30" alt="">
+    </button>
+    <div class="mo-hdr__brand">
+      <img class="mo-hdr__logo" src="./src/assets/img/mo/logo-mark.svg" width="25" height="25" alt="">
+      <strong class="mo-hdr__name">해양수산공간정보플랫폼</strong>
+    </div>
+    <button type="button" class="mo-hdr__ico" aria-label="마이메뉴">
+      <img src="./src/assets/img/mo/user.svg" width="30" height="30" alt="">
+    </button>
+  </div>
+  <div class="mo-hdr__search">
+    <button type="button" class="mo-hdr__list" aria-label="공간정보 목록" id="moListBtn">
+      <img src="./src/assets/img/mo/list.svg" width="30" height="30" alt="">
+    </button>
+    <form class="mo-search" role="search" action="#" method="get">
+      <label class="sr-only" for="moPlaceSearch">지명, 해역명, 구역명 검색</label>
+      <input
+        class="mo-search__input"
+        id="moPlaceSearch"
+        type="search"
+        name="q"
+        placeholder="지명, 해역명, 구역명 검색"
+        autocomplete="off"
+      >
+      <button type="submit" class="mo-search__btn" aria-label="검색">
+        <img src="./src/assets/img/mo/search-ico.svg" width="12" height="12" alt="">
+      </button>
+      <button type="button" class="mo-search__filter" aria-label="상세 검색 필터" aria-expanded="false">
+        <img src="./src/assets/img/mo/filter.svg" width="16" height="16" alt="">
+      </button>
+    </form>
+  </div>
+</header>

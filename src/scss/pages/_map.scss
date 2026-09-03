@@ -10,7 +10,7 @@ body {
 }
 
 .app {
-  display: flex;
+  position: relative;
   flex: 1;
   min-height: 0;
   width: 100%;
@@ -18,12 +18,13 @@ body {
 }
 
 .shell {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
   height: 100%;
-  z-index: 2;
 }
 
 .shell__main {
@@ -46,9 +47,10 @@ body {
 }
 
 .stage {
-  position: relative;
-  flex: 1;
-  min-width: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   background: var(--c-map);

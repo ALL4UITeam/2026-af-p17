@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Layer-icons">
+<rect width="24" height="24" rx="12" fill="white"/>
+<g transform="translate(5 5)">
+<path d="M9.33333 5.25H12.5417L9.33333 2.04167V5.25ZM4.08333 1.16667H9.91667L13.4167 4.66667V10.5C13.4167 10.8094 13.2937 11.1062 13.075 11.325C12.8562 11.5437 12.5594 11.6667 12.25 11.6667H4.08333C3.77391 11.6667 3.47717 11.5437 3.25838 11.325C3.03958 11.1062 2.91667 10.8094 2.91667 10.5V2.33333C2.91667 2.02391 3.03958 1.72717 3.25838 1.50838C3.47717 1.28958 3.77391 1.16667 4.08333 1.16667ZM1.75 3.5V12.8333H12.25V14H1.75C1.44058 14 1.14383 13.8771 0.925042 13.6583C0.70625 13.4395 0.583333 13.1428 0.583333 12.8333V3.5H1.75Z" fill="url(#paint0_linear_biz_on)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_biz_on" x1="5.583333" y1="6.16667" x2="20.7757" y2="9.16082" gradientUnits="userSpaceOnUse">
+<stop stop-color="#23AED6"/>
+<stop offset="1" stop-color="#175EEC"/>
+</linearGradient>
+</defs>
+</svg>

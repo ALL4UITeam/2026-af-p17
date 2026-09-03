@@ -1,0 +1,62 @@
+{{!-- 모바일 KRDS 전체 메뉴 — Figma A안_M_00공통_99메뉴확장 --}}
+<div class="mo-menu-dim" id="moMenuDim" hidden aria-hidden="true"></div>
+<nav
+  class="mo-menu"
+  id="moMenu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="전체 메뉴"
+  hidden
+  tabindex="-1"
+>
+  <div class="mo-menu__bar">
+    <button type="button" class="mo-hdr__ico" id="moMenuClose" aria-label="전체 메뉴 닫기">
+      <img src="./src/assets/img/mo/close-menu.svg" width="30" height="30" alt="">
+    </button>
+    <div class="mo-hdr__brand">
+      <img class="mo-hdr__logo" src="./src/assets/img/mo/logo-mark.svg" width="25" height="25" alt="">
+      <strong class="mo-hdr__name">해양수산공간정보플랫폼</strong>
+    </div>
+    <button type="button" class="mo-hdr__ico" aria-label="마이메뉴">
+      <img src="./src/assets/img/mo/user.svg" width="30" height="30" alt="">
+    </button>
+  </div>
+  <div class="mo-menu__body">
+    <ul class="mo-menu__depth1" role="list">
+      <li>
+        <button type="button" class="mo-menu__d1 mo-menu__d1--on" data-menu-d1="platform" aria-current="true">
+          해양수산 공간정보 플랫폼
+        </button>
+      </li>
+      <li>
+        <button type="button" class="mo-menu__d1" data-menu-d1="bigdata">빅데이터</button>
+      </li>
+      <li>
+        <button type="button" class="mo-menu__d1" data-menu-d1="stat">통계자료</button>
+      </li>
+      <li>
+        <button type="button" class="mo-menu__d1" data-menu-d1="archive">자료실</button>
+      </li>
+      <li>
+        <button type="button" class="mo-menu__d1" data-menu-d1="analysis">해양수산 공간분석</button>
+      </li>
+    </ul>
+    <div class="mo-menu__depth2" id="moMenuDepth2">
+      <ul class="mo-menu__d2-list" role="list" data-pane="platform">
+        <li><a class="mo-menu__d2" href="./map.html">공간정보</a></li>
+      </ul>
+      <ul class="mo-menu__d2-list" role="list" data-pane="bigdata" hidden>
+        <li><span class="mo-menu__d2">빅데이터(목업)</span></li>
+      </ul>
+      <ul class="mo-menu__d2-list" role="list" data-pane="stat" hidden>
+        <li><span class="mo-menu__d2">통계자료(목업)</span></li>
+      </ul>
+      <ul class="mo-menu__d2-list" role="list" data-pane="archive" hidden>
+        <li><span class="mo-menu__d2">자료실(목업)</span></li>
+      </ul>
+      <ul class="mo-menu__d2-list" role="list" data-pane="analysis" hidden>
+        <li><span class="mo-menu__d2">공간분석(목업)</span></li>
+      </ul>
+    </div>
+  </div>
+</nav>

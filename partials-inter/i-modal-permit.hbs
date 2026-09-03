@@ -1,0 +1,115 @@
+{{!-- 공유수면점사용 허가 목록 — 불러오기 --}}
+<section class="modal _content draggable" id="permitListModal" style="display:none;">
+  <div class="st_view">
+    <div class="st_container st_container--permit">
+      <header class="permit-modal__head">
+        <h1 id="permitListTitle">공유수면점사용 허가 목록</h1>
+        <button type="button" class="permit-modal__close" title="창닫기" aria-label="창닫기" onclick="$('#permitListModal').fadeOut();"></button>
+      </header>
+
+      <div class="permit-modal__body">
+        <div class="i-search">
+          <div class="i-search__row">
+            <div class="i-search__field">
+              <label for="permitOrg" class="i-search__lab">관리기관</label>
+              <input type="text" id="permitOrg" class="form-control" title="관리기관">
+            </div>
+            <div class="i-search__field i-search__field--grow">
+              <label for="permitLoc" class="i-search__lab">위치</label>
+              <input type="text" id="permitLoc" class="form-control" title="위치">
+            </div>
+          </div>
+          <div class="i-search__row">
+            <div class="i-search__field i-search__field--date">
+              <span class="i-search__lab">허가일 검색</span>
+              <div class="i-search__dates">
+                <input type="text" id="permitDateFrom" class="form-control datepicker" title="허가일 시작" value="2026-08-01" readonly>
+                <span class="i-search__tilde" aria-hidden="true">~</span>
+                <input type="text" id="permitDateTo" class="form-control datepicker" title="허가일 종료" value="2026-08-31" readonly>
+              </div>
+            </div>
+            <div class="i-search__btn-group">
+              <button type="button" class="i-btn i-btn--primary i-btn--sm" id="btnPermitSearch">검색</button>
+              <button type="button" class="i-btn i-btn--ghost i-btn--sm" id="btnPermitReset">초기화</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="i-llist__head permit-modal__meta">
+          <p class="permit-modal__note">* 본인 시도(강원특별자치도) 관할 데이터만 노출됩니다.</p>
+          <p class="i-llist__total">총 <strong id="permitTotal">3</strong>건</p>
+        </div>
+
+        <div class="tbl-wrap i-llist__tbl permit-modal__tbl">
+          <table>
+            <caption>공유수면점사용 허가 목록</caption>
+            <colgroup>
+              <col style="width: 48px">
+              <col style="width: 18%">
+              <col>
+              <col style="width: 12%">
+              <col style="width: 12%">
+              <col style="width: 22%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <span class="sr-only">선택</span>
+                </th>
+                <th scope="col">관리기관</th>
+                <th scope="col">위치</th>
+                <th scope="col">최초허가일</th>
+                <th scope="col">허가일</th>
+                <th scope="col">허가기간</th>
+              </tr>
+            </thead>
+            <tbody id="permitListBody">
+              <tr>
+                <td>
+                  <label class="i-check">
+                    <input type="radio" name="permitPick" value="1" data-org="강원특별자치도 홍천군" data-loc="강원특별자치도 홍천군 북방면 도사곡리 265 (63번지선)" data-first="2026-08-31" data-permit="2026-08-31" data-start="2026-08-31" data-end="2029-12-31" checked>
+                  </label>
+                </td>
+                <td>강원특별자치도 홍천군</td>
+                <td class="ta-l">강원특별자치도 홍천군 북방면 도사곡리 265 (63번지선)</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31 ~ 2029-12-31</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="i-check">
+                    <input type="radio" name="permitPick" value="2" data-org="강원특별자치도 평창군" data-loc="강원특별자치도 평창군 대관령면 횡계리 산1-1" data-first="2026-08-31" data-permit="2026-08-31" data-start="2026-08-31" data-end="2029-12-31">
+                  </label>
+                </td>
+                <td>강원특별자치도 평창군</td>
+                <td class="ta-l">강원특별자치도 평창군 대관령면 횡계리 산1-1</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31 ~ 2029-12-31</td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="i-check">
+                    <input type="radio" name="permitPick" value="3" data-org="강원특별자치도 삼척시" data-loc="강원특별자치도 삼척시 근덕면 교가리 해안일원" data-first="2026-08-31" data-permit="2026-08-31" data-start="2026-08-31" data-end="2029-12-31">
+                  </label>
+                </td>
+                <td>강원특별자치도 삼척시</td>
+                <td class="ta-l">강원특별자치도 삼척시 근덕면 교가리 해안일원</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31</td>
+                <td>2026-08-31 ~ 2029-12-31</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="permit-modal__foot">
+        <button type="button" class="i-btn i-btn--primary" id="btnPermitOk">확인</button>
+        <button type="button" class="i-btn i-btn--ghost" id="btnPermitCancel" onclick="$('#permitListModal').fadeOut();">취소</button>
+      </div>
+    </div>
+    <div class="dimmed" onclick="$('#permitListModal').fadeOut();"></div>
+  </div>
+</section>

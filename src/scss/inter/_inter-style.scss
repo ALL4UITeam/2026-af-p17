@@ -2520,6 +2520,451 @@
   }
 }
 
+/* —— 공유수면점사용 허가 목록 모달 (불러오기) —— */
+#permitListModal.modal {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 200;
+}
+
+#permitListModal .st_container--permit {
+  width: 960px;
+  height: auto;
+  max-height: calc(100vh - 64px);
+  top: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #c5ccd8;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.permit-modal__head {
+  position: relative;
+  flex-shrink: 0;
+  padding: 20px 48px 14px 24px;
+  border-bottom: 3px solid #222;
+  cursor: move;
+  background: #fff;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #222;
+  }
+}
+
+.permit-modal__close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 16px;
+    height: 2px;
+    background: #444;
+    content: '';
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.permit-modal__body {
+  flex: 1;
+  min-height: 0;
+  padding: 20px 24px 8px;
+  overflow: auto;
+  background: #fff;
+}
+
+.permit-modal__meta {
+  align-items: flex-end;
+  margin-top: 4px;
+}
+
+.permit-modal__note {
+  margin: 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.i-search__btn-group {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.permit-modal__tbl {
+  max-height: 320px;
+  overflow: auto;
+}
+
+.permit-modal__foot {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 24px 24px;
+  background: #fff;
+}
+
+/* —— 어업면허 그리드 (006-01-05) —— */
+.i-fish {
+  margin-top: 28px;
+}
+
+.i-fish__toolbar {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.i-fish__tbl {
+  overflow: auto;
+}
+
+.i-fish__tbl table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.i-fish__tbl table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.i-fish__tbl thead th {
+  padding: 12px 8px;
+  border: 1px solid #1a4f8c;
+  background: #235d94;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &.is-req::before {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: #ff5a5a;
+    vertical-align: middle;
+    content: '';
+  }
+
+  
+}
+
+.i-fish__tbl tbody td {
+  padding: 8px 6px;
+  border: 1px solid #d5dbe8;
+  background: #fff;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.i-fish__tbl .form-control {
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.i-fish__period {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+
+  .i-form__date {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .form-control {
+    min-width: 0;
+  }
+}
+
+.i-fish__zones {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 4px 2px;
+  list-style: none;
+  text-align: left;
+}
+
+.i-fish__zone {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #333;
+  cursor: pointer;
+
+  input {
+    flex-shrink: 0;
+    margin: 2px 0 0;
+    accent-color: #2f6fed;
+  }
+}
+
+/* —— 어업면허 공간 조회 모달 —— */
+#fishSpaceModal.modal {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 200;
+}
+
+#fishSpaceModal .st_container--fish {
+  display: flex;
+  flex-direction: column;
+  width: 1100px;
+  height: auto;
+  max-height: calc(100vh - 48px);
+  top: 50%;
+  overflow: hidden;
+  border: 1px solid #c5ccd8;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.fish-modal__head {
+  position: relative;
+  flex-shrink: 0;
+  padding: 18px 48px 14px 24px;
+  border-bottom: 3px solid #222;
+  background: #fff;
+  cursor: move;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+  }
+}
+
+.fish-modal__close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 16px;
+    height: 2px;
+    background: #444;
+    content: '';
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+.fish-modal__body {
+  flex: 1;
+  min-height: 0;
+  padding: 16px 24px 8px;
+  overflow: auto;
+  background: #fff;
+}
+
+.fish-modal__meta {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fish-modal__sum {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+
+  strong {
+    color: #2f6fed;
+    font-weight: 700;
+  }
+}
+
+.fish-modal__hint {
+  margin: 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.fish-modal__tbl {
+  overflow: auto;
+  border: 1px solid #d5dbe8;
+}
+
+.fish-modal__tbl table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.fish-modal__tbl caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.fish-modal__tbl thead th {
+  padding: 10px 6px;
+  border-bottom: 1px solid #c5ccd8;
+  background: #f5f7fb;
+  font-size: 12px;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fish-modal__tbl tbody td {
+  padding: 10px 6px;
+  border-bottom: 1px solid #e5e8ee;
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fish-modal__tbl tbody tr.is-on {
+  background: #eef5ff;
+}
+
+.fish-modal__id {
+  border: 0;
+  background: transparent;
+  color: #2f6fed;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fish-modal__page {
+  margin: 8px 0 12px;
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+}
+
+.fish-modal__map {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  border: 1px solid #d5dbe8;
+  background: #e8eef5;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.fish-modal__zoom {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #c5ccd8;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+
+  button {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-bottom: 1px solid #e5e8ee;
+    background: #fff;
+    font-size: 18px;
+    line-height: 1;
+    color: #333;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover {
+      background: #f5f7fb;
+    }
+  }
+}
+
+.fish-modal__foot {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 24px 24px;
+  background: #fff;
+}
+
 /* 목록 행 미니 스테퍼 */
 .i-pstep {
   display: flex;

@@ -10,8 +10,9 @@ function pad2(n) {
   return String(n).padStart(2, '0')
 }
 
-function mockLeaves(count, name) {
+function mockLeaves(count, name, groupId = 'LYR') {
   return Array.from({ length: count }, (_, i) => ({
+    id: `${groupId}_${pad2(i + 1)}`,
     ico: pad2((i % 16) + 1),
     name: `${name} ${pad2(i + 1)}`,
   }))
@@ -24,22 +25,22 @@ const mapGroups = [
     count: 16,
     open: true,
     leaves: [
-      { ico: '01', name: '와류' },
-      { ico: '02', name: '묘박지' },
-      { ico: '03', name: '선박사고' },
-      { ico: '04', name: '인명사고' },
-      { ico: '05', name: '추천항로접속항로' },
-      { ico: '06', name: '추천항로연결항로' },
-      { ico: '07', name: '추천항로전체항로' },
-      { ico: '08', name: '침선' },
-      { ico: '09', name: '해월전선' },
-      { ico: '10', name: '통항분리수역' },
-      { ico: '11', name: '해일위험지구' },
-      { ico: '12', name: '시운전금지해역' },
-      { ico: '13', name: '통항분리경계' },
-      { ico: '14', name: '선박교통관제구역' },
-      { ico: '15', name: '수난구호관할구역' },
-      { ico: '16', name: '유조선통항금지해역' },
+      { id: 'LYR_EDDY', ico: '01', name: '와류' },
+      { id: 'LYR_ANCHOR', ico: '02', name: '묘박지' },
+      { id: 'LYR_SHIP_ACC', ico: '03', name: '선박사고' },
+      { id: 'LYR_LIFE_ACC', ico: '04', name: '인명사고' },
+      { id: 'LYR_ROUTE_ACCESS', ico: '05', name: '추천항로접속항로' },
+      { id: 'LYR_ROUTE_LINK', ico: '06', name: '추천항로연결항로' },
+      { id: 'LYR_ROUTE_ALL', ico: '07', name: '추천항로전체항로' },
+      { id: 'LYR_WRECK', ico: '08', name: '침선' },
+      { id: 'LYR_FRONT', ico: '09', name: '해월전선' },
+      { id: 'LYR_TSS', ico: '10', name: '통항분리수역' },
+      { id: 'LYR_TSUNAMI', ico: '11', name: '해일위험지구' },
+      { id: 'LYR_TRIAL_BAN', ico: '12', name: '시운전금지해역' },
+      { id: 'LYR_TSS_EDGE', ico: '13', name: '통항분리경계' },
+      { id: 'LYR_VTS', ico: '14', name: '선박교통관제구역' },
+      { id: 'LYR_SAR', ico: '15', name: '수난구호관할구역' },
+      { id: 'LYR_TANKER_BAN', ico: '16', name: '유조선통항금지해역' },
     ],
   },
   { id: 'grpEco', name: '해양·환경생태', count: 26 },
@@ -62,14 +63,19 @@ const mapGroups = [
   { id: 'grpBiz', name: '사업정보', count: 2 },
 ].map((group) => ({
   ...group,
-  leaves: group.leaves ?? mockLeaves(group.count, group.name),
+  leaves: group.leaves ?? mockLeaves(group.count, group.name, group.id),
 }))
 
 const pageData = {
+  '/guide-map.html': {
+    title: 'MAP 스크립트 가이드',
+    description: '지도 메타정보 팝업 개발 연동 가이드',
+  },
   '/map.html': {
     title: '해양수산공간정보플랫폼',
     description: '해양수산공간정보플랫폼 - 지도',
     mapGroups,
+    mapGroupCount: mapGroups.length,
     treeCats: [
       '골재·광물자원특성평가',
       '에너지개발특성평가',
@@ -80,6 +86,7 @@ const pageData = {
       '군사활동특성평가',
       '안전관리특성평가',
     ],
+    treeCatCount: 8,
   },
   '/inter-SFR-001-02.html': {
     title: 'SFR-001-02 | 내부망',
@@ -297,19 +304,32 @@ export default defineConfig({
         order: 'pre',
         handler(html, ctx) {
           const file = path.basename(ctx.filename || ctx.path || '')
-          if (!/^inter-/i.test(file)) return html
           if (ctx.server) return html
-          return html.replace(
-            /\s*<link\s+rel="stylesheet"\s+href="\.\/src\/scss\/inter(?:-style)?\.scss"\s*>/gi,
-            '',
-          )
+          if (/^inter-/i.test(file)) {
+            return html.replace(
+              /\s*<link\s+rel="stylesheet"\s+href="\.\/src\/scss\/inter(?:-style)?\.scss"\s*>/gi,
+              '',
+            )
+          }
+          if (/^map\.html$/i.test(file)) {
+            return html.replace(
+              /\s*<link\s+rel="stylesheet"\s+href="\.\/src\/scss\/map-mo\.scss"\s*>/gi,
+              '',
+            )
+          }
+          return html
         },
       },
       generateBundle(_options, bundle) {
-        // CSS-only 엔트리가 남기는 빈 JS 제거
         for (const [fileName, chunk] of Object.entries(bundle)) {
           if (chunk.type !== 'chunk' || !chunk.isEntry) continue
-          if (chunk.name !== 'inter' && chunk.name !== 'inter-style') continue
+          if (
+            chunk.name !== 'inter' &&
+            chunk.name !== 'inter-style' &&
+            chunk.name !== 'map-mo'
+          ) {
+            continue
+          }
           const code = (chunk.code || '').replace(/\s+/g, '')
           if (!code || code === '"use strict";') {
             delete bundle[fileName]
@@ -323,12 +343,22 @@ export default defineConfig({
       enforce: 'post',
       transformIndexHtml(html, ctx) {
         const file = path.basename(ctx.filename || ctx.path || '')
-        if (!/^inter-/i.test(file)) return html
-        if (html.includes('./assets/inter.css')) return html
-        return html.replace(
-          '</head>',
-          '  <link rel="stylesheet" href="./assets/inter.css">\n  <link rel="stylesheet" href="./assets/inter-style.css">\n</head>',
-        )
+        if (/^inter-/i.test(file)) {
+          if (html.includes('./assets/inter.css')) return html
+          return html.replace(
+            '</head>',
+            '  <link rel="stylesheet" href="./assets/inter.css">\n  <link rel="stylesheet" href="./assets/inter-style.css">\n</head>',
+          )
+        }
+        if (/^map\.html$/i.test(file)) {
+          if (html.includes('./assets/map-mo.css')) return html
+          // map.css 는 map.js 번들이 붙임. 모바일만 추가 주입.
+          return html.replace(
+            '</head>',
+            '  <link rel="stylesheet" href="./assets/map-mo.css">\n</head>',
+          )
+        }
+        return html
       },
     },
     /** file:// 로컬 열기용: crossorigin / module 제거 */
@@ -375,9 +405,11 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         map: path.resolve(__dirname, 'map.html'),
         viewer: path.resolve(__dirname, 'viewer.html'),
+        'guide-map': path.resolve(__dirname, 'guide-map.html'),
         ...interInputs(),
         inter: path.resolve(__dirname, 'src/scss/inter.scss'),
         'inter-style': path.resolve(__dirname, 'src/scss/inter-style.scss'),
+        'map-mo': path.resolve(__dirname, 'src/scss/map-mo.scss'),
       },
       output: {
         entryFileNames: 'assets/[name].js',

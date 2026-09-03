@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAP 스크립트 가이드</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #fff;
+      --text: #1e2124;
+      --muted: #58616a;
+      --line: #dde3ea;
+      --primary: #175eec;
+      --code-bg: #0f172a;
+      --code-fg: #e2e8f0;
+      --font: 'Pretendard GOV', 'Malgun Gothic', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    .lead { color: var(--muted); margin: 0 0 28px; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+    .links a, .links button {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .links a.primary, .links button.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    h3 { font-size: 15px; margin: 16px 0 8px; }
+    p, li { font-size: 14px; color: var(--text); }
+    .muted { color: var(--muted); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f0f5ff; }
+    pre {
+      margin: 0;
+      padding: 14px 16px;
+      overflow: auto;
+      background: var(--code-bg);
+      color: var(--code-fg);
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    code { font-family: ui-monospace, Consolas, monospace; }
+    .flow {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      font-family: ui-monospace, Consolas, monospace;
+      background: #f8fafc;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #fff8e6;
+      border-left: 3px solid #e6a700;
+      font-size: 13px;
+    }
+  </style>
+  <script defer src="./assets/guide-map.js"></script>
+  <link rel="stylesheet" href="./assets/guide-map.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>MAP 스크립트 가이드</h1>
+    <p class="lead">지도 페이지 메타정보 팝업 · 개발 연동용. 상세 문서는 <code>docs/MAP-SCRIPT.md</code>.</p>
+
+    <div class="links">
+      <a class="primary" href="./map.html">map.html 열기</a>
+      <a href="./docs/MAP-SCRIPT.md">MAP-SCRIPT.md</a>
+      <button type="button" class="primary" id="demoOpen">데모: LYR_ROUTE_ACCESS 열기</button>
+      <button type="button" id="demoCatch">데모: LYR_CATCH 열기</button>
+    </div>
+
+    <section>
+      <h2>호출 흐름</h2>
+      <div class="flow">
+        <div>.leaf__info[data-layer-id] 클릭</div>
+        <div>→ fetchLayerMeta(id) &nbsp;// MapUI.setMetaFetcher 로 API 교체</div>
+        <div>→ fillMetaPop(data) &nbsp;// data-meta 훅 채움</div>
+        <div>→ openMetaPop + 포커스 트랩 / inert / Esc</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>window.MapUI</h2>
+      <table>
+        <thead>
+          <tr><th>API</th><th>사용</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>openMeta(id, trigger?)</code></td><td>조회 후 팝업 오픈</td></tr>
+          <tr><td><code>closeMeta()</code></td><td>팝업 닫기</td></tr>
+          <tr><td><code>fillMeta(data)</code></td><td>DOM만 채움</td></tr>
+          <tr><td><code>setMetaFetcher(fn)</code></td><td><code>(id) =&gt; Promise&lt;data&gt;</code></td></tr>
+          <tr><td><code>MOCK_META</code></td><td>퍼블 목업 샘플</td></tr>
+        </tbody>
+      </table>
+
+      <h3>API 연동 예시</h3>
+      <pre><code>MapUI.setMetaFetcher(async (layerId) =&gt; {
+  const res = await fetch(`/api/layers/${layerId}/meta`)
+  if (!res.ok) throw new Error(res.status)
+  return res.json()
+})
+
+// 이후 info 버튼 / MapUI.openMeta(id) 만 호출
+await MapUI.openMeta('LYR_ROUTE_ACCESS')</code></pre>
+
+      <div class="note">
+        이 가이드 페이지는 데모용으로 <code>map.js</code> + 메타 팝업 partial을 같이 로드합니다.
+        실서비스에서는 <code>map.html</code>에만 붙이면 됩니다.
+      </div>
+    </section>
+
+    <section>
+      <h2>마크업</h2>
+      <pre><code>&lt;button type="button" class="leaf__info"
+  data-layer-id="LYR_ROUTE_ACCESS"
+  aria-label="추천항로접속항로 정보"&gt;</code></pre>
+      <p class="muted">팝업 필드는 <code>partials/pop-meta.hbs</code>의 <code>data-meta="…"</code> 에 매핑됩니다.</p>
+    </section>
+
+    <section>
+      <h2>관련 스크립트 (MAP만)</h2>
+      <table>
+        <thead><tr><th>파일</th><th>역할</th></tr></thead>
+        <tbody>
+          <tr><td><code>src/js/map.js</code></td><td>UI 이벤트 · 팝업 open/close · MapUI</td></tr>
+          <tr><td><code>src/js/meta.js</code></td><td>fetch / fillMetaPop / MOCK</td></tr>
+          <tr><td><code>src/js/a11y.js</code></td><td>trapFocus, inert, tablist</td></tr>
+          <tr><td><code>src/js/zoom.js</code></td><td>줌 컨트롤</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"></div>
+  <div class="pop-dim" id="metaPopDim" hidden aria-hidden="true"></div>
+  <section
+    class="pop"
+    id="metaPop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="metaPopTitle"
+    hidden
+    tabindex="-1"
+    data-layer-id=""
+  >
+    <header class="pop__head">
+      <div class="pop__title-wrap">
+        <h2 class="pop__title" id="metaPopTitle">레이어</h2>
+        <div class="pop__badges" data-meta="badges"></div>
+      </div>
+      <button type="button" class="pop__close" id="metaPopClose" aria-label="메타정보 닫기">
+        <img src="./assets/img/icon/pop-close.svg" width="36" height="36" alt="">
+      </button>
+    </header>
+  
+    <div class="pop__body">
+      <div class="pop__tabs" role="tablist" aria-label="메타정보 탭">
+        <button
+          type="button"
+          class="pop__tab pop__tab--on"
+          role="tab"
+          id="metaTabInfo"
+          aria-selected="true"
+          aria-controls="metaPaneInfo"
+          tabindex="0"
+        >메타정보</button>
+        <button
+          type="button"
+          class="pop__tab"
+          role="tab"
+          id="metaTabData"
+          aria-selected="false"
+          aria-controls="metaPaneData"
+          tabindex="-1"
+        >데이터보기</button>
+      </div>
+  
+      <div
+        class="pop__pane"
+        id="metaPaneInfo"
+        role="tabpanel"
+        aria-labelledby="metaTabInfo"
+        tabindex="0"
+      >
+        <div class="pop__acc">
+          <div class="pop__acc-item is-open">
+            <button
+              type="button"
+              class="pop__acc-btn"
+              aria-expanded="true"
+              aria-controls="metaAccOverview"
+            >
+              <span>개요</span>
+              <img class="pop__acc-ico" src="./assets/img/icon/pop-chevron-on.svg" width="16" height="16" alt="" aria-hidden="true">
+            </button>
+            <div class="pop__acc-body" id="metaAccOverview">
+              <section class="pop__sec">
+                <h3 class="pop__sec-title">설명</h3>
+                <p class="pop__sec-txt" data-meta="desc"></p>
+              </section>
+  
+              <hr class="pop__hr" aria-hidden="true">
+  
+              <section class="pop__sec">
+                <h3 class="pop__sec-title">주제분류</h3>
+                <ul class="pop__class" role="list" data-meta="classes"></ul>
+              </section>
+  
+              <hr class="pop__hr" aria-hidden="true">
+  
+              <section class="pop__sec">
+                <h3 class="pop__sec-title pop__sec-title--reg">주제어</h3>
+                <ul class="pop__tags" role="list" data-meta="tags"></ul>
+              </section>
+  
+              <hr class="pop__hr" aria-hidden="true">
+  
+              <ul class="pop__cards" role="list" data-meta="cards"></ul>
+            </div>
+          </div>
+  
+          <div class="pop__acc-item">
+            <button
+              type="button"
+              class="pop__acc-btn"
+              aria-expanded="false"
+              aria-controls="metaAccSpatial"
+            >
+              <span>공간 메타정보</span>
+              <img class="pop__acc-ico" src="./assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+            </button>
+            <div class="pop__acc-body" id="metaAccSpatial" hidden>
+              <p class="pop__sec-txt" data-meta="spatial"></p>
+            </div>
+          </div>
+  
+          <div class="pop__acc-item">
+            <button
+              type="button"
+              class="pop__acc-btn"
+              aria-expanded="false"
+              aria-controls="metaAccMarine"
+            >
+              <span>해양특성 메타정보</span>
+              <img class="pop__acc-ico" src="./assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+            </button>
+            <div class="pop__acc-body" id="metaAccMarine" hidden>
+              <p class="pop__sec-txt" data-meta="marine"></p>
+            </div>
+          </div>
+  
+          <div class="pop__acc-item">
+            <button
+              type="button"
+              class="pop__acc-btn"
+              aria-expanded="false"
+              aria-controls="metaAccModel"
+            >
+              <span>데이터모델 메타정보</span>
+              <img class="pop__acc-ico" src="./assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+            </button>
+            <div class="pop__acc-body" id="metaAccModel" hidden>
+              <p class="pop__sec-txt" data-meta="model"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div
+        class="pop__pane"
+        id="metaPaneData"
+        role="tabpanel"
+        aria-labelledby="metaTabData"
+        tabindex="0"
+        hidden
+      >
+        <p class="pop__sec-txt" data-meta="dataView"></p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

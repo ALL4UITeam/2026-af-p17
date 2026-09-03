@@ -1,0 +1,147 @@
+{{!-- 레이어 메타정보 팝업 — Figma 9290:30288 / data-meta 훅은 개발 fillMetaPop 용 --}}
+<div class="pop-dim" id="metaPopDim" hidden aria-hidden="true"></div>
+<section
+  class="pop"
+  id="metaPop"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="metaPopTitle"
+  hidden
+  tabindex="-1"
+  data-layer-id=""
+>
+  <header class="pop__head">
+    <div class="pop__title-wrap">
+      <h2 class="pop__title" id="metaPopTitle">레이어</h2>
+      <div class="pop__badges" data-meta="badges"></div>
+    </div>
+    <button type="button" class="pop__close" id="metaPopClose" aria-label="메타정보 닫기">
+      <img src="./src/assets/img/icon/pop-close.svg" width="36" height="36" alt="">
+    </button>
+  </header>
+
+  <div class="pop__body">
+    <div class="pop__tabs" role="tablist" aria-label="메타정보 탭">
+      <button
+        type="button"
+        class="pop__tab pop__tab--on"
+        role="tab"
+        id="metaTabInfo"
+        aria-selected="true"
+        aria-controls="metaPaneInfo"
+        tabindex="0"
+      >메타정보</button>
+      <button
+        type="button"
+        class="pop__tab"
+        role="tab"
+        id="metaTabData"
+        aria-selected="false"
+        aria-controls="metaPaneData"
+        tabindex="-1"
+      >데이터보기</button>
+    </div>
+
+    <div
+      class="pop__pane"
+      id="metaPaneInfo"
+      role="tabpanel"
+      aria-labelledby="metaTabInfo"
+      tabindex="0"
+    >
+      <div class="pop__acc">
+        <div class="pop__acc-item is-open">
+          <button
+            type="button"
+            class="pop__acc-btn"
+            aria-expanded="true"
+            aria-controls="metaAccOverview"
+          >
+            <span>개요</span>
+            <img class="pop__acc-ico" src="./src/assets/img/icon/pop-chevron-on.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+          <div class="pop__acc-body" id="metaAccOverview">
+            <section class="pop__sec">
+              <h3 class="pop__sec-title">설명</h3>
+              <p class="pop__sec-txt" data-meta="desc"></p>
+            </section>
+
+            <hr class="pop__hr" aria-hidden="true">
+
+            <section class="pop__sec">
+              <h3 class="pop__sec-title">주제분류</h3>
+              <ul class="pop__class" role="list" data-meta="classes"></ul>
+            </section>
+
+            <hr class="pop__hr" aria-hidden="true">
+
+            <section class="pop__sec">
+              <h3 class="pop__sec-title pop__sec-title--reg">주제어</h3>
+              <ul class="pop__tags" role="list" data-meta="tags"></ul>
+            </section>
+
+            <hr class="pop__hr" aria-hidden="true">
+
+            <ul class="pop__cards" role="list" data-meta="cards"></ul>
+          </div>
+        </div>
+
+        <div class="pop__acc-item">
+          <button
+            type="button"
+            class="pop__acc-btn"
+            aria-expanded="false"
+            aria-controls="metaAccSpatial"
+          >
+            <span>공간 메타정보</span>
+            <img class="pop__acc-ico" src="./src/assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+          <div class="pop__acc-body" id="metaAccSpatial" hidden>
+            <p class="pop__sec-txt" data-meta="spatial"></p>
+          </div>
+        </div>
+
+        <div class="pop__acc-item">
+          <button
+            type="button"
+            class="pop__acc-btn"
+            aria-expanded="false"
+            aria-controls="metaAccMarine"
+          >
+            <span>해양특성 메타정보</span>
+            <img class="pop__acc-ico" src="./src/assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+          <div class="pop__acc-body" id="metaAccMarine" hidden>
+            <p class="pop__sec-txt" data-meta="marine"></p>
+          </div>
+        </div>
+
+        <div class="pop__acc-item">
+          <button
+            type="button"
+            class="pop__acc-btn"
+            aria-expanded="false"
+            aria-controls="metaAccModel"
+          >
+            <span>데이터모델 메타정보</span>
+            <img class="pop__acc-ico" src="./src/assets/img/icon/pop-chevron.svg" width="16" height="16" alt="" aria-hidden="true">
+          </button>
+          <div class="pop__acc-body" id="metaAccModel" hidden>
+            <p class="pop__sec-txt" data-meta="model"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="pop__pane"
+      id="metaPaneData"
+      role="tabpanel"
+      aria-labelledby="metaTabData"
+      tabindex="0"
+      hidden
+    >
+      <p class="pop__sec-txt" data-meta="dataView"></p>
+    </div>
+  </div>
+</section>

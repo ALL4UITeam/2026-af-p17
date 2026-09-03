@@ -33,7 +33,7 @@
           </div>
 
           <div class="i-form__toolbar">
-            <button type="button" class="i-btn i-btn--solid i-btn--sm">불러오기</button>
+            <button type="button" class="i-btn i-btn--solid i-btn--sm" id="btnPermitLoad" onclick="$('#permitListModal').fadeIn(); return false;">불러오기</button>
           </div>
 
           <div class="tbl-col-wrap i-form">
@@ -120,6 +120,43 @@
     </div>
   </div>
 
+  {{> i-modal-permit}}
+
   <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/jquery/jquery-ui.min.js"></script>
+  <script>
+    $(function () {
+      $('#permitListModal .st_container').draggable({
+        handle: '.permit-modal__head',
+        containment: 'window'
+      });
+
+      $('#btnPermitReset').on('click', function () {
+        $('#permitOrg, #permitLoc').val('');
+        $('#permitDateFrom').val('2026-08-01');
+        $('#permitDateTo').val('2026-08-31');
+      });
+
+      $('#btnPermitOk').on('click', function () {
+        var $pick = $('#permitListBody input[name="permitPick"]:checked');
+        if (!$pick.length) {
+          alert('허가 건을 선택해 주세요.');
+          return;
+        }
+        $('#occOffice').val($pick.data('org') || '');
+        $('#occLoc').val($pick.data('loc') || '');
+        $('#startDate').val($pick.data('start') || '');
+        $('#endDate').val($pick.data('end') || '');
+        $('#permitListModal').fadeOut();
+      });
+
+      $('#permitListBody').on('click', 'tr', function (e) {
+        if ($(e.target).is('input')) return;
+        $(this).find('input[name="permitPick"]').prop('checked', true);
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,8 +1,12 @@
 /**
- * 지도 줌 슬라이더
- * - 레벨: 0 ~ max (기본 12)
- * - 초기값: max / 2 (중간)
- * - 확대(+)/축소(-) 버튼, 레일 클릭, 노브 드래그
+ * zoom.js — 지도 줌 슬라이더
+ *
+ * ── API ───────────────────────────────────────────────
+ *  createZoom(options) → { get, set, getMax, setMax, onChange }
+ *  options: root, min, max, value, onChange(level, prev, reason)
+ *
+ * 마크업 훅: [data-zoom-rail|fill|knob|lv] · [data-zoom=in|out]
+ * ─────────────────────────────────────────────────────
  *
  * @example
  * const zoom = createZoom({

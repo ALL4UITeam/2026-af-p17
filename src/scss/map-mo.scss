@@ -1,0 +1,7 @@
+/**
+ * 지도 모바일 SCSS 엔트리 (PC main.scss 와 분리)
+ * - 퍼블 map.html: main + map-mo 둘 다 로드
+ * - 내부망(PC only): main.scss 만 사용, 이 파일 제외
+ */
+@use 'base/variables';
+@use 'components/mo';
