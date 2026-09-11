@@ -79,7 +79,7 @@
     }
 
     &[data-tool='dist'] {
-      background-image: url('../assets/img/tool/measure.svg');
+      background-image: url('../assets/img/tool/dist.svg');
     }
     &[data-tool='area'] {
       background-image: url('../assets/img/tool/area.svg');
@@ -111,7 +111,7 @@
 
   &__item:hover &__btn[data-tool='dist'],
   &__item.is-active &__btn[data-tool='dist'] {
-    background-image: url('../assets/img/tool/measure-on.svg');
+    background-image: url('../assets/img/tool/dist-on.svg');
   }
 
   &__item:hover &__btn[data-tool='area'],

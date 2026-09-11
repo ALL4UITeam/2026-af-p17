@@ -1363,7 +1363,7 @@ function onClick(event) {
   if (action === 'marina-more') emit('map:marina', { action, id: '' })
   if (action === 'close-tour-overlay') closeTourOverlay()
   if (action === 'close-tour-detail') closeTourDetail()
-  if (action === 'tour-detail-route' || action === 'tour-detail-down' || action === 'tour-detail-sel') {
+  if (action === 'tour-detail-route' || action === 'tour-detail-down') {
     emit('map:tour-detail', { action, sel: actionEl.dataset.sel || '' })
   }
   if (action === 'tour-near-km') setTourNearKm(actionEl.dataset.km)
@@ -1497,6 +1497,14 @@ function onChange(event) {
     emit('map:coord-search', {
       action: 'system',
       system: input.value,
+      label: input.selectedOptions?.[0]?.textContent?.trim() || '',
+    })
+  }
+  if (input.matches?.('[data-action="tour-detail-sel"]')) {
+    emit('map:tour-detail', {
+      action: 'tour-detail-sel',
+      sel: input.dataset.sel || '',
+      value: input.value,
       label: input.selectedOptions?.[0]?.textContent?.trim() || '',
     })
   }

@@ -32,7 +32,7 @@
     position: absolute;
     inset: 0;
     border-radius: 16px;
-    background: url('../../assets/img/glass-panel.png') center / cover no-repeat;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
     opacity: 0.4;
   }
 
@@ -320,36 +320,59 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 30px;
     width: 328px;
     height: 46px;
     padding: 0 16px;
-    border: 0;
+    border: 1px solid $primary-80;
     border-radius: 8px;
-    background: $primary-80;
+    background: rgba(14, 56, 142, 0.4);
     cursor: pointer;
     text-align: left;
+
+    &.is-open {
+      border-color: $primary-80;
+      background: $primary-80;
+    }
   }
 
   &__head-txt {
+    flex: 1 1 auto;
+    min-width: 0;
     font-size: 17px;
     font-weight: 700;
+    line-height: 1.5;
     color: $gray-0;
     white-space: nowrap;
   }
 
   &__head-right {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     gap: 10px;
   }
 
   &__head-ico {
+    flex-shrink: 0;
     width: 16px;
     height: 16px;
 
-    img {
+    .ico-open,
+    .ico-close {
       width: 16px;
       height: 16px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .ico-open {
+      background-image: url('../assets/img/icon/chev-up-w.svg');
+    }
+
+    .ico-close {
+      background-image: url('../assets/img/icon/chev-down-w.svg');
     }
   }
 
@@ -390,16 +413,20 @@
   &__head.is-sub {
     border: 1px solid $primary-80;
     background: rgba(14, 56, 142, 0.4);
+
+    &.is-open {
+      background: $primary-80;
+    }
   }
 
   &__row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 30px;
     width: 328px;
-    border: 0;
     height: 46px;
-    padding: 0 17px;
+    padding: 0 16px;
     border: 1px solid $primary-40;
     border-radius: 8px;
     background: $gray-0;
@@ -409,24 +436,43 @@
   }
 
   &__row-txt {
+    flex: 1 1 auto;
+    min-width: 0;
     font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
     color: $gray-80;
     white-space: nowrap;
   }
 
   &__row-right {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     gap: 10px;
   }
 
   &__row-ico {
+    flex-shrink: 0;
     width: 16px;
     height: 16px;
 
-    img {
+    .ico-open,
+    .ico-close {
       width: 16px;
       height: 16px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    /* 2차: chevron (3차 +/- 와 구분) */
+    .ico-open {
+      background-image: url('../assets/img/icon/chev-up-navy.svg');
+    }
+
+    .ico-close {
+      background-image: url('../assets/img/icon/chev-down.svg');
     }
   }
 
@@ -437,6 +483,14 @@
     width: 100%;
   }
 
+  /* 2차 펼침: 헤더+하위가 한 카드 */
+  &__group:has(> .tree__row.is-open) {
+    gap: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: $gray-0;
+  }
+
   & > &__group {
     display: none;
   }
@@ -445,14 +499,39 @@
     display: flex;
   }
 
+  /* 2차 Active — 피그마 107:8234 그라데이션 + chevron up */
   &__group.is-open > .tree__row.is-open {
+    position: relative;
+    isolation: isolate;
     border: 0;
     border-radius: 8px 8px 0 0;
-    background: $gray-0 url('../../assets/img/depth2.png') center / cover no-repeat;
+    background: $gray-0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: url('../assets/img/depth2.png') center / cover no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
 
     .tree__row-txt {
       font-weight: 700;
       color: $primary-80;
+    }
+
+    /* 2차 카운트는 흰 뱃지 유지 (3차 파란 뱃지와 구분) */
+    .count {
+      border: 1px solid $gray-20;
+      color: $gray-60;
+      background: $gray-0;
     }
   }
 
@@ -466,6 +545,8 @@
   &__group.is-open > .tree__kids {
     display: flex;
     flex-direction: column;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
   }
 
   &__leaves {
@@ -487,41 +568,62 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
     width: 100%;
-    height: 42px;
+    height: 46px;
+    padding: 0 16px;
+    border: 0;
+    border-bottom: 1px solid #e6e8ea;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
     font: inherit;
     text-align: left;
-    cursor: pointer;
-    padding: 0 16px;
-    border-bottom: 1px solid $gray-0;
-    background: rgba(255, 255, 255, 0.5);
   }
 
   &__d3-txt {
-    font-size: 15px;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
     color: $gray-80;
     white-space: nowrap;
   }
 
   &__d3-right {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     gap: 10px;
   }
 
   &__d3-ico {
+    flex-shrink: 0;
     width: 18px;
     height: 18px;
 
-    img {
+    .ico-open,
+    .ico-close {
       width: 18px;
       height: 18px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    /* 3차: +/- (파일명과 실제 그림이 반대로 되어 있어 교정) */
+    .ico-open {
+      background-image: url('../assets/img/icon/tree-plus.svg'); /* 실제로는 − */
+    }
+
+    .ico-close {
+      background-image: url('../assets/img/icon/tree-minus.svg'); /* 실제로는 + */
     }
   }
 
   &__d3.is-open {
-    border-bottom: 2px solid $primary-70;
-    background: $gray-0;
+    border-bottom: 1px solid $primary-70;
+    background: #f3f9ff;
 
     .tree__d3-txt {
       font-weight: 700;
@@ -608,6 +710,12 @@
     background: none;
     border: 0;
     cursor: pointer;
+  }
+
+  &__d4-right.is-open .count {
+    border: 0;
+    color: $gray-0;
+    background: $primary-70;
   }
 
   &__d4-ico,

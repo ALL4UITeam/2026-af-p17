@@ -138,22 +138,37 @@
         <div class="tdetail__filters">
           <div class="tdetail__field">
             <p class="tdetail__lab">지역</p>
-            <button type="button" class="tdetail__sel" data-action="tour-detail-sel" data-sel="area">
-              <span>전국</span>
-              <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
-            </button>
+            <label class="tdetail__sel">
+              <span class="sr-only">지역</span>
+              <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="area" aria-label="지역">
+                <option value="all" selected>전국</option>
+                <option value="west">서해</option>
+                <option value="south">남해</option>
+                <option value="east">동해</option>
+                <option value="jeju">제주</option>
+              </select>
+            </label>
           </div>
           <div class="tdetail__field">
             <p class="tdetail__lab">날짜 및 시간</p>
             <div class="tdetail__sels">
-              <button type="button" class="tdetail__sel" data-action="tour-detail-sel" data-sel="date">
-                <span>2026-08-05</span>
-                <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
-              </button>
-              <button type="button" class="tdetail__sel" data-action="tour-detail-sel" data-sel="hour">
-                <span>15</span>
-                <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
-              </button>
+              <label class="tdetail__sel">
+                <span class="sr-only">날짜</span>
+                <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="date" aria-label="날짜">
+                  <option value="2026-08-05" selected>2026-08-05</option>
+                  <option value="2026-08-06">2026-08-06</option>
+                  <option value="2026-08-07">2026-08-07</option>
+                </select>
+              </label>
+              <label class="tdetail__sel">
+                <span class="sr-only">시간</span>
+                <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="hour" aria-label="시간">
+                  <option value="9">09</option>
+                  <option value="12">12</option>
+                  <option value="15" selected>15</option>
+                  <option value="18">18</option>
+                </select>
+              </label>
             </div>
           </div>
         </div>
@@ -174,17 +189,25 @@
         <div class="tdetail__filters">
           <div class="tdetail__field">
             <p class="tdetail__lab">추천활동</p>
-            <button type="button" class="tdetail__sel" data-action="tour-detail-sel" data-sel="act">
-              <span>바다낚시(갯바위)</span>
-              <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
-            </button>
+            <label class="tdetail__sel">
+              <span class="sr-only">추천활동</span>
+              <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="act" aria-label="추천활동">
+                <option value="fishing" selected>바다낚시(갯바위)</option>
+                <option value="surfing">서핑</option>
+                <option value="diving">스킨스쿠버</option>
+              </select>
+            </label>
           </div>
           <div class="tdetail__field">
             <p class="tdetail__lab">위치</p>
-            <button type="button" class="tdetail__sel" data-action="tour-detail-sel" data-sel="pos">
-              <span>김녕</span>
-              <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
-            </button>
+            <label class="tdetail__sel">
+              <span class="sr-only">위치</span>
+              <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="pos" aria-label="위치">
+                <option value="gimnyeong" selected>김녕</option>
+                <option value="seogwipo">서귀포</option>
+                <option value="hallim">한림</option>
+              </select>
+            </label>
           </div>
         </div>
         <div class="tdetail__result">

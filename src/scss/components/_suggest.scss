@@ -1,9 +1,16 @@
 @use '../base/variables' as *;
 
 .suggest {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 12;
+  margin-left: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
+  width: max-content;
+  max-width: min(720px, calc(100vw - 200px));
   height: 40px;
   padding: 0 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -34,6 +41,8 @@
     display: none;
     align-items: center;
     gap: 4px;
+    min-width: 0;
+    overflow: hidden;
   }
 
   &.is-open &__list {

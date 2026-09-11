@@ -1,7 +1,7 @@
 <svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="67" height="40" viewBox="0 0 67 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="line" clip-path="url(#clip0_0_2860)">
-<path id="Vector (Stroke)" d="M52.75 1V20.75H96V21.25H52.75V41H52.5H52.25V1H52.75Z" fill="white"/>
-<path id="Vector (Stroke)_2" d="M25.75 19.75V0H25.25V40H25.5H25.75V19.75Z" fill="white"/>
+<path id="Vector (Stroke)" d="M52.75 1V20.75H96V21.25H52.75V41H52.5H52.25V1H52.75Z" fill="#CDD1D5"/>
+<path id="Vector (Stroke)_2" d="M25.75 19.75V0H25.25V40H25.5H25.75V19.75Z" fill="#CDD1D5"/>
 </g>
 <defs>
 <clipPath id="clip0_0_2860">
