@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko" class="guide-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="stylesheet" href="./src/scss/main.scss">
+</head>
+<body class="guide-page">
+  <div class="guide">
+    <aside class="guide__nav">
+      <a class="guide__brand" href="./viewer.html">해양수산 공간정보</a>
+      <p class="guide__sub">컴포넌트 가이드</p>
+      <nav class="guide__menu" aria-label="가이드 목차">
+        <a href="#start" class="is-on">시작</a>
+        <a href="#color">색상</a>
+        <a href="#chk">체크박스</a>
+        <a href="#radio">라디오</a>
+        <a href="#swt">토글</a>
+        <a href="#chip">칩 · 태그</a>
+        <a href="#inq">조회 탭</a>
+        <a href="#icon">UI 아이콘</a>
+        <a href="#pin">지도 핀</a>
+        <a href="#poi">POI 상세</a>
+        <a href="#analyze">분석 아이콘</a>
+        <a href="#modal">모달</a>
+        <a href="#mapui">MapUI 연동</a>
+      </nav>
+    </aside>
+    <main class="guide__main">
+      <h1 class="guide__h1">컴포넌트 가이드</h1>
+      <p class="guide__lead">
+        지도 퍼블 공통 UI. 미리보기에서 상태를 확인하고, <strong>복사</strong>로 마크업을 가져간다.
+        클래스는 화면에서 쓰는 그대로다. 지도 미리보기는 <a href="./map.html">map.html</a>.
+      </p>
+
+      <section class="g-sec" id="start">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">시작</h2>
+        </div>
+        <p class="g-sec__desc">
+          각 섹션에 미리보기와 복사 가능한 예제가 있다. 폼 컨트롤은 네이티브 input을 숨기고 박스만 그린다.
+          클래스는 화면에서 쓰는 그대로다.
+        </p>
+      </section>
+
+      <section class="g-sec" id="color">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">색상</h2>
+          <span class="g-sec__meta">src/scss/base/_variables.scss</span>
+        </div>
+        <p class="g-sec__desc">새 hex를 만들지 말고 토큰을 쓴다. <code>src/scss/base/_variables.scss</code></p>
+        <div class="g-play">
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#0e388e"></span><span class="g-swatch__name">$primary-80</span><span class="g-swatch__hex">#0E388E</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#3066bd"></span><span class="g-swatch__name">$primary-70</span><span class="g-swatch__hex">#3066BD</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#407ad0"></span><span class="g-swatch__name">$primary-60</span><span class="g-swatch__hex">#407AD0</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#e2eefc"></span><span class="g-swatch__name">$primary-10</span><span class="g-swatch__hex">#E2EEFC</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#1e2124"></span><span class="g-swatch__name">$gray-90</span><span class="g-swatch__hex">#1E2124</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#8a949e"></span><span class="g-swatch__name">$gray-40</span><span class="g-swatch__hex">#8A949E</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#cdd1d5"></span><span class="g-swatch__name">$gray-20</span><span class="g-swatch__hex">#CDD1D5</span></div>
+          <div class="g-swatch"><span class="g-swatch__chip" style="background:#fff;border:1px solid #cdd1d5"></span><span class="g-swatch__name">$gray-0</span><span class="g-swatch__hex">#FFFFFF</span></div>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">SCSS</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-scss">@use '../base/variables' as *;
+
+.dlg__head {
+  background: $primary-80;
+}
+
+.dlg__tab.is-on {
+  color: $gray-0;
+  background: $primary-70;
+}</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="chk">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">체크박스</h2>
+          <span class="g-sec__meta">.chk · 18×18</span>
+        </div>
+        <p class="g-sec__desc">레이어 트리에서 사용. input은 투명, 화면은 <code>.chk__box</code>. hover·disabled·checked 는 input 상태로 따라간다.</p>
+        <div class="g-play">
+          <label class="g-item">
+            <span class="chk"><input class="chk__input" type="checkbox"><span class="chk__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">기본</span>
+          </label>
+          <label class="g-item">
+            <span class="chk"><input class="chk__input" type="checkbox" checked><span class="chk__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">선택</span>
+          </label>
+          <label class="g-item">
+            <span class="chk"><input class="chk__input" type="checkbox" disabled><span class="chk__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">비활성</span>
+          </label>
+          <label class="g-item">
+            <span class="chk"><input class="chk__input" type="checkbox" checked disabled><span class="chk__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">선택+비활성</span>
+          </label>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;label class="tree__lab"&gt;
+  &lt;span class="chk"&gt;
+    &lt;input class="chk__input" type="checkbox" name="layer" value="LYR_TIDAL"
+      data-action="toggle-layer" data-layer-id="LYR_TIDAL" checked&gt;
+    &lt;span class="chk__box" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  갯벌면적
+&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="radio">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">라디오</h2>
+          <span class="g-sec__meta">.radio · 20×20</span>
+        </div>
+        <p class="g-sec__desc">같은 <code>name</code>으로 묶는다. 선택 시 남색 원 + 흰 체크.</p>
+        <div class="g-play">
+          <label class="g-item">
+            <span class="radio"><input class="radio__input" type="radio" name="gRadio" value="off"><span class="radio__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">기본</span>
+          </label>
+          <label class="g-item">
+            <span class="radio"><input class="radio__input" type="radio" name="gRadio" value="on" checked><span class="radio__box" aria-hidden="true"></span></span>
+            <span class="g-item__lab">선택</span>
+          </label>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;label&gt;
+  &lt;span class="radio"&gt;
+    &lt;input class="radio__input" type="radio" name="mode" value="circle" checked&gt;
+    &lt;span class="radio__box" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  원형조회
+&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="swt">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">토글</h2>
+          <span class="g-sec__meta">.flt__switch · 36×18</span>
+        </div>
+        <p class="g-sec__desc">필터 전체선택과 같은 스위치. <code>aria-checked</code> 로 on/off. 레이어 리스트는 <code>.lyr-list__switch</code> + <code>.is-on</code>.</p>
+        <div class="g-play">
+          <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" aria-label="끄기 예시">
+            <span>off</span>
+            <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+          </button>
+          <button type="button" class="flt__switch" role="switch" aria-checked="true" data-action="filter-all" aria-label="켜기 예시">
+            <span>on</span>
+            <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+          </button>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;button type="button" class="flt__switch" role="switch" aria-checked="false"
+  data-action="filter-all" data-filter-group="area"&gt;
+  &lt;span&gt;off&lt;/span&gt;
+  &lt;img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt=""&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="chip">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">칩 · 태그</h2>
+          <span class="g-sec__meta">.flt__chip / .flt__tag · 높이 30</span>
+        </div>
+        <p class="g-sec__desc">필터 지역·카테고리. 기본 / 선택(연파랑 <code>.is-pick</code>) / 채움(<code>.is-on</code>) / 삭제 태그(<code>.flt__tag</code>).</p>
+        <div class="g-play">
+          <button type="button" class="flt__chip" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>서울시</span></button>
+          <button type="button" class="flt__chip is-pick" aria-pressed="true"><img src="./src/assets/img/form/check-blue.svg" width="11" height="7" alt=""><span>서울시</span></button>
+          <button type="button" class="flt__chip is-on" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>서울시</span></button>
+          <button type="button" class="flt__tag">서울시<img src="./src/assets/img/filter/chip-x.svg" width="12" height="12" alt=""></button>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 칩</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;button type="button" class="flt__chip" data-action="filter-chip"
+  data-filter-group="area" data-value="서울시" aria-pressed="false"&gt;
+  &lt;img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""&gt;
+  &lt;span&gt;서울시&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 선택</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;button type="button" class="flt__chip is-pick" data-action="filter-chip"
+  data-filter-group="area" data-value="서울시" aria-pressed="true"&gt;
+  &lt;img src="./src/assets/img/form/check-blue.svg" width="11" height="7" alt=""&gt;
+  &lt;span&gt;서울시&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 채움</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;button type="button" class="flt__chip is-on" data-action="filter-chip"
+  data-filter-group="area" data-value="서울시" aria-pressed="true"&gt;
+  &lt;img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""&gt;
+  &lt;span&gt;서울시&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 태그</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;button type="button" class="flt__tag" data-action="filter-chip"
+  data-filter-group="area" data-value="서울시"&gt;
+  서울시
+  &lt;img src="./src/assets/img/filter/chip-x.svg" width="12" height="12" alt=""&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="inq">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">조회 탭</h2>
+          <span class="g-sec__meta">.inq__tab · 높이 32</span>
+        </div>
+        <p class="g-sec__desc">원형/격자 조회. 활성 탭만 체크 아이콘과 위·옆 보더.</p>
+        <div class="g-play" style="background:#fff">
+          <div class="inq" role="tablist" aria-label="조회 방식">
+            <button type="button" class="inq__tab is-on" role="tab" data-action="inq-tab">
+              <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+              원형조회
+            </button>
+            <button type="button" class="inq__tab" role="tab" data-action="inq-tab">격자조회</button>
+          </div>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;div class="inq" role="tablist" aria-label="조회 방식"&gt;
+  &lt;button type="button" class="inq__tab is-on" role="tab" data-action="inq-tab"&gt;
+    &lt;img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt=""&gt;
+    원형조회
+  &lt;/button&gt;
+  &lt;button type="button" class="inq__tab" role="tab" data-action="inq-tab"&gt;격자조회&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="icon">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">UI 아이콘</h2>
+          <span class="g-sec__meta">src/assets/img/icon</span>
+        </div>
+        <p class="g-sec__desc">피그마 icons 세트 중 화면에 쓰는 파일. 크기는 width/height로 고정한다.</p>
+        <div class="g-play">
+          <div class="g-ico"><img src="./src/assets/img/icon/search.svg" width="16" height="16" alt=""><span class="g-ico__name">search</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/filter.svg" width="24" height="24" alt=""><span class="g-ico__name">filter</span><span class="g-ico__path">24</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/close.svg" width="16" height="16" alt=""><span class="g-ico__name">close</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt="" style="background:#0e388e;border-radius:4px"><span class="g-ico__name">check</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""><span class="g-ico__name">chev-down</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/chev-up.svg" width="16" height="16" alt=""><span class="g-ico__name">chev-up</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/chevron-right.svg" width="16" height="16" alt=""><span class="g-ico__name">chevron-right</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/info.svg" width="16" height="16" alt=""><span class="g-ico__name">info</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/star.svg" width="16" height="16" alt=""><span class="g-ico__name">star</span><span class="g-ico__path">16</span></div>
+          <div class="g-ico"><img src="./src/assets/img/icon/flag.svg" width="16" height="16" alt=""><span class="g-ico__name">flag</span><span class="g-ico__path">16</span></div>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;img src="./src/assets/img/icon/search.svg" width="16" height="16" alt=""&gt;
+&lt;img src="./src/assets/img/icon/filter.svg" width="24" height="24" alt=""&gt;
+&lt;img src="./src/assets/img/icon/close.svg" width="16" height="16" alt=""&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="pin">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">지도 핀</h2>
+          <span class="g-sec__meta">src/assets/img/pin · tour-poi</span>
+        </div>
+        <p class="g-sec__desc">피그마 tour-poi. 기본 24×24, 선택(on) 36×51. 클러스터 pin-10은 건수 샘플(88)이 들어가 있다. 지도에 올리지 않고 에셋만 모아 둔다.</p>
+        <p class="g-sec__desc" style="margin-top:-8px">기본 · default</p>
+        <div class="g-play">
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-01.svg" width="24" height="24" alt=""><span class="g-ico__name">01</span><span class="g-ico__path">pin-01.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-02.svg" width="24" height="24" alt=""><span class="g-ico__name">02</span><span class="g-ico__path">pin-02.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-03.svg" width="24" height="24" alt=""><span class="g-ico__name">03</span><span class="g-ico__path">pin-03.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-04.svg" width="24" height="24" alt=""><span class="g-ico__name">04</span><span class="g-ico__path">pin-04.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-05.svg" width="24" height="24" alt=""><span class="g-ico__name">05</span><span class="g-ico__path">pin-05.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-06.svg" width="24" height="24" alt=""><span class="g-ico__name">06</span><span class="g-ico__path">pin-06.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-07.svg" width="24" height="24" alt=""><span class="g-ico__name">07</span><span class="g-ico__path">pin-07.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-08.svg" width="24" height="24" alt=""><span class="g-ico__name">08</span><span class="g-ico__path">pin-08.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-09.svg" width="24" height="24" alt=""><span class="g-ico__name">09</span><span class="g-ico__path">pin-09.svg</span></div>
+          <div class="g-ico"><img class="pin" src="./src/assets/img/pin/pin-10.svg" width="24" height="24" alt=""><span class="g-ico__name">10 클러스터</span><span class="g-ico__path">pin-10.svg</span></div>
+        </div>
+        <p class="g-sec__desc">선택 · on</p>
+        <div class="g-play">
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-01-on.svg" width="36" height="51" alt=""><span class="g-ico__name">01</span><span class="g-ico__path">pin-01-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-02-on.svg" width="36" height="51" alt=""><span class="g-ico__name">02</span><span class="g-ico__path">pin-02-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-03-on.svg" width="36" height="51" alt=""><span class="g-ico__name">03</span><span class="g-ico__path">pin-03-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-04-on.svg" width="36" height="51" alt=""><span class="g-ico__name">04</span><span class="g-ico__path">pin-04-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-05-on.svg" width="36" height="51" alt=""><span class="g-ico__name">05</span><span class="g-ico__path">pin-05-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-06-on.svg" width="36" height="51" alt=""><span class="g-ico__name">06</span><span class="g-ico__path">pin-06-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-07-on.svg" width="36" height="51" alt=""><span class="g-ico__name">07</span><span class="g-ico__path">pin-07-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-08-on.svg" width="36" height="51" alt=""><span class="g-ico__name">08</span><span class="g-ico__path">pin-08-on.svg</span></div>
+          <div class="g-ico"><img class="pin pin--on" src="./src/assets/img/pin/pin-09-on.svg" width="36" height="51" alt=""><span class="g-ico__name">09</span><span class="g-ico__path">pin-09-on.svg</span></div>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;img class="pin" src="./src/assets/img/pin/pin-01.svg" width="24" height="24" alt=""&gt;
+&lt;img class="pin pin--on" src="./src/assets/img/pin/pin-01-on.svg" width="36" height="51" alt=""&gt;
+&lt;img class="pin" src="./src/assets/img/pin/pin-10.svg" width="24" height="24" alt=""&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="poi">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">POI 상세</h2>
+          <span class="g-sec__meta">partials/poi.hbs · poi details</span>
+        </div>
+        <p class="g-sec__desc">피그마 poi details. 썸네일+정보 280 / 정보(긴 목록) 280 / 목록. 말풍선 꼬리 포함. 지도에 올리지 않고 에셋·마크업만 모아 둔다.</p>
+        <div class="g-play g-play--map">
+          {{> poi}}
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 썸네일+정보</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;div class="poi poi--thum"&gt;
+  &lt;div class="poi__card"&gt;
+    &lt;div class="poi__head"&gt;
+      &lt;div class="poi__thum"&gt;&lt;img src="./src/assets/img/poi/thumb.jpg" width="100" height="60" alt=""&gt;&lt;/div&gt;
+      &lt;div class="poi__txt"&gt;
+        &lt;span class="poi__badge"&gt;문화관광&lt;/span&gt;
+        &lt;p class="poi__title"&gt;홍주성 천년여행길&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="poi__box"&gt;...&lt;/div&gt;
+    &lt;div class="poi__btns"&gt;
+      &lt;button type="button" class="poi__btn"&gt;정보 보기&lt;/button&gt;
+      &lt;button type="button" class="poi__btn"&gt;길 찾기&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="poi__tail" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML · 목록</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;div class="poi poi--list"&gt;
+  &lt;div class="poi__card"&gt;
+    &lt;p class="poi__title"&gt;관광정보 목록&lt;/p&gt;
+    &lt;div class="poi__list"&gt;
+      &lt;button type="button" class="poi__item is-on"&gt;송 호텔&lt;/button&gt;
+      &lt;button type="button" class="poi__item"&gt;메디팜 정약국&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="poi__tail" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="analyze">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">분석 아이콘</h2>
+          <span class="g-sec__meta">src/assets/img/analyze · 16 / 20</span>
+        </div>
+        <p class="g-sec__desc">공간연산·분석·심볼. 도구 아이콘 16, 분석/심볼 20.</p>
+        <p class="g-sec__desc" style="margin-top:-8px">16px · 레이어 도구</p>
+        <div class="g-play">
+          <div class="g-ico"><img src="./src/assets/img/analyze/geoproc.svg" width="16" height="16" alt=""><span class="g-ico__name">공간연산</span><span class="g-ico__path">geoproc.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/geoanal.svg" width="16" height="16" alt=""><span class="g-ico__name">공간분석</span><span class="g-ico__path">geoanal.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/edit.svg" width="16" height="16" alt=""><span class="g-ico__name">편집</span><span class="g-ico__path">edit.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/attr.svg" width="16" height="16" alt=""><span class="g-ico__name">속성정보</span><span class="g-ico__path">attr.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/move.svg" width="16" height="16" alt=""><span class="g-ico__name">위치이동</span><span class="g-ico__path">move.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/download.svg" width="16" height="16" alt=""><span class="g-ico__name">다운로드</span><span class="g-ico__path">download.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/join.svg" width="16" height="16" alt=""><span class="g-ico__name">레이어조인</span><span class="g-ico__path">join.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/info.svg" width="16" height="16" alt=""><span class="g-ico__name">정보보기</span><span class="g-ico__path">info.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/delete.svg" width="16" height="16" alt=""><span class="g-ico__name">삭제</span><span class="g-ico__path">delete.svg</span></div>
+        </div>
+        <p class="g-sec__desc">20px · 연산 · 분석 · 심볼</p>
+        <div class="g-play">
+          <div class="g-ico"><img src="./src/assets/img/analyze/crop.svg" width="20" height="20" alt=""><span class="g-ico__name">자르기</span><span class="g-ico__path">crop.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/buffer.svg" width="20" height="20" alt=""><span class="g-ico__name">버퍼</span><span class="g-ico__path">buffer.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/intersect.svg" width="20" height="20" alt=""><span class="g-ico__name">교차</span><span class="g-ico__path">intersect.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/union.svg" width="20" height="20" alt=""><span class="g-ico__name">통합</span><span class="g-ico__path">union.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/merge.svg" width="20" height="20" alt=""><span class="g-ico__name">병합</span><span class="g-ico__path">merge.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/generalize.svg" width="20" height="20" alt=""><span class="g-ico__name">일반화</span><span class="g-ico__path">generalize.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/density.svg" width="20" height="20" alt=""><span class="g-ico__name">밀도분석</span><span class="g-ico__path">density.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/cluster.svg" width="20" height="20" alt=""><span class="g-ico__name">군집분석</span><span class="g-ico__path">cluster.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/dist.svg" width="20" height="20" alt=""><span class="g-ico__name">분포분석</span><span class="g-ico__path">dist.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/pattern.svg" width="20" height="20" alt=""><span class="g-ico__name">패턴분석</span><span class="g-ico__path">pattern.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/interp.svg" width="20" height="20" alt=""><span class="g-ico__name">보간법</span><span class="g-ico__path">interp.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/symbol.svg" width="20" height="20" alt=""><span class="g-ico__name">단순심볼</span><span class="g-ico__path">symbol.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/choropleth.svg" width="20" height="20" alt=""><span class="g-ico__name">단계구분</span><span class="g-ico__path">choropleth.svg</span></div>
+          <div class="g-ico"><img src="./src/assets/img/analyze/unique.svg" width="20" height="20" alt=""><span class="g-ico__name">고유값</span><span class="g-ico__path">unique.svg</span></div>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;img src="./src/assets/img/analyze/geoproc.svg" width="16" height="16" alt=""&gt;
+&lt;img src="./src/assets/img/analyze/buffer.svg" width="20" height="20" alt=""&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="modal">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">모달</h2>
+          <span class="g-sec__meta">.dlg #metaModal</span>
+        </div>
+        <p class="g-sec__desc">
+          마크업은 <code>partials/modal.hbs</code>. 기본 딤은 <code>data-dimmed="true"</code>.
+          열기: <code>MapUI.openModal('metaModal', { dimmed: true })</code>.
+          닫기: 닫기 버튼, 딤 클릭, Esc. 닫으면 연 버튼으로 포커스 복귀. 모달 안 Tab 순환.
+        </p>
+        <div class="g-play">
+          <div class="g-btns">
+            <button type="button" class="g-btn" data-guide-modal="overview">개요</button>
+            <button type="button" class="g-btn" data-guide-modal="spatial">공간 메타정보</button>
+            <button type="button" class="g-btn" data-guide-modal="marine">해양특성</button>
+            <button type="button" class="g-btn" data-guide-modal="model">데이터모델</button>
+            <button type="button" class="g-btn" data-guide-modal="data">데이터보기</button>
+            <button type="button" class="g-btn" data-guide-modal="nodim">딤 없이 열기</button>
+            <a class="g-btn" href="./map.html#modal">지도에서 보기</a>
+          </div>
+        </div>
+        <p class="g-note">
+          상위 탭 메타정보 / 데이터 보기. 메타 안 아코디언 4종. <code>MapUI.openModal('metaModal', { tab: 'spatial' })</code>.
+          닫기: 닫기 버튼, 딤, Esc. 미리보기 <code>#modal</code> <code>#modal-spatial</code> <code>#modal-marine</code> <code>#modal-model</code> <code>#modal-data</code>.
+        </p>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">JavaScript</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-javascript">MapUI.openModal('metaModal', { dimmed: true, tab: 'overview' })
+MapUI.setModalTab('spatial')
+MapUI.closeModal('metaModal')
+
+document.addEventListener('map:modal-tab', (e) =&gt; {
+  const { tab } = e.detail
+})</code></pre>
+        </div>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">HTML</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-html">&lt;div class="dlg" id="metaModal" hidden data-dimmed="true"&gt;
+  &lt;div class="dlg__dim" data-action="close-modal" hidden&gt;&lt;/div&gt;
+  &lt;section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="metaTitle" tabindex="-1"&gt;
+    &lt;header class="dlg__head"&gt;...&lt;/header&gt;
+    &lt;div class="dlg__body"&gt;...&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="g-sec" id="mapui">
+        <div class="g-sec__head">
+          <h2 class="g-sec__ti">MapUI</h2>
+          <span class="g-sec__meta">src/js/map.js · window.MapUI</span>
+        </div>
+        <p class="g-sec__desc">퍼블은 화면 상태만. API·지도 엔진은 이벤트 구독 후 붙인다. 상세는 docs/MAP-SCRIPT.md.</p>
+        <div class="g-code">
+          <div class="g-code__bar">
+            <span class="g-code__lang">JavaScript</span>
+            <button type="button" class="g-copy">복사</button>
+          </div>
+          <pre><code class="language-javascript">MapUI.getCheckedLayers()
+MapUI.setLayerChecked('LYR_TIDAL', false)
+MapUI.openModal('metaModal', { dimmed: true })
+MapUI.closeModal('metaModal')
+MapUI.openFilter()
+MapUI.getFilter()
+MapUI.setZoom(7)
+
+document.addEventListener('map:layer-change', (e) =&gt; {
+  const { id, name, checked, parentId } = e.detail
+})</code></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+  {{> modal}}
+  <script type="module" src="./src/js/guide.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{{!--
+  마리나관광 목록 — Figma 168:34589 / 168:35641
+  MapUI.openMarina() / closeMarina()
+  data-action: close-marina-list | marina-item | marina-loc | marina-info | marina-more
+--}}
+<aside class="tour tour--marina" id="marinaList" hidden aria-label="마리나관광">
+  <img class="tour__glass" src="./src/assets/img/glass-panel.png" width="360" height="800" alt="" aria-hidden="true">
+  <div class="tour__head">
+    <p class="tour__title">마리나관광</p>
+    <button type="button" class="tour__close" data-action="close-marina-list" aria-label="마리나관광 목록 닫기">
+      <img src="./src/assets/img/tour/close.svg" width="24" height="24" alt="">
+    </button>
+  </div>
+  <div class="tour__body">
+    <div class="tour__list">
+      <div class="tour__sub">
+        <p class="tour__sub-tit">전국 마리나 현황</p>
+        <div class="tour__sub-right">
+          <button type="button" class="tour__more" data-action="marina-more" aria-label="목록 옵션"></button>
+        </div>
+      </div>
+      <div class="tour__cards" data-bind="marina-places">
+        {{#each marinaPlaces}}
+        <div class="tour__card{{#if on}} is-on{{/if}}" data-action="marina-item" data-marina-id="{{id}}" tabindex="0" role="button">
+          <span class="tour__txt">
+            <span class="tour__name">{{name}}</span>
+            <span class="tour__addr">{{addr}}</span>
+          </span>
+          <span class="tour__btns">
+            <button type="button" class="tour__ico" data-action="marina-loc" data-marina-id="{{id}}" aria-label="{{name}} 위치">
+              <img src="./src/assets/img/marina/location.svg" width="24" height="24" alt="">
+            </button>
+            <button type="button" class="tour__ico" data-action="marina-info" data-marina-id="{{id}}" aria-label="{{name}} 정보">
+              <img src="./src/assets/img/marina/info.svg" width="24" height="24" alt="">
+            </button>
+          </span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</aside>

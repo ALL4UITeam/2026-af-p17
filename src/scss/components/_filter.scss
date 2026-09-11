@@ -1,0 +1,360 @@
+@use '../base/variables' as *;
+
+.flt {
+  position: absolute;
+  top: 42px;
+  left: 460px;
+  z-index: 14;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  max-height: calc(100% - 52px);
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+
+  &[hidden] {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(131deg, rgba(216, 235, 240, 0.4) 1.38%, rgba(152, 216, 236, 0.4) 94.13%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
+  }
+
+  &__glass {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    pointer-events: none;
+    border-radius: 16px;
+  }
+
+  &__head,
+  &__body {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 16px;
+    background: $primary-80;
+  }
+
+  &__title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+
+    img {
+      display: block;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+    padding: 20px 16px;
+    @include overlay-scroll;
+  }
+
+  &__sec {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+
+    &.is-fold .flt__grid {
+      display: none;
+    }
+
+    &.is-fold .flt__fold img {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__line {
+    display: block;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+  }
+
+  &__tit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  &__tit-l {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    strong {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: $gray-90;
+    }
+  }
+
+  &__all {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: $gray-90;
+  }
+
+  &__switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 36px;
+    height: 18px;
+    padding: 1px;
+    border-radius: 12px;
+    background: $gray-40;
+    cursor: pointer;
+
+    span {
+      position: absolute;
+      right: 5px;
+      top: 4px;
+      font-size: 9px;
+      font-weight: 500;
+      line-height: 1;
+      color: $gray-0;
+    }
+
+    img {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+
+    &[aria-checked='true'] {
+      justify-content: flex-end;
+      background: $primary-60;
+
+      span {
+        left: 5px;
+        right: auto;
+        color: $gray-0;
+      }
+    }
+  }
+
+  &__fold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid $gray-0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+
+    img {
+      display: block;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: 4px;
+    width: 100%;
+
+    &--4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    &--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    &--7 {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+
+  &__chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+    height: 30px;
+    padding: 0 6px;
+    border: 1px solid $gray-20;
+    border-radius: 30px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+    background: $gray-0;
+    cursor: pointer;
+    white-space: nowrap;
+
+    img {
+      display: none;
+      flex-shrink: 0;
+      width: 11px;
+      height: 7px;
+    }
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.is-on {
+      gap: 8px;
+      border-color: $primary-70;
+      font-weight: 700;
+      color: $gray-0;
+      background: $primary-70;
+
+      img {
+        display: block;
+      }
+    }
+  }
+
+  &__grid--7 &__chip {
+    border-radius: 6px;
+
+    &.is-on {
+      gap: 0;
+
+      img {
+        display: none;
+      }
+    }
+  }
+
+  &__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__picked {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+
+  &__reset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+  }
+
+  &__reset-mo,
+  &__apply-mo {
+    display: none;
+  }
+
+  &__reset-pc {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 30px;
+    padding: 0 8px;
+    border-radius: 30px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+    background: #f4f5f6;
+    cursor: pointer;
+
+    img {
+      display: block;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__apply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid $primary-50;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $primary-80;
+    background: $primary-5;
+    cursor: pointer;
+  }
+}
+
+.panel__filter.is-on,
+.mo-search__filter.is-on {
+  outline: 2px solid $primary-50;
+  outline-offset: 1px;
+}

@@ -1,0 +1,54 @@
+{{!--
+  배경지도 선택. Figma 231:28472
+  도구 배경지도 버튼. MapUI.openBasemap() / closeBasemap()
+  data-action: close-basemap | basemap-pick | basemap-color
+--}}
+<aside class="bmap" id="basemapPop" hidden role="dialog" aria-modal="false" aria-labelledby="basemapTitle">
+  <header class="bmap__head">
+    <p class="bmap__title" id="basemapTitle">배경지도 선택</p>
+    <button type="button" class="bmap__x" data-action="close-basemap" aria-label="닫기">
+      <img src="./src/assets/img/icon/close.svg" width="12" height="12" alt="">
+    </button>
+  </header>
+  <div class="bmap__body">
+    <div class="bmap__bar">
+      <label class="bmap__opac">
+        <span>투명도</span>
+        <input class="bmap__range" id="basemapOpacity" type="range" min="0" max="100" value="70" style="--pct: 70%" data-action="basemap-opacity" data-bind="basemap-opacity" aria-label="배경지도 투명도">
+      </label>
+      <div class="bmap__colors">
+        <span>배경색</span>
+        <div class="bmap__swatches" role="listbox" aria-label="배경색">
+          <button type="button" class="bmap__chip" data-action="basemap-color" data-color="#ffffff" style="background:#fff" aria-label="흰색" aria-pressed="false"></button>
+          <button type="button" class="bmap__chip" data-action="basemap-color" data-color="#e6e8ea" style="background:#e6e8ea" aria-label="밝은 회색" aria-pressed="false"></button>
+          <button type="button" class="bmap__chip is-on" data-action="basemap-color" data-color="#b1b8be" style="background:#b1b8be" aria-label="회색" aria-pressed="true"></button>
+          <button type="button" class="bmap__chip" data-action="basemap-color" data-color="#6d7882" style="background:#6d7882" aria-label="중간 회색" aria-pressed="false"></button>
+          <button type="button" class="bmap__chip" data-action="basemap-color" data-color="#464c53" style="background:#464c53" aria-label="어두운 회색" aria-pressed="false"></button>
+          <button type="button" class="bmap__chip" data-action="basemap-color" data-color="#1e2124" style="background:#1e2124" aria-label="검정" aria-pressed="false"></button>
+        </div>
+      </div>
+    </div>
+    <div class="bmap__grid">
+      <button type="button" class="bmap__card is-on" data-action="basemap-pick" data-map="coast" aria-pressed="true">
+        <span class="bmap__thumb"><img src="./src/assets/img/basemap/coast.png" width="130" height="80" alt=""></span>
+        <span class="bmap__name">해안선</span>
+      </button>
+      <button type="button" class="bmap__card" data-action="basemap-pick" data-map="datum" aria-pressed="false">
+        <span class="bmap__thumb"><img src="./src/assets/img/basemap/datum.png" width="130" height="80" alt=""></span>
+        <span class="bmap__name">기본수준면</span>
+      </button>
+      <button type="button" class="bmap__card" data-action="basemap-pick" data-map="eng" aria-pressed="false">
+        <span class="bmap__thumb"><img src="./src/assets/img/basemap/eng.png" width="130" height="80" alt=""></span>
+        <span class="bmap__name">영문주기</span>
+      </button>
+      <button type="button" class="bmap__card" data-action="basemap-pick" data-map="enc" aria-pressed="false">
+        <span class="bmap__thumb"><img src="./src/assets/img/basemap/enc.png" width="130" height="80" alt=""></span>
+        <span class="bmap__name">전자해도</span>
+      </button>
+      <button type="button" class="bmap__card" data-action="basemap-pick" data-map="sat" aria-pressed="false">
+        <span class="bmap__thumb"><img src="./src/assets/img/basemap/sat.png" width="130" height="80" alt=""></span>
+        <span class="bmap__name">영상맵</span>
+      </button>
+    </div>
+  </div>
+</aside>

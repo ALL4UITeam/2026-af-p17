@@ -1,0 +1,242 @@
+{{!--
+  메타정보 모달
+  - 142:14831 공간 / 142:21208 해양특성 / 142:21382 헤더 / 147:22182 데이터 보기
+  - 상위 탭: 메타정보 | 데이터 보기. 메타 안 아코디언: 개요·공간·해양특성·데이터모델
+  - MapUI.openModal('metaModal', { dimmed: true, tab: 'overview' })
+  - data-action: modal-tab | modal-acc | close-modal
+--}}
+<div class="dlg" id="metaModal" hidden data-dimmed="true">
+  <div class="dlg__dim" data-action="close-modal" hidden></div>
+  <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="metaTitle" tabindex="-1">
+    <header class="dlg__head">
+      <div class="dlg__head-left">
+        <h2 class="dlg__title" id="metaTitle" data-bind="meta-title">갯벌면적</h2>
+        <p class="dlg__badges">
+          <span class="dlg__badge dlg__badge--part">부분공개</span>
+          <span class="dlg__badge dlg__badge--pub">기초DB</span>
+        </p>
+      </div>
+      <button type="button" class="dlg__close" data-action="close-modal" aria-label="닫기">
+        <img src="./src/assets/img/modal/close.svg" width="12" height="12" alt="">
+      </button>
+    </header>
+    <div class="dlg__body">
+      <div class="dlg__tabs" role="tablist" aria-label="메타정보">
+        <button type="button" class="dlg__tab is-on" role="tab" id="metaTabMeta" aria-selected="true" aria-controls="metaPaneMeta" data-action="modal-tab" data-tab="meta">메타정보</button>
+        <button type="button" class="dlg__tab" role="tab" id="metaTabData" aria-selected="false" aria-controls="metaPaneData" data-action="modal-tab" data-tab="data">데이터 보기</button>
+      </div>
+
+      <div class="dlg__accs is-on" id="metaPaneMeta" role="tabpanel" aria-labelledby="metaTabMeta">
+        <div class="dlg-acc is-on" data-acc="overview">
+          <button type="button" class="dlg-acc__btn" data-action="modal-acc" data-tab="overview" aria-expanded="true">
+            개요
+            <span class="dlg-acc__ico" aria-hidden="true">
+              <img class="dlg-acc__ico-off" src="./src/assets/img/modal/acc-down.svg" width="18" height="18" alt="">
+              <img class="dlg-acc__ico-on" src="./src/assets/img/modal/acc-up.svg" width="18" height="18" alt="">
+            </span>
+          </button>
+          <div class="dlg-acc__body" data-bind="meta-overview">
+            <div class="dlg__sec">
+              <h3 class="dlg__sec-ti">설명</h3>
+              <p class="dlg__desc" data-bind="meta-desc">다양한 해양활동과 편의제공을 위한 요트 추천항로_ 마리나 항만시설 등 안전하고 편리한 해양활동 정보를 제공.요트 연결항로 및 접속항로에 대한 정보 제공</p>
+            </div>
+            <div class="dlg__sec">
+              <h3 class="dlg__sec-ti">주제분류</h3>
+              <ul class="dlg__cls">
+                <li>
+                  <span class="dlg__cls-lab dlg__cls-lab--mof">해양수산분류</span>
+                  <p class="dlg__cls-path">
+                    공공질서 및 안전
+                    <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                    해경
+                    <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                    해상안전
+                  </p>
+                </li>
+                <li>
+                  <span class="dlg__cls-lab dlg__cls-lab--gov">정부지능분야</span>
+                  <p class="dlg__cls-path">
+                    해사안전
+                    <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                    해사안전관리
+                    <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                    해양재난안전
+                  </p>
+                </li>
+                <li>
+                  <span class="dlg__cls-lab dlg__cls-lab--src">원천출처</span>
+                  <p class="dlg__cls-path">해사안전</p>
+                </li>
+              </ul>
+            </div>
+            <div class="dlg__sec">
+              <h3 class="dlg__sec-ti">주제어</h3>
+              <p class="dlg__tags">
+                <span># 요트</span>
+                <span># 항로</span>
+                <span># 연결</span>
+                <span># 접속</span>
+                <span># 불규칙</span>
+                <span># 흐름</span>
+                <span># 소용돌이</span>
+              </p>
+            </div>
+            <ul class="dlg__cards">
+              <li>
+                <span class="dlg-card__ico"><img src="./src/assets/img/modal/folder.svg" width="40" height="40" alt=""></span>
+                <p>
+                  <strong>유형</strong>
+                  <span>공간 자료(좌표형)</span>
+                </p>
+              </li>
+              <li>
+                <span class="dlg-card__ico"><img src="./src/assets/img/modal/graph.svg" width="40" height="40" alt=""></span>
+                <p>
+                  <strong>자료생산 진행상태</strong>
+                  <span>규칙적 생산진행</span>
+                </p>
+              </li>
+              <li>
+                <span class="dlg-card__ico dlg-card__ico--sm"><img src="./src/assets/img/modal/building.svg" width="24" height="24" alt=""></span>
+                <p>
+                  <strong>관리기관(부서)</strong>
+                  <span>국립해양조사원(해도수로과)</span>
+                </p>
+              </li>
+              <li>
+                <span class="dlg-card__ico dlg-card__ico--pc"><img src="./src/assets/img/modal/desktop.svg" width="22" height="19" alt=""></span>
+                <p>
+                  <strong>관리기관 시스템</strong>
+                  <span>개방해</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dlg-acc" data-acc="spatial">
+          <button type="button" class="dlg-acc__btn" data-action="modal-acc" data-tab="spatial" aria-expanded="false">
+            공간 메타정보
+            <span class="dlg-acc__ico" aria-hidden="true">
+              <img class="dlg-acc__ico-off" src="./src/assets/img/modal/acc-down.svg" width="18" height="18" alt="">
+              <img class="dlg-acc__ico-on" src="./src/assets/img/modal/acc-up.svg" width="18" height="18" alt="">
+            </span>
+          </button>
+          <div class="dlg-acc__body" data-bind="meta-spatial">
+            <ul class="dlg-kv">
+              <li><strong>2.1 축척</strong><span>-</span></li>
+              <li><strong>2.2 해상도</strong><span>-</span></li>
+              <li><strong>2.3 측지계</strong><span>GRS80</span></li>
+              <li><strong>2.4 투영법</strong><span>-</span></li>
+              <li><strong>2.5 좌표원점</strong><span>-</span></li>
+              <li><strong>2.6 좌표체계코드</strong><span>WGS84 경위도</span></li>
+              <li><strong>2.7 LOD유형</strong><span>2차원</span></li>
+              <li><strong>2.8 시간적범위</strong><span>-</span></li>
+              <li><strong>2.9 공간적범위</strong><span>전해역</span></li>
+              <li><strong>2.10 공개, 비공개여부</strong><span>미분류</span></li>
+              <li><strong>2.11 품질보증</strong><span>-</span></li>
+              <li><strong>2.12 파일이름</strong><span>sta_khoa_wave</span></li>
+              <li><strong>2.13 파일포맷</strong><span>shp</span></li>
+              <li><strong>2.14 파일용량</strong><span>0.1</span></li>
+              <li><strong>2.15 파일언어</strong><span>한국어</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dlg-acc" data-acc="marine">
+          <button type="button" class="dlg-acc__btn" data-action="modal-acc" data-tab="marine" aria-expanded="false">
+            해양특성 메타정보
+            <span class="dlg-acc__ico" aria-hidden="true">
+              <img class="dlg-acc__ico-off" src="./src/assets/img/modal/acc-down.svg" width="18" height="18" alt="">
+              <img class="dlg-acc__ico-on" src="./src/assets/img/modal/acc-up.svg" width="18" height="18" alt="">
+            </span>
+          </button>
+          <div class="dlg-acc__body" data-bind="meta-marine">
+            <ul class="dlg-kv">
+              <li><strong>3.1.1 사업명</strong><span>-</span></li>
+              <li><strong>3.1.2 사업목적</strong><span>-</span></li>
+              <li><strong>3.1.3 사업위탁기관명</strong><span>-</span></li>
+              <li><strong>3.1.4 사업책임기관명</strong><span>-</span></li>
+              <li><strong>3.1.5 사업시작일자</strong><span>-</span></li>
+              <li><strong>3.1.6 사업종료일자</strong><span>-</span></li>
+              <li><strong>3.1.7 사업구분범위</strong><span>-</span></li>
+              <li><strong>3.2.1 한글장비명</strong><span>-</span></li>
+              <li><strong>3.2.2 영문장비명</strong><span>-</span></li>
+              <li><strong>3.2.3 모델명</strong><span>-</span></li>
+              <li><strong>3.2.4 용도</strong><span>-</span></li>
+              <li><strong>3.2.5 주요설정값 설명</strong><span>-</span></li>
+              <li><strong>3.2.6 장비검교정수행일자</strong><span>-</span></li>
+              <li><strong>3.2.7 관련소프트웨어명</strong><span>-</span></li>
+              <li><strong>3.3.1 조사위치명</strong><span>-</span></li>
+              <li><strong>3.3.2 위도</strong><span>-</span></li>
+              <li><strong>3.3.3 경도</strong><span>-</span></li>
+              <li><strong>3.3.4 주소</strong><span>-</span></li>
+              <li><strong>3.3.5 자료수집시작일시</strong><span>-</span></li>
+              <li><strong>3.3.6 자료수집종료일시</strong><span>-</span></li>
+              <li><strong>3.3.7 자료수집수행기관명</strong><span>-</span></li>
+              <li><strong>3.3.8 자료수집책임자명</strong><span>-</span></li>
+              <li><strong>3.3.9 자료수집수행시간간격</strong><span>-</span></li>
+              <li><strong>3.3.10 자료수집수행간격설명</strong><span>-</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dlg-acc" data-acc="model">
+          <button type="button" class="dlg-acc__btn" data-action="modal-acc" data-tab="model" aria-expanded="false">
+            데이터모델 메타정보
+            <span class="dlg-acc__ico" aria-hidden="true">
+              <img class="dlg-acc__ico-off" src="./src/assets/img/modal/acc-down.svg" width="18" height="18" alt="">
+              <img class="dlg-acc__ico-on" src="./src/assets/img/modal/acc-up.svg" width="18" height="18" alt="">
+            </span>
+          </button>
+          <div class="dlg-acc__body dlg-acc__body--model" data-bind="meta-model">
+            <div class="dlg-info">
+              <div>
+                <span class="dlg-card__ico"><img src="./src/assets/img/modal/folder.svg" width="40" height="40" alt=""></span>
+                <p>
+                  <strong>물리 테이블 명</strong>
+                  <span>rcmr_cnct_rute_l</span>
+                </p>
+              </div>
+              <div>
+                <span class="dlg-card__ico"><img src="./src/assets/img/modal/graph.svg" width="40" height="40" alt=""></span>
+                <p>
+                  <strong>논리 테이블 명</strong>
+                  <span>추천항로접속항로</span>
+                </p>
+              </div>
+            </div>
+            <table class="dlg-tbl">
+              <thead>
+                <tr>
+                  <th>칼럼명</th>
+                  <th>컬럼설명</th>
+                  <th>데이터타입</th>
+                  <th>길이</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>gid</td><td>공간정보일련번호</td><td>integer</td><td>-</td></tr>
+                <tr><td>ty_cd</td><td>공간정보</td><td>geometry</td><td>-</td></tr>
+                <tr><td>obj_id</td><td>객체ID</td><td>character varying</td><td>200</td></tr>
+                <tr><td>oc_invs_inst_cd</td><td>해양조사기관코드</td><td>character varying</td><td>7</td></tr>
+                <tr><td>mfgg_ymd</td><td>제작일자</td><td>character varying</td><td>8</td></tr>
+                <tr><td>jdsa_nm</td><td>관할해역명</td><td>character varying</td><td>100</td></tr>
+                <tr><td>cnct_rute_bf_spot_no</td><td>접속항로이전지점번호</td><td>character varying</td><td>200</td></tr>
+                <tr><td>cnct_rute_next_spot_no</td><td>접속항로다음지점번호</td><td>character varying</td><td>20</td></tr>
+                <tr><td>cnct_rute_bf_spot_dms_la</td><td>접속항로이전지점도분초위도</td><td>character varying</td><td>13</td></tr>
+                <tr><td>cnct_rute_bf_spot_dms_lo</td><td>접속항로이전지점도분초경도</td><td>character varying</td><td>14</td></tr>
+                <tr><td>cnct_rute_next_spot_dms_la</td><td>접속항로다음지점도분초위도</td><td>character varying</td><td>13</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="dlg__data" id="metaPaneData" role="tabpanel" aria-labelledby="metaTabData" hidden data-bind="meta-data">
+        <h3 class="dlg__sec-ti">데이터 보기</h3>
+        <img class="dlg__map" src="./src/assets/img/modal/data-map.png" width="650" height="550" alt="갯벌면적 데이터">
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,182 @@
+@use '../base/variables' as *;
+
+.gnb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 70px;
+  height: 100%;
+  padding: 20px 0;
+  border-radius: 16px;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(180deg, rgba(33, 117, 182, 0.6) 0%, rgba(161, 197, 225, 0.6) 100%),
+      linear-gradient(90deg, #fff 0%, #fff 100%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: url('../assets/img/glass-card.png') center / cover no-repeat;
+    opacity: 0.7;
+  }
+
+  &__top,
+  &__btm,
+  &__logo,
+  &__list,
+  &__item,
+  &__util {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+  }
+
+  &__symbol {
+    display: block;
+    width: 48px;
+    height: 98px;
+    background: url('../assets/img/symbol.svg') center / 48px 98px no-repeat;
+  }
+
+  &__name {
+    font-family: $font-logo;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 12px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 46px;
+    text-decoration: none;
+  }
+
+  &__ico {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+
+    &--map {
+      background-image: url('../assets/img/gnb/map.svg');
+    }
+
+    &--research {
+      background-image: url('../assets/img/gnb/research.svg');
+    }
+
+    &--twin {
+      background-image: url('../assets/img/gnb/twin.svg');
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: center;
+    color: $gray-80;
+    white-space: nowrap;
+  }
+
+  &__item.is-active {
+    .gnb__ico {
+      background-color: $primary-60;
+    }
+
+    .gnb__label {
+      font-weight: 700;
+      color: $gray-95;
+    }
+  }
+
+  &__btm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 46px;
+  }
+
+  &__util {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  &__util-ico {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+
+    &--catalog {
+      background-image: url('../assets/img/gnb/catalog.svg');
+    }
+
+    &--alert {
+      background-image: url('../assets/img/gnb/alert.svg');
+    }
+
+    &--logout {
+      background-image: url('../assets/img/gnb/logout.svg');
+    }
+  }
+
+  &__util-label {
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: center;
+    color: $gray-95;
+    white-space: nowrap;
+  }
+}

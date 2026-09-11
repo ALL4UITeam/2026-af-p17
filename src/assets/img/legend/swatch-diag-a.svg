@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="diagonal-swatch">
+<g clip-path="url(#clip0_0_20)">
+<rect width="16" height="16" rx="3" fill="#38BDF8"/>
+<line id="Line" x1="0.587741" y1="-0.46445" x2="19.7487" y2="18.6965" stroke="white" stroke-width="2.5"/>
+<line id="Line_2" x1="6.00717" y1="-5.88388" x2="25.1681" y2="13.2771" stroke="white" stroke-width="2.5"/>
+<line id="Line_3" x1="-4.83194" y1="4.95498" x2="14.329" y2="24.1159" stroke="white" stroke-width="2.5"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_20">
+<rect width="16" height="16" rx="3" fill="white"/>
+</clipPath>
+</defs>
+</svg>

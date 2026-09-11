@@ -1,62 +1,45 @@
-{{!-- 모바일 KRDS 전체 메뉴 — Figma A안_M_00공통_99메뉴확장 --}}
-<div class="mo-menu-dim" id="moMenuDim" hidden aria-hidden="true"></div>
-<nav
-  class="mo-menu"
-  id="moMenu"
-  role="dialog"
-  aria-modal="true"
-  aria-label="전체 메뉴"
-  hidden
-  tabindex="-1"
->
-  <div class="mo-menu__bar">
-    <button type="button" class="mo-hdr__ico" id="moMenuClose" aria-label="전체 메뉴 닫기">
-      <img src="./src/assets/img/mo/close-menu.svg" width="30" height="30" alt="">
-    </button>
-    <div class="mo-hdr__brand">
-      <img class="mo-hdr__logo" src="./src/assets/img/mo/logo-mark.svg" width="25" height="25" alt="">
-      <strong class="mo-hdr__name">해양수산공간정보플랫폼</strong>
-    </div>
-    <button type="button" class="mo-hdr__ico" aria-label="마이메뉴">
-      <img src="./src/assets/img/mo/user.svg" width="30" height="30" alt="">
-    </button>
-  </div>
-  <div class="mo-menu__body">
-    <ul class="mo-menu__depth1" role="list">
+{{!--
+  모바일 전체 메뉴 — Figma 112:45608 B안_M_00공통_99메뉴확장(KRDS)
+  MapUI.openMoMenu() / closeMoMenu()
+  data-action: mo-nav | mo-menu-close
+--}}
+<nav class="mo-menu" id="moMenu" aria-label="전체 메뉴" hidden>
+  <div class="mo-menu__cols">
+    <ul class="mo-menu__d1" role="tablist" aria-label="1차 메뉴">
       <li>
-        <button type="button" class="mo-menu__d1 mo-menu__d1--on" data-menu-d1="platform" aria-current="true">
+        <button type="button" class="mo-menu__d1-btn is-on" data-action="mo-nav" data-nav="platform" role="tab" aria-selected="true" aria-controls="moNavPlatform">
           해양수산 공간정보 플랫폼
         </button>
       </li>
       <li>
-        <button type="button" class="mo-menu__d1" data-menu-d1="bigdata">빅데이터</button>
+        <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="bigdata" role="tab" aria-selected="false" aria-controls="moNavBigdata">
+          빅데이터
+        </button>
       </li>
       <li>
-        <button type="button" class="mo-menu__d1" data-menu-d1="stat">통계자료</button>
+        <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="stat" role="tab" aria-selected="false" aria-controls="moNavStat">
+          통계자료
+        </button>
       </li>
       <li>
-        <button type="button" class="mo-menu__d1" data-menu-d1="archive">자료실</button>
+        <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="archive" role="tab" aria-selected="false" aria-controls="moNavArchive">
+          자료실
+        </button>
       </li>
       <li>
-        <button type="button" class="mo-menu__d1" data-menu-d1="analysis">해양수산 공간분석</button>
+        <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="anal" role="tab" aria-selected="false" aria-controls="moNavAnal">
+          해양수산 공간분석
+        </button>
       </li>
     </ul>
-    <div class="mo-menu__depth2" id="moMenuDepth2">
-      <ul class="mo-menu__d2-list" role="list" data-pane="platform">
-        <li><a class="mo-menu__d2" href="./map.html">공간정보</a></li>
-      </ul>
-      <ul class="mo-menu__d2-list" role="list" data-pane="bigdata" hidden>
-        <li><span class="mo-menu__d2">빅데이터(목업)</span></li>
-      </ul>
-      <ul class="mo-menu__d2-list" role="list" data-pane="stat" hidden>
-        <li><span class="mo-menu__d2">통계자료(목업)</span></li>
-      </ul>
-      <ul class="mo-menu__d2-list" role="list" data-pane="archive" hidden>
-        <li><span class="mo-menu__d2">자료실(목업)</span></li>
-      </ul>
-      <ul class="mo-menu__d2-list" role="list" data-pane="analysis" hidden>
-        <li><span class="mo-menu__d2">공간분석(목업)</span></li>
-      </ul>
+    <div class="mo-menu__d2">
+      <div class="mo-menu__pane is-on" id="moNavPlatform" data-nav-pane="platform" role="tabpanel">
+        <a class="mo-menu__d2-link" href="./map.html">공간정보</a>
+      </div>
+      <div class="mo-menu__pane" id="moNavBigdata" data-nav-pane="bigdata" role="tabpanel" hidden></div>
+      <div class="mo-menu__pane" id="moNavStat" data-nav-pane="stat" role="tabpanel" hidden></div>
+      <div class="mo-menu__pane" id="moNavArchive" data-nav-pane="archive" role="tabpanel" hidden></div>
+      <div class="mo-menu__pane" id="moNavAnal" data-nav-pane="anal" role="tabpanel" hidden></div>
     </div>
   </div>
 </nav>

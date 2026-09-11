@@ -1,4 +1,38 @@
-/* KRDS / KWCAG 접근성 공통 */
+.skip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skip a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  color: #fff;
+  background: #0e388e;
+}
+
+.skip a:focus-visible {
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 
 .sr-only {
   position: absolute;
@@ -12,41 +46,7 @@
   border: 0;
 }
 
-.skip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  padding: 12px 16px;
-  background: var(--c-primary);
-  color: var(--c-white);
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  transform: translateY(-120%);
-
-  &:focus {
-    transform: translateY(0);
-    outline: 3px solid #ffd400;
-    outline-offset: 2px;
-  }
-}
-
-:focus {
-  outline: none;
-}
-
 :focus-visible {
-  outline: 3px solid var(--c-primary);
-  outline-offset: 2px;
-}
-
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-[role='tab']:focus-visible,
-[role='slider']:focus-visible,
-[tabindex]:focus-visible {
-  outline: 3px solid var(--c-primary);
+  outline: 2px solid #407ad0;
   outline-offset: 2px;
 }

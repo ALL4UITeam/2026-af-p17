@@ -1,0 +1,77 @@
+{{!--
+  관광 핀 · POI 말풍선. 에셋은 pin/ poi/. 1차 패널 옆 2차 목록과 같이 연다.
+  data-action: tour-pin | tour-info | tour-route
+--}}
+<div class="pins" id="pinLayer" hidden aria-label="관광 핀">
+  {{#each tourPlaces}}
+  <button type="button" class="pin-btn{{#if on}} is-on{{/if}}" data-action="tour-pin" data-tour-id="{{id}}" data-pin="{{pin}}" style="left:{{left}};top:{{top}}">
+    <img class="pin pin--off" src="./src/assets/img/pin/pin-{{pin}}.svg" width="24" height="24" alt="">
+    <img class="pin pin--on" src="./src/assets/img/pin/pin-{{pin}}-on.svg" width="36" height="51" alt="">
+  </button>
+  {{/each}}
+</div>
+<div class="poi-pop" id="poiPop" hidden>
+  <div class="poi poi--thum">
+    <div class="poi__card">
+      <div class="poi__head">
+        <div class="poi__thum">
+        <img src="./src/assets/img/poi/thumb-hongju.png" width="100" height="60" alt="">
+        </div>
+        <div class="poi__txt">
+          <span class="poi__badge" data-bind="poi-cat">문화관광</span>
+          <p class="poi__title" data-bind="poi-title">홍주성 천년여행길</p>
+        </div>
+      </div>
+      <div class="poi__box">
+        <p class="poi__addr" data-bind="poi-addr">충청남도 홍성군 홍성읍 조양로 272</p>
+        <div class="poi__rows">
+          <div class="poi__row"><span class="poi__lab">우편번호</span><span class="poi__val">32228</span></div>
+          <div class="poi__row"><span class="poi__lab">마리나항 명</span><span class="poi__val">041-634-0707</span></div>
+        </div>
+      </div>
+      <div class="poi__btns">
+        <button type="button" class="poi__btn" data-action="tour-info">
+          <img src="./src/assets/img/poi/info.svg" width="16" height="16" alt="">
+          정보 보기
+        </button>
+        <button type="button" class="poi__btn" data-action="tour-route">
+          <img src="./src/assets/img/poi/route.svg" width="16" height="16" alt="">
+          길 찾기
+        </button>
+      </div>
+    </div>
+    <span class="poi__tail" aria-hidden="true"></span>
+  </div>
+</div>
+{{!-- 마리나 핀 · POI. 목록을 닫지 않고 지도 위에 같이 연다. data-action: marina-pin --}}
+<div class="pins" id="marinaPins" hidden aria-label="마리나 핀">
+  {{#each marinaPlaces}}
+  <button type="button" class="pin-btn{{#if on}} is-on{{/if}}" data-action="marina-pin" data-marina-id="{{id}}" data-name="{{name}}" data-addr="{{addr}}" data-region="{{region}}" data-area="{{area}}" data-port="{{port}}" data-operator="{{operator}}" data-depth="{{depth}}" data-homepage="{{homepage}}" data-zip="{{zip}}" style="left:{{left}};top:{{top}}">
+    <img class="pin pin--off" src="./src/assets/img/pin/pin-01.svg" width="24" height="24" alt="">
+    <img class="pin pin--on" src="./src/assets/img/pin/pin-01-on.svg" width="36" height="51" alt="">
+  </button>
+  {{/each}}
+</div>
+<div class="poi-pop poi-pop--marina" id="marinaPoi" hidden>
+  <div class="poi poi--marina">
+    <div class="poi__card">
+      <div class="poi__head">
+        <span class="poi__badge">전국 마리나 현황</span>
+        <p class="poi__title" data-bind="marina-poi-title">죽림요트계류시설</p>
+      </div>
+      <div class="poi__box">
+        <p class="poi__addr" data-bind="marina-poi-addr">경상남도 통영시 광도면 죽림리 1574-62</p>
+        <div class="poi__rows">
+          <div class="poi__row"><span class="poi__lab">권역 명</span><span class="poi__val" data-bind="marina-poi-region">경남권</span></div>
+          <div class="poi__row"><span class="poi__lab">지역 명</span><span class="poi__val" data-bind="marina-poi-area">통영시</span></div>
+          <div class="poi__row"><span class="poi__lab">마리나항 명</span><span class="poi__val" data-bind="marina-poi-port">죽림요트계류시설</span></div>
+          <div class="poi__row"><span class="poi__lab">운영 주체</span><span class="poi__val" data-bind="marina-poi-operator">통영시</span></div>
+          <div class="poi__row"><span class="poi__lab">깊이(m)</span><span class="poi__val" data-bind="marina-poi-depth">6m</span></div>
+          <div class="poi__row"><span class="poi__lab">홈페이지</span><span class="poi__val poi__val--wrap" data-bind="marina-poi-homepage">https://www.tongyeong.go.kr/00001/00139/05306.web</span></div>
+          <div class="poi__row"><span class="poi__lab">우편번호</span><span class="poi__val" data-bind="marina-poi-zip">53015</span></div>
+        </div>
+      </div>
+    </div>
+    <span class="poi__tail" aria-hidden="true"></span>
+  </div>
+</div>

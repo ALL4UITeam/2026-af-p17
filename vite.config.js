@@ -66,16 +66,100 @@ const mapGroups = [
   leaves: group.leaves ?? mockLeaves(group.count, group.name, group.id),
 }))
 
-const pageData = {
-  '/guide-map.html': {
-    title: 'MAP 스크립트 가이드',
-    description: '지도 메타정보 팝업 개발 연동 가이드',
-  },
-  '/map.html': {
+const MAP_SCREENS = {
+  'map-suggest.html': 'suggest',
+  'map-tour.html': 'tour',
+  'map-tour-overlay.html': 'tour-overlay',
+  'map-tour-detail.html': 'tour-detail',
+  'map-marina.html': 'marina',
+  'map-modal.html': 'modal',
+  'map-modal-spatial.html': 'modal-spatial',
+  'map-modal-marine.html': 'modal-marine',
+  'map-modal-model.html': 'modal-model',
+  'map-modal-data.html': 'modal-data',
+  'map-filter.html': 'filter',
+  'map-coord.html': 'coord',
+  'map-mo-filter.html': 'mo-filter',
+  'map-attr.html': 'attr',
+  'map-basemap.html': 'basemap',
+  'map-area.html': 'area',
+  'map-eval.html': 'eval',
+  'map-eval-valid.html': 'eval-valid',
+  'map-cluster.html': 'cluster',
+  'map-lyr.html': 'lyr',
+  'map-legend.html': 'legend',
+  'map-legend-use.html': 'legend-use',
+  'map-legend-mgmt.html': 'legend-mgmt',
+  'map-legend-tour.html': 'legend-tour',
+  'map-mo.html': 'mo',
+  'map-mo-menu.html': 'mo-menu',
+  'map-mo-lyr.html': 'mo-lyr',
+  'map-mo-peek.html': 'mo-peek',
+  'map-mo-open.html': 'mo-open',
+}
+
+const mapBase = {
     title: '해양수산공간정보플랫폼',
     description: '해양수산공간정보플랫폼 - 지도',
     mapGroups,
     mapGroupCount: mapGroups.length,
+    tourCats: [
+      { id: 'LYR_TOUR_ALL', name: '전체' },
+      { id: 'LYR_TOUR_STAY', name: '숙박' },
+      { id: 'LYR_TOUR_COURSE', name: '코스' },
+      { id: 'LYR_TOUR_FEST', name: '축제/공연/행사' },
+      { id: 'LYR_TOUR_LEISURE', name: '레저스포츠' },
+      { id: 'LYR_TOUR_NATURE', name: '자연 관광' },
+      { id: 'LYR_TOUR_SHOP', name: '쇼핑' },
+      { id: 'LYR_TOUR_CULTURE', name: '문화 관광' },
+      { id: 'LYR_TOUR_EXP', name: '체험 관광' },
+      { id: 'LYR_TOUR_SAFE', name: '생활 안전', last: true },
+    ],
+    tourPlaces: [
+      { id: 'tour-fest-1', cat: '축제/공연/행사', name: '홍성 국가유산 야행', addr: '충청남도 홍성군 홍성읍 아문길 27', pin: '03', on: true, thumb: 'tour-detail/near-1.png', left: '49.2%', top: '45.5%' },
+      { id: 'tour-shop-1', cat: '쇼핑', name: '유리알유희', addr: '강원특벽자치도 강릉시 창해로 351-2 (강문동)', pin: '06', thumb: 'tour-detail/near-2.png', left: '50.4%', top: '46.8%' },
+      { id: 'tour-fest-2', cat: '축제/공연/행사', name: '삼길포 우럭축제', addr: '충청남도 서산시 대산읍 삼길포1로 72-2', pin: '03', thumb: 'tour-detail/near-3.png', left: '48.6%', top: '47.2%' },
+      { id: 'tour-fest-3', cat: '축제/공연/행사', name: '시흥월곶포구축제', addr: '경기도 시흥시 월곶해안로 188 (월곶동)', pin: '03', thumb: 'tour-detail/near-4.png', left: '51.1%', top: '44.8%' },
+      { id: 'tour-course-1', cat: '문화관광', name: '홍주성 천년여행길', addr: '충청남도 홍성군 홍성읍 조양로 272', pin: '02', thumb: 'poi/thumb-hongju.png', left: '47.8%', top: '46.1%' },
+      { id: 'tour-shop-2', cat: '쇼핑', name: '유리알유희', addr: '강원특벽자치도 강릉시 창해로 351-2 (강문동)', pin: '06', thumb: 'tour-detail/near-2.png', left: '50.8%', top: '45.2%' },
+      { id: 'tour-fest-4', cat: '축제/공연/행사', name: '삼길포 우럭축제', addr: '충청남도 서산시 대산읍 삼길포1로 72-2', pin: '03', thumb: 'tour-detail/near-3.png', left: '49.8%', top: '48.4%' },
+      { id: 'tour-fest-5', cat: '축제/공연/행사', name: '시흥월곶포구축제', addr: '경기도 시흥시 월곶해안로 188 (월곶동)', pin: '03', thumb: 'tour-detail/near-4.png', left: '48.9%', top: '44.2%' },
+    ],
+    tourLegend: [
+      { icon: 'stay', name: '숙박' },
+      { icon: 'leisure', name: '레저 스포츠' },
+      { icon: 'fest', name: '축제/공연/행사' },
+      { icon: 'nature', name: '자연 관광' },
+      { icon: 'safe', name: '생활 안전' },
+      { icon: 'culture', name: '문화 관광' },
+      { icon: 'shop', name: '쇼핑' },
+      { icon: 'course', name: '코스' },
+      { icon: 'exp', name: '체험 관광' },
+    ],
+    forecastLayers: [
+      { id: 'LYR_FORECAST_LIFE', name: '생활해양예보지수' },
+      { id: 'LYR_FORECAST_SHIP', name: '선박운항지수' },
+      { id: 'LYR_FORECAST_SEA', name: '해황예보도' },
+      { id: 'LYR_FORECAST_BEACH', name: '해수욕장 날씨' },
+    ],
+    tourStatLayers: [
+      { id: 'LYR_STAT_VISIT', name: '지자체별 지역 방문자 통계' },
+      { id: 'LYR_STAT_CROWD', name: '관광지 집중률 통계' },
+    ],
+    marinaPlaces: [
+      { id: 'marina-1', name: '격포마리나', addr: '전라남도 부안군 변산면 격포항길 93-60', region: '전남권', area: '부안군', port: '격포마리나', operator: '부안군', depth: '5m', homepage: 'https://www.buan.go.kr', zip: '56347', phone: '063-580-4411', thumb: 'poi/thumb.jpg', left: '42.1%', top: '58.1%' },
+      { id: 'marina-2', name: '죽림요트계류시설', addr: '경상남도 통영시 광도면 죽림리 1574-62', region: '경남권', area: '통영시', port: '죽림요트계류시설', operator: '통영시', depth: '6m', homepage: 'https://www.tongyeong.go.kr/00001/00139/05306.web', zip: '53015', phone: '055-650-4114', thumb: 'poi/thumb.jpg', left: '53.9%', top: '55.7%', on: true },
+      { id: 'marina-3', name: '서울(여의도)', addr: '서울특별시 영등포구 여의서로 160', region: '수도권', area: '영등포구', port: '서울(여의도)', operator: '서울특별시', depth: '4m', homepage: 'https://www.seoul.go.kr', zip: '07258', phone: '02-2670-4114', thumb: 'tour-detail/near-1.png', left: '55.4%', top: '43.6%' },
+      { id: 'marina-4', name: '왕산마리아', addr: '인천광역시 중구 왕산마리나길 143', region: '수도권', area: '중구', port: '왕산마리나', operator: '인천광역시', depth: '5m', homepage: 'https://www.incheon.go.kr', zip: '22386', phone: '032-899-3000', thumb: 'tour-detail/near-2.png', left: '56.9%', top: '30.6%' },
+      { id: 'marina-5', name: '아라마리나', addr: '경기도 김포시 고촌읍 아라육로270번길 73', region: '수도권', area: '김포시', port: '아라마리나', operator: '김포시', depth: '4m', homepage: 'https://www.gimpo.go.kr', zip: '10111', phone: '031-980-2000', thumb: 'tour-detail/near-3.png', left: '58.9%', top: '23.4%' },
+      { id: 'marina-6', name: '안산해양아카데미', addr: '경기도 안산시 단원구 대부황금로 7', region: '수도권', area: '안산시', port: '안산해양아카데미', operator: '안산시', depth: '5m', homepage: 'https://www.ansan.go.kr', zip: '15654', phone: '031-481-2000', thumb: 'tour-detail/near-4.png', left: '58.4%', top: '43.1%' },
+      { id: 'marina-7', name: '전곡마리나', addr: '경기도 화성시 서신면 전곡항로 5', region: '수도권', area: '화성시', port: '전곡마리나', operator: '화성시', depth: '5m', homepage: 'https://www.hwaseong.go.kr', zip: '18554', phone: '031-350-2114', thumb: 'poi/thumb-hongju.png', left: '46.9%', top: '49.3%' },
+      { id: 'marina-8', name: '제부마리나', addr: '전라남도 부안군 변산면 격포항길 93-60', region: '전남권', area: '부안군', port: '제부마리나', operator: '부안군', depth: '4m', homepage: 'https://www.buan.go.kr', zip: '56347', phone: '063-580-4411', thumb: 'poi/thumb.jpg', left: '55.2%', top: '50.8%' },
+      { id: 'marina-9', name: '보령요트경기장', addr: '충청남도 보령시 남포면 용두육작길 48-28', region: '충청권', area: '보령시', port: '보령요트경기장', operator: '보령시', depth: '5m', homepage: 'https://www.brcn.go.kr', zip: '33492', phone: '041-930-3114', thumb: 'tour-detail/near-1.png', left: '63.0%', top: '39.8%' },
+      { id: 'marina-10', name: '목포마리나', addr: '전라남도 목포시 삼학로 88-56', region: '전남권', area: '목포시', port: '목포마리나', operator: '목포시', depth: '6m', homepage: 'https://www.mokpo.go.kr', zip: '58748', phone: '061-270-8114', thumb: 'tour-detail/near-2.png', left: '62.9%', top: '63.0%' },
+      { id: 'marina-11', name: '소호마리나', addr: '전라남도 여수시 소호로 392', region: '전남권', area: '여수시', port: '소호마리나', operator: '여수시', depth: '5m', homepage: 'https://www.yeosu.go.kr', zip: '59675', phone: '061-659-4114', thumb: 'tour-detail/near-3.png', left: '65.7%', top: '33.0%' },
+      { id: 'marina-12', name: '이순신마리나', addr: '전라남도 여수시 웅천남2로 12', region: '전남권', area: '여수시', port: '이순신마리나', operator: '여수시', depth: '5m', homepage: 'https://www.yeosu.go.kr', zip: '59744', phone: '061-659-4114', thumb: 'tour-detail/near-4.png', left: '39.9%', top: '48.1%' },
+    ],
     treeCats: [
       '골재·광물자원특성평가',
       '에너지개발특성평가',
@@ -87,7 +171,18 @@ const pageData = {
       '안전관리특성평가',
     ],
     treeCatCount: 8,
+}
+
+const pageData = {
+  '/guide.html': {
+    title: '컴포넌트 가이드',
+    description: '지도 UI 컴포넌트 · 코드 복사',
   },
+  '/guide-map.html': {
+    title: 'MAP 스크립트 가이드',
+    description: '지도 메타정보 팝업 개발 연동 가이드',
+  },
+  '/map.html': mapBase,
   '/inter-SFR-001-02.html': {
     title: 'SFR-001-02 | 내부망',
     description: '내부망 관리 화면 SFR-001-02',
@@ -238,6 +333,20 @@ const pageData = {
   },
 }
 
+for (const [file, screen] of Object.entries(MAP_SCREENS)) {
+  pageData[`/${file}`] = { ...mapBase, screen }
+}
+
+function mapInputs() {
+  const entries = {
+    map: path.resolve(__dirname, 'map.html'),
+  }
+  for (const file of Object.keys(MAP_SCREENS)) {
+    entries[file.replace(/\.html$/i, '')] = path.resolve(__dirname, file)
+  }
+  return entries
+}
+
 /** 루트의 inter-*.html 을 빌드 엔트리에 자동 포함 */
 function interInputs() {
   const entries = {}
@@ -282,7 +391,8 @@ export default defineConfig({
         },
       },
       context(pagePath) {
-        const data = pageData[pagePath] ?? {
+        const key = `/${path.basename(String(pagePath).replace(/\\/g, '/'))}`
+        const data = pageData[key] ?? pageData[pagePath] ?? {
           title: '통합 해양공간 GIS 플랫폼',
           description: '통합 해양공간 GIS 플랫폼',
           siteName: '통합 해양공간 GIS 관리',
@@ -311,7 +421,7 @@ export default defineConfig({
               '',
             )
           }
-          if (/^map\.html$/i.test(file)) {
+          if (/^map/i.test(file) && /\.html$/i.test(file)) {
             return html.replace(
               /\s*<link\s+rel="stylesheet"\s+href="\.\/src\/scss\/map-mo\.scss"\s*>/gi,
               '',
@@ -350,7 +460,7 @@ export default defineConfig({
             '  <link rel="stylesheet" href="./assets/inter.css">\n  <link rel="stylesheet" href="./assets/inter-style.css">\n</head>',
           )
         }
-        if (/^map\.html$/i.test(file)) {
+        if (/^map/i.test(file) && /\.html$/i.test(file)) {
           if (html.includes('./assets/map-mo.css')) return html
           // map.css 는 map.js 번들이 붙임. 모바일만 추가 주입.
           return html.replace(
@@ -403,12 +513,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, 'index.html'),
-        map: path.resolve(__dirname, 'map.html'),
+        ...mapInputs(),
+        guide: path.resolve(__dirname, 'guide.html'),
         viewer: path.resolve(__dirname, 'viewer.html'),
-        'guide-map': path.resolve(__dirname, 'guide-map.html'),
         ...interInputs(),
-        inter: path.resolve(__dirname, 'src/scss/inter.scss'),
-        'inter-style': path.resolve(__dirname, 'src/scss/inter-style.scss'),
         'map-mo': path.resolve(__dirname, 'src/scss/map-mo.scss'),
       },
       output: {

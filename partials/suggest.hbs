@@ -1,0 +1,21 @@
+{{!--
+  추천레이어. Figma suggest-layer 129:71183 기본(접힘) / 펼침 칩
+  data-action: suggest | suggest-chip
+--}}
+<div class="suggest" id="suggestBar" data-bind="suggest">
+  <button type="button" class="suggest__title" data-action="suggest" aria-expanded="false">
+    <img src="./src/assets/img/icon/suggest.svg" width="20" height="20" alt="">
+    추천레이어
+  </button>
+  <div class="suggest__list">
+    <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="어촌">어촌 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+    <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해양산업">해양산업 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+    <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해양환경">해양환경 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+    <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해사안전">해사안전 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+    <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="항만">항만 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+    <span class="suggest__more" aria-hidden="true"><i></i><i></i><i></i></span>
+  </div>
+  <button type="button" class="suggest__next" data-action="suggest" aria-expanded="false" aria-label="추천레이어 펼치기">
+    <img src="./src/assets/img/icon/chip-arr.svg" width="16" height="16" alt="">
+  </button>
+</div>

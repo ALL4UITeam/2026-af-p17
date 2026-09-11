@@ -1,10 +1,11 @@
-/* PC(≥1024)에서만 모바일 마크업 숨김 — 모바일은 map-mo.css 가 담당 */
-@media (min-width: 1024px) {
+@media screen and (min-width: 768px), print {
   .mo-hdr,
-  .mo-float,
+  .mo-tools,
+  .mo-suggest,
   .mo-sheet,
-  .mo-menu,
-  .mo-menu-dim {
+  .mo-peek,
+  .mo-acc,
+  .mo-menu {
     display: none !important;
   }
 }

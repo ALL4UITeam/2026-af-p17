@@ -1,0 +1,339 @@
+@use '../base/variables' as *;
+
+html.guide-page,
+body.guide-page {
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  background: #f4f5f6;
+}
+
+.guide {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 100vh;
+
+  &__nav {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 24px 16px;
+    overflow: auto;
+    background: $gray-0;
+    border-right: 1px solid $gray-20;
+  }
+
+  &__brand {
+    display: block;
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: $primary-80;
+    text-decoration: none;
+  }
+
+  &__sub {
+    margin: 0 0 20px;
+    font-size: 12px;
+    color: $gray-50;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__menu a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: $gray-70;
+    text-decoration: none;
+  }
+
+  &__menu a:hover,
+  &__menu a.is-on {
+    font-weight: 700;
+    color: $primary-80;
+    background: $primary-10;
+  }
+
+  &__main {
+    min-width: 0;
+    padding: 32px 40px 80px;
+  }
+
+  &__h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: $gray-90;
+  }
+
+  &__lead {
+    margin: 0 0 32px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $gray-60;
+  }
+
+  &__lead code {
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: $gray-0;
+  }
+}
+
+.g-sec {
+  margin-bottom: 40px;
+  padding: 24px;
+  border: 1px solid $gray-20;
+  border-radius: 12px;
+  background: $gray-0;
+  scroll-margin-top: 24px;
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 12px;
+    margin-bottom: 8px;
+  }
+
+  &__ti {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: $gray-90;
+  }
+
+  &__meta {
+    font-size: 12px;
+    color: $gray-50;
+  }
+
+  &__desc {
+    margin: 0 0 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: $gray-60;
+  }
+
+  &__desc code {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: #f4f5f6;
+  }
+}
+
+.g-play {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  padding: 20px;
+  margin-bottom: 0;
+  border: 1px dashed $gray-20;
+  border-radius: 8px;
+  background: #fafbfc;
+
+  &--map {
+    align-items: flex-end;
+    gap: 24px;
+    padding: 28px 24px 20px;
+    background: #8aa8bc url('../../assets/img/map-bg.png') center / cover no-repeat;
+  }
+}
+
+.g-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 64px;
+
+  &__lab {
+    font-size: 11px;
+    color: $gray-50;
+    white-space: nowrap;
+  }
+}
+
+.g-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.g-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 92px;
+
+  &__chip {
+    height: 40px;
+    border: 1px solid $gray-20;
+    border-radius: 8px;
+  }
+
+  &__name {
+    font-size: 11px;
+    font-weight: 700;
+    color: $gray-80;
+  }
+
+  &__hex {
+    font-size: 11px;
+    color: $gray-50;
+  }
+}
+
+.g-ico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 88px;
+  padding: 10px 6px;
+  border: 1px solid $gray-20;
+  border-radius: 8px;
+  background: $gray-0;
+
+  img {
+    display: block;
+  }
+
+  &__name {
+    font-size: 11px;
+    color: $gray-70;
+    text-align: center;
+    word-break: keep-all;
+  }
+
+  &__path {
+    font-size: 10px;
+    color: $gray-40;
+    text-align: center;
+    word-break: break-all;
+  }
+}
+
+.g-code {
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0d1117;
+
+  & + & {
+    margin-top: 12px;
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 36px;
+    padding: 0 10px;
+    background: #161b22;
+  }
+
+  &__lang {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #8b949e;
+  }
+
+  pre {
+    margin: 0;
+    overflow: auto;
+  }
+
+  code.hljs {
+    display: block;
+    padding: 16px;
+    overflow: auto;
+    background: transparent;
+    font-family: Consolas, 'D2Coding', monospace;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+}
+
+.g-copy {
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: $gray-0;
+  background: $primary-70;
+  cursor: pointer;
+
+  &.is-ok {
+    background: #2e7d4f;
+  }
+}
+
+.g-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.g-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid $primary-50;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: $primary-80;
+  background: $primary-5;
+  cursor: pointer;
+}
+
+.g-note {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid $primary-60;
+  border-radius: 0 8px 8px 0;
+  background: $primary-5;
+  font-size: 13px;
+  line-height: 1.6;
+  color: $gray-70;
+
+  code {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: $gray-0;
+  }
+}
+
+@media (max-width: 767px) {
+  .guide {
+    grid-template-columns: 1fr;
+  }
+
+  .guide__nav {
+    position: relative;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid $gray-20;
+  }
+
+  .guide__main {
+    padding: 20px 16px 48px;
+  }
+}

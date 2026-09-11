@@ -1,0 +1,62 @@
+{{!--
+  관광정보 목록형. Figma 127:65877
+  MapUI.openTour() / closeTourList()
+  data-action: close-tour-list | tour-item | search
+--}}
+<aside class="tour" id="tourList" hidden aria-label="관광정보">
+  <img class="tour__glass" src="./src/assets/img/glass-panel.png" width="360" height="800" alt="" aria-hidden="true">
+  <div class="tour__head">
+    <p class="tour__title">관광정보</p>
+    <button type="button" class="tour__close" data-action="close-tour-list" aria-label="관광정보 목록 닫기">
+      <img src="./src/assets/img/tour/close.svg" width="24" height="24" alt="">
+    </button>
+  </div>
+  <div class="tour__body">
+    <div class="tour__box">
+      <div class="tour__ctrl">
+        <button type="button" class="tour__sel" data-action="tour-sel" data-sel="si">
+          <span>시</span>
+          <img src="./src/assets/img/tour/select.svg" width="9" height="5" alt="">
+        </button>
+        <span class="tour__dash">-</span>
+        <button type="button" class="tour__sel" data-action="tour-sel" data-sel="gu">
+          <span>군·구</span>
+          <img src="./src/assets/img/tour/select.svg" width="9" height="5" alt="">
+        </button>
+      </div>
+      <form class="tour__search" action="#" method="get" role="search" onsubmit="return false;">
+        <label class="sr-only" for="tourKeyword">관광정보 검색</label>
+        <div class="tour__field">
+          <input class="tour__input" id="tourKeyword" name="tour-q" type="search" placeholder="내용입력" data-bind="tour-keyword">
+          <span class="tour__hangul">가나다</span>
+        </div>
+        <button type="button" class="tour__find" data-action="search" data-target="tourKeyword" aria-label="검색">
+          <img src="./src/assets/img/tour/search.svg" width="16" height="16" alt="">
+        </button>
+      </form>
+    </div>
+    <div class="tour__list">
+      <div class="tour__sub">
+        <p class="tour__sub-tit">전체데이터</p>
+        <div class="tour__sub-right">
+          <span class="count is-on" data-bind="tour-count">82</span>
+          <button type="button" class="tour__more" data-action="tour-more" aria-label="목록 옵션"></button>
+        </div>
+      </div>
+      <div class="tour__cards" data-bind="tour-places">
+        {{#each tourPlaces}}
+        <button type="button" class="tour__card{{#if on}} is-on{{/if}}" data-action="tour-item" data-tour-id="{{id}}" data-pin="{{pin}}">
+          <span class="tour__txt">
+            <span class="poi__badge">{{cat}}</span>
+            <span class="tour__name">{{name}}</span>
+            <span class="tour__addr">{{addr}}</span>
+          </span>
+          <span class="tour__thum">
+            <img src="./src/assets/img/{{thumb}}" width="100" height="70" alt="">
+          </span>
+        </button>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</aside>

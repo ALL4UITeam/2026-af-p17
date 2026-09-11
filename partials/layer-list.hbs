@@ -1,0 +1,93 @@
+{{!-- 활성 레이어. data-bind="active-layers" 아래에 행을 채운다. --}}
+<aside class="lyr-list" id="lyrList" aria-label="레이어 리스트">
+  <div class="lyr-list__head">
+    <div class="lyr-list__head-left">
+      <p class="lyr-list__title">레이어 리스트</p>
+      <span class="lyr-list__total" data-bind="lyr-total">37,572</span>
+    </div>
+    <button type="button" class="lyr-list__close" data-action="close-lyr-list" aria-label="레이어 리스트 닫기"></button>
+  </div>
+  <div class="lyr-list__body">
+    <div class="lyr-list__ctrl">
+      <label class="lyr-list__select">
+        <span class="sr-only">레이어 정렬</span>
+        <select class="lyr-list__select-el" data-action="lyr-sort" data-bind="lyr-sort" aria-label="레이어 정렬">
+          <option value="custom" selected>직접 설정한 순</option>
+          <option value="name">이름순</option>
+          <option value="recent">최근 추가순</option>
+        </select>
+      </label>
+      <button type="button" class="lyr-list__reset" data-action="reset-lyr-list">초기화</button>
+    </div>
+    <div class="lyr-list__result">
+      <div class="lyr-list__group">
+        <button type="button" class="lyr-list__cat" data-action="toggle" data-toggle="lyr-cat" aria-expanded="false">
+          <span class="lyr-list__cat-txt">해양수산정보 분류체계</span>
+          <span class="lyr-list__cat-right">
+            <span class="count" data-bind="lyr-count">2</span>
+            <span class="lyr-list__cat-ico lyr-list__cat-ico--down" aria-hidden="true"></span>
+          </span>
+        </button>
+        <ul class="lyr-list__rows" data-bind="active-layers" hidden>
+          <li class="lyr-list__row" data-layer-id="LYR_TANKER">
+            <span class="lyr-list__grip" aria-hidden="true"></span>
+            <div class="lyr-list__main">
+              <span class="lyr-list__lead">
+                <button type="button" class="lyr-list__switch is-on" role="switch" aria-checked="true" data-action="lyr-onoff" data-layer-id="LYR_TANKER">
+                  <span>on</span>
+                </button>
+                <button type="button" class="lyr-list__opac" data-action="lyr-opac" aria-expanded="false" aria-label="유조선통항금지해역 투명도"></button>
+              </span>
+              <span class="lyr-list__name"><span class="lyr-list__mark lyr-list__mark--1" aria-hidden="true"></span>유조선통항금지해역</span>
+              <span class="lyr-list__acts">
+                <button type="button" class="lyr-list__set" data-action="lyr-set" data-layer-id="LYR_TANKER" aria-label="유조선통항금지해역 설정"></button>
+                <button type="button" class="lyr-list__del" data-action="lyr-remove" data-layer-id="LYR_TANKER" aria-label="유조선통항금지해역 삭제"></button>
+              </span>
+            </div>
+            <div class="lyr-list__tip">
+              <span class="lyr-list__tip-txt">
+                <span class="lyr-list__tip-lab">투명도</span>
+                <span class="lyr-list__tip-pct"><b data-bind="lyr-opac">50</b>%</span>
+              </span>
+              <input class="lyr-list__tip-range" type="range" min="0" max="100" value="50" style="--pct: 50%" data-action="lyr-opacity" data-layer-id="LYR_TANKER" aria-label="유조선통항금지해역 투명도">
+            </div>
+          </li>
+          <li class="lyr-list__row" data-layer-id="LYR_ANCHOR">
+            <span class="lyr-list__grip" aria-hidden="true"></span>
+            <div class="lyr-list__main">
+              <span class="lyr-list__lead">
+                <button type="button" class="lyr-list__switch is-on" role="switch" aria-checked="true" data-action="lyr-onoff" data-layer-id="LYR_ANCHOR">
+                  <span>on</span>
+                </button>
+                <button type="button" class="lyr-list__opac" data-action="lyr-opac" aria-expanded="false" aria-label="묘박지 투명도"></button>
+              </span>
+              <span class="lyr-list__name"><span class="lyr-list__mark lyr-list__mark--2" aria-hidden="true"></span>묘박지</span>
+              <span class="lyr-list__acts">
+                <button type="button" class="lyr-list__set" data-action="lyr-set" data-layer-id="LYR_ANCHOR" aria-label="묘박지 설정"></button>
+                <button type="button" class="lyr-list__del" data-action="lyr-remove" data-layer-id="LYR_ANCHOR" aria-label="묘박지 삭제"></button>
+              </span>
+            </div>
+            <div class="lyr-list__tip">
+              <span class="lyr-list__tip-txt">
+                <span class="lyr-list__tip-lab">투명도</span>
+                <span class="lyr-list__tip-pct"><b data-bind="lyr-opac">50</b>%</span>
+              </span>
+              <input class="lyr-list__tip-range" type="range" min="0" max="100" value="50" style="--pct: 50%" data-action="lyr-opacity" data-layer-id="LYR_ANCHOR" aria-label="묘박지 투명도">
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="lyr-list__cat is-empty">
+        <p class="lyr-list__cat-txt">해양공간 주제정보</p>
+        <div class="lyr-list__cat-right">
+          <span class="count is-zero">0</span>
+          <span class="lyr-list__cat-ico lyr-list__cat-ico--down" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lyr-list__foot">
+    <button type="button" class="lyr-list__btn" data-action="spatial-op">공간연산</button>
+    <button type="button" class="lyr-list__btn" data-action="spatial-an">공간분석</button>
+  </div>
+</aside>

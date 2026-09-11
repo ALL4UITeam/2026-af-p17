@@ -1,0 +1,64 @@
+{{!--
+  지도 공통 셸. 화면은 map.html / map-*.html 이 data-screen 으로 연다.
+  기능은 안 쪼개져도 동작한다. 화면 파일만 기능 단위다.
+--}}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="stylesheet" href="./src/scss/main.scss">
+  <!-- 외부망 모바일 전용. 내부망 페이지에는 넣지 않는다. -->
+  <link rel="stylesheet" href="./src/scss/map-mo.scss">
+</head>
+<body{{#if screen}} data-screen="{{screen}}"{{/if}}>
+  {{!-- KRDS: 본문·패널·도구 스킵. 포커스 시 노출 --}}
+  <ul class="skip" aria-label="건너뛰기">
+    <li><a href="#mainMap">본문 바로가기</a></li>
+    <li><a href="#layerPanel">공간정보 목록 바로가기</a></li>
+    <li><a href="#mapTools">지도 도구 바로가기</a></li>
+  </ul>
+  {{> masthead}}
+  <div class="app" id="app">
+    {{> mo-hdr}}
+    <main class="stage" id="mainMap" tabindex="-1" aria-label="지도 영역">
+      <h1 class="sr-only">해양수산공간정보플랫폼 지도</h1>
+      <picture class="stage__pic">
+        <source media="(max-width: 767px)" srcset="./src/assets/img/mo/map-bg.png">
+        <img class="stage__map" src="./src/assets/img/map-bg.png" alt="">
+      </picture>
+      {{> cluster}}
+      {{> pins}}
+      {{> area-info}}
+    </main>
+    <div class="app__left">
+      {{> gnb}}
+      {{> panel}}
+      {{> tour-list}}
+      {{> marina-list}}
+      {{> tour-overlay}}
+      {{> suggest}}
+    </div>
+    {{> tools}}
+    {{> basemap}}
+    {{> legend}}
+    {{> legend-tour}}
+    {{> layer-list}}
+    {{> filter}}
+    {{> status}}
+    {{> tour-detail}}
+    {{> attr}}
+    {{> eval}}
+    {{> mo-suggest}}
+    {{> mo-tools}}
+    {{> mo-sheet}}
+    {{> mo-menu}}
+  </div>
+  {{> modal}}
+  {{!-- 상태 안내. 개발 연동 시 announce 대신 이벤트를 구독하면 된다. --}}
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./src/js/map.js"></script>
+</body>
+</html>

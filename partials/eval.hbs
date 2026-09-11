@@ -1,0 +1,122 @@
+{{!--
+  하단 격자별 특성평가 결과 — Figma 193:24660 btm-Modal
+  차트는 퍼블 이미지. 개발에서 data-bind="eval-chart" 를 갈아끼운다.
+  MapUI.openEval() / closeEval()
+  data-action: eval-tab | eval-criteria | close-eval
+--}}
+<section class="eval" id="evalPanel" hidden aria-labelledby="evalTitle">
+  <header class="eval__head">
+    <h2 class="eval__title" id="evalTitle">격자별 특성평가 결과 조회</h2>
+    <button type="button" class="eval__close" data-action="close-eval" aria-label="닫기">
+      <img src="./src/assets/img/eval/close.svg" width="12" height="12" alt="">
+    </button>
+  </header>
+  <div class="eval__body">
+    <div class="eval__bar">
+      <div class="eval__tabs" role="tablist" aria-label="특성평가 보기">
+        <button type="button" class="eval__tab is-on" data-action="eval-tab" data-tab="all" role="tab" aria-selected="true">
+          특성 전체보기
+          <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+        </button>
+        <button type="button" class="eval__tab eval__tab--fix" data-action="eval-tab" data-tab="valid" role="tab" aria-selected="false">
+          유효값만 보기
+          <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+        </button>
+      </div>
+      <button type="button" class="eval__cta" data-action="eval-criteria">
+        특성평가 산정기준
+        <img src="./src/assets/img/eval/arrow.svg" width="16" height="16" alt="">
+      </button>
+    </div>
+    <div class="eval__cols">
+      <div class="eval__chart" data-bind="eval-chart">
+        <div class="eval__radar">
+          <img src="./src/assets/img/eval/radar.png" width="453" height="434" alt="격자별 특성평가 레이더 차트">
+        </div>
+      </div>
+      <div class="eval__box">
+        <div class="eval__scroll">
+        <table class="eval__table">
+          <thead>
+            <tr>
+              <th class="w-cat">특성평가 구분</th>
+              <th class="w-item">평가항목</th>
+              <th>평가값</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-g="fish">
+              <th rowspan="6" scope="rowgroup">
+                <span class="eval__cat">어업활동특성평가</span>
+                <span class="eval__score">0.04</span>
+              </th>
+              <td>양식장(면허어업권)</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="fish">
+              <td>연근해 어획량</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="fish">
+              <td>단위노력당 어획량</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="fish">
+              <td>수산자원관리수면</td>
+              <td data-val="0.04">0.04</td>
+            </tr>
+            <tr data-g="fish">
+              <td>어항구</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="fish">
+              <td>어항구</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="mineral">
+              <th rowspan="4" scope="rowgroup">
+                <span class="eval__cat">광물특성평가</span>
+                <span class="eval__score">0.5</span>
+              </th>
+              <td>양식장(면허어업권)</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="mineral">
+              <td>연근해 어획량</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="mineral">
+              <td>단위노력당 어획량</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="mineral">
+              <td>수산자원관리수면</td>
+              <td data-val="1">1</td>
+            </tr>
+            <tr data-g="energy">
+              <th rowspan="4" scope="rowgroup">
+                <span class="eval__cat">에너지개발특성평가</span>
+                <span class="eval__score">0</span>
+              </th>
+              <td>EEZ광물</td>
+              <td data-val="1">1</td>
+            </tr>
+            <tr data-g="energy">
+              <td>온도차에너지 시설</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="energy">
+              <td>해상 에너지시설 예정단지</td>
+              <td data-val="0">0</td>
+            </tr>
+            <tr data-g="energy">
+              <td>수산자원관리수면</td>
+              <td data-val="1">1</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

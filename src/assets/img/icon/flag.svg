@@ -1,5 +1,5 @@
 <svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="value" clip-path="url(#clip0_0_23)">
+<g id="value" clip-path="url(#clip0_0_2739)">
 <path id="Vector" d="M0 0H24V16H0V0Z" fill="white"/>
 <g id="Group">
 <path id="Vector_2" d="M8.6718 5.78109C9.26029 4.89843 10.1753 4.28568 11.2156 4.07766C12.2559 3.86964 13.3362 4.08337 14.2188 4.67185C15.1015 5.26033 15.7143 6.17534 15.9223 7.21559C16.1303 8.25585 15.9166 9.33613 15.3281 10.2188L8.6718 5.78109Z" fill="#D0303C"/>
@@ -26,7 +26,7 @@
 </g>
 </g>
 <defs>
-<clipPath id="clip0_0_23">
+<clipPath id="clip0_0_2739">
 <rect width="24" height="16" fill="white"/>
 </clipPath>
 </defs>

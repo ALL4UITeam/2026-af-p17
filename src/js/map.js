@@ -1,576 +1,1741 @@
 /**
- * map.js — 지도 UI 진입점 (PC + 모바일)
+ * map.js — 외부망 지도 화면 UI
  *
- * 관련: a11y.js / meta.js / zoom.js · docs/MAP-SCRIPT.md
+ * 역할
+ * - 패널/트리/레이어리스트/도구/모바일 시트·메뉴의 화면 상태만 다룬다.
+ * - API 호출, 실제 검색, 지도 엔진 연동은 하지 않는다.
  *
- * ── 섹션 목차 ─────────────────────────────────────────
- *  1. 셸 · 패널 · LNB
- *  2. 레이어 패널 (.layer__item / .sub__row / .sub__add / .leaf__star)
- *  3. 메타정보 팝업 (dialog · 탭 · 아코디언 · MapUI)
- *  4. 트리 · 체크 · 검색
- *  5. 줌 · PC 도구 · 범례
- *  6. 좌표 포맷 셀렉트
- *  7. 모바일 (바텀시트 · 도구 · 전체메뉴)
- *  8. Esc 공통
- * ─────────────────────────────────────────────────────
+ * 개발자 연동
+ * 1) 마크업의 data-* 를 읽거나 이벤트를 구독한다.
+ * 2) window.MapUI 로 상태를 읽거나 화면을 연다/닫는다.
+ *
+ * 데이터 훅
+ * | 속성 | 의미 |
+ * | data-action | tab, toggle, toggle-layer, search, filter, filter-chip, filter-all, filter-fold, filter-reset, filter-apply, close-filter, tool, zoom … |
+ * | data-dimmed | 모달 딤 여부. MapUI.openModal(id, { dimmed, tab }) |
+ * | data-layer-id | 레이어/그룹 ID. 개발 연동 키 |
+ * | data-layer-name | 화면 표시명 |
+ * | data-parent-id | 상위 그룹 ID |
+ * | data-group-id | 트리 접기/펼치기 대상 |
+ * | data-tab | list | fav |
+ * | data-tool | layer | basemap | fullmap | dist | area | print |
+ * | data-bind | 값이 바뀌는 자리 (keyword, zoom-level, active-layers) |
+ *
+ * 커스텀 이벤트 (document)
+ * - map:layer-change  { id, name, checked, parentId }
+ * - map:search        { keyword, target }
+ * - map:filter        { open?, action?, area[], cat[], cho[] }
+ * - map:tool          { tool, on }
+ * - map:basemap       { open, map?, color?, opacity? }
+ * - map:area-info     { open }
+ * - map:zoom          { dir: 'in' | 'out' | 'set' | 'drag', level }
+ * - map:info          { id }
+ * - map:modal         { id, open, dimmed, tab? }
+ * - map:modal-tab     { tab }
+ * - map:meta-data     { id }
+ * - map:fav           { id, on }
+ * - map:spatial       { kind: 'op' | 'an' }
+ * - map:suggest       { open? , name? }
+ * - map:user
+ * - map:layer-reset | map:layer-remove | map:layer-set
+ * - map:eval          { open, tab? }
+ * - map:eval-tab      { tab: 'all' | 'valid' }
+ * - map:eval-criteria
+ * - map:cluster       { id, name, count, on }
+ * - map:cluster-layer { open }
+ * - map:tour          { open, overlay? }
+ * - map:tour-item     { id, pin }
+ * - map:tour-detail   { open }
  */
-import '../scss/main.scss'
-import {
-  announce,
-  bindTablist,
-  focusPanel,
-  setBackgroundInert,
-  setPressed,
-  trapFocus,
-} from './a11y.js'
-import {
-  fetchLayerMeta,
-  fillMetaPop,
-  MOCK_META,
-  setMetaFetcher,
-} from './meta.js'
-import { createZoom } from './zoom.js'
-
-/* —— 1. 셸 · 패널 · LNB —— */
+const MO_MQ = window.matchMedia('(max-width: 767px)')
 const app = document.getElementById('app')
 const panel = document.getElementById('layerPanel')
-const handle = document.getElementById('panelHandle')
-const lnbItems = document.querySelectorAll('.lnb__item')
-const searchForm = document.querySelector('.search')
-const searchInput = document.getElementById('placeSearch')
+const lyrList = document.getElementById('lyrList')
+const live = document.getElementById('liveStatus')
 
-function setPanel(open) {
-  app.classList.toggle('is-open', open)
-  handle.setAttribute('aria-expanded', String(open))
-  handle.setAttribute('aria-label', open ? '패널 접기' : '패널 펼치기')
-  panel.setAttribute('aria-hidden', String(!open))
-  panel.toggleAttribute('inert', !open)
+const ZOOM_MIN = 1
+const ZOOM_MAX = 10
+const RAIL_H = 119
+const KNOB_H = 12
+let zoomLevel = 5
 
-  if (open) {
-    focusPanel(panel)
-    announce('검색 패널이 열렸습니다.')
-    return
-  }
-
-  handle.focus()
-  announce('검색 패널이 닫혔습니다.')
+function emit(name, detail) {
+  document.dispatchEvent(new CustomEvent(name, { detail }))
 }
 
-handle.addEventListener('click', () => {
-  setPanel(!app.classList.contains('is-open'))
-})
+function announce(text) {
+  if (!live) return
+  live.textContent = text
+}
 
-lnbItems.forEach((item) => {
-  item.addEventListener('click', () => {
-    lnbItems.forEach((el) => {
-      el.classList.remove('lnb__item--on')
-      el.setAttribute('aria-current', 'false')
-    })
-    item.classList.add('lnb__item--on')
-    item.setAttribute('aria-current', 'page')
-    announce(`${item.textContent.trim().replace(/\s+/g, ' ')} 메뉴 선택`)
+function setExpanded(el, on) {
+  if (!el) return
+  el.setAttribute('aria-expanded', on ? 'true' : 'false')
+}
+
+function toggleClass(el, cls, on) {
+  if (!el) return
+  el.classList.toggle(cls, on)
+}
+
+/** 체크된 레이어 목록 — 개발자가 MapUI.getCheckedLayers() 로 가져감 */
+function getCheckedLayers() {
+  return [...document.querySelectorAll('[data-action="toggle-layer"]:checked')].map((input) => ({
+    id: input.dataset.layerId,
+    name: input.dataset.layerName || input.value,
+    parentId: input.dataset.parentId || '',
+  }))
+}
+
+function setLayerChecked(id, checked) {
+  const input = document.querySelector(`[data-action="toggle-layer"][data-layer-id="${id}"]`)
+  if (!input) return
+  input.checked = checked
+  const row = input.closest('.tree__d4')
+  if (row) toggleClass(row, 'is-on', checked)
+  emit('map:layer-change', {
+    id,
+    name: input.dataset.layerName || input.value,
+    checked,
+    parentId: input.dataset.parentId || '',
   })
-})
-
-/* —— 2. 레이어 패널 (아코디언 · 추가 · 즐겨찾기) —— */
-document.querySelectorAll('.layer__item').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true'
-    const body = document.getElementById(btn.getAttribute('aria-controls'))
-    btn.setAttribute('aria-expanded', String(!expanded))
-    if (body) body.hidden = expanded
-    announce(`${btn.querySelector('.layer__name')?.textContent ?? ''} ${expanded ? '접힘' : '펼침'}`)
-  })
-})
-
-/** .sub__row 펼침/접힘 — 같은 .sub 안에서는 하나만 열림 */
-function setSubRowOpen(btn, open) {
-  const id = btn.getAttribute('aria-controls')
-  const body =
-    (id && document.getElementById(id)) ||
-    btn.parentElement?.querySelector(':scope > .leaf, :scope > .tree')
-  btn.setAttribute('aria-expanded', String(open))
-  btn.classList.toggle('sub__row--on', open)
-  if (body) body.hidden = !open
 }
 
-panel?.addEventListener('click', (e) => {
-  const addBtn = e.target.closest('.sub__add')
-  if (addBtn && panel.contains(addBtn)) {
-    e.stopPropagation()
-    const on = addBtn.getAttribute('aria-pressed') !== 'true'
-    addBtn.setAttribute('aria-pressed', String(on))
-    const base = (addBtn.getAttribute('aria-label') ?? '레이어')
-      .replace(/\s*(추가|제거)$/, '')
-      .trim()
-    addBtn.setAttribute('aria-label', `${base} ${on ? '제거' : '추가'}`)
-    announce(`${base} ${on ? '선택' : '선택 해제'}`)
-    return
-  }
-
-  const btn = e.target.closest('button.sub__row[aria-expanded]')
-  if (!btn || !panel.contains(btn)) return
-
-  const willOpen = btn.getAttribute('aria-expanded') !== 'true'
-  const list = btn.closest('.sub')
-
-  if (willOpen && list) {
-    list.querySelectorAll('button.sub__row[aria-expanded="true"]').forEach((other) => {
-      if (other !== btn) setSubRowOpen(other, false)
-    })
-  }
-
-  setSubRowOpen(btn, willOpen)
-  announce(`${btn.querySelector('.sub__name')?.textContent ?? ''} ${willOpen ? '펼침' : '접힘'}`)
-})
-
-document.querySelectorAll('.leaf__star').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const on = btn.getAttribute('aria-pressed') !== 'true'
-    btn.setAttribute('aria-pressed', String(on))
-    announce(`${btn.getAttribute('aria-label') ?? '즐겨찾기'} ${on ? '추가' : '해제'}`)
-  })
-})
-
-/* —— 3. 메타정보 팝업 (dialog) —— */
-const metaPop = document.getElementById('metaPop')
-const metaPopDim = document.getElementById('metaPopDim')
-const metaPopClose = document.getElementById('metaPopClose')
-const metaPopTitle = document.getElementById('metaPopTitle')
-let metaPopTrigger = null
-let releaseMetaTrap = null
-
-function openMetaPop(title, trigger) {
-  if (!metaPop || !metaPop.hidden) return
-  metaPopTrigger = trigger || document.activeElement
-  if (metaPopTitle && title) metaPopTitle.textContent = title
-  metaPop.hidden = false
-  if (metaPopDim) {
-    metaPopDim.hidden = false
-    metaPopDim.setAttribute('aria-hidden', 'true')
-  }
-  setBackgroundInert(true, [metaPop, metaPopDim])
-  releaseMetaTrap = trapFocus(metaPop, { initialFocus: metaPopClose })
-  announce(`${title || '레이어'} 메타정보 대화상자`)
+function openPanel() {
+  app?.classList.remove('is-panel-off')
+  setExpanded(document.querySelector('[data-action="collapse-panel"]'), true)
 }
 
-function closeMetaPop() {
-  if (!metaPop || metaPop.hidden) return
-  releaseMetaTrap?.()
-  releaseMetaTrap = null
-  metaPop.hidden = true
-  if (metaPopDim) metaPopDim.hidden = true
-  setBackgroundInert(false, [metaPop, metaPopDim])
-  announce('메타정보가 닫혔습니다.')
-  const back = metaPopTrigger
-  metaPopTrigger = null
-  window.requestAnimationFrame(() => back?.focus?.())
+function closePanel() {
+  app?.classList.add('is-panel-off')
+  setExpanded(document.querySelector('[data-action="collapse-panel"]'), false)
 }
 
-/** .leaf__info 클릭 → fetch → fill → open */
-async function openMetaFromButton(btn) {
-  const id = btn.dataset.layerId || ''
-  const fallback = btn.getAttribute('aria-label')?.replace(/\s*정보$/, '') || '레이어'
-  const data = await fetchLayerMeta(id, fallback)
-  fillMetaPop(data)
-  openMetaPop(data.title || fallback, btn)
-}
-
-document.querySelectorAll('.leaf__info').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    openMetaFromButton(btn)
-  })
-})
-
-metaPopClose?.addEventListener('click', closeMetaPop)
-metaPopDim?.addEventListener('click', closeMetaPop)
-
-/** 개발 연동용 공개 API — window.MapUI */
-window.MapUI = {
-  openMeta: async (layerId, trigger) => {
-    const data = await fetchLayerMeta(layerId)
-    fillMetaPop(data)
-    openMetaPop(data.title, trigger || null)
-  },
-  closeMeta: closeMetaPop,
-  fillMeta: fillMetaPop,
-  setMetaFetcher,
-  MOCK_META,
-}
-
-bindTablist(metaPop?.querySelector('.pop__tabs'), {
-  tabClass: 'pop__tab--on',
-  onChange(tab) {
-    announce(`${tab.textContent.trim()} 탭`)
-  },
-})
-
-metaPop?.querySelectorAll('.pop__acc-btn').forEach((btn) => {
-  const label = btn.querySelector('span')?.textContent?.trim() ?? '항목'
-  const open0 = btn.getAttribute('aria-expanded') === 'true'
-  btn.setAttribute('aria-label', `${label} ${open0 ? '접기' : '펼치기'}`)
-
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.pop__acc-item')
-    const body = document.getElementById(btn.getAttribute('aria-controls'))
-    const open = btn.getAttribute('aria-expanded') !== 'true'
-    const ico = btn.querySelector('.pop__acc-ico')
-
-    item?.classList.toggle('is-open', open)
-    btn.setAttribute('aria-expanded', String(open))
-    btn.setAttribute('aria-label', `${label} ${open ? '접기' : '펼치기'}`)
-    if (body) body.hidden = !open
-    if (ico) {
-      ico.src = open
-        ? './src/assets/img/icon/pop-chevron-on.svg'
-        : './src/assets/img/icon/pop-chevron.svg'
+function syncMapChromePos() {
+  const status = document.querySelector('.status')
+  const legends = document.querySelectorAll('.legend')
+  const left = document.querySelector('.app__left')
+  const tools = document.getElementById('mapTools')
+  if (!left || MO_MQ.matches) {
+    if (status) {
+      status.style.left = ''
+      status.style.right = ''
     }
-    announce(`${label} ${open ? '펼침' : '접힘'}`)
+    legends.forEach((legend) => {
+      legend.style.right = ''
+      legend.style.width = ''
+      legend.style.maxWidth = ''
+    })
+    return
+  }
+  const root = app.getBoundingClientRect()
+  const leftR = left.getBoundingClientRect()
+  const leftBound = Math.max(0, Math.round(leftR.right - root.left + 10))
+  let rightBound = 85
+  if (tools) {
+    const toolsR = tools.getBoundingClientRect()
+    rightBound = Math.max(0, Math.round(root.right - toolsR.left + 10))
+  }
+  if (status) {
+    const center = Math.round((leftBound + (root.width - rightBound)) / 2)
+    status.style.left = `${center}px`
+    status.style.right = 'auto'
+  }
+  const avail = Math.max(0, Math.round(root.width - leftBound - rightBound))
+  legends.forEach((legend) => {
+    const cap = legend.classList.contains('legend--tour') ? 424 : 402
+    legend.style.right = `${rightBound}px`
+    legend.style.width = `${Math.min(cap, avail)}px`
+    legend.style.maxWidth = `${avail}px`
   })
-})
+}
 
-/* —— 4. 트리 · 체크 · 검색 —— */
-document.querySelectorAll('.tree__fold').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true'
-    const body = document.getElementById(btn.getAttribute('aria-controls'))
-    const name = btn.closest('.tree__row, .tree__sub')?.querySelector('.tree__name')?.textContent ?? '항목'
-    btn.setAttribute('aria-expanded', String(!expanded))
-    btn.setAttribute('aria-label', `${name} ${expanded ? '펼치기' : '접기'}`)
-    btn.closest('.tree__row')?.classList.toggle('tree__row--on', !expanded)
-    btn.closest('.tree__sub')?.classList.toggle('tree__sub--on', !expanded)
-    if (body) body.hidden = expanded
-    announce(`${name} ${expanded ? '접힘' : '펼침'}`)
+function setLayerTool(on) {
+  document.querySelectorAll('[data-action="tool"][data-tool="layer"]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false')
+    btn.closest('.tools__item')?.classList.toggle('is-active', on)
   })
-})
+}
 
-document.querySelectorAll('.tree__check').forEach((el) => {
-  el.addEventListener('change', () => {
-    const name = el.closest('.tree__main')?.querySelector('.tree__name')?.textContent ?? '항목'
-    announce(`${name} ${el.checked ? '선택' : '선택 해제'}`)
+function openLayerList() {
+  if (MO_MQ.matches) setMoDock('close')
+  closeBasemap()
+  lyrList?.classList.add('is-open')
+  setLayerTool(true)
+}
+
+function closeLayerList() {
+  lyrList?.classList.remove('is-open')
+  setLayerTool(false)
+}
+
+function setBasemapTool(on) {
+  document.querySelectorAll('[data-action="tool"][data-tool="basemap"]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false')
+    btn.closest('.tools__item')?.classList.toggle('is-active', on)
   })
-})
+}
 
-document.querySelectorAll('.leaf__check').forEach((el) => {
-  el.addEventListener('change', () => {
-    const name = el.closest('.leaf__row')?.querySelector('.leaf__name')?.textContent ?? '레이어'
-    announce(`${name} ${el.checked ? '선택' : '선택 해제'}`)
+function syncBasemapOpacity(value) {
+  const pct = Math.max(0, Math.min(100, Number(value) || 0))
+  document.querySelectorAll('[data-bind="basemap-opacity"]').forEach((el) => {
+    el.value = String(pct)
+    el.style.setProperty('--pct', `${pct}%`)
   })
-})
+}
 
-searchForm?.addEventListener('submit', (e) => {
-  e.preventDefault()
-  const q = searchInput?.value.trim() ?? ''
-  announce(q ? `${q} 검색` : '검색어를 입력해 주세요.')
-})
+function openBasemap() {
+  const el = document.getElementById('basemapPop')
+  if (!el) return
+  closeLayerList()
+  el.hidden = false
+  setBasemapTool(true)
+  syncBasemapOpacity(el.querySelector('[data-bind="basemap-opacity"]')?.value || 70)
+  emit('map:basemap', { open: true })
+}
 
-/* —— 5. 줌 · PC 도구 · 범례 —— */
-createZoom({
-  root: document.getElementById('mapZoom'),
-  max: 9,
-  value: 5,
-})
+function closeBasemap() {
+  const el = document.getElementById('basemapPop')
+  if (!el || el.hidden) return
+  el.hidden = true
+  setBasemapTool(false)
+  emit('map:basemap', { open: false })
+}
 
-const toolItems = document.querySelectorAll('.tools__item[data-tool]')
-toolItems.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const name = btn.textContent.trim().replace(/\s+/g, ' ')
-    if (btn.dataset.tool === 'refresh') {
-      announce('지도를 초기화했습니다.')
+function setAreaTool(on) {
+  document.querySelectorAll('[data-action="tool"][data-tool="area"]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false')
+    btn.closest('.tools__item')?.classList.toggle('is-active', on)
+  })
+}
+
+function openAreaInfo(opts = {}) {
+  const el = document.getElementById('areaInfo')
+  if (!el) return
+  if (opts.value != null) {
+    const val = el.querySelector('[data-bind="area-value"]')
+    if (val) val.textContent = String(opts.value)
+  }
+  if (opts.left != null) el.style.left = typeof opts.left === 'number' ? `${opts.left}%` : opts.left
+  if (opts.top != null) el.style.top = typeof opts.top === 'number' ? `${opts.top}%` : opts.top
+  el.hidden = false
+  setAreaTool(true)
+  emit('map:area-info', { open: true })
+}
+
+function closeAreaInfo() {
+  const el = document.getElementById('areaInfo')
+  if (!el || el.hidden) return
+  el.hidden = true
+  setAreaTool(false)
+  emit('map:area-info', { open: false })
+}
+
+function pickBasemap(id) {
+  const root = document.getElementById('basemapPop')
+  if (!root) return
+  root.querySelectorAll('[data-action="basemap-pick"]').forEach((el) => {
+    const on = el.dataset.map === id
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-pressed', on ? 'true' : 'false')
+  })
+  emit('map:basemap', { open: true, map: id })
+}
+
+function pickBasemapColor(color) {
+  const root = document.getElementById('basemapPop')
+  if (!root) return
+  root.querySelectorAll('[data-action="basemap-color"]').forEach((el) => {
+    const on = el.dataset.color === color
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-pressed', on ? 'true' : 'false')
+  })
+  emit('map:basemap', { open: true, color })
+}
+
+function setInfoLayer(id, on) {
+  document.querySelectorAll('[data-action="info-layer"]').forEach((el) => {
+    const match = !!on && el.dataset.layerId === id
+    el.setAttribute('aria-pressed', match ? 'true' : 'false')
+  })
+}
+
+/**
+ * @param {string} [id]
+ * @param {{ dimmed?: boolean }} [opts] dimmed 기본 true. false 면 딤 없이 모달만
+ */
+function openModal(id = 'metaModal', opts = {}) {
+  const el = document.getElementById(id)
+  if (!el) return
+  const dimmed = opts.dimmed ?? el.dataset.dimmed !== 'false'
+  el.dataset.dimmed = dimmed ? 'true' : 'false'
+  const dim = el.querySelector('.dlg__dim')
+  if (dim) dim.hidden = !dimmed
+  el.hidden = false
+  if (opts.tab) setModalTab(opts.tab)
+  el.querySelector('.dlg__box')?.focus()
+  emit('map:modal', { id, open: true, dimmed, tab: opts.tab || currentModalTab(el) })
+}
+
+function openAttr(opts = {}) {
+  const el = document.getElementById('attrPanel')
+  if (!el) return
+  if (opts.title) {
+    const title = el.querySelector('[data-bind="attr-title"]')
+    if (title) title.textContent = opts.title
+  }
+  if (opts.count != null) {
+    const count = el.querySelector('[data-bind="attr-count"]')
+    if (count) count.textContent = String(opts.count)
+  }
+  el.hidden = false
+  if (opts.min != null) el.classList.toggle('is-min', !!opts.min)
+  if (opts.max != null) el.classList.toggle('is-max', !!opts.max)
+  closeEval()
+  app?.classList.add('is-attr')
+  emit('map:attr', { open: true, id: el.dataset.layerId, min: el.classList.contains('is-min') })
+}
+
+function closeAttr() {
+  const el = document.getElementById('attrPanel')
+  if (!el || el.hidden) return
+  el.hidden = true
+  el.classList.remove('is-min', 'is-max')
+  app?.classList.remove('is-attr')
+  emit('map:attr', { open: false, id: el.dataset.layerId })
+}
+
+function applyEvalFilter(root) {
+  const valid = root.classList.contains('is-valid')
+  const groups = [...new Set([...root.querySelectorAll('tr[data-g]')].map((tr) => tr.dataset.g))]
+  groups.forEach((g) => {
+    const rows = [...root.querySelectorAll(`tr[data-g="${g}"]`)]
+    const th = rows.map((r) => r.querySelector('th')).find(Boolean)
+    rows.forEach((tr) => {
+      const v = Number(tr.querySelector('[data-val]')?.dataset.val)
+      tr.hidden = valid && v === 0
+    })
+    const vis = rows.filter((r) => !r.hidden)
+    if (!vis.length) return
+    if (th && th.parentElement !== vis[0]) vis[0].insertBefore(th, vis[0].firstChild)
+    if (th) th.rowSpan = vis.length
+  })
+}
+
+function setEvalTab(tab = 'all') {
+  const root = document.getElementById('evalPanel')
+  if (!root) return
+  const mode = tab === 'valid' ? 'valid' : 'all'
+  root.classList.toggle('is-valid', mode === 'valid')
+  root.querySelectorAll('[data-action="eval-tab"]').forEach((el) => {
+    const on = el.dataset.tab === mode
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  applyEvalFilter(root)
+  emit('map:eval-tab', { tab: mode })
+}
+
+function openEval(opts = {}) {
+  const el = document.getElementById('evalPanel')
+  if (!el) return
+  closeAttr()
+  el.hidden = false
+  setEvalTab(opts.tab || (el.classList.contains('is-valid') ? 'valid' : 'all'))
+  app?.classList.add('is-eval')
+  emit('map:eval', { open: true, tab: opts.tab || (el.classList.contains('is-valid') ? 'valid' : 'all') })
+}
+
+function closeEval() {
+  const el = document.getElementById('evalPanel')
+  if (!el || el.hidden) return
+  el.hidden = true
+  app?.classList.remove('is-eval')
+  emit('map:eval', { open: false })
+}
+
+function openClusters() {
+  const el = document.getElementById('clusterLayer')
+  if (!el) return
+  el.hidden = false
+  emit('map:cluster-layer', { open: true })
+}
+
+function closeClusters() {
+  const el = document.getElementById('clusterLayer')
+  if (!el || el.hidden) return
+  el.hidden = true
+  emit('map:cluster-layer', { open: false })
+}
+
+function setClusters(items = []) {
+  const root = document.getElementById('clusterLayer')
+  if (!root) return
+  root.replaceChildren(
+    ...items.map((item) => {
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'cluster'
+      if (item.on) btn.classList.add('is-on')
+      btn.dataset.action = 'cluster'
+      btn.dataset.clusterId = item.id || ''
+      btn.dataset.name = item.name || ''
+      btn.dataset.count = String(item.count ?? '')
+      if (item.left != null) btn.style.left = typeof item.left === 'number' ? `${item.left}%` : item.left
+      if (item.top != null) btn.style.top = typeof item.top === 'number' ? `${item.top}%` : item.top
+      btn.innerHTML = `<span class="cluster__in"><span class="cluster__name"></span><span class="cluster__count"></span></span>`
+      btn.querySelector('.cluster__name').textContent = item.name || ''
+      btn.querySelector('.cluster__count').textContent = String(item.count ?? '')
+      return btn
+    }),
+  )
+}
+
+function isTourLayer(id) {
+  return typeof id === 'string' && id.includes('TOUR')
+}
+
+function isTourOpen() {
+  return app?.classList.contains('is-tour') === true || app?.classList.contains('is-tour-detail') === true
+}
+
+function isTourDetailOpen() {
+  return document.getElementById('tourDetail')?.hidden === false
+}
+
+function openTourDetail() {
+  const el = document.getElementById('tourDetail')
+  if (!el) return
+  openPanel()
+  collapseGroup('mof')
+  expandGroup('theme')
+  expandGroup('leisure')
+  expandGroup('tour')
+  collapseGroup('marina')
+  collapseGroup('forecast')
+  collapseGroup('tour-stat')
+  closeTourOverlay()
+  closeLayerList()
+  closeSuggest()
+  closeClusters()
+  app?.classList.add('is-tour')
+  closeMarina()
+  setTourList(true)
+  setPoi(false)
+  closeTourLegend()
+  el.hidden = false
+  app?.classList.add('is-tour-detail')
+  emit('map:tour-detail', { open: true })
+}
+
+function closeTourDetail() {
+  const el = document.getElementById('tourDetail')
+  if (!el || el.hidden) return
+  el.hidden = true
+  app?.classList.remove('is-tour-detail')
+  if (isTourOpen()) openTourLegend()
+  emit('map:tour-detail', { open: false })
+}
+
+function setTourNearKm(km = '3') {
+  const root = document.getElementById('tourDetail')
+  if (!root) return
+  root.querySelectorAll('[data-action="tour-near-km"]').forEach((el) => {
+    const on = el.dataset.km === km
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  emit('map:tour-detail', { open: true, km })
+}
+
+function setTourList(open) {
+  const el = document.getElementById('tourList')
+  if (!el) return
+  el.hidden = !open
+}
+
+function setTourOverlay(open) {
+  const el = document.getElementById('tourOverlay')
+  if (!el) return
+  el.hidden = !open
+}
+
+function setPins(open) {
+  const el = document.getElementById('pinLayer')
+  if (!el) return
+  el.hidden = !open
+}
+
+function setPoi(open) {
+  const el = document.getElementById('poiPop')
+  if (!el) return
+  el.hidden = !open
+}
+
+function fillTourPoi(pin) {
+  const pop = document.getElementById('poiPop')
+  if (!pop || !pin) return
+  pop.style.left = pin.style.left
+  pop.style.top = pin.style.top
+}
+
+function selectTourItem(id) {
+  if (!id) return
+  document.querySelectorAll('[data-action="tour-item"]').forEach((el) => {
+    el.classList.toggle('is-on', el.dataset.tourId === id)
+  })
+  document.querySelectorAll('[data-action="tour-pin"]').forEach((el) => {
+    el.classList.toggle('is-on', el.dataset.tourId === id)
+  })
+  const card = document.querySelector(`[data-action="tour-item"][data-tour-id="${id}"]`)
+  const name = card?.querySelector('.tour__name')?.textContent || card?.querySelector('.poi__name')?.textContent
+  const cat = card?.querySelector('.poi__badge')?.textContent
+  const addr = card?.querySelector('.tour__addr')?.textContent
+  const title = document.querySelector('[data-bind="tour-title"]')
+  if (title && name) title.textContent = name
+  const poiTitle = document.querySelector('[data-bind="poi-title"]')
+  const poiCat = document.querySelector('[data-bind="poi-cat"]')
+  const poiAddr = document.querySelector('[data-bind="poi-addr"]')
+  if (poiTitle && name) poiTitle.textContent = name
+  if (poiCat && cat) poiCat.textContent = cat
+  if (poiAddr && addr) poiAddr.textContent = addr
+  const pin = document.querySelector(`[data-action="tour-pin"][data-tour-id="${id}"]`)
+  if (pin) {
+    fillTourPoi(pin)
+    setPoi(true)
+  }
+}
+
+function setTourTab(tab = 'overview') {
+  const root = document.getElementById('tourOverlay')
+  if (!root) return
+  root.querySelectorAll('[data-action="tour-tab"]').forEach((el) => {
+    const on = el.dataset.tab === tab
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  root.querySelectorAll('[data-pane]').forEach((pane) => {
+    const on = pane.dataset.pane === tab
+    pane.classList.toggle('is-on', on)
+    pane.hidden = !on
+  })
+  const facts = root.querySelector('[data-bind="tour-facts"]')
+  if (facts) facts.hidden = tab !== 'overview'
+}
+
+function openTourList() {
+  setTourOverlay(false)
+  setTourList(true)
+  setPins(true)
+  app?.classList.remove('is-tour-overlay')
+  closeClusters()
+  openTourLegend()
+  const on = document.querySelector('#tourList [data-action="tour-item"].is-on')
+  selectTourItem(on?.dataset.tourId || 'tour-fest-1')
+  emit('map:tour', { open: true, overlay: false })
+}
+
+function openTourOverlay(id) {
+  if (id) selectTourItem(id)
+  setTourList(false)
+  setPoi(true)
+  setTourOverlay(true)
+  setPins(true)
+  setTourTab('overview')
+  app?.classList.add('is-tour-overlay')
+  closeClusters()
+  openTourLegend()
+  emit('map:tour', { open: true, overlay: true, id: id || '' })
+}
+
+function closeTourList() {
+  setTourList(false)
+  emit('map:tour', { open: isTourOpen(), overlay: app?.classList.contains('is-tour-overlay') })
+}
+
+function closeTourOverlay() {
+  setTourOverlay(false)
+  app?.classList.remove('is-tour-overlay')
+  setInfoLayer('', false)
+  if (isTourOpen()) openTourList()
+}
+
+function closeTour() {
+  app?.classList.remove('is-tour', 'is-tour-overlay')
+  setTourList(false)
+  setTourOverlay(false)
+  setPins(false)
+  setPoi(false)
+  closeClusters()
+  closeTourLegend()
+  closeLayerList()
+  emit('map:tour', { open: false })
+}
+
+function isMarinaOpen() {
+  return app?.classList.contains('is-marina') === true
+}
+
+function setMarinaList(open) {
+  const el = document.getElementById('marinaList')
+  if (!el) return
+  el.hidden = !open
+}
+
+function setMarinaPins(open) {
+  const el = document.getElementById('marinaPins')
+  if (!el) return
+  el.hidden = !open
+}
+
+function setMarinaPoi(open) {
+  const el = document.getElementById('marinaPoi')
+  if (!el) return
+  el.hidden = !open
+}
+
+function fillMarinaPoi(pin) {
+  const pop = document.getElementById('marinaPoi')
+  if (!pop || !pin) return
+  pop.style.left = pin.style.left
+  pop.style.top = pin.style.top
+  const set = (key, val) => {
+    const el = pop.querySelector(`[data-bind="${key}"]`)
+    if (el && val != null) el.textContent = val
+  }
+  set('marina-poi-title', pin.dataset.name)
+  set('marina-poi-addr', pin.dataset.addr)
+  set('marina-poi-region', pin.dataset.region)
+  set('marina-poi-area', pin.dataset.area)
+  set('marina-poi-port', pin.dataset.port)
+  set('marina-poi-operator', pin.dataset.operator)
+  set('marina-poi-depth', pin.dataset.depth)
+  set('marina-poi-homepage', pin.dataset.homepage)
+  set('marina-poi-zip', pin.dataset.zip)
+}
+
+function selectMarinaItem(id) {
+  if (!id) return
+  document.querySelectorAll('[data-action="marina-item"]').forEach((el) => {
+    el.classList.toggle('is-on', el.dataset.marinaId === id)
+  })
+  document.querySelectorAll('[data-action="marina-pin"]').forEach((el) => {
+    el.classList.toggle('is-on', el.dataset.marinaId === id)
+  })
+  const pin = document.querySelector(`[data-action="marina-pin"][data-marina-id="${id}"]`)
+  if (pin) {
+    fillMarinaPoi(pin)
+    setMarinaPoi(true)
+  }
+  emit('map:marina-item', { id })
+}
+
+function openMarina() {
+  closeTour()
+  openPanel()
+  collapseGroup('mof')
+  expandGroup('theme')
+  expandGroup('leisure')
+  collapseGroup('tour')
+  expandGroup('marina')
+  expandGroup('marina-status')
+  collapseGroup('forecast')
+  collapseGroup('tour-stat')
+  setLayerChecked('LYR_MARINA_STATUS', true)
+  closeLayerList()
+  closeSuggest()
+  closeClusters()
+  app?.classList.add('is-marina')
+  setMarinaList(true)
+  setMarinaPins(true)
+  const on = document.querySelector('#marinaList [data-action="marina-item"].is-on')
+  selectMarinaItem(on?.dataset.marinaId || 'marina-2')
+  emit('map:marina', { open: true })
+}
+
+function closeMarina() {
+  app?.classList.remove('is-marina')
+  setMarinaList(false)
+  setMarinaPins(false)
+  setMarinaPoi(false)
+  emit('map:marina', { open: false })
+}
+
+function expandGroup(id) {
+  const btn = document.querySelector(`[data-action="toggle"][data-group-id="${id}"]`)
+  if (btn && btn.getAttribute('aria-expanded') !== 'true') onToggle(btn)
+}
+
+function collapseGroup(id) {
+  const btn = document.querySelector(`[data-action="toggle"][data-group-id="${id}"]`)
+  if (btn && btn.getAttribute('aria-expanded') === 'true') onToggle(btn)
+}
+
+function openTour() {
+  closeMarina()
+  openPanel()
+  collapseGroup('mof')
+  expandGroup('theme')
+  expandGroup('leisure')
+  expandGroup('tour')
+  collapseGroup('marina')
+  collapseGroup('forecast')
+  collapseGroup('tour-stat')
+  document.getElementById('kids-tour')?.scrollIntoView({ block: 'nearest' })
+  app?.classList.add('is-tour')
+  closeLayerList()
+  closeSuggest()
+  openTourList()
+}
+
+function onTourItem(btn) {
+  const id = btn.dataset.tourId
+  selectTourItem(id)
+  emit('map:tour-item', { id, pin: btn.dataset.pin || '' })
+  if (isTourDetailOpen()) return
+  if (!app?.classList.contains('is-tour')) {
+    app?.classList.add('is-tour')
+    closeLayerList()
+    openPanel()
+    openTourList()
+    return
+  }
+  if (app?.classList.contains('is-tour-overlay')) openTourOverlay(id)
+}
+
+function onCluster(btn) {
+  const on = !btn.classList.contains('is-on')
+  btn.classList.toggle('is-on', on)
+  emit('map:cluster', {
+    id: btn.dataset.clusterId,
+    name: btn.dataset.name,
+    count: Number(btn.dataset.count),
+    on,
+  })
+}
+
+function setLegendTab(tab = 'grade') {
+  const root = document.getElementById('legendPop')
+  if (!root) return
+  root.classList.toggle('is-tour', tab === 'tour')
+  root.querySelectorAll('[data-action="legend-tab"]').forEach((el) => {
+    const on = el.dataset.tab === tab
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  root.querySelectorAll('[data-pane]').forEach((pane) => {
+    const on = pane.dataset.pane === tab
+    pane.classList.toggle('is-on', on)
+    pane.hidden = !on
+  })
+  emit('map:legend-tab', { tab })
+}
+
+function suggestBar() {
+  return document.getElementById('suggestBar')
+}
+
+function isSuggestOpen() {
+  return suggestBar()?.classList.contains('is-open') === true
+}
+
+function setSuggest(open) {
+  const el = suggestBar()
+  if (!el) return
+  el.classList.toggle('is-open', open)
+  el.querySelectorAll('[data-action="suggest"]').forEach((btn) => {
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false')
+  })
+  const next = el.querySelector('.suggest__next')
+  if (next) next.setAttribute('aria-label', open ? '추천레이어 접기' : '추천레이어 펼치기')
+  emit('map:suggest', { open })
+}
+
+function openSuggest() {
+  setSuggest(true)
+}
+
+function closeSuggest() {
+  if (!isSuggestOpen()) return
+  setSuggest(false)
+}
+
+function openLegend(tab) {
+  const el = document.getElementById('legendPop')
+  if (!el) return
+  closeTourLegend()
+  if (tab) setLegendTab(tab)
+  el.hidden = false
+  el.classList.remove('is-min')
+  const fold = el.querySelector('[data-action="legend-fold"]')
+  if (fold) fold.setAttribute('aria-expanded', 'true')
+  emit('map:legend', { open: true, tab: tab || el.querySelector('.legend__tab.is-on')?.dataset.tab })
+}
+
+function closeLegend() {
+  const el = document.getElementById('legendPop')
+  if (!el || el.hidden) return
+  el.hidden = true
+  emit('map:legend', { open: false })
+}
+
+function openTourLegend() {
+  const el = document.getElementById('legendTour')
+  if (!el) return
+  const main = document.getElementById('legendPop')
+  if (main && !main.hidden) closeLegend()
+  el.hidden = false
+  emit('map:legend', { open: true, tab: 'tour' })
+}
+
+function closeTourLegend() {
+  const el = document.getElementById('legendTour')
+  if (!el || el.hidden) return
+  el.hidden = true
+  emit('map:legend', { open: false, tab: 'tour' })
+}
+
+function closeModal(id) {
+  const el = id
+    ? document.getElementById(id)
+    : document.querySelector('.dlg:not([hidden])')
+  if (!el) return
+  el.hidden = true
+  setInfoLayer('', false)
+  emit('map:modal', { id: el.id, open: false, dimmed: el.dataset.dimmed !== 'false' })
+}
+
+function currentModalTab(root) {
+  if (root?.classList.contains('is-data')) return 'data'
+  return root?.querySelector('.dlg-acc.is-on')?.dataset.acc || 'overview'
+}
+
+function setModalAcc(tab = 'overview') {
+  const root = document.getElementById('metaModal')
+  if (!root) return
+  root.querySelectorAll('.dlg-acc').forEach((el) => {
+    const on = el.dataset.acc === tab
+    el.classList.toggle('is-on', on)
+    const btn = el.querySelector('[data-action="modal-acc"]')
+    if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false')
+  })
+}
+
+function setModalTab(tab = 'overview') {
+  const root = document.getElementById('metaModal')
+  if (!root) return
+  const isData = tab === 'data'
+  let section = 'overview'
+  if (!isData) {
+    if (tab === 'meta') {
+      const cur = currentModalTab(root)
+      section = cur === 'data' ? 'overview' : cur
+    } else {
+      section = tab
+    }
+  }
+  root.classList.toggle('is-data', isData)
+  root.querySelectorAll('[data-action="modal-tab"]').forEach((el) => {
+    const on = isData ? el.dataset.tab === 'data' : el.dataset.tab === 'meta'
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  const metaPane = document.getElementById('metaPaneMeta')
+  const dataPane = document.getElementById('metaPaneData')
+  if (metaPane) {
+    metaPane.hidden = isData
+    metaPane.classList.toggle('is-on', !isData)
+  }
+  if (dataPane) {
+    dataPane.hidden = !isData
+    dataPane.classList.toggle('is-on', isData)
+  }
+  if (!isData) setModalAcc(section)
+  emit('map:modal-tab', { tab: isData ? 'data' : section })
+}
+
+function onModalTab(btn) {
+  if (!btn?.dataset.tab) return
+  setModalTab(btn.dataset.tab)
+}
+
+function setMoNav(id) {
+  const root = document.getElementById('moMenu')
+  if (!root || !id) return
+  root.querySelectorAll('[data-action="mo-nav"]').forEach((el) => {
+    const on = el.dataset.nav === id
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  root.querySelectorAll('[data-nav-pane]').forEach((pane) => {
+    const on = pane.dataset.navPane === id
+    pane.hidden = !on
+    pane.classList.toggle('is-on', on)
+  })
+  emit('map:mo-nav', { id })
+}
+
+function setMoMenu(open) {
+  const menu = document.getElementById('moMenu')
+  const trigger = document.querySelector('[data-action="mo-menu"]')
+  if (!menu) return
+  menu.hidden = !open
+  toggleClass(menu, 'is-open', open)
+  app?.classList.toggle('is-mo-menu', open)
+  setExpanded(trigger, open)
+  if (trigger) trigger.setAttribute('aria-label', open ? '메뉴 닫기' : '전체 메뉴')
+}
+
+function setMoDock(mode) {
+  const peek = document.getElementById('moPeek')
+  const acc = document.getElementById('moAcc')
+  app?.classList.toggle('is-mo-peek', mode === 'peek')
+  app?.classList.toggle('is-mo-open', mode === 'open')
+  app?.classList.toggle('is-mo-sheet', mode !== 'close')
+  if (peek) peek.hidden = mode !== 'peek'
+  if (acc) acc.hidden = mode !== 'open'
+  document.querySelectorAll('[data-action="mo-sheet"]').forEach((el) => {
+    setExpanded(el, mode !== 'close')
+  })
+  if (mode !== 'close' && MO_MQ.matches) closeLayerList()
+  emit('map:sheet', { mode })
+}
+
+function openMoGroup(group) {
+  const isTheme = group === 'theme'
+  const mof = document.getElementById('moAccMof')
+  const theme = document.getElementById('moAccTheme')
+  if (mof) mof.hidden = isTheme
+  if (theme) theme.hidden = !isTheme
+  document.querySelectorAll('[data-bind="mo-acc-title"]').forEach((el) => {
+    el.textContent = isTheme ? '해양공간 주제정보' : '해양수산정보 분류체계'
+  })
+  document.querySelectorAll('[data-bind="mo-acc-count"]').forEach((el) => {
+    el.textContent = isTheme ? '6' : String(mof?.children.length || 0)
+  })
+  setMoDock('open')
+}
+
+function findToggleBox(btn, id) {
+  const ctrl = btn.getAttribute('aria-controls')
+  if (ctrl) {
+    const byCtrl = document.getElementById(ctrl)
+    if (byCtrl) return byCtrl
+  }
+  const sib = btn.nextElementSibling
+  if (sib?.matches('.tree__group, .tree__branch, .tree__kids, .tree__leaves')) return sib
+  if (!id) return null
+  return document.querySelector(`#kids-${CSS.escape(id)}, [data-group-id="${CSS.escape(id)}"].tree__group, [data-group-id="${CSS.escape(id)}"].tree__branch`)
+}
+
+function onToggle(btn) {
+  const kind = btn.dataset.toggle
+  const id = btn.dataset.groupId
+  const expanded = btn.getAttribute('aria-expanded') === 'true'
+  const next = !expanded
+
+  if (kind === 'group') {
+    const box = findToggleBox(btn, id)
+    if (!box) return
+    setExpanded(btn, next)
+    toggleClass(box, 'is-open', next)
+    toggleClass(btn, 'is-open', next)
+    if (box.classList.contains('tree__kids')) box.hidden = !next
+    const parent = btn.closest('.tree__group')
+    if (parent && btn.classList.contains('tree__row') && parent !== box) toggleClass(parent, 'is-open', next)
+    return
+  }
+
+  if (kind === 'branch') {
+    const leaves =
+      document.getElementById(btn.getAttribute('aria-controls') || '') ||
+      (btn.closest('.tree__d4, .tree__d5')?.nextElementSibling?.classList.contains('tree__leaves')
+        ? btn.closest('.tree__d4, .tree__d5').nextElementSibling
+        : null)
+    if (!leaves) return
+    setExpanded(btn, next)
+    toggleClass(btn, 'is-open', next)
+    leaves.hidden = !next
+    toggleClass(leaves, 'is-open', next)
+    return
+  }
+
+  if (kind === 'lyr-cat') {
+    setExpanded(btn, next)
+    const rows = btn.nextElementSibling
+    if (rows) rows.hidden = !next
+  }
+}
+
+function syncFavPane() {
+  const pane = document.getElementById('panelFav')
+  if (!pane) return
+  pane.replaceChildren()
+  document.querySelectorAll('#panelList [data-action="fav-layer"][aria-pressed="true"]').forEach((btn) => {
+    const src = btn.closest('.tree__d5')
+    if (!src) return
+    const clone = src.cloneNode(true)
+    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'))
+    pane.append(clone)
+  })
+}
+
+function onTab(btn) {
+  const tab = btn.dataset.tab
+  document.querySelectorAll('[data-action="tab"]').forEach((el) => {
+    const on = el === btn
+    el.classList.toggle('is-active', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  const list = document.getElementById('panelList')
+  const fav = document.getElementById('panelFav')
+  if (list) list.hidden = tab !== 'list'
+  if (fav) fav.hidden = tab !== 'fav'
+  if (tab === 'fav') syncFavPane()
+}
+
+function getFilterValues() {
+  const pick = (group) =>
+    [...document.querySelectorAll(`.flt__chip.is-on[data-filter-group="${group}"]`)].map((el) => el.dataset.value)
+  return { area: pick('area'), cat: pick('cat'), cho: pick('cho') }
+}
+
+function setFilterChip(chip, on) {
+  chip.classList.toggle('is-on', on)
+  chip.setAttribute('aria-pressed', on ? 'true' : 'false')
+}
+
+function syncFilterSwitch(group) {
+  const chips = [...document.querySelectorAll(`.flt__chip[data-filter-group="${group}"]`)]
+  const all = chips.length > 0 && chips.every((el) => el.classList.contains('is-on'))
+  const sw = document.querySelector(`[data-action="filter-all"][data-filter-group="${group}"]`)
+  if (!sw) return
+  sw.setAttribute('aria-checked', all ? 'true' : 'false')
+  const lab = sw.querySelector('span')
+  if (lab) lab.textContent = all ? 'on' : 'off'
+}
+
+function syncFilterTags() {
+  const box = document.querySelector('[data-bind="filter-chips"]')
+  if (!box) return
+  box.innerHTML = [...document.querySelectorAll('.flt__chip.is-on')]
+    .map(
+      (el) =>
+        `<button type="button" class="flt__tag" data-action="filter-chip" data-filter-group="${el.dataset.filterGroup}" data-value="${el.dataset.value}">${el.dataset.value}<img src="./src/assets/img/filter/chip-x.svg" width="12" height="12" alt=""></button>`,
+    )
+    .join('')
+}
+
+function onFilterChip(btn) {
+  const group = btn.dataset.filterGroup
+  const value = btn.dataset.value
+  const chip = document.querySelector(`.flt__chip[data-filter-group="${group}"][data-value="${value}"]`)
+  if (!chip) return
+  setFilterChip(chip, !chip.classList.contains('is-on'))
+  syncFilterSwitch(group)
+  syncFilterTags()
+}
+
+function onFilterAll(btn) {
+  const group = btn.dataset.filterGroup
+  const next = btn.getAttribute('aria-checked') !== 'true'
+  document.querySelectorAll(`.flt__chip[data-filter-group="${group}"]`).forEach((el) => setFilterChip(el, next))
+  syncFilterSwitch(group)
+  syncFilterTags()
+}
+
+function onFilterFold(btn) {
+  const group = btn.dataset.filterGroup
+  const sec = document.querySelector(`.flt__sec[data-filter-group="${group}"]`)
+  const open = btn.getAttribute('aria-expanded') !== 'true'
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false')
+  sec?.classList.toggle('is-fold', !open)
+}
+
+function onFilterReset() {
+  document.querySelectorAll('.flt__chip').forEach((el) => setFilterChip(el, false))
+  ;['area', 'cat', 'cho'].forEach(syncFilterSwitch)
+  syncFilterTags()
+  emit('map:filter', { action: 'reset', ...getFilterValues() })
+}
+
+function setFilterTriggers(open) {
+  document.querySelectorAll('[data-action="filter"]').forEach((el) => {
+    el.classList.toggle('is-on', open)
+    el.setAttribute('aria-expanded', open ? 'true' : 'false')
+  })
+}
+
+function openFilter() {
+  const el = document.getElementById('filterPop')
+  if (!el) return
+  if (MO_MQ.matches) setMoDock('close')
+  el.hidden = false
+  setFilterTriggers(true)
+  el.focus()
+  emit('map:filter', { open: true, ...getFilterValues() })
+}
+
+function closeFilter() {
+  const el = document.getElementById('filterPop')
+  if (!el || el.hidden) return
+  el.hidden = true
+  setFilterTriggers(false)
+  emit('map:filter', { open: false, ...getFilterValues() })
+}
+
+function onFilterApply() {
+  emit('map:filter', { action: 'apply', ...getFilterValues() })
+  closeFilter()
+}
+
+function onSearch(btn) {
+  const target = document.getElementById(btn.dataset.target || '')
+  const keyword = (target?.value || '').trim()
+  announce(keyword ? `검색어: ${keyword}` : '검색어가 없습니다.')
+  emit('map:search', { keyword, target: btn.dataset.target || '' })
+}
+
+function isCoordSearchOpen() {
+  return document.getElementById('coordPop')?.hidden === false
+}
+
+function setCoordSearchTrigger(open) {
+  document.querySelectorAll('[data-action="coord-search"]').forEach((el) => {
+    el.setAttribute('aria-expanded', open ? 'true' : 'false')
+  })
+}
+
+function openCoordSearch() {
+  const el = document.getElementById('coordPop')
+  if (!el) return
+  el.hidden = false
+  setCoordSearchTrigger(true)
+  emit('map:coord-search', { open: true })
+}
+
+function closeCoordSearch() {
+  const el = document.getElementById('coordPop')
+  if (!el || el.hidden) return
+  el.hidden = true
+  setCoordSearchTrigger(false)
+  emit('map:coord-search', { open: false })
+}
+
+function toggleCoordSearch() {
+  if (isCoordSearchOpen()) closeCoordSearch()
+  else openCoordSearch()
+}
+
+function onCoordGo() {
+  const x = document.getElementById('coordX')?.value.trim() || ''
+  const y = document.getElementById('coordY')?.value.trim() || ''
+  const systemEl = document.querySelector('[data-bind="coord-system"]')
+  const system = systemEl?.selectedOptions?.[0]?.textContent?.trim() || systemEl?.value || ''
+  announce(x || y ? `좌표 검색: ${x}, ${y}` : '좌표가 없습니다.')
+  emit('map:coord-search', { action: 'search', x, y, system })
+}
+
+function setPrintActive(on) {
+  document.querySelectorAll('[data-action="tool"][data-tool="print"]').forEach((el) => {
+    el.setAttribute('aria-pressed', on ? 'true' : 'false')
+    el.closest('.tools__item')?.classList.toggle('is-active', on)
+  })
+}
+
+function onPrint() {
+  setPrintActive(true)
+  emit('map:tool', { tool: 'print', on: true })
+  const done = () => {
+    if (done.ran) return
+    done.ran = true
+    window.removeEventListener('afterprint', done)
+    printMq?.removeEventListener?.('change', onPrintMq)
+    setPrintActive(false)
+    emit('map:tool', { tool: 'print', on: false })
+  }
+  const onPrintMq = (e) => {
+    if (!e.matches) done()
+  }
+  const printMq = window.matchMedia('print')
+  window.addEventListener('afterprint', done)
+  printMq.addEventListener?.('change', onPrintMq)
+  window.print()
+}
+
+function onTool(btn) {
+  const tool = btn.dataset.tool
+  const on = btn.getAttribute('aria-pressed') !== 'true'
+  if (tool === 'layer') {
+    if (on) openLayerList()
+    else closeLayerList()
+  } else if (tool === 'basemap') {
+    if (on) openBasemap()
+    else closeBasemap()
+  } else if (tool === 'area') {
+    if (on) openAreaInfo()
+    else closeAreaInfo()
+  } else if (tool === 'print') {
+    if (on) onPrint()
+    else setPrintActive(false)
+  } else {
+    document.querySelectorAll(`[data-action="tool"][data-tool="${tool}"]`).forEach((el) => {
+      el.setAttribute('aria-pressed', on ? 'true' : 'false')
+      el.closest('.tools__item')?.classList.toggle('is-active', on)
+    })
+  }
+  if (tool !== 'print') emit('map:tool', { tool, on })
+}
+
+function clampZoom(n) {
+  return Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(n)))
+}
+
+function syncZoomUi() {
+  document.querySelectorAll('[data-bind="zoom-level"]').forEach((el) => {
+    el.textContent = `Lv.${zoomLevel}`
+  })
+  const ratio = (zoomLevel - ZOOM_MIN) / (ZOOM_MAX - ZOOM_MIN)
+  const fill = ratio * RAIL_H
+  const knob = Math.max(0, Math.min(RAIL_H - KNOB_H, fill - KNOB_H / 2))
+  document.querySelectorAll('.tools__rail').forEach((rail) => {
+    rail.style.setProperty('--zoom-fill', `${fill}px`)
+    rail.style.setProperty('--zoom-knob', `${knob}px`)
+    rail.setAttribute('aria-valuenow', String(zoomLevel))
+    rail.setAttribute('aria-valuetext', `레벨 ${zoomLevel}`)
+  })
+}
+
+function setZoom(level, dir = 'set') {
+  const next = clampZoom(level)
+  if (next === zoomLevel) return
+  zoomLevel = next
+  syncZoomUi()
+  emit('map:zoom', { dir, level: zoomLevel })
+}
+
+function onZoom(btn) {
+  const dir = btn.dataset.dir === 'out' ? 'out' : 'in'
+  setZoom(zoomLevel + (dir === 'in' ? 1 : -1), dir)
+}
+
+function levelFromPointer(rail, clientY) {
+  const rect = rail.getBoundingClientRect()
+  const t = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height))
+  return clampZoom(ZOOM_MAX - t * (ZOOM_MAX - ZOOM_MIN))
+}
+
+function bindZoomRail() {
+  document.querySelectorAll('.tools__rail').forEach((rail) => {
+    let dragging = false
+
+    rail.addEventListener('pointerdown', (event) => {
+      if (event.button !== 0) return
+      dragging = true
+      rail.classList.add('is-drag')
+      rail.setPointerCapture(event.pointerId)
+      setZoom(levelFromPointer(rail, event.clientY), 'set')
+      event.preventDefault()
+    })
+    rail.addEventListener('pointermove', (event) => {
+      if (!dragging) return
+      setZoom(levelFromPointer(rail, event.clientY), 'drag')
+    })
+    const endDrag = (event) => {
+      if (!dragging) return
+      dragging = false
+      rail.classList.remove('is-drag')
+      if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
+    }
+    rail.addEventListener('pointerup', endDrag)
+    rail.addEventListener('pointercancel', endDrag)
+    rail.addEventListener('keydown', (event) => {
+      const step = {
+        ArrowUp: 1,
+        ArrowRight: 1,
+        ArrowDown: -1,
+        ArrowLeft: -1,
+        PageUp: 2,
+        PageDown: -2,
+      }
+      if (event.key === 'Home') {
+        event.preventDefault()
+        setZoom(ZOOM_MAX, 'set')
+        return
+      }
+      if (event.key === 'End') {
+        event.preventDefault()
+        setZoom(ZOOM_MIN, 'set')
+        return
+      }
+      if (!(event.key in step)) return
+      event.preventDefault()
+      setZoom(zoomLevel + step[event.key], step[event.key] > 0 ? 'in' : 'out')
+    })
+  })
+}
+
+function onLayerInput(input) {
+  const id = input.dataset.layerId
+  const checked = input.checked
+  if (id) {
+    document.querySelectorAll(`[data-action="toggle-layer"][data-layer-id="${id}"]`).forEach((el) => {
+      if (el !== input) el.checked = checked
+    })
+  }
+  const row = input.closest('.tree__d4')
+  if (row) toggleClass(row, 'is-on', checked)
+  if (id && !input.dataset.parentId) {
+    document
+      .querySelectorAll(`[data-action="toggle-layer"][data-parent-id="${id}"]`)
+      .forEach((child) => {
+        child.checked = checked
+      })
+  }
+  emit('map:layer-change', {
+    id,
+    name: input.dataset.layerName || input.value,
+    checked,
+    parentId: input.dataset.parentId || '',
+  })
+  if (id === 'LYR_MARINA_STATUS' || id === 'GRP_MARINA_STATUS') {
+    if (checked) openMarina()
+    else closeMarina()
+  }
+}
+
+function onSwitch(btn) {
+  const on = btn.getAttribute('aria-checked') !== 'true'
+  btn.setAttribute('aria-checked', on ? 'true' : 'false')
+  btn.classList.toggle('is-on', on)
+  const label = btn.querySelector('span')
+  if (label) label.textContent = on ? 'on' : 'off'
+  emit('map:layer-change', {
+    id: btn.dataset.layerId,
+    name: '',
+    checked: on,
+    parentId: '',
+  })
+}
+
+function closeLyrTips(keep) {
+  document.querySelectorAll('.lyr-list__row.is-tip').forEach((el) => {
+    if (el === keep) return
+    el.classList.remove('is-tip')
+    el.querySelector('.lyr-list__opac')?.setAttribute('aria-expanded', 'false')
+  })
+}
+
+function onLyrOpac(btn) {
+  const row = btn.closest('.lyr-list__row')
+  const on = !row?.classList.contains('is-tip')
+  closeLyrTips(on ? row : null)
+  if (row && on) {
+    row.classList.add('is-tip')
+    btn.setAttribute('aria-expanded', 'true')
+    const range = row.querySelector('[data-action="lyr-opacity"]')
+    if (range) range.style.setProperty('--pct', `${range.value}%`)
+  }
+}
+
+function onClick(event) {
+  const actionEl = event.target.closest('[data-action]')
+  const insideCoord = event.target.closest('#coordPop')
+  const isCoordTrigger = actionEl?.dataset.action === 'coord-search'
+  if (isCoordSearchOpen() && !insideCoord && !isCoordTrigger) closeCoordSearch()
+  const action = actionEl?.dataset.action
+  if (action !== 'lyr-opac' && !event.target.closest('.lyr-list__tip')) closeLyrTips()
+  if (!actionEl) return
+
+  if (action === 'tab') onTab(actionEl)
+  if (action === 'toggle') onToggle(actionEl)
+  if (action === 'open-tour') {
+    event.preventDefault()
+    openTour()
+  }
+  if (action === 'close-tour-list') closeTourList()
+  if (action === 'close-marina-list') closeMarina()
+  if (action === 'marina-item' || action === 'marina-pin') selectMarinaItem(actionEl.dataset.marinaId)
+  if (action === 'marina-loc' || action === 'marina-info' || action === 'marina-route') {
+    if (action !== 'marina-route') selectMarinaItem(actionEl.dataset.marinaId)
+    emit('map:marina', { action, id: actionEl.dataset.marinaId || '' })
+  }
+  if (action === 'marina-more') emit('map:marina', { action, id: '' })
+  if (action === 'close-tour-overlay') closeTourOverlay()
+  if (action === 'close-tour-detail') closeTourDetail()
+  if (action === 'tour-detail-route' || action === 'tour-detail-down' || action === 'tour-detail-sel') {
+    emit('map:tour-detail', { action, sel: actionEl.dataset.sel || '' })
+  }
+  if (action === 'tour-near-km') setTourNearKm(actionEl.dataset.km)
+  if (action === 'tour-item' || action === 'tour-pin') onTourItem(actionEl)
+  if (action === 'tour-info') openTourOverlay()
+  if (action === 'tour-tab') setTourTab(actionEl.dataset.tab)
+  if (action === 'tour-all' || action === 'tour-route') emit('map:tour-item', { id: actionEl.dataset.tourId || '', action })
+  if (action === 'tour-sel' || action === 'tour-more') emit('map:tour', { action, sel: actionEl.dataset.sel || '' })
+  if (action === 'search') onSearch(actionEl)
+  if (action === 'coord-search') toggleCoordSearch()
+  if (action === 'coord-locate') emit('map:coord-search', { action: 'locate' })
+  if (action === 'coord-go') onCoordGo()
+  if (action === 'filter') {
+    const pop = document.getElementById('filterPop')
+    if (pop && !pop.hidden) closeFilter()
+    else openFilter()
+  }
+  if (action === 'close-filter') closeFilter()
+  if (action === 'filter-chip') onFilterChip(actionEl)
+  if (action === 'filter-all') onFilterAll(actionEl)
+  if (action === 'filter-fold') onFilterFold(actionEl)
+  if (action === 'filter-reset') onFilterReset()
+  if (action === 'filter-apply') onFilterApply()
+  if (action === 'collapse-panel') {
+    if (app?.classList.contains('is-panel-off')) openPanel()
+    else closePanel()
+  }
+  if (action === 'close-lyr-list') closeLayerList()
+  if (action === 'close-basemap') closeBasemap()
+  if (action === 'basemap-pick') pickBasemap(actionEl.dataset.map)
+  if (action === 'basemap-color') pickBasemapColor(actionEl.dataset.color)
+  if (action === 'close-attr') closeAttr()
+  if (action === 'close-eval') closeEval()
+  if (action === 'eval-tab') setEvalTab(actionEl.dataset.tab)
+  if (action === 'eval-criteria') emit('map:eval-criteria')
+  if (action === 'cluster') onCluster(actionEl)
+  if (action === 'attr-min') {
+    const panel = document.getElementById('attrPanel')
+    panel?.classList.toggle('is-min')
+    emit('map:attr', { open: true, min: panel?.classList.contains('is-min'), id: panel?.dataset.layerId })
+  }
+  if (action === 'attr-max') {
+    const panel = document.getElementById('attrPanel')
+    if (panel) {
+      panel.classList.toggle('is-max')
+      panel.classList.remove('is-min')
+    }
+    emit('map:attr', { open: true, max: panel?.classList.contains('is-max'), id: panel?.dataset.layerId })
+  }
+  if (action === 'legend-tab') setLegendTab(actionEl.dataset.tab)
+  if (action === 'close-legend-tour') closeTourLegend()
+  if (action === 'legend-fold') {
+    const panel = document.getElementById('legendPop')
+    if (panel) {
+      const min = !panel.classList.contains('is-min')
+      panel.classList.toggle('is-min', min)
+      actionEl.setAttribute('aria-expanded', min ? 'false' : 'true')
+      actionEl.setAttribute('aria-label', min ? '범례 펼치기' : '범례 접기')
+    }
+  }
+  if (action === 'attr-download') {
+    emit('map:attr-download', { id: document.getElementById('attrPanel')?.dataset.layerId })
+  }
+  if (action === 'attr-row') {
+    const row = actionEl.closest('tr')
+    const body = row?.closest('tbody')
+    if (row && body) {
+      body.querySelectorAll('tr').forEach((el) => el.classList.toggle('is-on', el === row))
+      emit('map:attr-row', { index: [...body.rows].indexOf(row) })
+    }
+  }
+  if (action === 'reset-lyr-list') emit('map:layer-reset')
+  if (action === 'tool') onTool(actionEl)
+  if (action === 'zoom') onZoom(actionEl)
+  if (action === 'info-layer') {
+    setInfoLayer(actionEl.dataset.layerId, true)
+    if (isTourLayer(actionEl.dataset.layerId)) {
+      if (!isTourOpen()) openTour()
+      openTourOverlay()
+    } else {
+      openModal('metaModal', { dimmed: true, tab: 'overview' })
+    }
+    emit('map:info', { id: actionEl.dataset.layerId })
+  }
+  if (action === 'close-modal') closeModal(actionEl.closest('.dlg')?.id)
+  if (action === 'modal-tab') onModalTab(actionEl)
+  if (action === 'modal-acc') setModalTab(actionEl.dataset.tab)
+  if (action === 'fav-layer') {
+    const id = actionEl.dataset.layerId
+    const on = actionEl.getAttribute('aria-pressed') !== 'true'
+    document.querySelectorAll(`[data-action="fav-layer"][data-layer-id="${id}"]`).forEach((el) => {
+      el.setAttribute('aria-pressed', on ? 'true' : 'false')
+    })
+    emit('map:fav', { id, on })
+    syncFavPane()
+  }
+  if (action === 'lyr-opac') onLyrOpac(actionEl)
+  if (action === 'lyr-onoff') onSwitch(actionEl)
+  if (action === 'lyr-remove') {
+    actionEl.closest('.lyr-list__row')?.remove()
+    emit('map:layer-remove', { id: actionEl.dataset.layerId })
+  }
+  if (action === 'lyr-set') emit('map:layer-set', { id: actionEl.dataset.layerId })
+  if (action === 'spatial-op') emit('map:spatial', { kind: 'op' })
+  if (action === 'spatial-an') emit('map:spatial', { kind: 'an' })
+  if (action === 'mo-menu') setMoMenu(document.getElementById('moMenu')?.hidden !== false)
+  if (action === 'mo-menu-close') setMoMenu(false)
+  if (action === 'mo-nav') setMoNav(actionEl.dataset.nav)
+  if (action === 'mo-sheet') {
+    const open = app?.classList.contains('is-mo-peek') || app?.classList.contains('is-mo-open')
+    setMoDock(open ? 'close' : 'peek')
+  }
+  if (action === 'mo-expand') openMoGroup(actionEl.dataset.group || 'mof')
+  if (action === 'mo-collapse') setMoDock('peek')
+  if (action === 'mo-group') emit('map:group', { id: actionEl.dataset.groupId, name: actionEl.dataset.layerName })
+  if (action === 'suggest') {
+    if (MO_MQ.matches) emit('map:suggest')
+    else setSuggest(!isSuggestOpen())
+  }
+  if (action === 'suggest-chip') emit('map:suggest', { name: actionEl.dataset.suggest || '' })
+  if (action === 'mo-user') emit('map:user')
+}
+
+function onChange(event) {
+  const input = event.target
+  if (input.matches?.('[data-action="toggle-layer"]')) onLayerInput(input)
+  if (input.matches?.('[data-action="lyr-sort"]')) {
+    emit('map:layer-sort', { sort: input.value })
+  }
+  if (input.matches?.('[data-action="coord-system"]')) {
+    emit('map:coord-search', {
+      action: 'system',
+      system: input.value,
+      label: input.selectedOptions?.[0]?.textContent?.trim() || '',
+    })
+  }
+}
+
+function onSkipClick(event) {
+  const link = event.target.closest('.skip a')
+  if (!link) return
+  const id = link.getAttribute('href')?.slice(1)
+  const dest = id ? document.getElementById(id) : null
+  if (!dest) return
+  event.preventDefault()
+  dest.setAttribute('tabindex', '-1')
+  dest.focus({ preventScroll: false })
+}
+
+function syncViewport() {
+  if (MO_MQ.matches) {
+    closeLayerList()
+    closeBasemap()
+    closeAttr()
+    closeEval()
+    closeClusters()
+    closeLegend()
+    closeTourLegend()
+    closeTour()
+    closeMarina()
+    closeCoordSearch()
+    setMoMenu(false)
+    return
+  }
+  setMoMenu(false)
+  setMoDock('close')
+}
+
+function onKey(event) {
+  if (event.key === 'Escape') {
+    if (isCoordSearchOpen()) {
+      closeCoordSearch()
       return
     }
-    const on = btn.getAttribute('aria-pressed') !== 'true'
-    toolItems.forEach((el) => {
-      if (el.dataset.tool === 'refresh') return
-      setPressed(el, el === btn ? on : false)
-    })
-    announce(`${name} ${on ? '선택' : '해제'}`)
-  })
-})
-
-document.querySelector('.tools__legend')?.addEventListener('click', (e) => {
-  const btn = e.currentTarget
-  const on = btn.getAttribute('aria-pressed') !== 'true'
-  btn.setAttribute('aria-pressed', String(on))
-  announce(`범례 ${on ? '열림' : '닫힘'}`)
-})
-
-/* —— 6. 좌표 포맷 셀렉트 —— */
-const coordFormats = {
-  dms: '36°27′14.8″N · 127°55′19.9″E',
-  dec: '36.454111°N · 127.922194°E',
-  tm: '198532.12 · 403214.56',
-}
-const fmtWrap = document.querySelector('.status__select')
-const fmtBtn = fmtWrap?.querySelector('.status__fmt-btn')
-const fmtList = fmtWrap?.querySelector('.status__opts')
-const fmtLabel = fmtWrap?.querySelector('.status__fmt-txt')
-const fmtCoord = document.querySelector('.status__coord-txt')
-
-function closeFmt() {
-  if (!fmtWrap || !fmtBtn || !fmtList) return
-  if (fmtBtn.getAttribute('aria-expanded') !== 'true') return
-  fmtWrap.classList.remove('is-open')
-  fmtBtn.setAttribute('aria-expanded', 'false')
-  fmtList.hidden = true
-}
-
-function openFmt() {
-  if (!fmtWrap || !fmtBtn || !fmtList) return
-  fmtWrap.classList.add('is-open')
-  fmtBtn.setAttribute('aria-expanded', 'true')
-  fmtList.hidden = false
-  fmtList.querySelector('[aria-selected="true"]')?.focus()
-}
-
-function moveFmt(step) {
-  const opts = [...(fmtList?.querySelectorAll('[role="option"]') ?? [])]
-  const i = opts.findIndex((el) => el === document.activeElement)
-  const next = opts[(i + step + opts.length) % opts.length]
-  next?.focus()
-}
-
-fmtBtn?.addEventListener('click', (e) => {
-  e.stopPropagation()
-  if (fmtBtn.getAttribute('aria-expanded') === 'true') closeFmt()
-  else openFmt()
-})
-
-fmtList?.addEventListener('click', (e) => {
-  const opt = e.target.closest('[role="option"]')
-  if (!opt) return
-  fmtList.querySelectorAll('[role="option"]').forEach((el) => {
-    el.setAttribute('aria-selected', String(el === opt))
-  })
-  const name = opt.textContent.trim()
-  if (fmtLabel) fmtLabel.textContent = name
-  const next = coordFormats[opt.dataset.value]
-  if (fmtCoord && next) fmtCoord.textContent = next
-  announce(`좌표 형식 ${name}`)
-  closeFmt()
-  fmtBtn.focus()
-})
-
-fmtList?.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowDown') {
-    e.preventDefault()
-    moveFmt(1)
-  }
-  if (e.key === 'ArrowUp') {
-    e.preventDefault()
-    moveFmt(-1)
-  }
-  if (e.key === 'Home') {
-    e.preventDefault()
-    fmtList.querySelector('[role="option"]')?.focus()
-  }
-  if (e.key === 'End') {
-    e.preventDefault()
-    const opts = fmtList.querySelectorAll('[role="option"]')
-    opts[opts.length - 1]?.focus()
-  }
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault()
-    document.activeElement?.click()
-  }
-  if (e.key === 'Escape') {
-    e.preventDefault()
-    e.stopPropagation()
-    closeFmt()
-    fmtBtn.focus()
-  }
-  if (e.key === 'Tab') {
-    closeFmt()
-  }
-})
-
-document.addEventListener('click', (e) => {
-  if (fmtWrap && !fmtWrap.contains(e.target)) closeFmt()
-})
-
-document.querySelector('.status__find')?.addEventListener('click', () => {
-  const coord = document.querySelector('.status__coord-txt')?.textContent.trim() ?? ''
-  announce(coord ? `${coord} 좌표 검색` : '좌표 검색')
-})
-
-/* —— 7. 모바일 (바텀시트 · 도구 · 전체메뉴) ——
- * PC(≥1024)에서는 map-mo.css 미적용 + hide-mo 로 UI 숨김.
- * 내부망 PC only: 이 섹션·모바일 마크업·map-mo 엔트리 제외 가능.
- */
-const moSheet = document.getElementById('moSheet')
-const moSheetBody = document.getElementById('moSheetBody')
-const moSheetHandle = document.getElementById('moSheetHandle')
-const moMenu = document.getElementById('moMenu')
-const moMenuDim = document.getElementById('moMenuDim')
-const moMenuOpenBtn = document.getElementById('moMenuOpen')
-const moMenuCloseBtn = document.getElementById('moMenuClose')
-let releaseMoMenuTrap = null
-let moMenuTrigger = null
-
-function setMoSheetState(state) {
-  if (!moSheet) return
-  moSheet.dataset.state = state
-  const expanded = state !== 'closed'
-  moSheetHandle?.setAttribute('aria-expanded', String(expanded))
-  moSheetHandle?.setAttribute(
-    'aria-label',
-    state === 'closed' ? '공간정보 목록 펼치기' : '공간정보 목록 접기',
-  )
-  if (moSheetBody) moSheetBody.hidden = state === 'closed'
-
-  if (state === 'closed') {
-    document.getElementById('moDepthClass')?.setAttribute('hidden', '')
-    document.getElementById('moDepthTheme')?.setAttribute('hidden', '')
-    document.querySelectorAll('.mo-depth').forEach((btn) => {
-      btn.setAttribute('aria-expanded', 'false')
-    })
-  }
-  announce(
-    state === 'closed'
-      ? '공간정보 목록이 닫혔습니다.'
-      : state === 'peek'
-        ? '공간정보 목록'
-        : '분류 목록이 열렸습니다.',
-  )
-}
-
-function openMoDepth(key) {
-  setMoSheetState('open')
-  const depthPanel = document.getElementById(key === 'class' ? 'moDepthClass' : 'moDepthTheme')
-  document.getElementById('moDepthClass')?.setAttribute('hidden', '')
-  document.getElementById('moDepthTheme')?.setAttribute('hidden', '')
-  depthPanel?.removeAttribute('hidden')
-  document.querySelectorAll('.mo-depth').forEach((btn) => {
-    const on = btn.dataset.depth === key
-    btn.setAttribute('aria-expanded', String(on))
-  })
-}
-
-document.getElementById('moSheetOpen')?.addEventListener('click', () => setMoSheetState('peek'))
-document.getElementById('moListBtn')?.addEventListener('click', () => setMoSheetState('peek'))
-moSheetHandle?.addEventListener('click', () => {
-  const cur = moSheet?.dataset.state || 'closed'
-  setMoSheetState(cur === 'closed' ? 'peek' : 'closed')
-})
-
-document.querySelectorAll('.mo-depth').forEach((btn) => {
-  btn.addEventListener('click', () => openMoDepth(btn.dataset.depth))
-})
-
-document.querySelectorAll('.mo-sheet__collapse').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    setMoSheetState('peek')
-    document.getElementById('moDepthClass')?.setAttribute('hidden', '')
-    document.getElementById('moDepthTheme')?.setAttribute('hidden', '')
-  })
-})
-
-document.querySelectorAll('.mo-group__add').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const on = btn.getAttribute('aria-expanded') !== 'true'
-    btn.setAttribute('aria-expanded', String(on))
-    const ico = btn.querySelector('img')
-    if (ico) {
-      ico.src = on
-        ? './src/assets/img/mo/minus.svg'
-        : './src/assets/img/mo/plus.svg'
+    const overlay = document.getElementById('tourOverlay')
+    if (overlay && !overlay.hidden) {
+      closeTourOverlay()
+      return
     }
-    announce(`${btn.getAttribute('aria-label')?.replace(/\s*펼치기|\s*접기/g, '') || '항목'} ${on ? '펼침' : '접힘'}`)
-    btn.setAttribute('aria-label', btn.getAttribute('aria-label')?.replace(/펼치기|접기/, on ? '접기' : '펼치기') || '')
-  })
-})
-
-const moToolBtns = document.querySelectorAll('.mo-tools__btn')
-moToolBtns.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    moToolBtns.forEach((el) => {
-      const on = el === btn
-      el.classList.toggle('mo-tools__btn--on', on)
-      el.setAttribute('aria-pressed', String(on))
-    })
-    announce(`${btn.textContent.trim()} 선택`)
-    if (btn.dataset.moTool === 'layer') setMoSheetState('peek')
-  })
-})
-
-document.querySelectorAll('[data-mo-zoom]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    announce(btn.dataset.moZoom === 'in' ? '지도 확대' : '지도 축소')
-  })
-})
-
-document.querySelector('.mo-search')?.addEventListener('submit', (e) => {
-  e.preventDefault()
-  const q = document.getElementById('moPlaceSearch')?.value.trim() ?? ''
-  announce(q ? `${q} 검색` : '검색어를 입력해 주세요.')
-})
-
-function openMoMenu() {
-  if (!moMenu || !moMenu.hidden) return
-  moMenuTrigger = document.activeElement
-  moMenu.hidden = false
-  if (moMenuDim) moMenuDim.hidden = false
-  moMenuOpenBtn?.setAttribute('aria-expanded', 'true')
-  setBackgroundInert(true, [moMenu, moMenuDim])
-  releaseMoMenuTrap = trapFocus(moMenu, { initialFocus: moMenuCloseBtn })
-  announce('전체 메뉴')
+    const tourList = document.getElementById('tourList')
+    if (tourList && !tourList.hidden) {
+      closeTourList()
+      return
+    }
+    const marinaList = document.getElementById('marinaList')
+    if (marinaList && !marinaList.hidden) {
+      closeMarina()
+      return
+    }
+    const opened = document.querySelector('.dlg:not([hidden])')
+    if (opened) {
+      closeModal(opened.id)
+      return
+    }
+    const filter = document.getElementById('filterPop')
+    if (filter && !filter.hidden) {
+      closeFilter()
+      return
+    }
+    const basemap = document.getElementById('basemapPop')
+    if (basemap && !basemap.hidden) {
+      closeBasemap()
+      return
+    }
+    const areaInfo = document.getElementById('areaInfo')
+    if (areaInfo && !areaInfo.hidden) {
+      closeAreaInfo()
+      return
+    }
+    const tourDetail = document.getElementById('tourDetail')
+    if (tourDetail && !tourDetail.hidden) {
+      closeTourDetail()
+      return
+    }
+    const evalPanel = document.getElementById('evalPanel')
+    if (evalPanel && !evalPanel.hidden) {
+      closeEval()
+      return
+    }
+    const attr = document.getElementById('attrPanel')
+    if (attr && !attr.hidden) {
+      closeAttr()
+      return
+    }
+    const tourLegend = document.getElementById('legendTour')
+    if (tourLegend && !tourLegend.hidden) {
+      closeTourLegend()
+      return
+    }
+    const legend = document.getElementById('legendPop')
+    if (legend && !legend.hidden) {
+      closeLegend()
+      return
+    }
+    if (isSuggestOpen()) {
+      closeSuggest()
+      return
+    }
+    setMoMenu(false)
+    if (MO_MQ.matches) {
+      setMoDock('close')
+      closeLayerList()
+    }
+    return
+  }
+  if (event.key !== 'Enter' || !event.target.matches?.('[data-bind="keyword"]')) return
+  event.preventDefault()
+  const btn = document.querySelector(`[data-action="search"][data-target="${event.target.id}"]`)
+  if (btn) onSearch(btn)
 }
 
-function closeMoMenu() {
-  if (!moMenu || moMenu.hidden) return
-  releaseMoMenuTrap?.()
-  releaseMoMenuTrap = null
-  moMenu.hidden = true
-  if (moMenuDim) moMenuDim.hidden = true
-  moMenuOpenBtn?.setAttribute('aria-expanded', 'false')
-  setBackgroundInert(false, [moMenu, moMenuDim])
-  announce('전체 메뉴가 닫혔습니다.')
-  window.requestAnimationFrame(() => moMenuTrigger?.focus?.())
-  moMenuTrigger = null
+document.addEventListener('click', onClick)
+document.addEventListener('change', onChange)
+document.addEventListener('input', (event) => {
+  if (event.target.matches?.('[data-action="basemap-opacity"]')) {
+    syncBasemapOpacity(event.target.value)
+    emit('map:basemap', { open: true, opacity: Number(event.target.value) })
+  }
+  if (event.target.matches?.('[data-action="lyr-opacity"]')) {
+    const range = event.target
+    const row = range.closest('.lyr-list__row')
+    const pct = row?.querySelector('[data-bind="lyr-opac"]')
+    range.style.setProperty('--pct', `${range.value}%`)
+    if (pct) pct.textContent = String(range.value)
+    emit('map:layer-opacity', { id: range.dataset.layerId, opacity: Number(range.value) })
+  }
+})
+document.addEventListener('click', onSkipClick)
+document.addEventListener('keydown', onKey)
+MO_MQ.addEventListener('change', syncViewport)
+syncViewport()
+bindZoomRail()
+syncZoomUi()
+syncFilterTags()
+bootScreen()
+syncMapChromePos()
+if (typeof ResizeObserver === 'function') {
+  const leftCol = document.querySelector('.app__left')
+  if (leftCol) new ResizeObserver(syncMapChromePos).observe(leftCol)
+}
+window.addEventListener('resize', syncMapChromePos)
+
+function bootScreen() {
+  const screen = (document.body.dataset.screen || location.hash.replace(/^#/, '') || '').trim()
+  const MODAL = {
+    modal: { dimmed: true, tab: 'overview' },
+    'modal-nodim': { dimmed: false, tab: 'overview' },
+    'modal-spatial': { dimmed: true, tab: 'spatial' },
+    'modal-marine': { dimmed: true, tab: 'marine' },
+    'modal-model': { dimmed: true, tab: 'model' },
+    'modal-data': { dimmed: true, tab: 'data' },
+  }
+  if (screen === 'mo-peek') setMoDock('peek')
+  if (screen === 'mo-open') openMoGroup('mof')
+  if (screen === 'mo-menu') setMoMenu(true)
+  if (screen === 'lyr' || screen === 'mo-lyr') openLayerList()
+  if (MODAL[screen]) openModal('metaModal', MODAL[screen])
+  if (screen === 'filter' || screen === 'mo-filter') openFilter()
+  if (screen === 'suggest') openSuggest()
+  if (screen === 'tour') openTour()
+  if (screen === 'tour-overlay') {
+    openTour()
+    openTourOverlay()
+  }
+  if (screen === 'tour-detail') openTourDetail()
+  if (screen === 'marina') openMarina()
+  if (screen === 'coord') openCoordSearch()
+  if (screen === 'basemap') openBasemap()
+  if (screen === 'area') openAreaInfo()
+  if (screen === 'attr') openAttr()
+  if (screen === 'eval') openEval()
+  if (screen === 'eval-valid') openEval({ tab: 'valid' })
+  if (screen === 'cluster') openClusters()
+  const legendTab = { legend: 'grade', 'legend-use': 'use', 'legend-mgmt': 'mgmt' }[screen]
+  if (legendTab) openLegend(legendTab)
+  if (screen === 'legend-tour') openTourLegend()
 }
 
-moMenuOpenBtn?.addEventListener('click', openMoMenu)
-moMenuCloseBtn?.addEventListener('click', closeMoMenu)
-moMenuDim?.addEventListener('click', closeMoMenu)
-
-document.querySelectorAll('.mo-menu__d1').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mo-menu__d1').forEach((el) => {
-      const on = el === btn
-      el.classList.toggle('mo-menu__d1--on', on)
-      el.toggleAttribute('aria-current', on)
-    })
-    const key = btn.dataset.menuD1
-    document.querySelectorAll('.mo-menu__d2-list').forEach((pane) => {
-      pane.hidden = pane.dataset.pane !== key
-    })
-    announce(`${btn.textContent.trim()} 메뉴`)
-  })
-})
-
-/* —— 8. Esc 공통 (메뉴 → 메타 → 시트 → 좌표 → 패널) —— */
-document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return
-  if (moMenu && !moMenu.hidden) {
-    e.preventDefault()
-    closeMoMenu()
-    return
-  }
-  if (metaPop && !metaPop.hidden) {
-    e.preventDefault()
-    closeMetaPop()
-    return
-  }
-  if (moSheet && moSheet.dataset.state !== 'closed') {
-    e.preventDefault()
-    setMoSheetState('closed')
-    return
-  }
-  if (fmtBtn?.getAttribute('aria-expanded') === 'true') {
-    e.preventDefault()
-    closeFmt()
-    fmtBtn.focus()
-    return
-  }
-  if (app.classList.contains('is-open')) setPanel(false)
-})
+window.MapUI = {
+  getCheckedLayers,
+  setLayerChecked,
+  getZoom: () => zoomLevel,
+  setZoom: (level) => setZoom(level, 'set'),
+  openPanel,
+  closePanel,
+  openLayerList,
+  closeLayerList,
+  openBasemap,
+  closeBasemap,
+  openAreaInfo,
+  closeAreaInfo,
+  openModal,
+  closeModal,
+  setModalTab,
+  openAttr,
+  closeAttr,
+  openEval,
+  closeEval,
+  setEvalTab,
+  openClusters,
+  closeClusters,
+  setClusters,
+  openLegend,
+  closeLegend,
+  openTourLegend,
+  closeTourLegend,
+  setLegendTab,
+  openFilter,
+  closeFilter,
+  openCoordSearch,
+  closeCoordSearch,
+  getFilter: getFilterValues,
+  openSuggest,
+  closeSuggest,
+  openTour,
+  closeTour,
+  openTourList,
+  closeTourList,
+  openTourOverlay,
+  closeTourOverlay,
+  openTourDetail,
+  closeTourDetail,
+  openMarina,
+  closeMarina,
+  openMoSheet: () => setMoDock('peek'),
+  closeMoSheet: () => setMoDock('close'),
+  openMoGroup,
+  openMoMenu: () => setMoMenu(true),
+  closeMoMenu: () => setMoMenu(false),
+  setMoNav,
+  on(name, fn) {
+    document.addEventListener(name, fn)
+    return () => document.removeEventListener(name, fn)
+  },
+}

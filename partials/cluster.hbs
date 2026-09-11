@@ -1,0 +1,63 @@
+{{!--
+  지도 위 시도 클러스터 — Figma 134:63777 / 134:63829
+  MapUI.openClusters() / closeClusters() / setClusters()
+  data-action: cluster
+  data-cluster-id / data-name / data-count
+  left·top 은 미리보기 위치(%). 개발에서 좌표로 덮어쓴다.
+--}}
+<div class="clusters" id="clusterLayer" hidden aria-label="지역 클러스터">
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="incheon" data-name="인천" data-count="112" style="left:48%;top:36%">
+    <span class="cluster__in">
+      <span class="cluster__name">인천</span>
+      <span class="cluster__count">112</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeonggi" data-name="경기도" data-count="574" style="left:52.5%;top:34%">
+    <span class="cluster__in">
+      <span class="cluster__name">경기도</span>
+      <span class="cluster__count">574</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="gangwon" data-name="강원특별자치도" data-count="776" style="left:61%;top:30%">
+    <span class="cluster__in">
+      <span class="cluster__name">강원특별자치도</span>
+      <span class="cluster__count">776</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="chungnam" data-name="충청남도" data-count="151" style="left:49.5%;top:44%">
+    <span class="cluster__in">
+      <span class="cluster__name">충청남도</span>
+      <span class="cluster__count">151</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="jeonbuk" data-name="전북특별자치도" data-count="583" style="left:50.5%;top:52%">
+    <span class="cluster__in">
+      <span class="cluster__name">전북특별자치도</span>
+      <span class="cluster__count">583</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeongbuk" data-name="경상북도" data-count="214" style="left:60%;top:44%">
+    <span class="cluster__in">
+      <span class="cluster__name">경상북도</span>
+      <span class="cluster__count">214</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="ulsan" data-name="울산광역시" data-count="212" style="left:63%;top:53%">
+    <span class="cluster__in">
+      <span class="cluster__name">울산광역시</span>
+      <span class="cluster__count">212</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="busan" data-name="부산광역시" data-count="149" style="left:61.5%;top:58%">
+    <span class="cluster__in">
+      <span class="cluster__name">부산광역시</span>
+      <span class="cluster__count">149</span>
+    </span>
+  </button>
+  <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeongnam" data-name="경상남도" data-count="294" style="left:56%;top:56%">
+    <span class="cluster__in">
+      <span class="cluster__name">경상남도</span>
+      <span class="cluster__count">294</span>
+    </span>
+  </button>
+</div>

@@ -1,0 +1,13 @@
+@use '../base/variables' as *;
+
+.pin {
+  display: block;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+
+  &--on {
+    width: 36px;
+    height: 51px;
+  }
+}

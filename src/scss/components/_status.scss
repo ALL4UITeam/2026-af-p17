@@ -1,0 +1,263 @@
+@use '../base/variables' as *;
+
+.status {
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 45px;
+  padding: 6px 10px;
+  border-radius: 40px;
+  transform: translateX(-50%);
+  backdrop-filter: blur(5px);
+  background-image: linear-gradient(
+    180deg,
+    rgba(81, 121, 168, 0.2) 0%,
+    rgba(45, 93, 154, 0.2) 33.646%,
+    rgba(44, 42, 80, 0.2) 65.417%,
+    rgba(43, 57, 103, 0.2) 100%
+  );
+
+  &__box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: $gray-0;
+  }
+
+  &__coord {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__sel {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 17px;
+    padding: 0 6px;
+    border: 1px solid $coord-line;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    color: $coord-muted;
+    background: $coord-bg;
+    white-space: nowrap;
+
+    img {
+      width: 12px;
+      height: 12px;
+      transform: rotate(90deg);
+    }
+  }
+
+  &__val {
+    font-size: 12px;
+    color: $coord;
+    white-space: nowrap;
+  }
+
+  &__div {
+    width: 1px;
+    height: 14px;
+    background: rgba(0, 127, 192, 0.25);
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__scale {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(64, 122, 208, 0.3);
+
+    span {
+      display: block;
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+      background: $primary-60;
+    }
+  }
+
+  &__km {
+    font-size: 12px;
+    color: $primary-60;
+    white-space: nowrap;
+  }
+
+  &__more {
+    width: 11px;
+    height: 11px;
+
+    img {
+      width: 11px;
+      height: 11px;
+    }
+  }
+}
+
+.coord-pop {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 2;
+  padding: 10px;
+  border-radius: 16px;
+  transform: translateX(-50%);
+  backdrop-filter: blur(5px);
+  background-image: linear-gradient(
+    180deg,
+    rgba(81, 121, 168, 0.2) 0%,
+    rgba(45, 93, 154, 0.2) 33.646%,
+    rgba(44, 42, 80, 0.2) 65.417%,
+    rgba(43, 57, 103, 0.2) 100%
+  );
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 344px;
+    padding: 10px;
+    border-radius: 10px;
+    background: $gray-0;
+  }
+
+  &__select {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 32px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      width: 12px;
+      height: 12px;
+      background: url('../assets/img/coord/arr.svg') center / 12px 12px no-repeat;
+      transform: translateY(-50%) rotate(-90deg);
+      pointer-events: none;
+    }
+  }
+
+  &__select-el {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0 28px 0 12px;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    appearance: none;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    color: $gray-60;
+    background: $gray-0;
+    cursor: pointer;
+
+    &:focus {
+      outline: 2px solid $primary-50;
+      outline-offset: 1px;
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  &__input {
+    width: 121px;
+    height: 32px;
+    padding: 0 10px 0 12px;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    background: $gray-0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: $gray-90;
+    outline: none;
+
+    &::placeholder {
+      color: $gray-60;
+    }
+
+    &:focus-visible {
+      border-color: $primary-60;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid $gray-60;
+    border-radius: 4px;
+    background: $gray-0;
+    cursor: pointer;
+
+    img {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+
+    &--search {
+      border-color: $primary-60;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  &__note {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: $primary-10;
+  }
+
+  &__note-tit {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $primary-60;
+  }
+
+  &__note-txt {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: $gray-70;
+    word-break: keep-all;
+  }
+}

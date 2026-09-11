@@ -1,174 +1,141 @@
-# MAP 스크립트 가이드
+# MAP 화면 연동
 
-지도(`map.html`) 전용 JS 연동 문서입니다. 내부망(inter) 스크립트는 포함하지 않습니다.
+퍼블은 화면 상태와 이벤트만 제공합니다. API·지도 엔진은 개발에서 붙입니다.
 
 ## 파일
 
 | 파일 | 역할 |
 |------|------|
-| `src/js/map.js` | 패널·도구·좌표·**메타 팝업 열기/닫기·포커스** (+ 모바일 UI 스크립트) |
-| `src/js/meta.js` | **메타 데이터 조회·`fillMetaPop`** |
-| `src/js/a11y.js` | announce / focus trap / tablist / inert |
-| `src/js/zoom.js` | 줌 컨트롤 |
+| `map.html` | 기본 지도 |
+| `map-tour.html` | 관광정보 목록 |
+| `map-tour-overlay.html` | 관광정보 상세 |
+| `map-tour-detail.html` | 홍성 국가유산야행 오버레이 |
+| `map-basemap.html` | 배경지도 선택 |
+| `map-*.html` | 기능 단위 화면. 공통 셸 `partials/map-app.hbs`, `body[data-screen]` |
+| `src/js/map.js` | 패널·트리·레이어리스트·도구·모바일 시트/메뉴 |
+| `src/scss/main.scss` | PC 스타일 (내부망은 이것만) |
+| `src/scss/map-mo.scss` | 모바일 추가 (`max-width: 767px`) |
 
-### SCSS 분리 (PC 기본 / 모바일 추가)
-
-| 엔트리 | 산출 | 용도 |
-|--------|------|------|
-| `src/scss/main.scss` | `dist/assets/map.css` | **PC 전용** (내부망은 이것만) |
-| `src/scss/map-mo.scss` | `dist/assets/map-mo.css` | **모바일 추가** (퍼블 map.html 만) |
-
-- `main.scss` → 컴포넌트 PC + `pc/_hide-mo.scss` (`.mo-*` 숨김)
-- `map-mo.scss` → `components/_mo.scss` (`@media max-width: 1023px`)
-- 내부망: `map-mo` link / import **제외**. 모바일 마크업도 빼면 더 깔끔.
-
-빌드 후: `dist/assets/map.js` + `map.css` (+ 선택 `map-mo.css`)
-
----
-
-## 메타정보 팝업 흐름
-
-```
-.leaf__info[data-layer-id] 클릭
-        │
-        ▼
- fetchLayerMeta(id)     ← 개발이 API로 교체 (setMetaFetcher)
-        │
-        ▼
- fillMetaPop(data)      ← #metaPop 안 data-meta=* 채움
-        │
-        ▼
- openMetaPop(title, btn) ← 포커스 트랩 · 배경 inert · Esc
-```
-
-### 마크업 계약
-
-```html
-<button type="button"
-  class="leaf__info"
-  data-layer-id="LYR_ROUTE_ACCESS"
-  aria-label="추천항로접속항로 정보">
-```
-
-팝업 본문은 `data-meta` 훅으로만 채웁니다. (`partials/pop-meta.hbs`)
-
-| 훅 | 내용 |
-|----|------|
-| `data-meta="badges"` | 뱃지 |
-| `data-meta="desc"` | 설명 |
-| `data-meta="classes"` | 주제분류 |
-| `data-meta="tags"` | 주제어 |
-| `data-meta="cards"` | 유형/기관 카드 |
-| `data-meta="spatial"` / `marine` / `model` | 아코디언 본문 |
-| `data-meta="dataView"` | 데이터보기 탭 |
-
----
-
-## 데이터 스펙 (`fillMetaPop` 인자)
+전역 객체: `window.MapUI`
 
 ```js
-{
-  id: 'LYR_ROUTE_ACCESS',
-  title: '추천항로접속항로',
-  badges: [
-    { type: 'open', label: '공개' },   // open | db
-    { type: 'db', label: '기초 DB' },
-  ],
-  overview: {
-    desc: '설명 텍스트',
-    classes: [
-      {
-        chip: 'mof',              // mof | gov | src
-        chipLabel: '해양수산분류',
-        path: ['공공질서 및 안전', '해경', '해상안전'],
-      },
-    ],
-    tags: ['요트', '항로'],
-    cards: [
-      { icon: 'folder', label: '유형', value: '공간 자료(좌표형)' },
-      // icon: folder | graph | building | desktop
-    ],
-  },
-  spatial: '공간 메타…',
-  marine: '해양특성…',
-  model: '데이터모델…',
-  dataView: '데이터보기…',
-}
-```
-
-목업 샘플: `MOCK_META.LYR_ROUTE_ACCESS`, `MOCK_META.LYR_CATCH` (`src/js/meta.js`)
-
----
-
-## 개발자 호출 방법
-
-`map.html` 로드 후 전역 **`window.MapUI`** 사용.
-
-### 1) API 연동 (권장)
-
-```js
-MapUI.setMetaFetcher(async (layerId) => {
-  const res = await fetch(`/api/layers/${layerId}/meta`)
-  if (!res.ok) throw new Error(res.status)
-  return res.json() // 위 스펙과 동일한 객체
+MapUI.getCheckedLayers()
+MapUI.setLayerChecked('LYR_TIDAL', false)
+MapUI.openPanel()
+MapUI.closePanel()
+MapUI.openLayerList()
+MapUI.closeLayerList()
+MapUI.openBasemap()
+MapUI.closeBasemap()
+MapUI.openMoSheet()
+MapUI.closeMoSheet()
+MapUI.openMoMenu()
+MapUI.closeMoMenu()
+MapUI.setMoNav('platform')
+MapUI.getZoom()
+MapUI.setZoom(7)
+MapUI.openAttr()
+MapUI.closeAttr()
+MapUI.openEval()
+MapUI.closeEval()
+MapUI.setEvalTab('valid')
+MapUI.openClusters()
+MapUI.closeClusters()
+MapUI.setClusters([{ id: 'gangwon', name: '강원특별자치도', count: 776, left: 61, top: 30 }])
+MapUI.openLegend('grade')
+MapUI.setLegendTab('use')
+MapUI.closeLegend()
+MapUI.openSuggest()
+MapUI.closeSuggest()
+MapUI.openFilter()
+MapUI.closeFilter()
+MapUI.getFilter() // { area, cat, cho }
+MapUI.openTour()
+MapUI.openTourOverlay('tour-fest-1')
+MapUI.closeTourOverlay()
+MapUI.openTourDetail()
+MapUI.closeTourDetail()
+MapUI.closeTour()
+MapUI.on('map:layer-change', (e) => {
+  const { id, name, checked, parentId } = e.detail
 })
 ```
 
-이후 info 버튼 클릭만 하면 자동으로 fetch → fill → open.
+## 마크업 훅
 
-### 2) 코드에서 직접 열기
+- `data-action` : tab, toggle, toggle-layer, search, filter, filter-chip, filter-all, filter-fold, filter-reset, filter-apply, close-filter, tool, zoom, info-layer, fav-layer, lyr-onoff, lyr-remove, mo-menu, mo-nav, mo-sheet, close-modal, modal-tab, meta-data, attr-download, attr-min, attr-max, close-attr, legend-tab, legend-fold, eval-tab, eval-criteria, close-eval, cluster, open-tour, close-tour-list, close-tour-overlay, close-tour-detail, tour-item, tour-pin, tour-info, tour-tab, tour-near-km, tour-detail-route, tour-detail-down, tour-detail-sel, close-basemap, basemap-pick, basemap-color, basemap-opacity
+- `data-layer-id` / `data-layer-name` / `data-parent-id` : 레이어 식별
+- `data-group-id` : 트리 접기 대상
+- `data-dimmed` : 모달 딤. `true` | `false`. `MapUI.openModal(id, { dimmed })` 로 덮어씀
+- `data-bind` : keyword, zoom-level, active-layers, meta-title, meta-desc
 
-```js
-// 레이어 ID만으로
-await MapUI.openMeta('LYR_ROUTE_ACCESS')
+## 이벤트
 
-// 이미 가진 데이터로 채운 뒤 열기
-MapUI.fillMeta(myData)
-MapUI.openMeta(myData.id) // 다시 fetch 함 → 데이터만 쓰려면 fill 후 내부 open만 필요
+| 이벤트 | detail |
+|--------|--------|
+| `map:layer-change` | `{ id, name, checked, parentId }` |
+| `map:search` | `{ keyword, target }` |
+| `map:filter` | `{ open?, action?: 'apply' \| 'reset', area[], cat[], cho[] }` |
+| `map:tool` | `{ tool, on }` |
+| `map:basemap` | `{ open, map?, color?, opacity? }` |
+| `map:zoom` | `{ dir: 'in' \| 'out' \| 'set' \| 'drag', level }` 1~10 |
+| `map:info` | `{ id }` |
+| `map:modal` | `{ id, open, dimmed, tab? }` |
+| `map:modal-tab` | `{ tab: 'overview' \| 'spatial' \| 'marine' \| 'model' \| 'data' }` |
+| `map:meta-data` | `{ id }` |
+| `map:attr` | `{ open, id, min? }` |
+| `map:attr-download` | `{ id }` |
+| `map:eval` | `{ open, tab? }` |
+| `map:eval-tab` | `{ tab: 'all' \| 'valid' }` |
+| `map:eval-criteria` | — |
+| `map:cluster` | `{ id, name, count, on }` |
+| `map:cluster-layer` | `{ open }` |
+| `map:tour` | `{ open, overlay? }` |
+| `map:tour-item` | `{ id, pin }` |
+| `map:mo-nav` | `{ id }` |
+| `map:legend` | `{ open, tab? }` |
+| `map:legend-tab` | `{ tab: 'grade' \| 'use' \| 'mgmt' }` |
+| `map:fav` | `{ id, on }` |
+| `map:spatial` | `{ kind: 'op' \| 'an' }` |
+| `map:suggest` | `{ open? }` 펼침/접힘. 칩이면 `{ name }` |
+| `map:user` | — |
+| `map:layer-reset` | — |
+| `map:layer-remove` | `{ id }` |
+| `map:layer-set` | `{ id }` |
 
-// 닫기
-MapUI.closeMeta()
-```
+줌: `+`/`-` 클릭, 레일 클릭·드래그, 슬라이더 포커스 후 `↑`/`↓`/`Home`/`End`. 레벨 1~10. `map:zoom` 구독 후 지도 엔진에 넘긴다.
 
-### 3) API 목록
+배경지도: 도구 `배경지도`. 미리보기 `map-basemap.html`. `MapUI.openBasemap()` / `closeBasemap()`. 썸네일 `.bmap__thumb` 은 비움. 선택 `basemap-pick`, 투명도 `basemap-opacity`, 배경색 `basemap-color`. 이벤트 `map:basemap`.
 
-| API | 설명 |
-|-----|------|
-| `MapUI.openMeta(layerId, trigger?)` | fetch → fill → 팝업 열기. `trigger`에 버튼 넘기면 닫을 때 포커스 복귀 |
-| `MapUI.closeMeta()` | 팝업 닫기 |
-| `MapUI.fillMeta(data)` | DOM만 채움 (열지 않음) |
-| `MapUI.setMetaFetcher(fn)` | `(id) => Promise<data>` 교체 |
-| `MapUI.MOCK_META` | 퍼블 목업 객체 (참고용) |
+추천레이어: GNB 없음. `map-suggest.html` / `MapUI.openSuggest()`. 제목·화살표 클릭으로 칩 펼침. 칩은 `map:suggest` `{ name }`.
 
----
+관광정보: GNB 관광정보 또는 `map-tour.html` / `MapUI.openTour()`. 패널 `해양공간 주제정보` → `해양레저관광` → `관광정보` 체크.
+목록형 `map-tour.html` — 카드 패널 + 시도 클러스터. 카드·클러스터 클릭은 오버레이 `map-tour-overlay.html` — 핀 + 상세 + 범례.
+홍성 국가유산야행 오버레이 `map-tour-detail.html` — 개요·주변관광·해양예보도·해양예보지수. `MapUI.openTourDetail()` / `closeTourDetail()`.
+`MapUI.openTourOverlay(id)` / `closeTourOverlay()` / `closeTour()`. 관광 `i` 는 메타모달이 아니라 오버레이.
 
-## 접근성 (퍼블 유지 — 수정 금지 권장)
+필터: 검색 옆 버튼. 칩 토글·전체선택·접기·초기화·적용. PC `map-filter.html`, 모바일 `map-mo-filter.html`.
 
-- `role="dialog"` + `aria-modal="true"`
-- 열림: 배경 `inert`, **포커스 트랩**, 초기 포커스 = 닫기
-- Esc / 딤 클릭 닫기 → 트리거(info)로 포커스 복귀
-- 탭: 화살표·Home·End (`bindTablist`)
+하단 속성정보: `MapUI.openAttr()` / `closeAttr()`. 미리보기 `map-attr.html`.
+접기 `attr-min`, 확대 `attr-max`, 닫기 `close-attr`, 다운로드는 `map:attr-download`.
 
----
+격자별 특성평가 결과: `MapUI.openEval()` / `closeEval()` / `setEvalTab('all'|'valid')`.
+미리보기 `map-eval.html` `map-eval-valid.html`. 산정기준은 `map:eval-criteria`. 차트는 `[data-bind="eval-chart"]` 이미지. 속성 패널과 동시에 열리지 않는다.
 
-## 그 밖의 map.js 동작 (참고)
+범례: 줌 컨트롤러 왼쪽. `MapUI.openLegend('grade'|'use'|'mgmt')`.
 
-| 기능 | 트리거 |
-|------|--------|
-| 패널 열기/닫기 | `#panelHandle`, Esc |
-| LNB 선택 | `.lnb__item` |
-| 레이어/트리 접기 | `.layer__item`, `.sub__row`, `.tree__fold` |
-| 검색 submit | `.search` (announce만, API 없음) |
-| 줌 | `#mapZoom` → `createZoom` |
-| 도구·범례 | `.tools__item`, `.tools__legend` |
-| 좌표 형식 | `.status__fmt-btn` listbox |
+시도 클러스터: 지도 위 원형 마커. `MapUI.openClusters()` / `closeClusters()`.
+미리보기 `map-cluster.html`. 클릭은 `map:cluster`. 위치는 `left`/`top` %(미리보기). 개발에서 `setClusters([{ id, name, count, left, top, on }])` 로 갈아끼운다.
+미리보기 `map-legend.html` `map-legend-use.html` `map-legend-mgmt.html`. 접기 `legend-fold`.
 
-패널/도구는 UI 목업입니다. 실제 지도 SDK 연동은 개발 영역입니다.
+모바일 전체 메뉴(KRDS 3단): `MapUI.openMoMenu()` / `closeMoMenu()` / `setMoNav('platform'|'bigdata'|'stat'|'archive'|'anal')`.
+미리보기 `map-mo-menu.html`. 1차 메뉴 전환은 `map:mo-nav`.
 
----
+모바일 레이어 리스트(전체 화면): `MapUI.openLayerList()`. 미리보기 `map-mo-lyr.html`.
 
-## 확인
+키보드: `Enter` 검색, `Escape` 모달·필터·특성평가·하단 속성·모바일 메뉴·시트·레이어리스트 닫기.
 
-- 가이드 페이지: `guide-map.html`
-- 실화면: `map.html` → 종합지도 → **추천항로접속항로** info  
-  (`data-layer-id="LYR_ROUTE_ACCESS"` 목업 데이터)
+메타정보 모달: `MapUI.openModal('metaModal', { dimmed, tab })`, `MapUI.setModalTab(tab)`.
+`tab` = `overview` | `spatial` | `marine` | `model` | `data`.
+미리보기: `map-modal.html` 개요, `map-modal-spatial.html`, `map-modal-marine.html`, `map-modal-model.html`, `map-modal-data.html`.
+`data-action="meta-data"` 는 데이터보기 화면으로 전환하고 `map:meta-data` 를 보낸다.

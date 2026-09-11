@@ -1,0 +1,110 @@
+@use '../base/variables' as *;
+
+.suggest {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  background-image:
+    linear-gradient(180deg, rgba(81, 121, 168, 0.1) 0%, rgba(45, 93, 154, 0.1) 33.646%, rgba(44, 42, 80, 0.1) 65.417%, rgba(43, 57, 103, 0.1) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $primary-90;
+    text-shadow: 0 1px 2px #fff;
+    white-space: nowrap;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__list {
+    display: none;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &.is-open &__list {
+    display: flex;
+  }
+
+  &__chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 24px;
+    padding: 0 12px;
+    border: 1px solid $gray-40;
+    border-radius: 18px;
+    font-size: 15px;
+    color: $gray-90;
+    background: $gray-0;
+    white-space: nowrap;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 37px;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: 18px;
+    background: $gray-0;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+
+    i {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #aaa;
+    }
+  }
+
+  &__next {
+    display: flex;
+    flex: 0 0 20px;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    padding: 0;
+    overflow: hidden;
+    line-height: 0;
+    border-radius: 50%;
+    background: $primary-60;
+
+    img {
+      width: 16px;
+      height: 16px;
+      max-width: 16px;
+      max-height: 16px;
+    }
+  }
+
+  &.is-open &__next img {
+    transform: rotate(180deg);
+  }
+}

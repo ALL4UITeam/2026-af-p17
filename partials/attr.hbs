@@ -1,0 +1,80 @@
+{{!--
+  하단 속성정보 패널 — Figma 193:25117 btm-Modal
+  MapUI.openAttr() / closeAttr()
+  data-action: attr-download | attr-min | attr-max | close-attr | attr-row
+--}}
+<section class="attr" id="attrPanel" hidden data-layer-id="LYR_TIDAL" aria-labelledby="attrTitle">
+  <header class="attr__head">
+    <div class="attr__left">
+      <h2 class="attr__title" id="attrTitle" data-bind="attr-title">갯벌면적</h2>
+      <p class="attr__total">
+        총
+        <span class="attr__count" data-bind="attr-count">37,572</span>
+        건
+      </p>
+    </div>
+    <div class="attr__btns">
+      <button type="button" class="attr__sbtn" data-action="attr-download">
+        <img src="./src/assets/img/attr/download.svg" width="8" height="8" alt="">
+        다운로드
+      </button>
+      <button type="button" class="attr__ico" data-action="attr-min" aria-label="접기">
+        <img src="./src/assets/img/attr/min.svg" width="12" height="12" alt="">
+      </button>
+      <button type="button" class="attr__ico" data-action="attr-max" aria-label="확대">
+        <img src="./src/assets/img/attr/max.svg" width="12" height="12" alt="">
+      </button>
+      <button type="button" class="attr__ico" data-action="close-attr" aria-label="닫기">
+        <img src="./src/assets/img/attr/close.svg" width="12" height="12" alt="">
+      </button>
+    </div>
+  </header>
+  <div class="attr__body">
+    <div class="attr__box">
+      <div class="attr__scroll">
+        <table class="attr__table">
+          <thead>
+            <tr>
+              <th class="w-110">공간정보일련번호</th>
+              <th class="w-90">객체일련번호</th>
+              <th class="w-80">기관코드</th>
+              <th class="w-100">사업구역코드</th>
+              <th class="w-100">제작년월일</th>
+              <th class="w-100">분류코드</th>
+              <th class="w-100">해도레벨구분</th>
+              <th class="w-100">해도이름</th>
+              <th class="w-100">객체특성코드</th>
+              <th class="w-80">부표현상</th>
+              <th class="w-60">색</th>
+              <th class="w-80">색유형</th>
+              <th class="w-100">설치부표구분</th>
+            </tr>
+          </thead>
+          <tbody data-bind="attr-rows">
+            <tr data-action="attr-row">
+              <td>1</td><td>500282</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR68853D</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+            </tr>
+            <tr data-action="attr-row">
+              <td>2</td><td>500250</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR67904C</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+            </tr>
+            <tr class="is-on" data-action="attr-row">
+              <td>3</td><td>500588</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR67994A</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+            </tr>
+            <tr data-action="attr-row">
+              <td>4</td><td>500190</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR679A72</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+            </tr>
+            <tr data-action="attr-row">
+              <td>5</td><td>501036</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR5G111J</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="attr__page">
+      <span class="attr__page-range"><b>1</b><span>-7</span></span>
+      <span>/</span>
+      <span>37,572</span>
+      <span>건</span>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+{{!--
+  줌 옆 범례 — Figma 146:14349 / 153:38448 / 153:38516
+  MapUI.openLegend(tab)  tab = grade | use | mgmt
+--}}
+<aside class="legend" id="legendPop" hidden aria-label="범례">
+  <div class="legend__head">
+    <p class="legend__title">범례</p>
+    <div class="legend__tabs" role="tablist" aria-label="범례 종류">
+      <button type="button" class="legend__tab is-on" role="tab" aria-selected="true" data-action="legend-tab" data-tab="grade">특성평가/상충분석결과</button>
+      <button type="button" class="legend__tab" role="tab" aria-selected="false" data-action="legend-tab" data-tab="use">해양용도구역</button>
+      <button type="button" class="legend__tab" role="tab" aria-selected="false" data-action="legend-tab" data-tab="mgmt">해양용도구역 관리구역</button>
+    </div>
+    <button type="button" class="legend__fold" data-action="legend-fold" aria-expanded="true" aria-label="범례 접기">
+      <img src="./src/assets/img/legend/chev.svg" width="8" height="8" alt="">
+    </button>
+  </div>
+
+  <div class="legend__body">
+    <div class="legend__pane is-on" id="legendPaneGrade" role="tabpanel" data-pane="grade">
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#f00"></span>
+        <span>1등급 :</span>
+        <span>0.8 - 1.0</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#1086b9"></span>
+        <span>4등급 :</span>
+        <span>0 - 0.2</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#f59e0b"></span>
+        <span>2등급 :</span>
+        <span>0.4 - 0.6</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch legend__swatch--empty"></span>
+        <span>5등급 :</span>
+        <span>0</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#10b981"></span>
+        <span>3등급 :</span>
+        <span>0.2 - 0.4</span>
+      </div>
+    </div>
+
+    <div class="legend__pane legend__pane--3" id="legendPaneUse" role="tabpanel" data-pane="use" hidden>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#1a49a8"></span>
+        <span>어업활동</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#1086b9"></span>
+        <span>해양관광</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#f59e0b"></span>
+        <span>항만·항해</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#c24f1a"></span>
+        <span>골재·광물자원</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#10b981"></span>
+        <span>환경·생태계</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch legend__swatch--stripe"></span>
+        <span>군사활동</span>
+      </div>
+      <div class="legend__item">
+        <span class="legend__swatch" style="background:#f5ce13"></span>
+        <span>에너지개발</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-diag-a.svg" width="16" height="16" alt="">
+        <span>연구·교육보전</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-diag-b.svg" width="16" height="16" alt="">
+        <span>안전관리</span>
+      </div>
+    </div>
+
+    <div class="legend__pane" id="legendPaneMgmt" role="tabpanel" data-pane="mgmt" hidden>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-fish.png" width="16" height="16" alt="">
+        <span>어업활동</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-tour.png" width="16" height="16" alt="">
+        <span>해양관광</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-mineral.png" width="16" height="16" alt="">
+        <span>골재·광물자원</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-eco.png" width="16" height="16" alt="">
+        <span>환경·생태계</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-energy.png" width="16" height="16" alt="">
+        <span>에너지개발</span>
+      </div>
+      <div class="legend__item">
+        <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-dash-port.png" width="16" height="16" alt="">
+        <span>항만·항해</span>
+      </div>
+    </div>
+  </div>
+</aside>

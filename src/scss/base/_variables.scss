@@ -1,66 +1,62 @@
-:root {
-  /* KRDS / Figma tokens */
-  --c-primary: #175eec;
-  --c-primary-deep: #0b46ca;
-  --c-primary-95: #001351;
-  --c-primary-20: #c2dbff;
-  --c-cyan: #23aed6;
-  --c-lnb: #f0f5ff;
-  --c-util: #e1edff;
-  --c-hdr: #f0f5ff;
-  --c-masthead: #eef2f7;
-  --c-text: #131416;
-  --c-text-basic: #1e2124;
-  --c-text-sub: #58616a;
-  --c-text-lnb: #313131;
-  --c-text-hdr: #444;
-  --c-gray-70: #464c53;
-  --c-scroll: #c3c8cd;
-  --c-scroll-track: #eee;
-  --c-line: #eee;
-  --c-check: #6b778e;
-  --c-white: #fff;
-  --c-map: #e8eef5;
-  --c-status: rgba(0, 32, 122, 0.6);
-  --c-filter-from: #4441b5;
-  --c-filter-to: #d4669f;
-  --c-tab: #256ef4;
-  --c-pop-head: #e5f0fd;
-  --c-pop-body: #fafafa;
-  --c-pop-acc: #f4f7fd;
-  --c-badge-open: #006ee6;
-  --c-badge-db: #5856d0;
-  --c-chip-mof: #e3effd;
-  --c-chip-gov: #eeeefa;
-  --c-chip-src: #ecf9f0;
-  --c-tag: #e3effd;
-  --c-border: #ddd;
-  --shadow-pop: 0 0 10px rgba(0, 0, 0, 0.25);
-  --pop-w: 642px;
+$font-sans: 'Pretendard GOV', sans-serif;
+$font-logo: MOF, 'Pretendard GOV', sans-serif;
 
-  /* size */
-  --masthead-h: 32px;
-  --lnb-w: 70px;
-  --panel-w: 360px;
-  --hdr-h: 60px;
-  --item-h: 90px;
-  --handle-w: 20px;
+$gray-0: #fff;
+$gray-20: #cdd1d5;
+$gray-30: #b1b8be;
+$gray-40: #8a949e;
+$gray-50: #6d7882;
+$gray-60: #58616a;
+$gray-70: #464c53;
+$gray-80: #33363d;
+$gray-90: #1e2124;
+$gray-95: #131416;
 
-  /* radius */
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-lg: 12px;
-  --r-pill: 20px;
-  --shell-dur: 0.32s;
-  --shell-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$primary-5: #f0f5ff;
+$primary-10: #e2eefc;
+$primary-30: #93c0ff;
+$primary-40: #74aee9;
+$primary-50: #5692df;
+$primary-60: #407ad0;
+$primary-70: #3066bd;
+$primary-80: #0e388e;
+$primary-90: #29467b;
 
-  /* font */
-  --font: 'Pretendard GOV', sans-serif;
-  --shadow-lnb: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
-  --shadow-shell: 3px 0 5px rgba(0, 0, 0, 0.15);
-  --shadow-search: 2px 2px 1.5px rgba(0, 0, 0, 0.15);
-  --shadow-layer: 0 2px 2px rgba(0, 0, 0, 0.1);
-  --grad-search: linear-gradient(101.15deg, #23aed6 0%, #175eec 102.73%);
-  --grad-filter: linear-gradient(101.15deg, #4441b5 0%, #d4669f 102.73%);
-  --grad-panel: linear-gradient(180deg, #f0f5ff 0%, #fff 50%);
+$surface-mast: #eef2f7;
+$coord: #334d47;
+$coord-muted: #64748b;
+$coord-line: #e2e8f0;
+$coord-bg: #f8fafc;
+
+@mixin overlay-scroll {
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba($primary-80, 0.28) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background-color: rgba($primary-80, 0.28);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
 }

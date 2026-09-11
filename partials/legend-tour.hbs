@@ -1,0 +1,25 @@
+{{!--
+  관광정보 전용 범례 — Figma 157:25195
+  MapUI.openTourLegend() / closeTourLegend()
+  data-action: close-legend-tour
+--}}
+<aside class="legend legend--tour" id="legendTour" hidden aria-label="관광정보 범례">
+  <div class="legend__head">
+    <p class="legend__title">범례</p>
+    <button type="button" class="legend__x" data-action="close-legend-tour" aria-label="범례 닫기">
+      <img src="./src/assets/img/legend/tour/close.svg" width="8" height="8" alt="">
+    </button>
+  </div>
+  <div class="legend__body">
+    <div class="legend__pane legend__pane--3 is-on">
+      {{#each tourLegend}}
+      <div class="legend__item">
+        <span class="legend__mark">
+          <img src="./src/assets/img/legend/tour/{{icon}}.png" width="24" height="24" alt="">
+        </span>
+        <span>{{name}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</aside>

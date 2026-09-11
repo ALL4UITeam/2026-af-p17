@@ -1,0 +1,54 @@
+{{!--
+  하단 상태바 · 좌표 검색. Figma 231:27838
+  data-action: coord-search | coord-locate | coord-go
+--}}
+<div class="status" aria-label="지도 상태">
+  <div class="status__box">
+    <div class="status__coord">
+      <button type="button" class="status__sel">
+        경위도
+        <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+      </button>
+      <p class="status__val">36°27′14.8″N · 127°55′19.9″E</p>
+      <button type="button" class="status__sel" data-action="coord-search" aria-expanded="false" aria-controls="coordPop">검색</button>
+    </div>
+    <span class="status__div" aria-hidden="true"></span>
+    <p class="status__val">WGS84</p>
+    <span class="status__div" aria-hidden="true"></span>
+    <p class="status__val">1:250,000</p>
+    <span class="status__div" aria-hidden="true"></span>
+    <div class="status__bar">
+      <span class="status__scale" aria-hidden="true"><span></span></span>
+      <span class="status__km">50km</span>
+    </div>
+    <button type="button" class="status__more" aria-label="더보기">
+      <img src="./src/assets/img/icon/status-more.svg" width="11" height="11" alt="">
+    </button>
+  </div>
+  <div class="coord-pop" id="coordPop" hidden>
+    <div class="coord-pop__card">
+      <label class="coord-pop__select">
+        <span class="sr-only">좌표 체계</span>
+        <select class="coord-pop__select-el" data-action="coord-system" data-bind="coord-system" aria-label="좌표 체계">
+          <option value="ll" selected>경위도</option>
+          <option value="tm">TM</option>
+          <option value="utm-k">UTM-K</option>
+        </select>
+      </label>
+      <div class="coord-pop__row">
+        <input class="coord-pop__input" id="coordX" name="coord-x" type="text" placeholder="X 좌표" autocomplete="off">
+        <input class="coord-pop__input" id="coordY" name="coord-y" type="text" placeholder="Y 좌표" autocomplete="off">
+        <button type="button" class="coord-pop__btn" data-action="coord-locate" aria-label="현재 위치">
+          <img src="./src/assets/img/coord/locate.svg" width="24" height="24" alt="">
+        </button>
+        <button type="button" class="coord-pop__btn coord-pop__btn--search" data-action="coord-go" aria-label="좌표 검색">
+          <img src="./src/assets/img/coord/search.svg" width="16" height="16" alt="">
+        </button>
+      </div>
+      <div class="coord-pop__note">
+        <p class="coord-pop__note-tit">유의사항</p>
+        <p class="coord-pop__note-txt">배경 맵이 표현되지 않을 경우는 국내 좌표 범위를 벗어난 경우입니다. (국외 지역이 표현된 배경 맵으로 변경하세요.)</p>
+      </div>
+    </div>
+  </div>
+</div>
