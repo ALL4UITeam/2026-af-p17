@@ -1,0 +1,161 @@
+{
+   "checksum": "a4ae001db426712fc67e0c1022d63499",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13389018857883643",
+            "date_last_used": "0",
+            "guid": "c8e12988-cfcc-42f2-af74-6478aefbd150",
+            "id": "12",
+            "name": "Trip.com",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://click.dotmap.co.kr/?pf_code=100536109912100784",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883653",
+            "date_last_used": "0",
+            "guid": "c9b3d4fe-5154-4e29-99eb-c431a4fc6363",
+            "id": "13",
+            "name": "SSG.COM",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/altools_ssg_userbrowser_bookmark",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883656",
+            "date_last_used": "0",
+            "guid": "d378cf33-a187-4349-b76f-ba0837a50b5f",
+            "id": "14",
+            "name": "옥션",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/4lmL7Wg",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883659",
+            "date_last_used": "0",
+            "guid": "6ec94346-6e6a-40a0-8aad-9c10d7648e46",
+            "id": "15",
+            "name": "G마켓",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/4cqmmV9",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883661",
+            "date_last_used": "0",
+            "guid": "5ccb90e2-047f-42dc-aa41-6595d26147a9",
+            "id": "16",
+            "name": "쿠팡!",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://coupa.ng/cb0ZYt",
+            "visit_count": 0
+         } ],
+         "date_added": "13433389900615125",
+         "date_last_used": "0",
+         "date_modified": "13389018857883661",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "즐겨찾기 모음",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "date_added": "13389018857883665",
+            "date_last_used": "0",
+            "guid": "3b7ad4e4-527b-4df8-a61e-2923adb00552",
+            "id": "7",
+            "name": "Trip.com",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://click.dotmap.co.kr/?pf_code=100536109912100784",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883668",
+            "date_last_used": "0",
+            "guid": "c4c7fbae-8426-4459-a3fb-e4493af84392",
+            "id": "8",
+            "name": "SSG.COM",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/altools_ssg_userbrowser_bookmark",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883671",
+            "date_last_used": "0",
+            "guid": "5600a1f1-6165-4947-bbc7-b776a51fb9e9",
+            "id": "9",
+            "name": "옥션",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/4lmL7Wg",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883678",
+            "date_last_used": "0",
+            "guid": "cfb97072-2021-4f04-b351-4931aedf0efe",
+            "id": "10",
+            "name": "G마켓",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://ad.altools.co.kr/4cqmmV9",
+            "visit_count": 0
+         }, {
+            "date_added": "13389018857883680",
+            "date_last_used": "0",
+            "guid": "b59ff91c-05b3-483e-b58b-745dc3279093",
+            "id": "11",
+            "name": "쿠팡!",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://coupa.ng/cb0ZYt",
+            "visit_count": 0
+         } ],
+         "date_added": "13433389900615125",
+         "date_last_used": "0",
+         "date_modified": "13389018857883680",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "다른 즐겨찾기",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13433389900615125",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "모바일 즐겨찾기",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13433389900615125",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "작업 영역",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCBriQNyfAQAAEgAqGEt6a1dtQkluZDlLRjk2eFdCaXFtcGc9PUgDoAYHEo4BCAMSiQEKHG5qZ0R1ODhlQ3J2WHA4NnBEN2ZIR2NxRnA4OD0SJGZiZjY4ODg4LWFjYjQtNTI5MS04ZmRhLTliY2NmMzcxMjM4NBgAIAAoADDztZfE4DA4lryXxOAwQJa8l8TgMEoceXpOQjAxY241NEE3Y1JVMHVUKy9QZ21UdFVvPWUAAAAAagDCPgJgABKvAQgQEqoBChx5M1QwZE4zWEFJd2puUjZZSEl6MittSlBNcEk9EiQ1Y2NiOTBlMi0wNDdmLTQyZGMtYWE0MS02NTk1ZDI2MTQ3YTkYACAAKAAwqcj/uKkzOLfZ/7ipM0C32f+4qTNKHEdqaEVpNHpRcjZoK3dkWU1sTFoxRENzUUFSWT1aHyId9mZzTlYwc3h0SGsrTWJUUHovRXNUeW5IcWdHQT1lAAAAAGoAwj4CYAUSrwEIDhKqAQocRTBrdXB6eXFOSzd2b2NKQ2wxMEVkaUsrTWNrPRIkZDM3OGNmMzMtYTE4Ny00MzQ5LWI3NmYtYmEwODM3YTUwYjVmGAAgACgAMKjI/7ipMziL2f+4qTNAi9n/uKkzShx5c0NVckMvZ1A0S3ZrWWRXNjRWZE9la1ducGc9Wh8iHdhhUlFiZnlTc2JScjBsdjM1cVdNOGM0L3puY3M9ZQAAAABqAMI+AmAFEq8BCA0SqgEKHHQzNDdxZEI4Qm9ZeUxQUkYwVjBpSzgxaU1nMD0SJGM5YjNkNGZlLTUxNTQtNGUyOS05OWViLWM0MzFhNGZjNjM2MxgAIAAoADCjyP+4qTM4ytb/uKkzQMrW/7ipM0ocek5raVdiTTREbmZlbEZ6L3BoK2RFbUF2bXF3PVofIh2wRVpwZ2w0c0pWcjJBUzU4RSs4UE5HRk8ySXN3PWUAAAAAagDCPgJgBRKOAQgCEokBChxZY1NUb252RVNQd3FDczRMMmNyVmh2NjhMOTg9EiRlNGMyN2ZhMi1kNzcyLTU0YzktYWNkZS1jYjNmY2JlNTBiOTIYACAAKAAw87WXxOAwOKm7l8TgMECpu5fE4DBKHG9QVmtod0JSYlY2NUtDV1IyK0lPTkhXb091OD1lAAAAAGoAwj4CYAASrwEIDxKqAQocMUppRllCK2swYmtwUDZtd1lRU2ozUm1qSHZZPRIkNmVjOTQzNDYtNmU2YS00MGEwLThhYWQtOWMxMGQ3NjQ4ZTQ2GAAgACgAMKbI/7ipMzit2P+4qTNArdj/uKkzShxQMHNWbjZnZXB6NCtvdFRTYnBvckdZWm1FSDA9Wh8iHexQRnNwSW0zaGRucyt4MHFXSDBJOG5ERDVPdHM9ZQAAAABqAMI+AmAFEq8BCAsSqgEKHEkrWjR0eXZZaVN3MjBHMEIyeS9ockxCRCtrRT0SJGI1OWZmOTFjLTA1YjMtNDgzZS1iNThiLTc0NWRjMzI3OTA5MxgAIAAoADClyP+4qTM4/tf/uKkzQP7X/7ipM0ocK0Y1UmNlc0srcjVJUkZKR1VZSHFSbythUElNPVofIh30Y2dtL3Z5ZVpTQVoyYWFFY28xMFRscm9LTVMwPWUAAAAAagDCPgJgBRKvAQgKEqoBChxuUHFYaWVVaU40Z29Jbnkxd2dJaml6L1pYdnM9EiRjZmI5NzA3Mi0yMDIxLTRmMDQtYjM1MS00OTMxYWVkZjBlZmUYACAAKAAwocj/uKkzOPTV/7ipM0D01f+4qTNKHGh6S2JyblBBakdYbFp1Qmc0SWZSV1Q5QzZzWT1aHyId6WQ5ZnIyQ2RjSENqVW5hbUVJSkJXak1QdjZ5bz1lAAAAAGoAwj4CYAUSrwEICRKqAQocREoxTWovV1h1R3N6Y3dHRVI5ZE1mTUQ5M0VrPRIkNTYwMGExZjEtNjE2NS00OTQ3LWJiYzctYjc3NmE1MWZiOWU5GAAgACgAMKLI/7ipMzig1v+4qTNAoNb/uKkzShxueWtIbWcxWFptRVlRMmJhYVBBamwwZUVhS1E9Wh8iHdM1SnFOdlNDUHVnODgvaE5wcDJiazhlZUpWWE09ZQAAAABqAMI+AmAFEq4BCAwSqQEKHEVzS1VuY2tyVG9zMGd5Y0ZUdDF0a1MwS0x3cz0SJGM4ZTEyOTg4LWNmY2MtNDJmMi1hZjc0LTY0NzhhZWZiZDE1MBgAIAAoADCkyP+4qTM4zdf/uKkzQM3X/7ipM0ocbk05bFc2UUJ6TnVEM216b3NtTlUzckgycm9NPVoeIhxhS2d4TU1odEs0L013eUFnMkQ2SXhkeExQNFk9ZQAAAABqAMI+AmAFEq8BCAgSqgEKHHMzUnhtTjBYak0wRGdIUXBaMENGNXdjRTcxUT0SJGM0YzdmYmFlLTg0MjYtNDQ1OS1hM2ZiLWU0NDkzYWY4NDM5MhgAIAAoADCnyP+4qTM429j/uKkzQNvY/7ipM0occlRFSGZDTGNSZGhLRDVzT1FOY0hlSDdmaTdzPVofIh2mSU40M0cvdUd5WG5aQVVvamFsdEEzZG9xdHJNPWUAAAAAagDCPgJgBRKOAQgBEokBChx5eEovNmZ2a2VjcjdrcDVFUXpCNHRXTHBkYkU9EiQ3NzI3NzY1ZC0wNjJmLTUyMzItOTA4OS0zYWJkZTA1ZTkxMzUYACAAKAAw87WXxOAwOJm7l8TgMECZu5fE4DBKHGFSQ1dMZ2hGOWI1SW5xS0lEdnVKL2p2UWtGYz1lAAAAAGoAwj4CYAASjgEIBRKJAQocd1JCclpMKzZQQTlhdktnak5QN0pYRExjZnZzPRIkYWFiZjlkZWUtN2ZhYy01OTNhLTkwZDYtZWUwYjJjZjI5Y2VlGAAgACgAMIav/7ipMzjIsP+4qTNAyLD/uKkzShxubXg2NXNRRHZ4SThUZ0VlditBK250dG9TbjQ9ZQAAAABqAMI+AmAAEq4BCAcSqQEKHEtzUkgrSklHdW5DOGFYTGVaeXY0dDVjbzNIZz0SJDNiN2FkNGU0LTUyN2ItNGRmOC1hNjFlLTI5MjNhZGIwMDU1MhgAIAAoADCgyP+4qTM4htX/uKkzQIbV/7ipM0ocOUoxMG91K3NKUnF2S3EwNXNpMkJDV2lreUo4PVoeIhxMNllnZzlGY0p2aHRhWksrUnJSOGZGNXpHY009ZQAAAABqAMI+AmAFMAA4AA==",
+   "version": 1
+}

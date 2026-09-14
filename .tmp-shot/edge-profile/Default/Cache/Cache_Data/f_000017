@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <script type="module" src="/@vite/client"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해양수산공간정보플랫폼</title>
+  <meta name="description" content="해양수산공간정보플랫폼 - 지도">
+  <link rel="stylesheet" href="./src/scss/main.scss">
+  <!-- 외부망 모바일 전용. 내부망 페이지에는 넣지 않는다. -->
+  <link rel="stylesheet" href="./src/scss/map-mo.scss">
+</head>
+<body>
+  <ul class="skip" aria-label="건너뛰기">
+    <li><a href="#mainMap">본문 바로가기</a></li>
+    <li><a href="#layerPanel">공간정보 목록 바로가기</a></li>
+    <li><a href="#mapTools">지도 도구 바로가기</a></li>
+  </ul>
+  <div class="masthead">
+    <span class="masthead__flag" aria-hidden="true">
+      <img src="./src/assets/img/icon/flag.svg" width="24" height="16" alt="">
+    </span>
+    <p class="masthead__txt">이 누리집은 대한민국 공식 전자정부 누리집입니다.</p>
+  </div>
+  <div class="app" id="app">
+    <header class="mo-hdr">
+      <div class="mo-mast">
+        <span class="mo-mast__flag" aria-hidden="true">
+          <img src="./src/assets/img/mo/flag.svg" width="20" height="13" alt="">
+        </span>
+        <p class="mo-mast__txt">이 누리집은 대한민국 공식 전자정부 누리집입니다.</p>
+      </div>
+      <div class="mo-bar">
+        <div class="mo-bar__row">
+          <button type="button" class="mo-bar__ico" data-action="mo-menu" aria-expanded="false" aria-controls="moMenu" aria-label="전체 메뉴">
+            <img class="mo-bar__menu" src="./src/assets/img/mo/menu.svg" width="16" height="12" alt="">
+            <img class="mo-bar__close" src="./src/assets/img/mo/close.svg" width="30" height="30" alt="">
+          </button>
+          <div class="mo-bar__brand">
+            <span class="mo-bar__logo" aria-hidden="true">
+              <img src="./src/assets/img/mo/logo.svg" width="24" height="24" alt="">
+            </span>
+            <strong class="mo-bar__name">해양수산공간정보플랫폼</strong>
+          </div>
+          <button type="button" class="mo-bar__ico" data-action="mo-user" aria-label="나의 메뉴">
+            <img src="./src/assets/img/mo/user.svg" width="16" height="16" alt="">
+          </button>
+        </div>
+        <form class="mo-search" action="#" method="get" role="search" onsubmit="return false;">
+          <button type="button" class="mo-search__list" data-action="mo-sheet" aria-label="공간정보 목록">
+            <img src="./src/assets/img/mo/list.svg" width="40" height="40" alt="">
+          </button>
+          <div class="mo-search__field">
+            <label class="sr-only" for="moKeyword">지역, 해역명, 구역명 검색</label>
+            <input class="mo-search__input" id="moKeyword" name="q" type="search" placeholder="지역, 해역명, 구역명 검색" data-bind="keyword">
+            <button type="button" class="mo-search__go" data-action="search" data-target="moKeyword" aria-label="검색">
+              <img src="./src/assets/img/mo/search.svg" width="16" height="16" alt="">
+            </button>
+          </div>
+          <button type="button" class="mo-search__filter" data-action="filter" aria-expanded="false" aria-controls="filterPop" aria-label="필터">
+            <img src="./src/assets/img/mo/filter.svg" width="24" height="24" alt="">
+          </button>
+        </form>
+      </div>
+    </header>
+    <main class="stage" id="mainMap" tabindex="-1" aria-label="지도 영역">
+      <h1 class="sr-only">해양수산공간정보플랫폼 지도</h1>
+      <picture class="stage__pic">
+        <source media="(max-width: 767px)" srcset="./src/assets/img/mo/map-bg.png">
+        <img class="stage__map" src="./src/assets/img/map-bg.png" alt="">
+      </picture>
+      <div class="clusters" id="clusterLayer" hidden aria-label="지역 클러스터">
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="incheon" data-name="인천" data-count="112" style="left:48%;top:36%">
+          <span class="cluster__in">
+            <span class="cluster__name">인천</span>
+            <span class="cluster__count">112</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeonggi" data-name="경기도" data-count="574" style="left:52.5%;top:34%">
+          <span class="cluster__in">
+            <span class="cluster__name">경기도</span>
+            <span class="cluster__count">574</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="gangwon" data-name="강원특별자치도" data-count="776" style="left:61%;top:30%">
+          <span class="cluster__in">
+            <span class="cluster__name">강원특별자치도</span>
+            <span class="cluster__count">776</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="chungnam" data-name="충청남도" data-count="151" style="left:49.5%;top:44%">
+          <span class="cluster__in">
+            <span class="cluster__name">충청남도</span>
+            <span class="cluster__count">151</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="jeonbuk" data-name="전북특별자치도" data-count="583" style="left:50.5%;top:52%">
+          <span class="cluster__in">
+            <span class="cluster__name">전북특별자치도</span>
+            <span class="cluster__count">583</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeongbuk" data-name="경상북도" data-count="214" style="left:60%;top:44%">
+          <span class="cluster__in">
+            <span class="cluster__name">경상북도</span>
+            <span class="cluster__count">214</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="ulsan" data-name="울산광역시" data-count="212" style="left:63%;top:53%">
+          <span class="cluster__in">
+            <span class="cluster__name">울산광역시</span>
+            <span class="cluster__count">212</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="busan" data-name="부산광역시" data-count="149" style="left:61.5%;top:58%">
+          <span class="cluster__in">
+            <span class="cluster__name">부산광역시</span>
+            <span class="cluster__count">149</span>
+          </span>
+        </button>
+        <button type="button" class="cluster" data-action="cluster" data-cluster-id="gyeongnam" data-name="경상남도" data-count="294" style="left:56%;top:56%">
+          <span class="cluster__in">
+            <span class="cluster__name">경상남도</span>
+            <span class="cluster__count">294</span>
+          </span>
+        </button>
+      </div>
+    </main>
+    <div class="app__left">
+      <nav class="gnb" aria-label="주요 메뉴">
+        <div class="gnb__top">
+          <a class="gnb__logo" href="./map.html">
+            <span class="gnb__symbol" aria-hidden="true">
+              <img src="./src/assets/img/symbol.svg" width="36" height="36" alt="">
+            </span>
+            <span class="gnb__name">해양수산<br>공간정보<br>플랫폼</span>
+          </a>
+          <ul class="gnb__list">
+            <li>
+              <a class="gnb__item is-active" href="./map.html" aria-current="page">
+                <span class="gnb__ico" aria-hidden="true">
+                  <img src="./src/assets/img/gnb/map.svg" width="24" height="24" alt="">
+                </span>
+                <span class="gnb__label">해양공간<br>정보지도</span>
+              </a>
+            </li>
+            <li>
+              <a class="gnb__item" href="#none">
+                <span class="gnb__ico" aria-hidden="true">
+                  <img src="./src/assets/img/gnb/research.svg" width="24" height="24" alt="">
+                </span>
+                <span class="gnb__label">연구분석<br>서비스</span>
+              </a>
+            </li>
+            <li>
+              <a class="gnb__item" href="#none">
+                <span class="gnb__ico" aria-hidden="true">
+                  <img src="./src/assets/img/gnb/twin.svg" width="24" height="24" alt="">
+                </span>
+                <span class="gnb__label">해양<br>디지털트윈</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="gnb__btm">
+          <a class="gnb__util" href="#none">
+            <span class="gnb__util-ico" aria-hidden="true">
+              <img src="./src/assets/img/gnb/tour.svg" width="15" height="15" alt="">
+            </span>
+            <span class="gnb__util-label">관광정보</span>
+          </a>
+          <a class="gnb__util" href="#none">
+            <span class="gnb__util-ico" aria-hidden="true">
+              <img src="./src/assets/img/gnb/catalog.svg" width="12" height="12" alt="">
+            </span>
+            <span class="gnb__util-label">카탈로그</span>
+          </a>
+          <a class="gnb__util" href="#none">
+            <span class="gnb__util-ico" aria-hidden="true">
+              <img src="./src/assets/img/gnb/mymenu.svg" width="12" height="12" alt="">
+            </span>
+            <span class="gnb__util-label">나의 메뉴</span>
+          </a>
+        </div>
+      </nav>
+      <section class="panel" id="layerPanel" tabindex="-1" aria-label="공간정보 목록">
+        <div class="panel__body">
+          <div class="panel__tabs" role="tablist" aria-label="목록 구분">
+            <button type="button" class="panel__tab is-active" role="tab" id="tabList" aria-selected="true" aria-controls="panelList" data-action="tab" data-tab="list">공간정보 목록</button>
+            <button type="button" class="panel__tab" role="tab" id="tabFav" aria-selected="false" aria-controls="panelFav" data-action="tab" data-tab="fav">관심 레이어</button>
+          </div>
+          <form class="panel__search" action="#" method="get" role="search" onsubmit="return false;">
+            <div class="panel__field">
+              <label class="sr-only" for="pcKeyword">지명, 해역명, 구역명 검색</label>
+              <input class="panel__input" id="pcKeyword" name="q" type="search" placeholder="지명, 해역명, 구역명 검색" data-bind="keyword">
+              <button type="button" class="panel__search-btn" data-action="search" data-target="pcKeyword" aria-label="검색">
+                <img src="./src/assets/img/icon/search.svg" width="16" height="16" alt="">
+              </button>
+            </div>
+            <button type="button" class="panel__filter" data-action="filter" aria-expanded="false" aria-controls="filterPop" aria-label="필터">
+              <img src="./src/assets/img/icon/filter.svg" width="24" height="24" alt="">
+            </button>
+          </form>
+          <div class="panel__list" id="panelList" role="tabpanel" aria-labelledby="tabList">
+            <div class="tree" data-tree="mof">
+              <button type="button" class="tree__head is-open" data-action="toggle" data-toggle="group" data-group-id="mof" aria-expanded="true" aria-controls="kids-mof">
+                <span class="tree__head-txt">해양수산정보 분류체계</span>
+                <span class="tree__head-right">
+                  <span class="count" data-bind="count" data-count-for="mof">6</span>
+                  <span class="tree__head-ico" aria-hidden="true">
+                    <img class="ico-open" src="./src/assets/img/icon/chev-up-w.svg" width="16" height="16" alt="">
+                    <img class="ico-close" src="./src/assets/img/icon/plus-w.svg" width="16" height="16" alt="">
+                  </span>
+                </span>
+              </button>
+              <div class="tree__group is-open" id="kids-mof" data-group-id="mof">
+                <div class="tree__group is-open" data-group-id="ocean">
+                  <button type="button" class="tree__row is-open" data-action="toggle" data-toggle="group" data-group-id="ocean" aria-expanded="true" aria-controls="kids-ocean">
+                    <span class="tree__row-txt">해양</span>
+                    <span class="tree__row-right">
+                      <span class="count">3</span>
+                      <span class="tree__row-ico" aria-hidden="true">
+                        <img class="ico-open" src="./src/assets/img/icon/chev-up-navy.svg" width="16" height="16" alt="">
+                        <img class="ico-close" src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt="">
+                      </span>
+                    </span>
+                  </button>
+                  <div class="tree__kids" id="kids-ocean">
+                    <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="industry" aria-expanded="false">
+                      <span class="tree__d3-txt">해양산업</span>
+                      <span class="tree__d3-right">
+                        <span class="count">4</span>
+                        <span class="tree__d3-ico" aria-hidden="true">
+                          <img class="ico-open" src="./src/assets/img/icon/tree-minus.svg" width="18" height="18" alt="">
+                          <img class="ico-close" src="./src/assets/img/icon/tree-plus.svg" width="18" height="18" alt="">
+                        </span>
+                      </span>
+                    </button>
+                    <button type="button" class="tree__d3 is-open" data-action="toggle" data-toggle="group" data-group-id="env" aria-expanded="true" aria-controls="kids-env">
+                      <span class="tree__d3-txt">해양환경</span>
+                      <span class="tree__d3-right">
+                        <span class="count is-on">82</span>
+                        <span class="tree__d3-ico" aria-hidden="true">
+                          <img class="ico-open" src="./src/assets/img/icon/tree-minus.svg" width="18" height="18" alt="">
+                          <img class="ico-close" src="./src/assets/img/icon/tree-plus.svg" width="18" height="18" alt="">
+                        </span>
+                      </span>
+                    </button>
+                    <div class="tree__branch is-open" id="kids-env" data-group-id="env">
+                      <div class="tree__d4 is-on">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ENV_POLICY" data-action="toggle-layer" data-layer-id="GRP_ENV_POLICY" data-layer-name="해양환경정책" checked>
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">해양환경정책</span>
+                        </label>
+                        <button type="button" class="tree__d4-right is-open" data-action="toggle" data-toggle="branch" data-group-id="env-policy" aria-expanded="true" aria-controls="leaves-env-policy">
+                          <span class="count is-on">2</span>
+                          <span class="tree__d4-ico" aria-hidden="true">
+                            <img class="ico-open" src="./src/assets/img/icon/row-minus.svg" width="18" height="18" alt="">
+                            <img class="ico-close" src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt="">
+                          </span>
+                        </button>
+                      </div>
+                      <div class="tree__leaves" id="leaves-env-policy">
+                        <div class="tree__d5">
+                          <div class="tree__d5-left">
+                            <span class="tree__line" aria-hidden="true"><img src="./src/assets/img/tree/line.svg" width="40" height="40" alt=""></span>
+                            <div class="tree__d5-txt">
+                              <label class="chk">
+                                <input class="chk__input" type="checkbox" name="layer" value="LYR_TIDAL" data-action="toggle-layer" data-layer-id="LYR_TIDAL" data-layer-name="갯벌면적" data-parent-id="GRP_ENV_POLICY" checked>
+                                <span class="chk__box" aria-hidden="true"></span>
+                              </label>
+                              <p class="tree__leaf"><span class="lyr-mark" aria-hidden="true"></span>갯벌면적</p>
+                            </div>
+                          </div>
+                          <div class="tree__acts">
+                            <button type="button" data-action="info-layer" data-layer-id="LYR_TIDAL" aria-label="갯벌면적 정보">
+                              <img src="./src/assets/img/icon/info.svg" width="20" height="20" alt="">
+                            </button>
+                            <button type="button" data-action="fav-layer" data-layer-id="LYR_TIDAL" aria-pressed="false" aria-label="갯벌면적 관심">
+                              <img src="./src/assets/img/icon/star.svg" width="20" height="20" alt="">
+                            </button>
+                          </div>
+                        </div>
+                        <div class="tree__d5">
+                          <div class="tree__d5-left">
+                            <span class="tree__line" aria-hidden="true"><img src="./src/assets/img/tree/line-end.svg" width="40" height="40" alt=""></span>
+                            <div class="tree__d5-txt">
+                              <label class="chk">
+                                <input class="chk__input" type="checkbox" name="layer" value="LYR_PROTECT" data-action="toggle-layer" data-layer-id="LYR_PROTECT" data-layer-name="보호수역" data-parent-id="GRP_ENV_POLICY" checked>
+                                <span class="chk__box" aria-hidden="true"></span>
+                              </label>
+                              <p class="tree__leaf"><span class="lyr-mark" aria-hidden="true"></span>보호수역</p>
+                            </div>
+                          </div>
+                          <div class="tree__acts">
+                            <button type="button" data-action="info-layer" data-layer-id="LYR_PROTECT" aria-label="보호수역 정보">
+                              <img src="./src/assets/img/icon/info.svg" width="20" height="20" alt="">
+                            </button>
+                            <button type="button" data-action="fav-layer" data-layer-id="LYR_PROTECT" aria-pressed="false" aria-label="보호수역 관심">
+                              <img src="./src/assets/img/icon/star.svg" width="20" height="20" alt="">
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tree__d4">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_CONSERVE" data-action="toggle-layer" data-layer-id="GRP_CONSERVE" data-layer-name="해양보전">
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">해양보전</span>
+                        </label>
+                        <span class="tree__d4-right">
+                          <span class="count">1</span>
+                          <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
+                        </span>
+                      </div>
+                      <div class="tree__d4">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ECO" data-action="toggle-layer" data-layer-id="GRP_ECO" data-layer-name="해양생태">
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">해양생태</span>
+                        </label>
+                        <span class="tree__d4-right">
+                          <span class="count">10</span>
+                          <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
+                        </span>
+                      </div>
+                      <div class="tree__d4">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_BIO" data-action="toggle-layer" data-layer-id="GRP_BIO" data-layer-name="해양수산생명자원">
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">해양수산생명자원</span>
+                        </label>
+                        <span class="tree__d4-right">
+                          <span class="count">2</span>
+                          <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
+                        </span>
+                      </div>
+                      <div class="tree__d4">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_SPACE" data-action="toggle-layer" data-layer-id="GRP_SPACE" data-layer-name="해양공간정책">
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">해양공간정책</span>
+                        </label>
+                        <span class="tree__d4-right">
+                          <span class="count">4</span>
+                          <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
+                        </span>
+                      </div>
+                      <div class="tree__d4">
+                        <label class="tree__d4-left">
+                          <span class="chk">
+                            <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ETC" data-action="toggle-layer" data-layer-id="GRP_ETC" data-layer-name="기타 해양환경">
+                            <span class="chk__box" aria-hidden="true"></span>
+                          </span>
+                          <span class="tree__d4-txt">기타 해양환경</span>
+                        </label>
+                        <span class="tree__d4-right">
+                          <span class="count">3</span>
+                          <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
+                        </span>
+                      </div>
+                    </div>
+                    <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="coop" aria-expanded="false">
+                      <span class="tree__d3-txt">국제협력</span>
+                      <span class="tree__d3-right">
+                        <span class="count">4</span>
+                        <span class="tree__d3-ico" aria-hidden="true">
+                          <img class="ico-open" src="./src/assets/img/icon/tree-minus.svg" width="18" height="18" alt="">
+                          <img class="ico-close" src="./src/assets/img/icon/tree-plus.svg" width="18" height="18" alt="">
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <button type="button" class="tree__row" data-group-id="fish" aria-expanded="false">
+                  <span class="tree__row-txt">수산</span>
+                  <span class="tree__row-right">
+                    <span class="count">3</span>
+                    <span class="tree__row-ico" aria-hidden="true"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""></span>
+                  </span>
+                </button>
+                <button type="button" class="tree__row" data-group-id="logi" aria-expanded="false">
+                  <span class="tree__row-txt">해운물류</span>
+                  <span class="tree__row-right">
+                    <span class="count">2</span>
+                    <span class="tree__row-ico" aria-hidden="true"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""></span>
+                  </span>
+                </button>
+                <button type="button" class="tree__row" data-group-id="safety" aria-expanded="false">
+                  <span class="tree__row-txt">해사안전</span>
+                  <span class="tree__row-right">
+                    <span class="count">1</span>
+                    <span class="tree__row-ico" aria-hidden="true"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""></span>
+                  </span>
+                </button>
+                <button type="button" class="tree__row" data-group-id="port" aria-expanded="false">
+                  <span class="tree__row-txt">항만</span>
+                  <span class="tree__row-right">
+                    <span class="count">1</span>
+                    <span class="tree__row-ico" aria-hidden="true"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""></span>
+                  </span>
+                </button>
+                <button type="button" class="tree__row" data-group-id="admin" aria-expanded="false">
+                  <span class="tree__row-txt">공통행정</span>
+                  <span class="tree__row-right">
+                    <span class="count">1</span>
+                    <span class="tree__row-ico" aria-hidden="true"><img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt=""></span>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="tree tree--sub">
+              <button type="button" class="tree__head is-sub" data-group-id="theme" aria-expanded="false">
+                <span class="tree__head-txt">해양공간 주제정보</span>
+                <span class="tree__head-right">
+                  <span class="count">4</span>
+                  <span class="tree__head-ico" aria-hidden="true">
+                    <img src="./src/assets/img/icon/plus-w.svg" width="16" height="16" alt="">
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="panel__list" id="panelFav" role="tabpanel" aria-labelledby="tabFav" hidden>
+            <p class="panel__empty" data-bind="fav-empty">관심 레이어가 없습니다.</p>
+          </div>
+        </div>
+        <div class="panel__handle">
+          <button type="button" class="panel__handle-btn" data-action="collapse-panel" aria-expanded="true" aria-controls="layerPanel" aria-label="패널 접기">
+            <img src="./src/assets/img/icon/panel-close.svg" width="16" height="16" alt="">
+          </button>
+        </div>
+      </section>
+      <div class="suggest" aria-label="추천레이어" data-bind="suggest">
+        <p class="suggest__title">
+          <img src="./src/assets/img/icon/suggest.svg" width="20" height="20" alt="">
+          추천레이어
+        </p>
+        <div class="suggest__list">
+          <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="어촌">어촌 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+          <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해양산업">해양산업 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+          <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해양환경">해양환경 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+          <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="해사안전">해사안전 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+          <button type="button" class="suggest__chip" data-action="suggest-chip" data-suggest="항만">항만 <img src="./src/assets/img/icon/chip-x.svg" width="16" height="16" alt=""></button>
+          <span class="suggest__more" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+        <button type="button" class="suggest__next" aria-label="이전">
+          <img src="./src/assets/img/icon/chip-arr.svg" width="16" height="16" alt="">
+        </button>
+      </div>
+    </div>
+    <aside class="tools" id="mapTools" tabindex="-1" aria-label="지도 도구">
+      <div class="tools__inner">
+        <div class="tools__item is-active">
+          <button type="button" class="tools__btn" data-action="tool" data-tool="layer" aria-pressed="true" aria-label="레이어">
+            <img src="./src/assets/img/tool/layer.svg" width="16" height="16" alt="">
+          </button>
+          <span class="tools__label">레이어</span>
+        </div>
+        <div class="tools__item">
+          <button type="button" class="tools__btn" data-action="tool" data-tool="basemap" aria-pressed="false" aria-label="배경지도">
+            <img src="./src/assets/img/tool/basemap.svg" width="16" height="16" alt="">
+          </button>
+          <span class="tools__label">배경지도</span>
+        </div>
+        <div class="tools__item">
+          <button type="button" class="tools__btn" data-action="tool" data-tool="fullmap" aria-pressed="false" aria-label="전체지도">
+            <img src="./src/assets/img/tool/fullmap.svg" width="16" height="16" alt="">
+          </button>
+          <span class="tools__label">전체지도</span>
+        </div>
+        <div class="tools__item">
+          <button type="button" class="tools__btn" data-action="tool" data-tool="dist" aria-pressed="false" aria-label="거리재기">
+            <img src="./src/assets/img/tool/measure.svg" width="16" height="16" alt="">
+          </button>
+          <span class="tools__label">거리재기</span>
+        </div>
+        <div class="tools__item">
+          <button type="button" class="tools__btn" data-action="tool" data-tool="area" aria-pressed="false" aria-label="면적재기">
+            <img src="./src/assets/img/tool/measure.svg" width="16" height="16" alt="">
+          </button>
+          <span class="tools__label">면적재기</span>
+        </div>
+      </div>
+      <div class="tools__zoom">
+        <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="in" aria-label="확대">
+          <img src="./src/assets/img/icon/plus-12.svg" width="12" height="12" alt="">
+        </button>
+        <div
+          class="tools__rail"
+          role="slider"
+          tabindex="0"
+          aria-label="지도 축척"
+          aria-valuemin="1"
+          aria-valuemax="10"
+          aria-valuenow="5"
+          aria-valuetext="레벨 5"
+        >
+          <span class="tools__ticks tools__ticks--l">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+          </span>
+          <span class="tools__ticks tools__ticks--r">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
+            <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
+          </span>
+          <span class="tools__rail-bg"></span>
+          <span class="tools__rail-on"></span>
+          <span class="tools__knob"></span>
+        </div>
+        <span class="tools__lv" data-bind="zoom-level">Lv.5</span>
+        <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="out" aria-label="축소">
+          <img src="./src/assets/img/icon/minus-12.svg" width="12" height="12" alt="">
+        </button>
+      </div>
+    </aside>
+    <aside class="legend" id="legendPop" hidden aria-label="범례">
+      <div class="legend__head">
+        <div class="legend__tabs" role="tablist" aria-label="범례 종류">
+          <button type="button" class="legend__tab is-on" role="tab" aria-selected="true" data-action="legend-tab" data-tab="grade">특성평가/상충분석결과</button>
+          <button type="button" class="legend__tab" role="tab" aria-selected="false" data-action="legend-tab" data-tab="use">해양용도구역</button>
+          <button type="button" class="legend__tab" role="tab" aria-selected="false" data-action="legend-tab" data-tab="mgmt">해양용도구역 관리구역</button>
+        </div>
+        <button type="button" class="legend__fold" data-action="legend-fold" aria-expanded="true" aria-label="범례 접기">
+          <img src="./src/assets/img/legend/chev.svg" width="8" height="8" alt="">
+        </button>
+      </div>
+    
+      <div class="legend__body">
+        <div class="legend__pane is-on" id="legendPaneGrade" role="tabpanel" data-pane="grade">
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#f00"></span>
+            <span>1등급 :</span>
+            <span>0.8 - 1.0</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#1086b9"></span>
+            <span>4등급 :</span>
+            <span>0 - 0.2</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#f59e0b"></span>
+            <span>2등급 :</span>
+            <span>0.4 - 0.6</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--empty"></span>
+            <span>5등급 :</span>
+            <span>0</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#10b981"></span>
+            <span>3등급 :</span>
+            <span>0.2 - 0.4</span>
+          </div>
+        </div>
+    
+        <div class="legend__pane legend__pane--3" id="legendPaneUse" role="tabpanel" data-pane="use" hidden>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#1a49a8"></span>
+            <span>어업활동</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#1086b9"></span>
+            <span>해양관광</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#f59e0b"></span>
+            <span>항만·항해</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#c24f1a"></span>
+            <span>골재·광물자원</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#10b981"></span>
+            <span>환경·생태계</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--stripe"></span>
+            <span>군사활동</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch" style="background:#f5ce13"></span>
+            <span>에너지개발</span>
+          </div>
+          <div class="legend__item">
+            <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-diag-a.svg" width="16" height="16" alt="">
+            <span>연구·교육보전</span>
+          </div>
+          <div class="legend__item">
+            <img class="legend__swatch-img" src="./src/assets/img/legend/swatch-diag-b.svg" width="16" height="16" alt="">
+            <span>안전관리</span>
+          </div>
+        </div>
+    
+        <div class="legend__pane" id="legendPaneMgmt" role="tabpanel" data-pane="mgmt" hidden>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#1a49a8"></span>
+            <span>어업활동</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#bc2291"></span>
+            <span>해양관광</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#c24f1a"></span>
+            <span>골재·광물자원</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#009b66"></span>
+            <span>환경·생태계</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#f5ce13"></span>
+            <span>에너지개발</span>
+          </div>
+          <div class="legend__item">
+            <span class="legend__swatch legend__swatch--dash" style="border-color:#444"></span>
+            <span>항만·항해</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <aside class="lyr-list is-open" id="lyrList" aria-label="레이어 리스트">
+      <img class="lyr-list__glass" src="./src/assets/img/glass-panel.png" width="360" height="480" alt="" aria-hidden="true">
+      <div class="lyr-list__head">
+        <div class="lyr-list__head-left">
+          <p class="lyr-list__title">레이어 리스트</p>
+          <span class="lyr-list__total" data-bind="lyr-total">37,572</span>
+        </div>
+        <button type="button" class="lyr-list__close" data-action="close-lyr-list" aria-label="레이어 리스트 닫기">
+          <img class="lyr-list__close-pc" src="./src/assets/img/icon/close.svg" width="16" height="16" alt="">
+          <img class="lyr-list__close-mo" src="./src/assets/img/attr/close.svg" width="12" height="12" alt="">
+        </button>
+      </div>
+      <div class="lyr-list__body">
+        <div class="lyr-list__ctrl">
+          <div class="lyr-list__select">
+            <span class="lyr-list__select-txt">직접 설정한 순</span>
+            <span class="lyr-list__select-arr" aria-hidden="true">
+              <img src="./src/assets/img/icon/select-arr.svg" width="12" height="12" alt="">
+            </span>
+          </div>
+          <button type="button" class="lyr-list__reset" data-action="reset-lyr-list">
+            <img src="./src/assets/img/layer/reset.svg" width="13" height="13" alt="">
+            초기화
+          </button>
+        </div>
+        <div class="lyr-list__result">
+          <div class="lyr-list__group">
+            <button type="button" class="lyr-list__cat" data-action="toggle" data-toggle="lyr-cat" aria-expanded="true">
+              <img class="lyr-list__cat-bg" src="./src/assets/img/glass-card.png" width="328" height="38" alt="" aria-hidden="true">
+              <span class="lyr-list__cat-txt">해양수산정보 분류체계</span>
+              <span class="lyr-list__cat-right">
+                <span class="count" data-bind="lyr-count">2</span>
+                <span class="lyr-list__cat-ico" aria-hidden="true">
+                  <img src="./src/assets/img/icon/chev-up.svg" width="16" height="16" alt="">
+                </span>
+              </span>
+            </button>
+            <ul class="lyr-list__rows" data-bind="active-layers">
+              <li class="lyr-list__row" data-layer-id="LYR_TANKER">
+                <span class="lyr-list__grip" aria-hidden="true"><img src="./src/assets/img/layer/drag.svg" width="16" height="16" alt=""></span>
+                <div class="lyr-list__main">
+                  <span class="lyr-list__lead">
+                    <button type="button" class="lyr-list__switch is-on" role="switch" aria-checked="true" data-action="lyr-onoff" data-layer-id="LYR_TANKER">
+                      <span>on</span>
+                      <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+                    </button>
+                    <span class="lyr-list__opac" aria-hidden="true"><img src="./src/assets/img/layer/opacity.svg" width="14" height="18" alt=""></span>
+                  </span>
+                  <span class="lyr-list__name"><span class="lyr-list__mark"><img src="./src/assets/img/layer/mark.svg" width="14" height="14" alt=""></span>유조선통항금지해역</span>
+                  <span class="lyr-list__acts">
+                    <button type="button" data-action="lyr-set" data-layer-id="LYR_TANKER" aria-label="유조선통항금지해역 설정">
+                      <img src="./src/assets/img/layer/set.svg" width="20" height="20" alt="">
+                    </button>
+                    <button type="button" data-action="lyr-remove" data-layer-id="LYR_TANKER" aria-label="유조선통항금지해역 삭제">
+                      <img src="./src/assets/img/layer/del.svg" width="20" height="20" alt="">
+                    </button>
+                  </span>
+                </div>
+              </li>
+              <li class="lyr-list__row" data-layer-id="LYR_ANCHOR">
+                <span class="lyr-list__grip" aria-hidden="true"><img src="./src/assets/img/layer/drag.svg" width="16" height="16" alt=""></span>
+                <div class="lyr-list__main">
+                  <span class="lyr-list__lead">
+                    <button type="button" class="lyr-list__switch is-on" role="switch" aria-checked="true" data-action="lyr-onoff" data-layer-id="LYR_ANCHOR">
+                      <span>on</span>
+                      <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+                    </button>
+                    <span class="lyr-list__opac" aria-hidden="true"><img src="./src/assets/img/layer/opacity.svg" width="14" height="18" alt=""></span>
+                  </span>
+                  <span class="lyr-list__name"><span class="lyr-list__mark"><img src="./src/assets/img/layer/mark-2.svg" width="14" height="14" alt=""></span>묘박지</span>
+                  <span class="lyr-list__acts">
+                    <button type="button" data-action="lyr-set" data-layer-id="LYR_ANCHOR" aria-label="묘박지 설정">
+                      <img src="./src/assets/img/layer/set.svg" width="20" height="20" alt="">
+                    </button>
+                    <button type="button" data-action="lyr-remove" data-layer-id="LYR_ANCHOR" aria-label="묘박지 삭제">
+                      <img src="./src/assets/img/layer/del.svg" width="20" height="20" alt="">
+                    </button>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="lyr-list__cat is-empty">
+            <p class="lyr-list__cat-txt">해양공간 주제정보</p>
+            <div class="lyr-list__cat-right">
+              <span class="count is-zero">0</span>
+              <span class="lyr-list__cat-ico" aria-hidden="true">
+                <img src="./src/assets/img/icon/chev-down.svg" width="16" height="16" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lyr-list__foot">
+        <button type="button" class="lyr-list__btn" data-action="spatial-op">공간연산</button>
+        <button type="button" class="lyr-list__btn" data-action="spatial-an">공간분석</button>
+      </div>
+    </aside>
+    <aside class="flt" id="filterPop" hidden role="dialog" aria-modal="false" aria-labelledby="filterTitle" tabindex="-1">
+      <img class="flt__glass" src="./src/assets/img/glass-panel.png" width="360" height="680" alt="" aria-hidden="true">
+      <div class="flt__head">
+        <p class="flt__title" id="filterTitle">필터</p>
+        <button type="button" class="flt__close" data-action="close-filter" aria-label="필터 닫기">
+          <img src="./src/assets/img/icon/close.svg" width="16" height="16" alt="">
+        </button>
+      </div>
+      <div class="flt__body">
+        <section class="flt__sec" data-filter-group="area">
+          <div class="flt__tit">
+            <div class="flt__tit-l">
+              <strong>지역</strong>
+              <label class="flt__all">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="area">
+                  <span>off</span>
+                  <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+                </button>
+                전체선택
+              </label>
+            </div>
+            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="area" aria-expanded="true" aria-label="지역 접기">
+              <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
+            </button>
+          </div>
+          <div class="flt__grid flt__grid--4">
+            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="area" data-value="서울시" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>서울시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경기도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경기도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="인천시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>인천시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="부산시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>부산시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대전시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>대전시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대구시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>대구시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="울산시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>울산시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="세종시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>세종시</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전남광주" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>전남광주</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="강원도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>강원도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>충청북도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청남도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>충청남도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경상북도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상남도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경상남도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>전북도</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="제주도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>제주도</span></button>
+          </div>
+        </section>
+        <section class="flt__sec" data-filter-group="cat">
+          <div class="flt__tit">
+            <div class="flt__tit-l">
+              <strong>카테고리</strong>
+              <label class="flt__all">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cat">
+                  <span>off</span>
+                  <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+                </button>
+                전체선택
+              </label>
+            </div>
+            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cat" aria-expanded="true" aria-label="카테고리 접기">
+              <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
+            </button>
+          </div>
+          <div class="flt__grid flt__grid--3">
+            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cat" data-value="골재·광물" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>골재·광물</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="항만·항행" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>항만·항행</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="군사활동" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>군사활동</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="어업활동" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>어업활동</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양관광" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양관광</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양안전·관리" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양안전·관리</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양환경·생태" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양환경·생태</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수자원" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양수자원</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양에너지" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양에너지</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="기본공간정보" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>기본공간정보</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수산통계" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양수산통계</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양용도구역" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양용도구역</span></button>
+          </div>
+        </section>
+        <section class="flt__sec" data-filter-group="cho">
+          <div class="flt__tit">
+            <div class="flt__tit-l">
+              <strong>초성</strong>
+              <label class="flt__all">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cho">
+                  <span>off</span>
+                  <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
+                </button>
+                전체선택
+              </label>
+            </div>
+            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cho" aria-expanded="true" aria-label="초성 접기">
+              <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
+            </button>
+          </div>
+          <div class="flt__grid flt__grid--7">
+            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cho" data-value="ㄱ" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄱ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄴ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄴ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄷ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄷ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄹ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄹ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅁ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅁ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅂ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅂ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅅ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅅ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅇ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅇ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅈ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅈ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅊ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅊ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅋ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅋ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅌ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅌ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅍ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅍ</span></button>
+            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅎ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅎ</span></button>
+          </div>
+        </section>
+        <div class="flt__picked">
+          <button type="button" class="flt__reset" data-action="filter-reset" aria-label="선택 초기화">
+            <img src="./src/assets/img/layer/reset.svg" width="16" height="16" alt="">
+          </button>
+          <div class="flt__tags" data-bind="filter-chips"></div>
+        </div>
+        <button type="button" class="flt__apply" data-action="filter-apply">결과 보기</button>
+      </div>
+    </aside>
+    <div class="status" aria-label="지도 상태">
+      <div class="status__box">
+        <div class="status__coord">
+          <button type="button" class="status__sel">
+            경위도
+            <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+          </button>
+          <p class="status__val">36°27′14.8″N · 127°55′19.9″E</p>
+          <button type="button" class="status__sel">검색</button>
+        </div>
+        <span class="status__div" aria-hidden="true"></span>
+        <p class="status__val">WGS84</p>
+        <span class="status__div" aria-hidden="true"></span>
+        <p class="status__val">1:250,000</p>
+        <span class="status__div" aria-hidden="true"></span>
+        <div class="status__bar">
+          <span class="status__scale" aria-hidden="true"><span></span></span>
+          <span class="status__km">50km</span>
+        </div>
+        <button type="button" class="status__more" aria-label="더보기">
+          <img src="./src/assets/img/icon/status-more.svg" width="11" height="11" alt="">
+        </button>
+      </div>
+    </div>
+    <section class="attr" id="attrPanel" hidden data-layer-id="LYR_TIDAL" aria-labelledby="attrTitle">
+      <header class="attr__head">
+        <div class="attr__left">
+          <h2 class="attr__title" id="attrTitle" data-bind="attr-title">갯벌면적</h2>
+          <p class="attr__total">
+            총
+            <span class="attr__count" data-bind="attr-count">37,572</span>
+            건
+          </p>
+        </div>
+        <div class="attr__btns">
+          <button type="button" class="attr__sbtn" data-action="attr-download">
+            <img src="./src/assets/img/attr/download.svg" width="8" height="8" alt="">
+            다운로드
+          </button>
+          <button type="button" class="attr__ico" data-action="attr-min" aria-label="접기">
+            <img src="./src/assets/img/attr/min.svg" width="12" height="12" alt="">
+          </button>
+          <button type="button" class="attr__ico" data-action="attr-max" aria-label="확대">
+            <img src="./src/assets/img/attr/max.svg" width="12" height="12" alt="">
+          </button>
+          <button type="button" class="attr__ico" data-action="close-attr" aria-label="닫기">
+            <img src="./src/assets/img/attr/close.svg" width="12" height="12" alt="">
+          </button>
+        </div>
+      </header>
+      <div class="attr__body">
+        <div class="attr__box">
+          <div class="attr__scroll">
+            <table class="attr__table">
+              <thead>
+                <tr>
+                  <th class="w-120">공간정보일련번호</th>
+                  <th class="w-100">객체일련번호</th>
+                  <th class="w-80">기관코드</th>
+                  <th class="w-100">사업구역코드</th>
+                  <th class="w-100">제작년월일</th>
+                  <th class="w-100">분류코드</th>
+                  <th class="w-100">해도레벨구분</th>
+                  <th class="w-100">해도이름</th>
+                  <th class="w-100">객체특성코드</th>
+                  <th class="w-80">부표현상</th>
+                  <th class="w-60">색</th>
+                  <th class="w-80">색유형</th>
+                  <th class="w-100">설치부표구분</th>
+                </tr>
+              </thead>
+              <tbody data-bind="attr-rows">
+                <tr>
+                  <td>1</td><td>500282</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR68853D</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                </tr>
+                <tr>
+                  <td>2</td><td>500250</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR67904C</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                </tr>
+                <tr>
+                  <td>3</td><td>500588</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR67994A</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                </tr>
+                <tr>
+                  <td>4</td><td>500190</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR679A72</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                </tr>
+                <tr>
+                  <td>5</td><td>501036</td><td>1192136</td><td>－</td><td>20251128</td><td>COD007</td><td>6</td><td>KR5G111J</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="eval" id="evalPanel" hidden aria-labelledby="evalTitle">
+      <header class="eval__head">
+        <h2 class="eval__title" id="evalTitle">격자별 특성평가 결과 조회</h2>
+        <button type="button" class="eval__close" data-action="close-eval" aria-label="닫기">
+          <img src="./src/assets/img/attr/close.svg" width="12" height="12" alt="">
+        </button>
+      </header>
+      <div class="eval__body">
+        <div class="eval__bar">
+          <div class="eval__tabs" role="tablist" aria-label="특성평가 보기">
+            <button type="button" class="eval__tab is-on" data-action="eval-tab" data-tab="all" role="tab" aria-selected="true">
+              특성 전체보기
+              <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+            </button>
+            <button type="button" class="eval__tab eval__tab--fix" data-action="eval-tab" data-tab="valid" role="tab" aria-selected="false">
+              유효값만 보기
+              <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+            </button>
+          </div>
+          <button type="button" class="eval__cta" data-action="eval-criteria">
+            특성평가 산정기준
+            <img src="./src/assets/img/eval/arrow.svg" width="16" height="16" alt="">
+          </button>
+        </div>
+        <div class="eval__box">
+          <div class="eval__scroll">
+            <table class="eval__table">
+              <thead>
+                <tr>
+                  <th class="w-cat">특성평가 구분</th>
+                  <th class="w-item">평가항목</th>
+                  <th>평가값</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-g="fish">
+                  <th rowspan="6" scope="rowgroup">
+                    <span class="eval__cat">어업활동특성평가</span>
+                    <span class="eval__score">0.04</span>
+                  </th>
+                  <td>양식장(면허어업권)</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="fish">
+                  <td>연근해 어획량</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="fish">
+                  <td>단위노력당 어획량</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="fish">
+                  <td>수산자원관리수면</td>
+                  <td data-val="0.04">0.04</td>
+                </tr>
+                <tr data-g="fish">
+                  <td>어항구</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="fish">
+                  <td>어항구</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="mineral">
+                  <th rowspan="4" scope="rowgroup">
+                    <span class="eval__cat">광물특성평가</span>
+                    <span class="eval__score">0.5</span>
+                  </th>
+                  <td>양식장(면허어업권)</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="mineral">
+                  <td>연근해 어획량</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="mineral">
+                  <td>단위노력당 어획량</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="mineral">
+                  <td>수산자원관리수면</td>
+                  <td data-val="1">1</td>
+                </tr>
+                <tr data-g="energy">
+                  <th rowspan="4" scope="rowgroup">
+                    <span class="eval__cat">에너지개발특성평가</span>
+                    <span class="eval__score">0</span>
+                  </th>
+                  <td>EEZ광물</td>
+                  <td data-val="1">1</td>
+                </tr>
+                <tr data-g="energy">
+                  <td>온도차에너지 시설</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="energy">
+                  <td>해상 에너지시설 예정단지</td>
+                  <td data-val="0">0</td>
+                </tr>
+                <tr data-g="energy">
+                  <td>수산자원관리수면</td>
+                  <td data-val="1">1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button type="button" class="mo-suggest" data-action="suggest" aria-label="추천레이어">
+      <img src="./src/assets/img/mo/suggest.svg" width="24" height="24" alt="">
+    </button>
+    <aside class="mo-tools" aria-label="지도 도구">
+      <div class="mo-tools__item">
+        <button type="button" class="mo-tools__btn" data-action="tool" data-tool="layer" aria-label="레이어">
+          <img src="./src/assets/img/mo/layer.svg" width="16" height="16" alt="">
+        </button>
+        <span class="mo-tools__label">레이어</span>
+      </div>
+      <div class="mo-tools__item">
+        <button type="button" class="mo-tools__btn" data-action="tool" data-tool="basemap" aria-label="배경지도">
+          <img src="./src/assets/img/mo/basemap.svg" width="16" height="16" alt="">
+        </button>
+        <span class="mo-tools__label">배경지도</span>
+      </div>
+      <div class="mo-tools__item">
+        <button type="button" class="mo-tools__btn" data-action="tool" data-tool="fullmap" aria-label="전체지도">
+          <img src="./src/assets/img/mo/fullmap.svg" width="16" height="16" alt="">
+        </button>
+        <span class="mo-tools__label">전체지도</span>
+      </div>
+      <div class="mo-tools__zoom">
+        <button type="button" class="mo-tools__zoom-btn" data-action="zoom" data-dir="in" aria-label="확대">
+          <img src="./src/assets/img/mo/plus.svg" width="12" height="12" alt="">
+        </button>
+        <button type="button" class="mo-tools__zoom-btn" data-action="zoom" data-dir="out" aria-label="축소">
+          <img src="./src/assets/img/mo/minus.svg" width="12" height="12" alt="">
+        </button>
+      </div>
+    </aside>
+    <button type="button" class="mo-sheet" data-action="mo-sheet" aria-expanded="false" aria-controls="moPeek">
+      <span class="mo-sheet__arr" aria-hidden="true">
+        <img src="./src/assets/img/mo/sheet-up.svg" width="8" height="8" alt="">
+      </span>
+      <span class="mo-sheet__txt" data-bind="mo-sheet-txt">공간정보 목록을 보려면 클릭하세요.</span>
+    </button>
+    
+    <div class="mo-peek" id="moPeek" hidden>
+      <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="mof">
+        <span class="mo-peek__name">해양수산정보 분류체계</span>
+        <span class="mo-peek__right">
+          <span class="count is-on">19</span>
+          <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+        </span>
+      </button>
+      <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="theme">
+        <span class="mo-peek__name">해양공간 주제정보</span>
+        <span class="mo-peek__right">
+          <span class="count is-on">6</span>
+          <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+        </span>
+      </button>
+    </div>
+    
+    <section class="mo-acc" id="moAcc" hidden aria-label="공간정보 목록">
+      <button type="button" class="mo-acc__head" data-action="mo-collapse">
+        <span class="mo-acc__title" data-bind="mo-acc-title">해양수산정보 분류체계</span>
+        <span class="mo-acc__right">
+          <span class="count is-on" data-bind="mo-acc-count">19</span>
+          <img src="./src/assets/img/icon/chev-up-w.svg" width="16" height="16" alt="">
+        </span>
+      </button>
+      <ul class="mo-acc__list" id="moAccMof" data-bind="mo-acc-mof">
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpSafety" data-layer-name="해양안전·관리">
+            <span class="mo-acc__name">해양안전·관리</span>
+            <span class="mo-acc__right">
+              <span class="count">16</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpEco" data-layer-name="해양·환경생태">
+            <span class="mo-acc__name">해양·환경생태</span>
+            <span class="mo-acc__right">
+              <span class="count">26</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpPort" data-layer-name="항만·항행">
+            <span class="mo-acc__name">항만·항행</span>
+            <span class="mo-acc__right">
+              <span class="count">11</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpFish" data-layer-name="어업활동">
+            <span class="mo-acc__name">어업활동</span>
+            <span class="mo-acc__right">
+              <span class="count">12</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpTour" data-layer-name="해양관광">
+            <span class="mo-acc__name">해양관광</span>
+            <span class="mo-acc__right">
+              <span class="count">9</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpEnergy" data-layer-name="해양에너지">
+            <span class="mo-acc__name">해양에너지</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpMilitary" data-layer-name="군사활동">
+            <span class="mo-acc__name">군사활동</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpZone" data-layer-name="해양용도구역">
+            <span class="mo-acc__name">해양용도구역</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpMineral" data-layer-name="골재·광물">
+            <span class="mo-acc__name">골재·광물</span>
+            <span class="mo-acc__right">
+              <span class="count">6</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpWater" data-layer-name="해양수자원">
+            <span class="mo-acc__name">해양수자원</span>
+            <span class="mo-acc__right">
+              <span class="count">6</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpBase" data-layer-name="기본공간정보">
+            <span class="mo-acc__name">기본공간정보</span>
+            <span class="mo-acc__right">
+              <span class="count">9</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpStat" data-layer-name="해양수산통계">
+            <span class="mo-acc__name">해양수산통계</span>
+            <span class="mo-acc__right">
+              <span class="count">8</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpSpace" data-layer-name="해양공간">
+            <span class="mo-acc__name">해양공간</span>
+            <span class="mo-acc__right">
+              <span class="count">3</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpShare" data-layer-name="공유수면">
+            <span class="mo-acc__name">공유수면</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpPolicy" data-layer-name="정책활용지도">
+            <span class="mo-acc__name">정책활용지도</span>
+            <span class="mo-acc__right">
+              <span class="count">25</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpNondigital" data-layer-name="비디지털">
+            <span class="mo-acc__name">비디지털</span>
+            <span class="mo-acc__right">
+              <span class="count">132</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpObs" data-layer-name="관측자료(원자료)">
+            <span class="mo-acc__name">관측자료(원자료)</span>
+            <span class="mo-acc__right">
+              <span class="count">16</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpFusion" data-layer-name="융합데이터">
+            <span class="mo-acc__name">융합데이터</span>
+            <span class="mo-acc__right">
+              <span class="count">10</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="grpBiz" data-layer-name="사업정보">
+            <span class="mo-acc__name">사업정보</span>
+            <span class="mo-acc__right">
+              <span class="count">2</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+      </ul>
+      <ul class="mo-acc__list" id="moAccTheme" data-bind="mo-acc-theme" hidden>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-0" data-layer-name="골재·광물자원특성평가">
+            <span class="mo-acc__name">골재·광물자원특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-1" data-layer-name="에너지개발특성평가">
+            <span class="mo-acc__name">에너지개발특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-2" data-layer-name="해양관광특성평가">
+            <span class="mo-acc__name">해양관광특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-3" data-layer-name="환경·생태계특성평가">
+            <span class="mo-acc__name">환경·생태계특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-4" data-layer-name="연구·교육보전특성평가">
+            <span class="mo-acc__name">연구·교육보전특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-5" data-layer-name="항만·항행특성평가">
+            <span class="mo-acc__name">항만·항행특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-6" data-layer-name="군사활동특성평가">
+            <span class="mo-acc__name">군사활동특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-7" data-layer-name="안전관리특성평가">
+            <span class="mo-acc__name">안전관리특성평가</span>
+            <span class="mo-acc__right">
+              <span class="count">1</span>
+              <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+            </span>
+          </button>
+        </li>
+      </ul>
+    </section>
+    <nav class="mo-menu" id="moMenu" aria-label="전체 메뉴" hidden>
+      <div class="mo-menu__cols">
+        <ul class="mo-menu__d1" role="tablist" aria-label="1차 메뉴">
+          <li>
+            <button type="button" class="mo-menu__d1-btn is-on" data-action="mo-nav" data-nav="platform" role="tab" aria-selected="true" aria-controls="moNavPlatform">
+              해양수산 공간정보 플랫폼
+            </button>
+          </li>
+          <li>
+            <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="bigdata" role="tab" aria-selected="false" aria-controls="moNavBigdata">
+              빅데이터
+            </button>
+          </li>
+          <li>
+            <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="stat" role="tab" aria-selected="false" aria-controls="moNavStat">
+              통계자료
+            </button>
+          </li>
+          <li>
+            <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="archive" role="tab" aria-selected="false" aria-controls="moNavArchive">
+              자료실
+            </button>
+          </li>
+          <li>
+            <button type="button" class="mo-menu__d1-btn" data-action="mo-nav" data-nav="anal" role="tab" aria-selected="false" aria-controls="moNavAnal">
+              해양수산 공간분석
+            </button>
+          </li>
+        </ul>
+        <div class="mo-menu__d2">
+          <div class="mo-menu__pane is-on" id="moNavPlatform" data-nav-pane="platform" role="tabpanel">
+            <a class="mo-menu__d2-link" href="./map.html">공간정보</a>
+          </div>
+          <div class="mo-menu__pane" id="moNavBigdata" data-nav-pane="bigdata" role="tabpanel" hidden></div>
+          <div class="mo-menu__pane" id="moNavStat" data-nav-pane="stat" role="tabpanel" hidden></div>
+          <div class="mo-menu__pane" id="moNavArchive" data-nav-pane="archive" role="tabpanel" hidden></div>
+          <div class="mo-menu__pane" id="moNavAnal" data-nav-pane="anal" role="tabpanel" hidden></div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="dlg" id="metaModal" hidden data-dimmed="true">
+    <div class="dlg__dim" data-action="close-modal" hidden></div>
+    <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="metaTitle" tabindex="-1">
+      <header class="dlg__head">
+        <div class="dlg__head-left">
+          <h2 class="dlg__title" id="metaTitle" data-bind="meta-title">갯벌면적</h2>
+          <p class="dlg__badges">
+            <span class="dlg__badge dlg__badge--part">부분공개</span>
+            <span class="dlg__badge dlg__badge--pub">기초 DB</span>
+          </p>
+        </div>
+        <button type="button" class="dlg__close" data-action="close-modal" aria-label="닫기">
+          <img src="./src/assets/img/modal/close.svg" width="16" height="16" alt="">
+        </button>
+      </header>
+      <div class="dlg__body">
+        <div class="dlg__tabs" role="tablist" aria-label="메타정보">
+          <button type="button" class="dlg__tab is-on" role="tab" id="metaTabOverview" aria-selected="true" aria-controls="metaPaneOverview" data-action="modal-tab" data-tab="overview">
+            개요
+            <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+          </button>
+          <button type="button" class="dlg__tab" role="tab" id="metaTabSpatial" aria-selected="false" aria-controls="metaPaneSpatial" data-action="modal-tab" data-tab="spatial">
+            공간 메타정보
+            <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+          </button>
+          <button type="button" class="dlg__tab" role="tab" id="metaTabMarine" aria-selected="false" aria-controls="metaPaneMarine" data-action="modal-tab" data-tab="marine">
+            해양특성 메타정보
+            <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+          </button>
+          <button type="button" class="dlg__tab" role="tab" id="metaTabModel" aria-selected="false" aria-controls="metaPaneModel" data-action="modal-tab" data-tab="model">
+            데이터모델 메타정보
+            <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
+          </button>
+        </div>
+  
+        <div class="dlg__pane is-on" id="metaPaneOverview" role="tabpanel" aria-labelledby="metaTabOverview" data-bind="meta-overview">
+          <div class="dlg__sec">
+            <h3 class="dlg__sec-ti">설명</h3>
+            <p class="dlg__desc" data-bind="meta-desc">다양한 해양활동과 편의제공을 위한 요트 추천항로_ 마리나 항만시설 등 안전하고 편리한 해양활동 정보를 제공.요트 연결항로 및 접속항로에 대한 정보 제공</p>
+          </div>
+          <div class="dlg__sec">
+            <h3 class="dlg__sec-ti">주제분류</h3>
+            <ul class="dlg__cls">
+              <li>
+                <span class="dlg__cls-lab dlg__cls-lab--mof">해양수산분류</span>
+                <p class="dlg__cls-path">
+                  공공질서 및 안전
+                  <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                  해경
+                  <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                  해상안전
+                </p>
+              </li>
+              <li>
+                <span class="dlg__cls-lab dlg__cls-lab--gov">정부지능분야</span>
+                <p class="dlg__cls-path">
+                  해사안전
+                  <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                  해사안전관리
+                  <img src="./src/assets/img/modal/chev.svg" width="12" height="12" alt="">
+                  해양재난안전
+                </p>
+              </li>
+              <li>
+                <span class="dlg__cls-lab dlg__cls-lab--src">원천출처</span>
+                <p class="dlg__cls-path">해사안전</p>
+              </li>
+            </ul>
+          </div>
+          <div class="dlg__sec">
+            <h3 class="dlg__sec-ti">주제어</h3>
+            <p class="dlg__tags">
+              <span># 요트</span>
+              <span># 항로</span>
+              <span># 연결</span>
+              <span># 접속</span>
+              <span># 불규칙</span>
+              <span># 흐름</span>
+              <span># 소용돌이</span>
+            </p>
+          </div>
+          <ul class="dlg__cards">
+            <li>
+              <span class="dlg-card__ico"><img src="./src/assets/img/modal/folder.svg" width="40" height="40" alt=""></span>
+              <p>
+                <strong>유형</strong>
+                <span>공간 자료(좌표형)</span>
+              </p>
+            </li>
+            <li>
+              <span class="dlg-card__ico"><img src="./src/assets/img/modal/graph.svg" width="40" height="40" alt=""></span>
+              <p>
+                <strong>자료생산 진행상태</strong>
+                <span>규칙적 생산진행</span>
+              </p>
+            </li>
+            <li>
+              <span class="dlg-card__ico dlg-card__ico--sm"><img src="./src/assets/img/modal/building.svg" width="24" height="24" alt=""></span>
+              <p>
+                <strong>관리기관(부서)</strong>
+                <span>국립해양조사원(해도수로과)</span>
+              </p>
+            </li>
+            <li>
+              <span class="dlg-card__ico dlg-card__ico--pc"><img src="./src/assets/img/modal/desktop.svg" width="22" height="19" alt=""></span>
+              <p>
+                <strong>관리기관 시스템</strong>
+                <span>개방해</span>
+              </p>
+            </li>
+          </ul>
+        </div>
+  
+        <div class="dlg__pane" id="metaPaneSpatial" role="tabpanel" aria-labelledby="metaTabSpatial" hidden data-bind="meta-spatial">
+          <ul class="dlg-kv">
+            <li><strong>2.1 축척</strong><span>-</span></li>
+            <li><strong>2.2 해상도</strong><span>-</span></li>
+            <li><strong>2.3 측지계</strong><span>GRS80</span></li>
+            <li><strong>2.4 투영법</strong><span>-</span></li>
+            <li><strong>2.5 좌표원점</strong><span>-</span></li>
+            <li><strong>2.6 좌표체계코드</strong><span>WGS84 경위도</span></li>
+            <li><strong>2.7 LOD유형</strong><span>2차원</span></li>
+            <li><strong>2.8 시간적범위</strong><span>-</span></li>
+            <li><strong>2.9 공간적범위</strong><span>전해역</span></li>
+            <li><strong>2.10 공개, 비공개여부</strong><span>미분류</span></li>
+            <li><strong>2.11 품질보증</strong><span>-</span></li>
+            <li><strong>2.12 파일이름</strong><span>sta_khoa_wave</span></li>
+            <li><strong>2.13 파일포맷</strong><span>shp</span></li>
+            <li><strong>2.14 파일용량</strong><span>0.1</span></li>
+            <li><strong>2.15 파일언어</strong><span>한국어</span></li>
+          </ul>
+        </div>
+  
+        <div class="dlg__pane" id="metaPaneMarine" role="tabpanel" aria-labelledby="metaTabMarine" hidden data-bind="meta-marine">
+          <ul class="dlg-kv">
+            <li><strong>3.1.1 사업명</strong><span>-</span></li>
+            <li><strong>3.1.2 사업목적</strong><span>-</span></li>
+            <li><strong>3.1.3 사업위탁기관명</strong><span>-</span></li>
+            <li><strong>3.1.4 사업책임기관명</strong><span>-</span></li>
+            <li><strong>3.1.5 사업시작일자</strong><span>-</span></li>
+            <li><strong>3.1.6 사업종료일자</strong><span>-</span></li>
+            <li><strong>3.1.7 사업구분범위</strong><span>-</span></li>
+            <li><strong>3.2.1 한글장비명</strong><span>-</span></li>
+            <li><strong>3.2.2 영문장비명</strong><span>-</span></li>
+            <li><strong>3.2.3 모델명</strong><span>-</span></li>
+            <li><strong>3.2.4 용도</strong><span>-</span></li>
+            <li><strong>3.2.5 주요설정값 설명</strong><span>-</span></li>
+            <li><strong>3.2.6 장비검교정수행일자</strong><span>-</span></li>
+            <li><strong>3.2.7 관련소프트웨어명</strong><span>-</span></li>
+            <li><strong>3.3.1 조사위치명</strong><span>-</span></li>
+            <li><strong>3.3.2 위도</strong><span>-</span></li>
+            <li><strong>3.3.3 경도</strong><span>-</span></li>
+            <li><strong>3.3.4 주소</strong><span>-</span></li>
+            <li><strong>3.3.5 자료수집시작일시</strong><span>-</span></li>
+            <li><strong>3.3.6 자료수집종료일시</strong><span>-</span></li>
+            <li><strong>3.3.7 자료수집수행기관명</strong><span>-</span></li>
+            <li><strong>3.3.8 자료수집책임자명</strong><span>-</span></li>
+            <li><strong>3.3.9 자료수집수행시간간격</strong><span>-</span></li>
+            <li><strong>3.3.10 자료수집수행간격설명</strong><span>-</span></li>
+          </ul>
+        </div>
+  
+        <div class="dlg__pane dlg__pane--model" id="metaPaneModel" role="tabpanel" aria-labelledby="metaTabModel" hidden data-bind="meta-model">
+          <div class="dlg-info">
+            <div>
+              <span class="dlg-card__ico"><img src="./src/assets/img/modal/folder.svg" width="40" height="40" alt=""></span>
+              <p>
+                <strong>물리 테이블 명</strong>
+                <span>rcmr_cnct_rute_l</span>
+              </p>
+            </div>
+            <div>
+              <span class="dlg-card__ico"><img src="./src/assets/img/modal/graph.svg" width="40" height="40" alt=""></span>
+              <p>
+                <strong>논리 테이블 명</strong>
+                <span>추천항로접속항로</span>
+              </p>
+            </div>
+          </div>
+          <table class="dlg-tbl">
+            <thead>
+              <tr>
+                <th>칼럼명</th>
+                <th>컬럼설명</th>
+                <th>데이터타입</th>
+                <th>길이</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>gid</td><td>공간정보일련번호</td><td>integer</td><td>-</td></tr>
+              <tr><td>ty_cd</td><td>공간정보</td><td>geometry</td><td>-</td></tr>
+              <tr><td>obj_id</td><td>객체ID</td><td>character varying</td><td>200</td></tr>
+              <tr><td>oc_invs_inst_cd</td><td>해양조사기관코드</td><td>character varying</td><td>7</td></tr>
+              <tr><td>mfgg_ymd</td><td>제작일자</td><td>character varying</td><td>8</td></tr>
+              <tr><td>jdsa_nm</td><td>관할해역명</td><td>character varying</td><td>100</td></tr>
+              <tr><td>cnct_rute_bf_spot_no</td><td>접속항로이전지점번호</td><td>character varying</td><td>200</td></tr>
+              <tr><td>cnct_rute_next_spot_no</td><td>접속항로다음지점번호</td><td>character varying</td><td>20</td></tr>
+              <tr><td>cnct_rute_bf_spot_dms_la</td><td>접속항로이전지점도분초위도</td><td>character varying</td><td>13</td></tr>
+              <tr><td>cnct_rute_bf_spot_dms_lo</td><td>접속항로이전지점도분초경도</td><td>character varying</td><td>14</td></tr>
+              <tr><td>cnct_rute_next_spot_dms_la</td><td>접속항로다음지점도분초위도</td><td>character varying</td><td>13</td></tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="dlg__pane dlg__pane--data" id="metaPaneData" role="tabpanel" data-bind="meta-data" hidden>
+          <h3 class="dlg__sec-ti">데이터 보기</h3>
+          <img class="dlg__map" src="./src/assets/img/modal/data-map.png" width="650" height="550" alt="갯벌면적 데이터">
+        </div>
+  
+        <button type="button" class="dlg__cta" data-action="meta-data">
+          <img src="./src/assets/img/modal/download.svg" width="16" height="16" alt="">
+          데이터보기
+        </button>
+      </div>
+    </section>
+  </div>
+  <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./src/js/map.js?t=1788916290045"></script>
+</body>
+</html>

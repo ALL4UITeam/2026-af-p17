@@ -63,3 +63,20 @@ ol {
   padding: 0;
   list-style: none;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, select, textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
