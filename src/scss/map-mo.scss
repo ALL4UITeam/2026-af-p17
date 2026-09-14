@@ -1408,7 +1408,8 @@
     gap: 0;
   }
 
-  .attr:not([hidden]) {
+  .app:not(.is-panel-off) .attr:not([hidden]),
+  .app.is-panel-off .attr:not([hidden]) {
     position: absolute;
     top: var(--mo-hdr, 76px);
     right: 0;
