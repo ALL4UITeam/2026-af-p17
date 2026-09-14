@@ -46,7 +46,7 @@ const PAGES = [
       { id: 'm07', name: '07. 추천레이어', file: 'map-mo-suggest.html', ready: true, width: 360, label: 'MO' },
       { id: 'm08', name: '08. 배경지도', file: 'map-mo-basemap.html', ready: true, width: 360, label: 'MO' },
       { id: 'm09', name: '09. 메타정보', file: 'map-mo-modal.html', ready: true, width: 360, label: 'MO' },
-      { id: 'm10', name: '10. 속성정보(table)', file: '', ready: false },
+      { id: 'm10', name: '10. 속성정보(table)', file: 'map-mo-attr.html', ready: true, width: 360, label: 'MO' },
     ],
   },
 ]

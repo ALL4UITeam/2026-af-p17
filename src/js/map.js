@@ -302,11 +302,20 @@ function setInfoLayer(id, on) {
  * @param {string} [id]
  * @param {{ dimmed?: boolean }} [opts] dimmed 기본 true. false 면 딤 없이 모달만
  */
-function syncMoModalTop() {
+function syncMoSheetTop(el) {
   const hdr = document.querySelector('.mo-hdr')
-  const dlg = document.querySelector('.dlg:not([hidden])')
-  if (!hdr || !dlg || !MO_MQ.matches) return
-  dlg.style.setProperty('--mo-hdr', `${hdr.offsetHeight}px`)
+  if (!hdr || !el || !MO_MQ.matches) return
+  el.style.setProperty('--mo-hdr', `${hdr.offsetHeight}px`)
+}
+
+function syncMoModalTop() {
+  syncMoSheetTop(document.querySelector('.dlg:not([hidden])'))
+}
+
+function syncMoAttrTop() {
+  const attr = document.getElementById('attrPanel')
+  if (!attr || attr.hidden) return
+  syncMoSheetTop(attr)
 }
 
 function openModal(id = 'metaModal', opts = {}) {
@@ -345,6 +354,14 @@ function openAttr(opts = {}) {
   if (opts.min != null) el.classList.toggle('is-min', !!opts.min)
   if (opts.max != null) el.classList.toggle('is-max', !!opts.max)
   closeEval()
+  if (MO_MQ.matches) {
+    setMoDock('close')
+    closeSuggest()
+    closeLayerList()
+    closeFilter()
+    closeBasemap()
+    syncMoAttrTop()
+  }
   app?.classList.add('is-attr')
   emit('map:attr', { open: true, id: el.dataset.layerId, min: el.classList.contains('is-min') })
 }
@@ -1837,6 +1854,7 @@ if (typeof ResizeObserver === 'function') {
 window.addEventListener('resize', () => {
   syncMapChromePos()
   syncMoModalTop()
+  syncMoAttrTop()
 })
 
 function bootScreen() {
@@ -1870,7 +1888,7 @@ function bootScreen() {
   if (screen === 'poi-list') openPoiStage('list')
   if (screen === 'coord') openCoordSearch()
   if (screen === 'area') openAreaInfo()
-  if (screen === 'attr') openAttr()
+  if (screen === 'attr' || screen === 'mo-attr') openAttr()
   if (screen === 'eval') openEval()
   if (screen === 'eval-valid') openEval({ tab: 'valid' })
   if (screen === 'cluster') openClusters()

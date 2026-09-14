@@ -102,6 +102,7 @@ const MAP_SCREENS = {
   'map-mo-suggest.html': 'mo-suggest',
   'map-mo-basemap.html': 'mo-basemap',
   'map-mo-modal.html': 'modal',
+  'map-mo-attr.html': 'mo-attr',
 }
 
 const mapBase = {

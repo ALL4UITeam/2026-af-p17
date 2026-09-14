@@ -9,7 +9,6 @@
   .lyr-list:not(.is-open),
   .status,
   .areainfo,
-  .attr,
   .eval,
   .tdetail,
   .legend,
@@ -1395,5 +1394,139 @@
 
   .bmap:not([hidden]) .bmap__thumb {
     height: 72px;
+  }
+
+  body:has(.attr:not([hidden])) .mo-search,
+  body:has(.attr:not([hidden])) .mo-tools,
+  body:has(.attr:not([hidden])) .mo-suggest,
+  body:has(.attr:not([hidden])) .mo-sheet,
+  body:has(.attr:not([hidden])) .mo-picked {
+    display: none;
+  }
+
+  body:has(.attr:not([hidden])) .mo-bar {
+    gap: 0;
+  }
+
+  .attr:not([hidden]) {
+    position: absolute;
+    top: var(--mo-hdr, 76px);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 18;
+    display: flex !important;
+    width: auto;
+    height: auto;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .attr:not([hidden])::before {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .attr__total,
+  .attr__sbtn,
+  .attr__ico[data-action='attr-min'],
+  .attr__ico[data-action='attr-max'],
+  .attr__page {
+    display: none;
+  }
+
+  .attr__lab--mo {
+    display: inline;
+  }
+
+  .attr__lab:not(.attr__lab--mo) {
+    display: none;
+  }
+
+  .attr__body {
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  .attr__box {
+    min-height: 0;
+  }
+
+  .attr__scroll {
+    overflow: auto;
+  }
+
+  .attr__table th:nth-child(1),
+  .attr__table td:nth-child(1),
+  .attr__table th:nth-child(2),
+  .attr__table td:nth-child(2),
+  .attr__table th:nth-child(3),
+  .attr__table td:nth-child(3),
+  .attr__table th:nth-child(10),
+  .attr__table td:nth-child(10),
+  .attr__table th:nth-child(12),
+  .attr__table td:nth-child(12) {
+    width: 80px;
+    min-width: 80px;
+  }
+
+  .attr__table th:nth-child(4),
+  .attr__table td:nth-child(4) {
+    width: 90px;
+    min-width: 90px;
+  }
+
+  .attr__table th:nth-child(5),
+  .attr__table td:nth-child(5),
+  .attr__table th:nth-child(6),
+  .attr__table td:nth-child(6),
+  .attr__table th:nth-child(7),
+  .attr__table td:nth-child(7),
+  .attr__table th:nth-child(8),
+  .attr__table td:nth-child(8),
+  .attr__table th:nth-child(9),
+  .attr__table td:nth-child(9),
+  .attr__table th:nth-child(13),
+  .attr__table td:nth-child(13) {
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .attr__table th:nth-child(11),
+  .attr__table td:nth-child(11) {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .attr__table tbody tr.is-on td {
+    color: $gray-80;
+    background: #f3f9ff;
+    border-top: 2px solid #407ad0;
+    border-bottom: 2px solid #407ad0;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  .attr__table tbody tr.is-on td:first-child {
+    border-left: 2px solid #407ad0;
+  }
+
+  .attr__table tbody tr.is-on td:last-child {
+    border-right: 2px solid #407ad0;
+  }
+
+  .attr__table tbody tr.is-pick td {
+    color: #fff;
+    background: #407ad0;
+    border-top: 2px solid #3066bd;
+    border-bottom: 2px solid #3066bd;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  .attr__table tbody tr.is-pick td:first-child {
+    border-left: 2px solid #3066bd;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .attr__table tbody tr.is-pick td:last-child {
+    border-right: 2px solid #3066bd;
+    border-radius: 0 8px 8px 0;
   }
 }
