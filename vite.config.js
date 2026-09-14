@@ -348,7 +348,10 @@ function mapInputs() {
     map: path.resolve(__dirname, 'map.html'),
   }
   for (const file of Object.keys(MAP_SCREENS)) {
-    entries[file.replace(/\.html$/i, '')] = path.resolve(__dirname, file)
+    const name = file.replace(/\.html$/i, '')
+    // CSS 엔트리 키 'map-mo' 와 같으면 HTML이 덮여서 빌드에서 빠진다.
+    const key = name === 'map-mo' ? 'map-mo-page' : name
+    entries[key] = path.resolve(__dirname, file)
   }
   return entries
 }
