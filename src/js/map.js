@@ -101,14 +101,26 @@ function setLayerChecked(id, checked) {
   })
 }
 
+function panelGnb() {
+  return document.querySelector('[data-action="panel-gnb"]')
+}
+
+function syncPanelChrome(open) {
+  const handle = document.querySelector('[data-action="collapse-panel"]')
+  setExpanded(handle, open)
+  if (handle) handle.setAttribute('aria-label', open ? '패널 접기' : '패널 펼치기')
+  panelGnb()?.classList.toggle('is-active', open)
+  syncMapChromePos()
+}
+
 function openPanel() {
   app?.classList.remove('is-panel-off')
-  setExpanded(document.querySelector('[data-action="collapse-panel"]'), true)
+  syncPanelChrome(true)
 }
 
 function closePanel() {
   app?.classList.add('is-panel-off')
-  setExpanded(document.querySelector('[data-action="collapse-panel"]'), false)
+  syncPanelChrome(false)
 }
 
 function syncMapChromePos() {
@@ -157,15 +169,41 @@ function setLayerTool(on) {
   })
 }
 
+function pickedSheet() {
+  return document.getElementById('moPicked')
+}
+
+function syncPickedCount() {
+  const sheet = pickedSheet()
+  if (!sheet) return
+  const n = sheet.querySelectorAll('.mo-picked__row').length
+  sheet.querySelectorAll('[data-bind="mo-picked-count"]').forEach((el) => {
+    el.textContent = String(n)
+  })
+}
+
 function openLayerList() {
-  if (MO_MQ.matches) setMoDock('close')
   closeBasemap()
+  if (MO_MQ.matches) {
+    closeFilter()
+    setMoDock('close')
+    closeSuggest()
+    const sheet = pickedSheet()
+    if (sheet) {
+      syncPickedCount()
+      sheet.hidden = false
+    }
+    setLayerTool(true)
+    return
+  }
   lyrList?.classList.add('is-open')
   setLayerTool(true)
 }
 
 function closeLayerList() {
   lyrList?.classList.remove('is-open')
+  const sheet = pickedSheet()
+  if (sheet) sheet.hidden = true
   setLayerTool(false)
 }
 
@@ -264,6 +302,13 @@ function setInfoLayer(id, on) {
  * @param {string} [id]
  * @param {{ dimmed?: boolean }} [opts] dimmed 기본 true. false 면 딤 없이 모달만
  */
+function syncMoModalTop() {
+  const hdr = document.querySelector('.mo-hdr')
+  const dlg = document.querySelector('.dlg:not([hidden])')
+  if (!hdr || !dlg || !MO_MQ.matches) return
+  dlg.style.setProperty('--mo-hdr', `${hdr.offsetHeight}px`)
+}
+
 function openModal(id = 'metaModal', opts = {}) {
   const el = document.getElementById(id)
   if (!el) return
@@ -271,8 +316,16 @@ function openModal(id = 'metaModal', opts = {}) {
   el.dataset.dimmed = dimmed ? 'true' : 'false'
   const dim = el.querySelector('.dlg__dim')
   if (dim) dim.hidden = !dimmed
+  if (MO_MQ.matches) {
+    setMoDock('close')
+    closeSuggest()
+    closeLayerList()
+    closeFilter()
+    closeBasemap()
+  }
   el.hidden = false
   if (opts.tab) setModalTab(opts.tab)
+  syncMoModalTop()
   el.querySelector('.dlg__box')?.focus()
   emit('map:modal', { id, open: true, dimmed, tab: opts.tab || currentModalTab(el) })
 }
@@ -470,6 +523,26 @@ function setPoi(open) {
   const el = document.getElementById('poiPop')
   if (!el) return
   el.hidden = !open
+}
+
+function setPoiList(open) {
+  const el = document.getElementById('poiListPop')
+  if (!el) return
+  el.hidden = !open
+}
+
+function openPoiStage(kind) {
+  closePanel()
+  setTourList(false)
+  setTourOverlay(false)
+  setPins(false)
+  document.getElementById('marinaPins')?.setAttribute('hidden', '')
+  document.getElementById('marinaPoi')?.setAttribute('hidden', '')
+  app?.classList.add('is-poi-only')
+  const pin = document.getElementById('poiStagePin')
+  if (pin) pin.hidden = false
+  setPoi(kind === 'thum')
+  setPoiList(kind === 'list')
 }
 
 function fillTourPoi(pin) {
@@ -735,11 +808,54 @@ function suggestBar() {
   return document.getElementById('suggestBar')
 }
 
+function moSuggestSheet() {
+  return document.getElementById('moSuggestSheet')
+}
+
 function isSuggestOpen() {
+  if (MO_MQ.matches) return app?.classList.contains('is-mo-suggest') === true
   return suggestBar()?.classList.contains('is-open') === true
 }
 
+function setMoSuggestChip(name) {
+  const sheet = moSuggestSheet()
+  if (!sheet || !name) return
+  sheet.querySelectorAll('.mo-sg__chip').forEach((chip) => {
+    const on = chip.dataset.suggest === name
+    chip.classList.toggle('is-on', on)
+    chip.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  sheet.querySelectorAll('.mo-sg__list').forEach((list) => {
+    list.hidden = list.dataset.sgPanel !== name
+  })
+  const active = sheet.querySelector(`.mo-sg__list[data-sg-panel="${CSS.escape(name)}"]`)
+  document.querySelectorAll('[data-bind="mo-sg-count"]').forEach((el) => {
+    el.textContent = String(active?.children.length || 0)
+  })
+}
+
 function setSuggest(open) {
+  if (MO_MQ.matches) {
+    const sheet = moSuggestSheet()
+    if (!sheet) return
+    if (open) {
+      setMoDock('close')
+      closeLayerList()
+      closeFilter()
+      setMoMenu(false)
+    }
+    app?.classList.toggle('is-mo-suggest', open)
+    sheet.hidden = !open
+    document.querySelectorAll('.mo-suggest[data-action="suggest"]').forEach((btn) => {
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false')
+    })
+    if (open) {
+      const current = sheet.querySelector('.mo-sg__chip.is-on')?.dataset.suggest || '어촌'
+      setMoSuggestChip(current)
+    }
+    emit('map:suggest', { open })
+    return
+  }
   const el = suggestBar()
   if (!el) return
   el.classList.toggle('is-open', open)
@@ -886,14 +1002,54 @@ function setMoMenu(open) {
   if (trigger) trigger.setAttribute('aria-label', open ? '메뉴 닫기' : '전체 메뉴')
 }
 
+const treeHomeMarkers = new WeakMap()
+
+function panelTrees() {
+  return [...document.querySelectorAll('#panelList > .tree, #moAccTrees > .tree')]
+}
+
+function dockTreesToMo() {
+  const host = document.getElementById('moAccTrees')
+  const panelList = document.getElementById('panelList')
+  if (!host || !panelList) return
+  panelList.querySelectorAll(':scope > .tree').forEach((tree) => {
+    if (!treeHomeMarkers.has(tree)) {
+      const marker = document.createComment(`tree-home:${tree.dataset.tree || ''}`)
+      tree.before(marker)
+      treeHomeMarkers.set(tree, marker)
+    }
+    host.appendChild(tree)
+  })
+  host.querySelectorAll(':scope > .tree > .tree__group').forEach((group) => {
+    group.classList.add('is-open')
+  })
+}
+
+function restoreTreesFromMo() {
+  const host = document.getElementById('moAccTrees')
+  if (!host) return
+  ;[...host.querySelectorAll(':scope > .tree')].forEach((tree) => {
+    const root = tree.querySelector(':scope > .tree__group')
+    const head = tree.querySelector(':scope > .tree__head')
+    if (root && head?.getAttribute('aria-expanded') !== 'true') root.classList.remove('is-open')
+    const marker = treeHomeMarkers.get(tree)
+    if (marker?.parentNode) marker.after(tree)
+    else document.getElementById('panelList')?.appendChild(tree)
+    tree.hidden = false
+  })
+}
+
 function setMoDock(mode) {
   const peek = document.getElementById('moPeek')
   const acc = document.getElementById('moAcc')
+  if (mode !== 'close') closeSuggest()
   app?.classList.toggle('is-mo-peek', mode === 'peek')
   app?.classList.toggle('is-mo-open', mode === 'open')
   app?.classList.toggle('is-mo-sheet', mode !== 'close')
   if (peek) peek.hidden = mode !== 'peek'
   if (acc) acc.hidden = mode !== 'open'
+  if (mode === 'open') dockTreesToMo()
+  else restoreTreesFromMo()
   document.querySelectorAll('[data-action="mo-sheet"]').forEach((el) => {
     setExpanded(el, mode !== 'close')
   })
@@ -903,17 +1059,27 @@ function setMoDock(mode) {
 
 function openMoGroup(group) {
   const isTheme = group === 'theme'
-  const mof = document.getElementById('moAccMof')
-  const theme = document.getElementById('moAccTheme')
-  if (mof) mof.hidden = isTheme
-  if (theme) theme.hidden = !isTheme
+  setMoDock('open')
+  panelTrees().forEach((tree) => {
+    const key = tree.dataset.tree
+    tree.hidden = isTheme ? key !== 'theme' : key !== 'mof'
+  })
   document.querySelectorAll('[data-bind="mo-acc-title"]').forEach((el) => {
     el.textContent = isTheme ? '해양공간 주제정보' : '해양수산정보 분류체계'
   })
   document.querySelectorAll('[data-bind="mo-acc-count"]').forEach((el) => {
-    el.textContent = isTheme ? '6' : String(mof?.children.length || 0)
+    el.textContent = isTheme ? '3' : '6'
   })
-  setMoDock('open')
+}
+
+function expandMoTreeDemo() {
+  openMoGroup('mof')
+  const ocean = document.querySelector('#moAccTrees [data-group-id="ocean"] > .tree__row')
+  const env = document.querySelector('#moAccTrees .tree__d3[data-group-id="env"]')
+  const policy = document.querySelector('#moAccTrees [data-group-id="env-policy"]')
+  if (ocean && ocean.getAttribute('aria-expanded') !== 'true') onToggle(ocean)
+  if (env && env.getAttribute('aria-expanded') !== 'true') onToggle(env)
+  if (policy && policy.getAttribute('aria-expanded') !== 'true') onToggle(policy)
 }
 
 function findToggleBox(btn, id) {
@@ -971,7 +1137,7 @@ function syncFavPane() {
   const pane = document.getElementById('panelFav')
   if (!pane) return
   pane.replaceChildren()
-  document.querySelectorAll('#panelList [data-action="fav-layer"][aria-pressed="true"]').forEach((btn) => {
+  document.querySelectorAll('#panelList [data-action="fav-layer"][aria-pressed="true"], #moAccTrees [data-action="fav-layer"][aria-pressed="true"]').forEach((btn) => {
     const src = btn.closest('.tree__d5')
     if (!src) return
     const clone = src.cloneNode(true)
@@ -1069,7 +1235,10 @@ function setFilterTriggers(open) {
 function openFilter() {
   const el = document.getElementById('filterPop')
   if (!el) return
-  if (MO_MQ.matches) setMoDock('close')
+  if (MO_MQ.matches) {
+    setMoDock('close')
+    closeLayerList()
+  }
   el.hidden = false
   setFilterTriggers(true)
   el.focus()
@@ -1391,7 +1560,14 @@ function onClick(event) {
     if (app?.classList.contains('is-panel-off')) openPanel()
     else closePanel()
   }
-  if (action === 'close-lyr-list') closeLayerList()
+  if (action === 'panel-gnb') {
+    if (app?.classList.contains('is-panel-off')) {
+      event.preventDefault()
+      openPanel()
+    }
+  }
+  if (action === 'close-lyr-list' || action === 'close-mo-picked') closeLayerList()
+  if (action === 'attr-layer') openAttr({ title: actionEl.dataset.layerName || '' })
   if (action === 'close-basemap') closeBasemap()
   if (action === 'basemap-pick') pickBasemap(actionEl.dataset.map)
   if (action === 'basemap-color') pickBasemapColor(actionEl.dataset.color)
@@ -1478,12 +1654,18 @@ function onClick(event) {
   }
   if (action === 'mo-expand') openMoGroup(actionEl.dataset.group || 'mof')
   if (action === 'mo-collapse') setMoDock('peek')
-  if (action === 'mo-group') emit('map:group', { id: actionEl.dataset.groupId, name: actionEl.dataset.layerName })
   if (action === 'suggest') {
-    if (MO_MQ.matches) emit('map:suggest')
-    else setSuggest(!isSuggestOpen())
+    setSuggest(!isSuggestOpen())
   }
-  if (action === 'suggest-chip') emit('map:suggest', { name: actionEl.dataset.suggest || '' })
+  if (action === 'suggest-close') closeSuggest()
+  if (action === 'suggest-chip') {
+    const name = actionEl.dataset.suggest || ''
+    if (MO_MQ.matches) {
+      if (!isSuggestOpen()) setSuggest(true)
+      setMoSuggestChip(name)
+    }
+    emit('map:suggest', { name })
+  }
   if (action === 'mo-user') emit('map:user')
 }
 
@@ -1652,7 +1834,10 @@ if (typeof ResizeObserver === 'function') {
   const leftCol = document.querySelector('.app__left')
   if (leftCol) new ResizeObserver(syncMapChromePos).observe(leftCol)
 }
-window.addEventListener('resize', syncMapChromePos)
+window.addEventListener('resize', () => {
+  syncMapChromePos()
+  syncMoModalTop()
+})
 
 function bootScreen() {
   const screen = (document.body.dataset.screen || location.hash.replace(/^#/, '') || '').trim()
@@ -1666,6 +1851,9 @@ function bootScreen() {
   }
   if (screen === 'mo-peek') setMoDock('peek')
   if (screen === 'mo-open') openMoGroup('mof')
+  if (screen === 'mo-tree') expandMoTreeDemo()
+  if (screen === 'mo-suggest') openSuggest()
+  if (screen === 'mo-basemap' || screen === 'basemap') openBasemap()
   if (screen === 'mo-menu') setMoMenu(true)
   if (screen === 'lyr' || screen === 'mo-lyr') openLayerList()
   if (MODAL[screen]) openModal('metaModal', MODAL[screen])
@@ -1678,8 +1866,9 @@ function bootScreen() {
   }
   if (screen === 'tour-detail') openTourDetail()
   if (screen === 'marina') openMarina()
+  if (screen === 'poi') openPoiStage('thum')
+  if (screen === 'poi-list') openPoiStage('list')
   if (screen === 'coord') openCoordSearch()
-  if (screen === 'basemap') openBasemap()
   if (screen === 'area') openAreaInfo()
   if (screen === 'attr') openAttr()
   if (screen === 'eval') openEval()

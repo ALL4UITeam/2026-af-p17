@@ -22,7 +22,6 @@
       </button>
     </form>
     <div class="panel__list" id="panelList" role="tabpanel" aria-labelledby="tabList">
-      {{!-- 트리: 피그마 125:56506 해양 1개만 채움. 수산/물류/항만 하위는 디자인 대기 --}}
       <div class="tree" data-tree="mof">
         <button type="button" class="tree__head" data-action="toggle" data-toggle="group" data-group-id="mof" aria-expanded="false" aria-controls="kids-mof">
           <span class="tree__head-txt">해양수산정보 분류체계</span>
@@ -44,7 +43,7 @@
               <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="industry" aria-expanded="false" aria-controls="kids-industry">
                 <span class="tree__d3-txt">해양산업</span>
                 <span class="tree__d3-right">
-                  <span class="count">4</span>
+                  <span class="count">3</span>
                   <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
                 </span>
               </button>
@@ -52,38 +51,35 @@
                 <div class="tree__d4">
                   <label class="tree__d4-left">
                     <span class="chk">
-                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_INDUSTRY" data-action="toggle-layer" data-layer-id="GRP_INDUSTRY" data-layer-name="해양산업기반">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_IND_DEV" data-action="toggle-layer" data-layer-id="GRP_IND_DEV" data-layer-name="해양개발">
                       <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
                     </span>
-                    <span class="tree__d4-txt">해양산업기반</span>
+                    <span class="tree__d4-txt">해양개발</span>
                   </label>
-                  <button type="button" class="tree__d4-right" data-action="toggle" data-toggle="branch" data-group-id="industry-base" aria-expanded="false" aria-controls="leaves-industry">
-                    <span class="count">1</span>
-                    <span class="tree__d4-ico" aria-hidden="true">
-                      <img class="ico-open" src="./src/assets/img/icon/row-minus.svg" width="18" height="18" alt="">
-                      <img class="ico-close" src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt="">
-                    </span>
-                  </button>
                 </div>
-                <div class="tree__leaves" id="leaves-industry" hidden>
-                  <div class="tree__d5">
-                    <div class="tree__d5-left">
-                      <span class="tree__line" aria-hidden="true"><img src="./src/assets/img/tree/line-end.svg" width="40" height="40" alt=""></span>
-                      <div class="tree__d5-txt">
-                        <label class="chk">
-                          <input class="chk__input" type="checkbox" name="layer" value="LYR_INDUSTRY" data-action="toggle-layer" data-layer-id="LYR_INDUSTRY" data-layer-name="해양산업기반 01" data-parent-id="GRP_INDUSTRY">
-                          <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
-                        </label>
-                        <p class="tree__leaf"><span class="lyr-mark" aria-hidden="true"></span>해양산업기반 01</p>
-                      </div>
-                    </div>
-                  </div>
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_IND_LEISURE" data-action="toggle-layer" data-layer-id="GRP_IND_LEISURE" data-layer-name="해양레저">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">해양레저</span>
+                  </label>
+                </div>
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_IND_ETC" data-action="toggle-layer" data-layer-id="GRP_IND_ETC" data-layer-name="기타 해양산업">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">기타 해양산업</span>
+                  </label>
                 </div>
               </div>
               <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="env" aria-expanded="false" aria-controls="kids-env">
                 <span class="tree__d3-txt">해양환경</span>
                 <span class="tree__d3-right">
-                  <span class="count">82</span>
+                  <span class="count">6</span>
                   <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
                 </span>
               </button>
@@ -158,10 +154,6 @@
                     </span>
                     <span class="tree__d4-txt">해양보전</span>
                   </label>
-                  <span class="tree__d4-right">
-                    <span class="count">1</span>
-                    <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
-                  </span>
                 </div>
                 <div class="tree__d4">
                   <label class="tree__d4-left">
@@ -171,10 +163,6 @@
                     </span>
                     <span class="tree__d4-txt">해양생태</span>
                   </label>
-                  <span class="tree__d4-right">
-                    <span class="count">10</span>
-                    <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
-                  </span>
                 </div>
                 <div class="tree__d4">
                   <label class="tree__d4-left">
@@ -184,10 +172,6 @@
                     </span>
                     <span class="tree__d4-txt">해양수산생명자원</span>
                   </label>
-                  <span class="tree__d4-right">
-                    <span class="count">2</span>
-                    <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
-                  </span>
                 </div>
                 <div class="tree__d4">
                   <label class="tree__d4-left">
@@ -197,10 +181,6 @@
                     </span>
                     <span class="tree__d4-txt">해양공간정책</span>
                   </label>
-                  <span class="tree__d4-right">
-                    <span class="count">4</span>
-                    <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
-                  </span>
                 </div>
                 <div class="tree__d4">
                   <label class="tree__d4-left">
@@ -210,10 +190,6 @@
                     </span>
                     <span class="tree__d4-txt">기타 해양환경</span>
                   </label>
-                  <span class="tree__d4-right">
-                    <span class="count">3</span>
-                    <span class="tree__d4-ico" aria-hidden="true"><img src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt=""></span>
-                  </span>
                 </div>
               </div>
               <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="coop" aria-expanded="false" aria-controls="kids-coop">
@@ -232,47 +208,307 @@
                     </span>
                     <span class="tree__d4-txt">국제협력</span>
                   </label>
-                  <button type="button" class="tree__d4-right" data-action="toggle" data-toggle="branch" data-group-id="coop-leaf" aria-expanded="false" aria-controls="leaves-coop">
-                    <span class="count">1</span>
-                    <span class="tree__d4-ico" aria-hidden="true">
-                      <img class="ico-open" src="./src/assets/img/icon/row-minus.svg" width="18" height="18" alt="">
-                      <img class="ico-close" src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt="">
-                    </span>
-                  </button>
                 </div>
-                <div class="tree__leaves" id="leaves-coop" hidden>
-                  <div class="tree__d5">
-                    <div class="tree__d5-left">
-                      <span class="tree__line" aria-hidden="true"><img src="./src/assets/img/tree/line-end.svg" width="40" height="40" alt=""></span>
-                      <div class="tree__d5-txt">
-                        <label class="chk">
-                          <input class="chk__input" type="checkbox" name="layer" value="LYR_COOP" data-action="toggle-layer" data-layer-id="LYR_COOP" data-layer-name="국제협력 01" data-parent-id="GRP_COOP">
-                          <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
-                        </label>
-                        <p class="tree__leaf"><span class="lyr-mark" aria-hidden="true"></span>국제협력 01</p>
-                      </div>
-                    </div>
-                  </div>
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_COOP_TERR" data-action="toggle-layer" data-layer-id="GRP_COOP_TERR" data-layer-name="해양영토">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">해양영토</span>
+                  </label>
+                </div>
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_COOP_TRADE" data-action="toggle-layer" data-layer-id="GRP_COOP_TRADE" data-layer-name="통상무역협력">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">통상무역협력</span>
+                  </label>
+                </div>
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_COOP_ETC" data-action="toggle-layer" data-layer-id="GRP_COOP_ETC" data-layer-name="기타 국제협력">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">기타 국제협력</span>
+                  </label>
                 </div>
               </div>
             </div>
           </div>
-          {{> tree-l2 id="fish" name="수산" count="3" d3="연근해어업" d4="어장" leaf="어장 01"}}
-          {{> tree-l2 id="logi" name="해운물류" count="2" d3="해운" d4="항로" leaf="항로 01"}}
-          {{> tree-l2 id="safety" name="해사안전" count="1" d3="해상안전" d4="관제" leaf="관제 01"}}
-          {{> tree-l2 id="port" name="항만" count="1" d3="항만시설" d4="부두" leaf="부두 01"}}
-          {{> tree-l2 id="admin" name="공통행정" count="1" d3="행정" d4="구역" leaf="구역 01"}}
+          <div class="tree__group" data-group-id="fish">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="fish" aria-expanded="false" aria-controls="kids-fish">
+              <span class="tree__row-txt">수산</span>
+              <span class="tree__row-right">
+                <span class="count">3</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-fish">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="fish-ind" aria-expanded="false" aria-controls="kids-fish-ind">
+                <span class="tree__d3-txt">해양수산</span>
+                <span class="tree__d3-right">
+                  <span class="count">6</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-fish-ind" data-group-id="fish-ind">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_POLICY" data-action="toggle-layer" data-layer-id="GRP_FISH_POLICY" data-layer-name="수산정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">수산정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_DIST" data-action="toggle-layer" data-layer-id="GRP_FISH_DIST" data-layer-name="유통정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">유통정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_EXPORT" data-action="toggle-layer" data-layer-id="GRP_FISH_EXPORT" data-layer-name="수출가공진흥"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">수출가공진흥</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_WELFARE" data-action="toggle-layer" data-layer-id="GRP_FISH_WELFARE" data-layer-name="소득복지"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">소득복지</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_DISTANT" data-action="toggle-layer" data-layer-id="GRP_FISH_DISTANT" data-layer-name="원양산업"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">원양산업</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_FISH_ETC" data-action="toggle-layer" data-layer-id="GRP_FISH_ETC" data-layer-name="기타 해양수산"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 해양수산</span></label></div>
+              </div>
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="fish-res" aria-expanded="false" aria-controls="kids-fish-res">
+                <span class="tree__d3-txt">어업자원</span>
+                <span class="tree__d3-right">
+                  <span class="count">5</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-fish-res" data-group-id="fish-res">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_RES_POLICY" data-action="toggle-layer" data-layer-id="GRP_RES_POLICY" data-layer-name="어업정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">어업정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_RES_VESSEL" data-action="toggle-layer" data-layer-id="GRP_RES_VESSEL" data-layer-name="어선정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">어선정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_RES_STOCK" data-action="toggle-layer" data-layer-id="GRP_RES_STOCK" data-layer-name="수산자원정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">수산자원정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_RES_NEGOT" data-action="toggle-layer" data-layer-id="GRP_RES_NEGOT" data-layer-name="지도교섭"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">지도교섭</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_RES_ETC" data-action="toggle-layer" data-layer-id="GRP_RES_ETC" data-layer-name="기타 어업자원"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 어업자원</span></label></div>
+              </div>
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="fish-aqua" aria-expanded="false" aria-controls="kids-fish-aqua">
+                <span class="tree__d3-txt">어촌양식</span>
+                <span class="tree__d3-right">
+                  <span class="count">4</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-fish-aqua" data-group-id="fish-aqua">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_AQUA_POLICY" data-action="toggle-layer" data-layer-id="GRP_AQUA_POLICY" data-layer-name="어촌양식정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">어촌양식정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_AQUA_IND" data-action="toggle-layer" data-layer-id="GRP_AQUA_IND" data-layer-name="양식산업"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">양식산업</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_AQUA_PORT" data-action="toggle-layer" data-layer-id="GRP_AQUA_PORT" data-layer-name="어촌어항"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">어촌어항</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_AQUA_ETC" data-action="toggle-layer" data-layer-id="GRP_AQUA_ETC" data-layer-name="기타 어촌양식"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 어촌양식</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="tree__group" data-group-id="logi">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="logi" aria-expanded="false" aria-controls="kids-logi">
+              <span class="tree__row-txt">해운물류</span>
+              <span class="tree__row-right">
+                <span class="count">2</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-logi">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="logi-ship" aria-expanded="false" aria-controls="kids-logi-ship">
+                <span class="tree__d3-txt">해운물류</span>
+                <span class="tree__d3-right">
+                  <span class="count">5</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-logi-ship" data-group-id="logi-ship">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_LOGI_POLICY" data-action="toggle-layer" data-layer-id="GRP_LOGI_POLICY" data-layer-name="해운정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">해운정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_LOGI_COAST" data-action="toggle-layer" data-layer-id="GRP_LOGI_COAST" data-layer-name="연안해운"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">연안해운</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_LOGI_CREW" data-action="toggle-layer" data-layer-id="GRP_LOGI_CREW" data-layer-name="선원정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">선원정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_LOGI_NAV" data-action="toggle-layer" data-layer-id="GRP_LOGI_NAV" data-layer-name="선박운항"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">선박운항</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_LOGI_ETC" data-action="toggle-layer" data-layer-id="GRP_LOGI_ETC" data-layer-name="기타 해운물류"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 해운물류</span></label></div>
+              </div>
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="logi-port" aria-expanded="false" aria-controls="kids-logi-port">
+                <span class="tree__d3-txt">항만운영</span>
+                <span class="tree__d3-right">
+                  <span class="count">3</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-logi-port" data-group-id="logi-port">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORTOPS_PLAN" data-action="toggle-layer" data-layer-id="GRP_PORTOPS_PLAN" data-layer-name="항만물류기획"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만물류기획</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORTOPS_LOGI" data-action="toggle-layer" data-layer-id="GRP_PORTOPS_LOGI" data-layer-name="항만물류"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만물류</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORTOPS_ETC" data-action="toggle-layer" data-layer-id="GRP_PORTOPS_ETC" data-layer-name="기타 항만운영"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 항만운영</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="tree__group" data-group-id="safety">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="safety" aria-expanded="false" aria-controls="kids-safety">
+              <span class="tree__row-txt">해사안전</span>
+              <span class="tree__row-right">
+                <span class="count">1</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-safety">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="safety-main" aria-expanded="false" aria-controls="kids-safety-main">
+                <span class="tree__d3-txt">해사안전</span>
+                <span class="tree__d3-right">
+                  <span class="count">4</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-safety-main" data-group-id="safety-main">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_SAFE_POLICY" data-action="toggle-layer" data-layer-id="GRP_SAFE_POLICY" data-layer-name="해사안전정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">해사안전정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_SAFE_MGT" data-action="toggle-layer" data-layer-id="GRP_SAFE_MGT" data-layer-name="해사안전관리"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">해사안전관리</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_SAFE_AIDS" data-action="toggle-layer" data-layer-id="GRP_SAFE_AIDS" data-layer-name="항로표지"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항로표지</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_SAFE_ETC" data-action="toggle-layer" data-layer-id="GRP_SAFE_ETC" data-layer-name="기타 해사안전"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 해사안전</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="tree__group" data-group-id="port">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="port" aria-expanded="false" aria-controls="kids-port">
+              <span class="tree__row-txt">항만</span>
+              <span class="tree__row-right">
+                <span class="count">1</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-port">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="port-fac" aria-expanded="false" aria-controls="kids-port-fac">
+                <span class="tree__d3-txt">항만시설</span>
+                <span class="tree__d3-right">
+                  <span class="count">5</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-port-fac" data-group-id="port-fac">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORT_POLICY" data-action="toggle-layer" data-layer-id="GRP_PORT_POLICY" data-layer-name="항만정책"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만정책</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORT_DEV" data-action="toggle-layer" data-layer-id="GRP_PORT_DEV" data-layer-name="항만개발"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만개발</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORT_TECH" data-action="toggle-layer" data-layer-id="GRP_PORT_TECH" data-layer-name="항만기술"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만기술</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORT_SAFE" data-action="toggle-layer" data-layer-id="GRP_PORT_SAFE" data-layer-name="항만안전"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">항만안전</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_PORT_ETC" data-action="toggle-layer" data-layer-id="GRP_PORT_ETC" data-layer-name="기타 항만건설"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 항만건설</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="tree__group" data-group-id="admin">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="admin" aria-expanded="false" aria-controls="kids-admin">
+              <span class="tree__row-txt">공통행정</span>
+              <span class="tree__row-right">
+                <span class="count">1</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-admin">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="admin-main" aria-expanded="false" aria-controls="kids-admin-main">
+                <span class="tree__d3-txt">공통행정</span>
+                <span class="tree__d3-right">
+                  <span class="count">3</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-admin-main" data-group-id="admin-main">
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ADMIN_STAT" data-action="toggle-layer" data-layer-id="GRP_ADMIN_STAT" data-layer-name="통계"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">통계</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ADMIN_LAW" data-action="toggle-layer" data-layer-id="GRP_ADMIN_LAW" data-layer-name="법률"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">법률</span></label></div>
+                <div class="tree__d4"><label class="tree__d4-left"><span class="chk"><input class="chk__input" type="checkbox" name="layerGroup" value="GRP_ADMIN_ETC" data-action="toggle-layer" data-layer-id="GRP_ADMIN_ETC" data-layer-name="기타 공통행정"><span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span></span><span class="tree__d4-txt">기타 공통행정</span></label></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="tree tree--sub">
+      <div class="tree tree--sub" data-tree="theme">
         <button type="button" class="tree__head is-sub" data-action="toggle" data-toggle="group" data-group-id="theme" aria-expanded="false" aria-controls="kids-theme">
           <span class="tree__head-txt">해양공간 주제정보</span>
           <span class="tree__head-right">
-            <span class="count">4</span>
+            <span class="count">3</span>
             <span class="tree__head-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
           </span>
         </button>
         <div class="tree__group" id="kids-theme" data-group-id="theme">
+          <div class="tree__group" data-group-id="mgmt">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="mgmt" aria-expanded="false" aria-controls="kids-mgmt">
+              <span class="tree__row-txt">해양공간 관리계획</span>
+              <span class="tree__row-right">
+                <span class="count">6</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-mgmt">
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="msp-eval" aria-expanded="false" aria-controls="kids-msp-eval">
+                <span class="tree__d3-txt">해양공간특성평가결과</span>
+                <span class="tree__d3-right">
+                  <span class="count">1</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-msp-eval" data-group-id="msp-eval">
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layer" value="LYR_MSP_EVAL_GRID" data-action="toggle-layer" data-layer-id="LYR_MSP_EVAL_GRID" data-layer-name="격자별 특성평가 결과조회">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">격자별 특성평가 결과조회</span>
+                  </label>
+                </div>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">상충분석결과</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양공간관리계획도</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양공간관리계획도 관리구역</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">기본공간정보</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양공간계획 기초자료</span>
+              </div>
+            </div>
+          </div>
+          <div class="tree__group" data-group-id="business">
+            <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="business" aria-expanded="false" aria-controls="kids-business">
+              <span class="tree__row-txt">사업정보</span>
+              <span class="tree__row-right">
+                <span class="count">9</span>
+                <span class="tree__row-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+              </span>
+            </button>
+            <div class="tree__kids" id="kids-business">
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해상풍력 입지정보</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양관할구역 획정 사전연구</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">디지털 해상풍력 입지정보</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양경계획정 기초정보</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">해양공간계획 특성평가 DB(해양환경공단)</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">고시 특성평가</span>
+              </div>
+              <button type="button" class="tree__d3" data-action="toggle" data-toggle="group" data-group-id="biz-site" aria-expanded="false" aria-controls="kids-biz-site">
+                <span class="tree__d3-txt">입지정보망</span>
+                <span class="tree__d3-right">
+                  <span class="count">1</span>
+                  <span class="tree__d3-ico" aria-hidden="true"><span class="ico-open"></span><span class="ico-close"></span></span>
+                </span>
+              </button>
+              <div class="tree__branch" id="kids-biz-site" data-group-id="biz-site">
+                <div class="tree__d4">
+                  <label class="tree__d4-left">
+                    <span class="chk">
+                      <input class="chk__input" type="checkbox" name="layer" value="LYR_BIZ_SITE_12" data-action="toggle-layer" data-layer-id="LYR_BIZ_SITE_12" data-layer-name="1/2차 사업자료">
+                      <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                    </span>
+                    <span class="tree__d4-txt">1/2차 사업자료</span>
+                  </label>
+                </div>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">특성평가 결과자료</span>
+              </div>
+              <div class="tree__d3" role="group">
+                <span class="tree__d3-txt">관측자료 (일자료)</span>
+              </div>
+            </div>
+          </div>
           <div class="tree__group" data-group-id="leisure">
             <button type="button" class="tree__row" data-action="toggle" data-toggle="group" data-group-id="leisure" aria-expanded="false" aria-controls="kids-leisure">
               <span class="tree__row-txt">해양레저관광</span>

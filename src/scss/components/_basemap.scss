@@ -226,14 +226,29 @@
     width: 100%;
     height: 80px;
     overflow: hidden;
-    background: $gray-0;
+    background-color: $gray-0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-    img {
-      display: block;
-      width: 130px;
-      height: 80px;
-      max-width: none;
-      object-fit: cover;
+    &--coast {
+      background-image: url('../assets/img/basemap/coast.png');
+    }
+
+    &--datum {
+      background-image: url('../assets/img/basemap/datum.png');
+    }
+
+    &--eng {
+      background-image: url('../assets/img/basemap/eng.png');
+    }
+
+    &--enc {
+      background-image: url('../assets/img/basemap/enc.png');
+    }
+
+    &--sat {
+      background-image: url('../assets/img/basemap/sat.png');
     }
   }
 

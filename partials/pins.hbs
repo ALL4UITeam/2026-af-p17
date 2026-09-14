@@ -43,6 +43,41 @@
     <span class="poi__tail" aria-hidden="true"></span>
   </div>
 </div>
+{{!-- 관광정보 목록 POI. Figma 168:33329. 지도 단독 화면에서만 연다. --}}
+<div class="poi-pop poi-pop--list" id="poiListPop" hidden>
+  <div class="poi poi--list">
+    <div class="poi__card">
+      <div class="poi__head">
+        <p class="poi__title">관광정보 목록</p>
+      </div>
+      <div class="poi__list">
+        <button type="button" class="poi__item is-on">
+          <span class="poi__mark">
+            <img src="./src/assets/img/poi/hotel.svg" width="9" height="12" alt="">
+          </span>
+          <span class="poi__name">송 호텔</span>
+        </button>
+        <button type="button" class="poi__item">
+          <span class="poi__mark">
+            <img src="./src/assets/img/poi/safety.svg" width="12" height="11" alt="">
+          </span>
+          <span class="poi__name">메디팜 정약국</span>
+        </button>
+        <button type="button" class="poi__item">
+          <span class="poi__mark">
+            <img src="./src/assets/img/poi/safety.svg" width="12" height="11" alt="">
+          </span>
+          <span class="poi__name">보원당약국</span>
+        </button>
+      </div>
+    </div>
+    <span class="poi__tail" aria-hidden="true"></span>
+  </div>
+</div>
+<button type="button" class="pin-btn is-on" id="poiStagePin" hidden aria-label="선택된 관광 핀" style="left:50%;top:58%">
+  <img class="pin pin--off" src="./src/assets/img/pin/pin-02.svg" width="24" height="24" alt="">
+  <img class="pin pin--on" src="./src/assets/img/pin/pin-02-on.svg" width="36" height="51" alt="">
+</button>
 {{!-- 마리나 핀 · POI. 목록을 닫지 않고 지도 위에 같이 연다. data-action: marina-pin --}}
 <div class="pins" id="marinaPins" hidden aria-label="마리나 핀">
   {{#each marinaPlaces}}

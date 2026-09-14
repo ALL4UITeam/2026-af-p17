@@ -479,7 +479,7 @@
   &__group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     width: 100%;
   }
 
@@ -578,6 +578,10 @@
     cursor: pointer;
     font: inherit;
     text-align: left;
+
+    &:not(button) {
+      cursor: default;
+    }
   }
 
   &__d3-txt {

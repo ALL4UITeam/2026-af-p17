@@ -89,6 +89,19 @@
     gap: 6px;
     width: 46px;
     text-decoration: none;
+    &.is-active{
+      .gnb__ico{
+        &--map {
+          background-image: url('../assets/img/gnb/map-active.svg');
+        }
+        &--research {
+          background-image: url('../assets/img/gnb/research-active.svg');
+        }
+        &--twin {
+          background-image: url('../assets/img/gnb/twin-active.svg');
+        }
+      }
+    }
   }
 
   &__ico {
@@ -98,8 +111,7 @@
     background-color: $gray-0;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 24px 24px;
-
+    
     &--map {
       background-image: url('../assets/img/gnb/map.svg');
     }

@@ -1,3 +1,161 @@
-<button type="button" class="mo-suggest" data-action="suggest" aria-label="추천레이어">
-  <img src="./src/assets/img/mo/suggest.svg" width="24" height="24" alt="">
-</button>
+{{!--
+  모바일 추천레이어 FAB + 시트
+  PC suggest(129:71183) 참고 — 칩 + 추천 레이어 목록 (모바일 시안 없음)
+--}}
+<button type="button" class="mo-suggest" data-action="suggest" aria-expanded="false" aria-controls="moSuggestSheet" aria-label="추천레이어"></button>
+
+<section class="mo-sg" id="moSuggestSheet" hidden aria-label="추천레이어">
+  <div class="mo-sg__top">
+    <button type="button" class="mo-sg__fold" data-action="suggest-close" aria-label="추천레이어 닫기"></button>
+  </div>
+  <button type="button" class="mo-sg__head" data-action="suggest-close">
+    <span class="mo-sg__brand">
+      <span class="mo-sg__ico" aria-hidden="true"></span>
+      <span class="mo-sg__title">추천레이어</span>
+    </span>
+    <span class="mo-sg__right">
+      <span class="count" data-bind="mo-sg-count">5</span>
+      <span class="mo-sg__chev" aria-hidden="true"></span>
+    </span>
+  </button>
+  <div class="mo-sg__chips" role="tablist" aria-label="추천 주제">
+    <button type="button" class="mo-sg__chip is-on" role="tab" aria-selected="true" data-action="suggest-chip" data-suggest="어촌">어촌</button>
+    <button type="button" class="mo-sg__chip" role="tab" aria-selected="false" data-action="suggest-chip" data-suggest="해양산업">해양산업</button>
+    <button type="button" class="mo-sg__chip" role="tab" aria-selected="false" data-action="suggest-chip" data-suggest="해양환경">해양환경</button>
+    <button type="button" class="mo-sg__chip" role="tab" aria-selected="false" data-action="suggest-chip" data-suggest="해사안전">해사안전</button>
+    <button type="button" class="mo-sg__chip" role="tab" aria-selected="false" data-action="suggest-chip" data-suggest="항만">항만</button>
+  </div>
+  <div class="mo-sg__body">
+    <p class="mo-sg__hint">주제를 선택하면 추천 레이어를 바로 켤 수 있습니다.</p>
+    <ul class="mo-sg__list" data-sg-panel="어촌">
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_FISH_VILLAGE" data-action="toggle-layer" data-layer-id="SG_FISH_VILLAGE" data-layer-name="어촌계 현황">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#ef0060" aria-hidden="true"></span>
+          <span class="mo-sg__name">어촌계 현황</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_FISH_PORT" data-action="toggle-layer" data-layer-id="SG_FISH_PORT" data-layer-name="어항시설">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#3066bd" aria-hidden="true"></span>
+          <span class="mo-sg__name">어항시설</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_FISH_ZONE" data-action="toggle-layer" data-layer-id="SG_FISH_ZONE" data-layer-name="어장구역">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#0e388e" aria-hidden="true"></span>
+          <span class="mo-sg__name">어장구역</span>
+        </label>
+      </li>
+    </ul>
+    <ul class="mo-sg__list" data-sg-panel="해양산업" hidden>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_IND_BASE" data-action="toggle-layer" data-layer-id="SG_IND_BASE" data-layer-name="해양산업기반">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#ef0060" aria-hidden="true"></span>
+          <span class="mo-sg__name">해양산업기반</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_IND_PLANT" data-action="toggle-layer" data-layer-id="SG_IND_PLANT" data-layer-name="해양플랜트">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#5692df" aria-hidden="true"></span>
+          <span class="mo-sg__name">해양플랜트</span>
+        </label>
+      </li>
+    </ul>
+    <ul class="mo-sg__list" data-sg-panel="해양환경" hidden>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="LYR_TIDAL" data-action="toggle-layer" data-layer-id="LYR_TIDAL" data-layer-name="갯벌면적">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#ef0060" aria-hidden="true"></span>
+          <span class="mo-sg__name">갯벌면적</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="LYR_PROTECT" data-action="toggle-layer" data-layer-id="LYR_PROTECT" data-layer-name="보호수역">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#3066bd" aria-hidden="true"></span>
+          <span class="mo-sg__name">보호수역</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_ENV_ECO" data-action="toggle-layer" data-layer-id="SG_ENV_ECO" data-layer-name="해양생태">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#0e388e" aria-hidden="true"></span>
+          <span class="mo-sg__name">해양생태</span>
+        </label>
+      </li>
+    </ul>
+    <ul class="mo-sg__list" data-sg-panel="해사안전" hidden>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="LYR_TANKER" data-action="toggle-layer" data-layer-id="LYR_TANKER" data-layer-name="유조선통항금지해역">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#ef0060" aria-hidden="true"></span>
+          <span class="mo-sg__name">유조선통항금지해역</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="LYR_ANCHOR" data-action="toggle-layer" data-layer-id="LYR_ANCHOR" data-layer-name="묘박지">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#3066bd" aria-hidden="true"></span>
+          <span class="mo-sg__name">묘박지</span>
+        </label>
+      </li>
+    </ul>
+    <ul class="mo-sg__list" data-sg-panel="항만" hidden>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_PORT_FAC" data-action="toggle-layer" data-layer-id="SG_PORT_FAC" data-layer-name="항만시설">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#ef0060" aria-hidden="true"></span>
+          <span class="mo-sg__name">항만시설</span>
+        </label>
+      </li>
+      <li>
+        <label class="mo-sg__row">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="suggestLayer" value="SG_PORT_WHARF" data-action="toggle-layer" data-layer-id="SG_PORT_WHARF" data-layer-name="부두">
+            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+          </span>
+          <span class="mo-sg__mark" style="--mark:#0e388e" aria-hidden="true"></span>
+          <span class="mo-sg__name">부두</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+</section>

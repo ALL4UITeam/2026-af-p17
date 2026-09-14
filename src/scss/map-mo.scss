@@ -5,7 +5,7 @@
   .masthead,
   .app__left,
   .tools,
-  .bmap,
+  .bmap[hidden],
   .lyr-list:not(.is-open),
   .status,
   .areainfo,
@@ -35,7 +35,7 @@
     align-items: center;
     gap: 4px;
     height: 24px;
-    padding: 0 10px;
+    padding: 0 16px;
     background: #eef2f7;
   }
 
@@ -99,14 +99,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    margin-block: -10px;
+    width: 30px;
+    height: 24px;
+  }
+
+  .mo-bar__ico--menu {
+    background: url('../assets/img/mo/menu.svg') center / 16px 12px no-repeat;
   }
 
   .mo-bar__ico img {
     width: 16px;
-    height: 16px;
   }
 
   .mo-bar__brand {
@@ -116,14 +118,23 @@
     min-width: 0;
   }
 
-  .mo-bar__logo {
-    
+  .mo-bar__emblem {
+    display: flex;
+    flex-shrink: 1;
+    min-width: 0;
+
+    img {
+      //height: 24px;
+      width: auto;
+      max-width: 100%;
+    }
   }
 
   .mo-bar__name {
     font-family: $font-logo;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 400;
+    line-height: 1;
     letter-spacing: -0.3px;
     color: #444;
     white-space: nowrap;
@@ -132,18 +143,19 @@
   .mo-search {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
   }
 
   .mo-search__list {
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
+    margin-right: 5px;
     flex-shrink: 0;
 
     img {
-      width: 40px;
-      height: 40px;
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -152,9 +164,9 @@
     flex: 1;
     align-items: stretch;
     min-width: 0;
-    height: 40px;
-    padding-left: 12px;
-    border: 2px solid $primary-60;
+    height: 46px;
+    padding-left: 16px;
+    border: 2px solid $primary-70;
     border-radius: 8px;
     background: $gray-0;
   }
@@ -169,8 +181,7 @@
     outline: none;
     background: none;
     appearance: none;
-    font-size: 14px;
-    letter-spacing: -0.42px;
+    font-size: 15px;
 
     &::-webkit-search-decoration,
     &::-webkit-search-cancel-button,
@@ -187,14 +198,13 @@
 
   .mo-search__go {
     display: flex;
-    flex: 0 0 40px;
+    flex: 0 0 44px;
     align-items: center;
     justify-content: center;
     align-self: stretch;
-    width: 40px;
     margin: -2px -2px -2px 0;
-    border-radius: 0 8px 8px 0;
-    background: $primary-60;
+    border-radius: 0 12px 12px 0;
+    background: $primary-70;
 
     img {
       width: 16px;
@@ -206,8 +216,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 8px;
     background: $primary-90;
     flex-shrink: 0;
@@ -230,13 +240,268 @@
     height: 46px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 30px;
-    background: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
+    background-image: url('../assets/img/icon/suggest-plain.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
     backdrop-filter: blur(5px);
+  }
 
-    img {
+  .app.is-mo-suggest .mo-suggest {
+    border-color: $primary-70;
+    background-color: $primary-80;
+    background-image: none;
+
+    &::before {
+      content: '';
       width: 24px;
       height: 24px;
+      background-color: $gray-0;
+      mask: url('../assets/img/icon/suggest-plain.svg') center / contain no-repeat;
+      -webkit-mask: url('../assets/img/icon/suggest-plain.svg') center / contain no-repeat;
     }
+  }
+
+  /* PC suggest 칩 → 모바일 하단 시트 (시안 없음, PC UX 이식) */
+  .mo-sg {
+    display: none;
+  }
+
+  .app.is-mo-suggest .mo-sg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 18;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-height: calc(100% - 144px);
+    padding: 10px 16px 16px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .app.is-mo-suggest .mo-sg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(161, 197, 225, 0.2) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  .app.is-mo-suggest .mo-sg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .mo-sg__top,
+  .mo-sg__head,
+  .mo-sg__chips,
+  .mo-sg__body {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mo-sg__top {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mo-sg__fold {
+    width: 24px;
+    height: 24px;
+    border: 1px solid $gray-0;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-image: url('../assets/img/icon/chev-up.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+  }
+
+  .mo-sg__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 46px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 8px;
+    background: $primary-80;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mo-sg__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .mo-sg__ico {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background-color: $gray-0;
+    mask: url('../assets/img/icon/suggest-plain.svg') center / contain no-repeat;
+    -webkit-mask: url('../assets/img/icon/suggest-plain.svg') center / contain no-repeat;
+  }
+
+  .mo-sg__title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+    white-space: nowrap;
+  }
+
+  .mo-sg__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .mo-sg__right .count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 20px;
+    padding: 0 10px;
+    border: 1px solid $gray-20;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-60;
+    background: $gray-0;
+  }
+
+  .mo-sg__chev {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/img/icon/chev-up-w.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+  }
+
+  .mo-sg__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .mo-sg__chip {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px;
+    border: 1px solid $gray-40;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-90;
+    background: $gray-0;
+    white-space: nowrap;
+  }
+
+  .mo-sg__chip.is-on {
+    border-color: $primary-70;
+    font-weight: 700;
+    color: $primary-80;
+    background: #f3f9ff;
+  }
+
+  .mo-sg__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .mo-sg__hint {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+  }
+
+  .mo-sg__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    list-style: none;
+    border-radius: 8px;
+    background: $gray-0;
+  }
+
+  .mo-sg__list[hidden] {
+    display: none !important;
+  }
+
+  .mo-sg__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 46px;
+    padding: 0 16px;
+    border-bottom: 1px solid #e6e8ea;
+    cursor: pointer;
+  }
+
+  .mo-sg__list li:last-child .mo-sg__row {
+    border-bottom: 0;
+  }
+
+  .mo-sg__mark {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    background: var(--mark, #ef0060);
+  }
+
+  .mo-sg__name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-80;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .app.is-mo-suggest .mo-sheet,
+  .app.is-mo-suggest .mo-peek,
+  .app.is-mo-suggest .mo-acc {
+    display: none !important;
   }
 
   .mo-tools {
@@ -382,25 +647,11 @@
     white-space: nowrap;
   }
 
-  .mo-bar__close {
-    display: none;
-  }
-
   .app.is-mo-menu .mo-bar {
     gap: 0;
-    padding: 12px 14px;
     background: #fff;
     border-radius: 0;
-  }
-
-  .app.is-mo-menu .mo-bar__row {
-    position: relative;
-  }
-
-  .app.is-mo-menu .mo-bar__brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    border-bottom: 1px solid #e6e8ea;
   }
 
   .app.is-mo-menu .mo-bar::before,
@@ -412,26 +663,8 @@
     display: none;
   }
 
-  .app.is-mo-menu .mo-bar__ico {
-    width: 30px;
-    height: 30px;
-    margin-block: 0;
-    background: #fafafa;
-    border-radius: 4px;
-  }
-
-  .app.is-mo-menu .mo-bar__ico[data-action='mo-menu'] {
-    background: none;
-  }
-
-  .app.is-mo-menu .mo-bar__menu {
-    display: none;
-  }
-
-  .app.is-mo-menu .mo-bar__close {
-    display: block;
-    width: 30px;
-    height: 30px;
+  .app.is-mo-menu .mo-bar__ico--menu {
+    background: url('../assets/img/mo/close-menu.svg') center / 16px 16px no-repeat;
   }
 
   .mo-menu {
@@ -440,7 +673,7 @@
     z-index: 19;
     display: none;
     flex-direction: column;
-    padding-top: 78px;
+    padding-top: 76px;
     background: #fff;
     border-top: 1px solid #e6e8ea;
   }
@@ -458,9 +691,8 @@
 
   .mo-menu__d1 {
     display: flex;
-    flex: 1 1 0;
+    flex: 0 0 auto;
     flex-direction: column;
-    min-width: 0;
     background: #eef2f7;
     border-right: 1px solid #e6e8ea;
   }
@@ -468,9 +700,9 @@
   .mo-menu__d1-btn {
     display: flex;
     align-items: center;
-    width: 100%;
     min-height: 52px;
-    padding: 0 12px;
+    padding: 0 16px;
+    white-space: nowrap;
     border-bottom: 1px solid #e6e8ea;
     font-size: 15px;
     font-weight: 700;
@@ -486,7 +718,7 @@
   }
 
   .mo-menu__d2 {
-    flex: 1 1 0;
+    flex: 1 1 auto;
     min-width: 0;
     background: #fff;
   }
@@ -494,7 +726,6 @@
   .mo-menu__pane {
     display: none;
     flex-direction: column;
-    width: 100%;
   }
 
   .mo-menu__pane.is-on {
@@ -513,8 +744,7 @@
   }
 
   .mo-peek,
-  .mo-acc,
-  .mo-acc__list[hidden] {
+  .mo-acc {
     display: none !important;
   }
 
@@ -523,6 +753,7 @@
     display: none;
   }
 
+  /* Figma 112:45481 peek — 1차 depth = PC tree__head 닫힘 스타일 */
   .app.is-mo-peek .mo-peek {
     position: absolute;
     left: 0;
@@ -530,40 +761,50 @@
     z-index: 16;
     display: flex !important;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     width: 100%;
-    padding: 20px 16px;
+    padding: 10px 16px 16px;
+    overflow: hidden;
     border-radius: 16px 16px 0 0;
+  }
+
+  .app.is-mo-peek .mo-peek::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
     background-image:
       linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(161, 197, 225, 0.2) 100%),
       linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+    pointer-events: none;
   }
 
-  .mo-peek__card {
+  .app.is-mo-peek .mo-peek::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .mo-peek__top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mo-peek__fold {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 46px;
-    padding: 0 18px;
-    border: 2px solid #89c0ff;
-    border-radius: 8px;
-    background: $gray-0;
-    text-align: left;
-  }
-
-  .mo-peek__name {
-    font-size: 15px;
-    letter-spacing: -0.45px;
-    color: #444;
-    white-space: nowrap;
-  }
-
-  .mo-peek__right,
-  .mo-acc__right {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid $gray-0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.6);
 
     img {
       width: 12px;
@@ -571,30 +812,135 @@
     }
   }
 
+  .mo-peek__card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    height: 46px;
+    padding: 0 17px;
+    border: 1px solid $primary-80;
+    border-radius: 8px;
+    background: rgba(14, 56, 142, 0.4);
+    text-align: left;
+  }
+
+  .mo-peek__name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+    white-space: nowrap;
+  }
+
+  .mo-peek__right,
+  .mo-acc__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .mo-peek__right .count,
+  .mo-acc__right .count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 20px;
+    border: 1px solid $gray-20;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-60;
+    background: $gray-0;
+  }
+
+  .mo-peek__right img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .mo-acc__right img {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Figma 112:45511 open */
   .app.is-mo-open .mo-acc {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    top: 144px;
     z-index: 16;
     display: flex !important;
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    padding: 16px;
+    max-height: calc(100% - 144px);
+    padding: 10px 16px 16px;
     overflow: hidden;
     border-radius: 16px 16px 0 0;
+  }
+
+  .app.is-mo-open .mo-acc::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
     background-image:
-      linear-gradient(180deg, rgba(33, 117, 182, 0.25) 0%, rgba(161, 197, 225, 0.25) 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(161, 197, 225, 0.2) 100%),
       linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  .app.is-mo-open .mo-acc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .mo-acc__top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mo-acc__fold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid $gray-0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.6);
+
+    img {
+      width: 12px;
+      height: 12px;
+    }
   }
 
   .mo-acc__head {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     flex-shrink: 0;
     justify-content: space-between;
+    gap: 30px;
     width: 100%;
     height: 46px;
     padding: 0 16px;
@@ -606,43 +952,42 @@
   .mo-acc__title {
     font-size: 17px;
     font-weight: 700;
+    line-height: 1.5;
     color: $gray-0;
     white-space: nowrap;
   }
 
-  .mo-acc__head .mo-acc__right img {
-    width: 16px;
-    height: 16px;
-  }
-
-  .mo-acc__list {
+  /* PC .tree 동일 마크업 — Figma 162:46219 depth2~5 */
+  .mo-acc__trees {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    width: 100%;
     min-height: 0;
+    flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: auto;
   }
 
-  .mo-acc__item {
+  .mo-acc__trees .tree {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
-    height: 46px;
-    padding: 0 16px;
-    border-radius: 8px;
-    background: $gray-0;
-    text-align: left;
   }
 
-  .mo-acc__name {
-    min-width: 0;
-    font-size: 15px;
-    color: $gray-80;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .mo-acc__trees .tree__head {
+    display: none;
+  }
+
+  .mo-acc__trees .tree > .tree__group {
+    display: flex;
+  }
+
+  .mo-acc__trees .tree[hidden] {
+    display: none !important;
   }
 
   .flt:not([hidden]) {
@@ -719,8 +1064,187 @@
   .app:has(.flt:not([hidden])) .mo-tools,
   .app:has(.flt:not([hidden])) .mo-sheet,
   .app:has(.flt:not([hidden])) .mo-suggest,
+  .app:has(.flt:not([hidden])) .mo-sg,
   .app:has(.flt:not([hidden])) .mo-peek,
   .app:has(.flt:not([hidden])) .mo-acc {
+    display: none !important;
+  }
+
+  /* Figma 167:48749 선택된 레이어. 검색·추천은 남기고 도구만 가린다. */
+  .mo-picked:not([hidden]) {
+    display: flex !important;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 22;
+    flex-direction: column;
+    max-height: calc(100% - 144px);
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .mo-picked:not([hidden])::before,
+  .mo-picked:not([hidden])::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .mo-picked:not([hidden])::before {
+    background-image:
+      linear-gradient(143deg, rgba(216, 235, 240, 0.4) 1.38%, rgba(152, 216, 236, 0.4) 94.13%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
+  }
+
+  .mo-picked:not([hidden])::after {
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.3;
+  }
+
+  .mo-picked__head,
+  .mo-picked__list {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mo-picked__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 46px;
+    padding: 10px 16px;
+    background: $primary-80;
+  }
+
+  .mo-picked__head-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .mo-picked__title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+    white-space: nowrap;
+  }
+
+  .mo-picked__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 20px;
+    padding: 0 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-0;
+    background: $primary-70;
+  }
+
+  .mo-picked__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background:
+      url('../assets/img/attr/close.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+
+  .mo-picked__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+    padding: 16px 16px 24px;
+    @include overlay-scroll;
+  }
+
+  .mo-picked__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 36px;
+    padding: 0 8px 0 10px;
+    border: 1px solid $primary-40;
+    border-radius: 6px;
+    background: $gray-0;
+  }
+
+  .mo-picked__name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    overflow: hidden;
+    color: $gray-90;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .mo-picked__mark {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    background: center / 14px 14px no-repeat;
+  }
+
+  .mo-picked__mark--line {
+    background-image: url('../assets/img/lyr/mark-wave.svg');
+  }
+
+  .mo-picked__mark--dot {
+    background-image: url('../assets/img/lyr/mark-dot.svg');
+  }
+
+  .mo-picked__mark--sq {
+    background-image: url('../assets/img/lyr/mark-sq.svg');
+  }
+
+  .mo-picked__mark--fill {
+    background-image: url('../assets/img/lyr/mark-fill.svg');
+  }
+
+  .mo-picked__acts {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .mo-picked__btn {
+    height: 24px;
+    padding: 0 6px;
+    border: 1px solid #e6e8ea;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: $gray-90;
+    background: $gray-0;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .app:has(.mo-picked:not([hidden])) .mo-tools,
+  .app:has(.mo-picked:not([hidden])) .mo-sheet {
     display: none !important;
   }
 
@@ -808,8 +1332,68 @@
   .lyr-list.is-open ~ .mo-tools,
   .lyr-list.is-open ~ .mo-sheet,
   .lyr-list.is-open ~ .mo-suggest,
+  .lyr-list.is-open ~ .mo-sg,
   .lyr-list.is-open ~ .mo-peek,
   .lyr-list.is-open ~ .mo-acc {
     display: none !important;
+  }
+
+  /* PC 배경지도 → 모바일 하단 시트 (시안 없음) */
+  .bmap:not([hidden]) {
+    display: flex !important;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    width: 100%;
+    max-height: calc(100% - 144px);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .bmap:not([hidden])::before {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .bmap:not([hidden]) .bmap__head {
+    flex-shrink: 0;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .bmap:not([hidden]) .bmap__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    @include overlay-scroll;
+    padding: 16px 16px 24px;
+  }
+
+  .bmap:not([hidden]) .bmap__bar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 40px;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .bmap:not([hidden]) .bmap__opac {
+    flex: 1 1 100%;
+  }
+
+  .bmap:not([hidden]) .bmap__colors {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  .bmap:not([hidden]) .bmap__grid {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .bmap:not([hidden]) .bmap__card {
+    width: calc((100% - 20px) / 3);
+  }
+
+  .bmap:not([hidden]) .bmap__thumb {
+    height: 72px;
   }
 }

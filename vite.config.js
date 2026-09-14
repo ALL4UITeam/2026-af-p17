@@ -72,6 +72,8 @@ const MAP_SCREENS = {
   'map-tour-overlay.html': 'tour-overlay',
   'map-tour-detail.html': 'tour-detail',
   'map-marina.html': 'marina',
+  'map-poi.html': 'poi',
+  'map-poi-list.html': 'poi-list',
   'map-modal.html': 'modal',
   'map-modal-spatial.html': 'modal-spatial',
   'map-modal-marine.html': 'modal-marine',
@@ -96,6 +98,10 @@ const MAP_SCREENS = {
   'map-mo-lyr.html': 'mo-lyr',
   'map-mo-peek.html': 'mo-peek',
   'map-mo-open.html': 'mo-open',
+  'map-mo-tree.html': 'mo-tree',
+  'map-mo-suggest.html': 'mo-suggest',
+  'map-mo-basemap.html': 'mo-basemap',
+  'map-mo-modal.html': 'modal',
 }
 
 const mapBase = {

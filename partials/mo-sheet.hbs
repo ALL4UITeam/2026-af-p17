@@ -1,8 +1,8 @@
 {{!--
-  모바일 하단 시트
-  close: 힌트 바 (기본화면)
-  peek: 분류체계 / 주제정보 카드 (아코디언목록)
-  open: 그룹 목록 (아코디언목록확장)
+  모바일 하단 시트 — Figma 112:45481 peek / 112:45511 open / 162:46219 depth2+
+  close: 힌트 바
+  peek: 분류체계·주제정보 카드
+  open: depth1 헤드 + PC와 동일한 tree (2·3·4·5뎁스)
 --}}
 <button type="button" class="mo-sheet" data-action="mo-sheet" aria-expanded="false" aria-controls="moPeek">
   <span class="mo-sheet__arr" aria-hidden="true">
@@ -12,54 +12,40 @@
 </button>
 
 <div class="mo-peek" id="moPeek" hidden>
+  <div class="mo-peek__top">
+    <button type="button" class="mo-peek__fold" data-action="mo-sheet" aria-label="목록 접기">
+      <img src="./src/assets/img/icon/chev-up.svg" width="12" height="12" alt="">
+    </button>
+  </div>
   <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="mof">
     <span class="mo-peek__name">해양수산정보 분류체계</span>
     <span class="mo-peek__right">
-      <span class="count is-on">{{mapGroupCount}}</span>
-      <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+      <span class="count">6</span>
+      <img src="./src/assets/img/icon/chev-down-w.svg" width="16" height="16" alt="">
     </span>
   </button>
   <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="theme">
     <span class="mo-peek__name">해양공간 주제정보</span>
     <span class="mo-peek__right">
-      <span class="count is-on">6</span>
-      <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
+      <span class="count">4</span>
+      <img src="./src/assets/img/icon/chev-down-w.svg" width="16" height="16" alt="">
     </span>
   </button>
 </div>
 
 <section class="mo-acc" id="moAcc" hidden aria-label="공간정보 목록">
+  <div class="mo-acc__top">
+    <button type="button" class="mo-acc__fold" data-action="mo-collapse" aria-label="목록 접기">
+      <img src="./src/assets/img/icon/chev-up.svg" width="12" height="12" alt="">
+    </button>
+  </div>
   <button type="button" class="mo-acc__head" data-action="mo-collapse">
     <span class="mo-acc__title" data-bind="mo-acc-title">해양수산정보 분류체계</span>
     <span class="mo-acc__right">
-      <span class="count is-on" data-bind="mo-acc-count">{{mapGroupCount}}</span>
+      <span class="count" data-bind="mo-acc-count">6</span>
       <img src="./src/assets/img/icon/chev-up-w.svg" width="16" height="16" alt="">
     </span>
   </button>
-  <ul class="mo-acc__list" id="moAccMof" data-bind="mo-acc-mof">
-    {{#each mapGroups}}
-    <li>
-      <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="{{id}}" data-layer-name="{{name}}">
-        <span class="mo-acc__name">{{name}}</span>
-        <span class="mo-acc__right">
-          <span class="count">{{count}}</span>
-          <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
-        </span>
-      </button>
-    </li>
-    {{/each}}
-  </ul>
-  <ul class="mo-acc__list" id="moAccTheme" data-bind="mo-acc-theme" hidden>
-    {{#each treeCats}}
-    <li>
-      <button type="button" class="mo-acc__item" data-action="mo-group" data-group-id="theme-{{@index}}" data-layer-name="{{this}}">
-        <span class="mo-acc__name">{{this}}</span>
-        <span class="mo-acc__right">
-          <span class="count">1</span>
-          <img src="./src/assets/img/icon/chevron-right.svg" width="12" height="12" alt="">
-        </span>
-      </button>
-    </li>
-    {{/each}}
-  </ul>
+  {{!-- PC panelList 의 .tree 를 open 시 여기로 옮김 (동일 2·3·4·5뎁스) --}}
+  <div class="mo-acc__trees" id="moAccTrees"></div>
 </section>

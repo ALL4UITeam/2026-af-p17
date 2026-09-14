@@ -722,6 +722,35 @@
   transform: translate(-50%, calc(-100% - 44px));
 }
 
+.app.is-poi-only {
+  .app__left,
+  .tools,
+  .status,
+  .legend,
+  .basemap,
+  .mo-hdr,
+  .mo-tools,
+  .mo-sheet,
+  .mo-suggest,
+  .mo-picked {
+    display: none;
+  }
+
+  .poi-pop {
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, calc(-100% - 56px));
+  }
+
+  #poiStagePin {
+    display: flex;
+  }
+}
+
+#poiStagePin {
+  display: none;
+}
+
 .tour--marina {
   .tour__body {
     padding-top: 0;
