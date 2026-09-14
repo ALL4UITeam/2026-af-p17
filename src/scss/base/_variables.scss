@@ -28,10 +28,7 @@ $coord-muted: #64748b;
 $coord-line: #e2e8f0;
 $coord-bg: #f8fafc;
 
-@mixin overlay-scroll {
-  overflow: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+@mixin scrollbar-look {
   scrollbar-width: thin;
   scrollbar-color: rgba($primary-80, 0.28) transparent;
 
@@ -59,4 +56,11 @@ $coord-bg: #f8fafc;
       height: 0;
     }
   }
+}
+
+@mixin overlay-scroll {
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  @include scrollbar-look;
 }
