@@ -1,0 +1,45 @@
+{{!--
+  로그인 모달
+  MapUI.openLogin() / closeLogin()
+  data-action: close-login | login-submit | login-pw | login-find-id | login-find-pw | login-signup
+--}}
+<div class="login" id="loginModal" hidden data-dimmed="true">
+  <div class="login__dim" data-action="close-login"></div>
+  <section class="login__box" role="dialog" aria-modal="true" aria-labelledby="loginTitle" tabindex="-1">
+    <header class="login__head">
+      <h2 class="login__title" id="loginTitle">로그인</h2>
+      <button type="button" class="login__x" data-action="close-login" aria-label="닫기"></button>
+    </header>
+    <form class="login__body" action="#">
+      <div class="login__brand">
+        <span class="login__symbol" aria-hidden="true">해양수산부 해양수산공간정보플랫폼</span>
+      </div>
+      <label class="login__field">
+        <span class="login__lab">아이디</span>
+        <input class="login__input" id="loginId" name="login-id" type="text" placeholder="아이디를 입력하세요" autocomplete="username" data-bind="login-id">
+      </label>
+      <label class="login__field">
+        <span class="login__lab">비밀번호</span>
+        <span class="login__pw">
+          <input class="login__input" id="loginPw" name="login-pw" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password" data-bind="login-pw">
+          <button type="button" class="login__eye" data-action="login-pw" aria-label="비밀번호 표시" aria-pressed="false"></button>
+        </span>
+      </label>
+      <label class="login__save">
+        <span class="chk">
+          <input class="chk__input" type="checkbox" name="login-save" data-bind="login-save">
+          <span class="chk__box" aria-hidden="true"></span>
+        </span>
+        <span class="login__save-txt">아이디 저장</span>
+      </label>
+      <button type="submit" class="login__submit" data-action="login-submit">로그인</button>
+      <p class="login__links">
+        <button type="button" class="login__link login__link--on" data-action="login-find-id">아이디 찾기</button>
+        <span class="login__div" aria-hidden="true"></span>
+        <button type="button" class="login__link" data-action="login-find-pw">비밀번호 찾기</button>
+        <span class="login__div" aria-hidden="true"></span>
+        <button type="button" class="login__link" data-action="login-signup">회원가입</button>
+      </p>
+    </form>
+  </section>
+</div>

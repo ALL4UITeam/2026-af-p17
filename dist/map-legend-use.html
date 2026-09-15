@@ -1523,104 +1523,94 @@
         </div>
       </aside>
       <aside class="tour tour--over" id="tourOverlay" hidden aria-label="관광정보 상세">
-        <img class="tour__glass" src="./assets/img/glass-panel.png" width="360" height="800" alt="" aria-hidden="true">
+        <img class="tour__glass" src="./assets/img/glass-panel.png" alt="" aria-hidden="true">
         <div class="tour__hero">
-          <img class="tour__hero-img" src="./assets/img/tour/hero.png" width="360" height="180" alt="">
+          <img class="tour__hero-img" src="./assets/img/tour/hero.png" alt="">
           <div class="tour__bar">
-            <button type="button" class="tour__back" data-action="close-tour-overlay" aria-label="목록으로">
-              <img src="./assets/img/tour/back.svg" width="12" height="12" alt="">
-            </button>
-            <p class="tour__bar-name" data-bind="tour-title">홍성 국가유산 야행</p>
-            <button type="button" class="tour__x" data-action="close-tour-overlay" aria-label="상세 닫기">
-              <img src="./assets/img/tour/close.svg" width="24" height="24" alt="">
-            </button>
+            <button type="button" class="tour__back" aria-label="목록으로"></button>
+            <p class="tour__bar-name">홍성 국가유산 야행</p>
+            <button type="button" class="tour__x" aria-label="상세 닫기"></button>
           </div>
           <div class="tour__hero-acts">
-            <button type="button" class="tour__pill" data-action="tour-all">
-              <img src="./assets/img/tour/all.svg" width="16" height="16" alt="">
-              전체보기
-            </button>
-            <button type="button" class="tour__pill" data-action="tour-route">
-              <img src="./assets/img/tour/route.svg" width="16" height="16" alt="">
-              길 찾기
-            </button>
+            <button type="button" class="tour__pill tour__pill--all">전체보기</button>
+            <button type="button" class="tour__pill tour__pill--route">길 찾기</button>
           </div>
         </div>
         <div class="tour__over-body">
           <div class="tour__info">
             <div class="tour__tabs" role="tablist" aria-label="관광정보 상세">
-              <button type="button" class="tour__tab is-on" role="tab" aria-selected="true" data-action="tour-tab" data-tab="overview">개요</button>
-              <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="index">해양예보지수</button>
-              <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="forecast">해황예보도</button>
-              <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="near">주변관광</button>
+              <button type="button" class="tour__tab is-on" role="tab" aria-selected="true">개요</button>
+              <button type="button" class="tour__tab" role="tab" aria-selected="false">해양예보지수</button>
+              <button type="button" class="tour__tab" role="tab" aria-selected="false">해황예보도</button>
+              <button type="button" class="tour__tab" role="tab" aria-selected="false">주변관광</button>
             </div>
-            <div class="tour__pane is-on" id="tourPaneOverview" role="tabpanel" data-pane="overview">
+            <div class="tour__pane is-on" id="tourPaneOverview" role="tabpanel">
               <p class="tour__desc">홍주읍성은 조선시대 홍주목의 중심이자 홍주성 전투와 홍주의병의 역사를 간직한 홍성의 대표 국가유산이다. 밤이 되면 아름다운 야간경관으로 낮과는 또 다른 특별한 매력을 선사한다. 2026 홍성 국가유산 여행 「비밀을 품은 홍주성!」은 홍주읍성에서 펼쳐지는 국가유산 활용 축제로, 홍주읍성의 역사와 국가유산의 가치를 공연, 체험, 전시, 미디어 콘텐츠 등 다양한 프로그램을 통해 새롭게 경험할 수 있다. 특히 야행에서만 만날 수 있는 특별한 조명과 야간경관 연출은 홍주읍성의 또 다른 매력을 선사하며, 역사 체험형 공연과 국가유산 체험, 지역 먹거리 등 다채로운 콘텐츠를 통해 남녀노소 누구나 홍주읍성의 역사와 문화를 쉽고 재미있게 즐길 수 있다.</p>
             </div>
-            <div class="tour__pane" id="tourPaneIndex" role="tabpanel" data-pane="index" hidden>
+            <div class="tour__pane" id="tourPaneIndex" role="tabpanel" hidden>
               <p class="tour__desc">해양예보지수 화면. 개발에서 지수를 붙인다.</p>
             </div>
-            <div class="tour__pane" id="tourPaneForecast" role="tabpanel" data-pane="forecast" hidden>
+            <div class="tour__pane" id="tourPaneForecast" role="tabpanel" hidden>
               <p class="tour__desc">해황예보도 화면. 개발에서 예보도를 붙인다.</p>
             </div>
-            <div class="tour__pane" id="tourPaneNear" role="tabpanel" data-pane="near" hidden>
+            <div class="tour__pane" id="tourPaneNear" role="tabpanel" hidden>
               <div class="poi__list">
-                <button type="button" class="poi__item is-on" data-action="tour-item" data-tour-id="tour-course-1" data-pin="02">
-                  <span class="poi__mark"><img src="./assets/img/poi/hotel.svg" width="9" height="12" alt=""></span>
+                <button type="button" class="poi__item is-on">
+                  <span class="poi__mark poi__mark--hotel" aria-hidden="true"></span>
                   <span class="poi__name">홍주성 천년여행길</span>
                 </button>
-                <button type="button" class="poi__item" data-action="tour-item" data-tour-id="tour-shop-1" data-pin="06">
-                  <span class="poi__mark"><img src="./assets/img/poi/safety.svg" width="12" height="11" alt=""></span>
+                <button type="button" class="poi__item">
+                  <span class="poi__mark poi__mark--safety" aria-hidden="true"></span>
                   <span class="poi__name">유리알유희</span>
                 </button>
               </div>
             </div>
           </div>
-          <div class="tour__facts" data-bind="tour-facts">
+          <div class="tour__facts">
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/zip.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--zip" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">우편번호</span>
                 <span class="tour__fact-val">32228</span>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/phone.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--phone" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">전화번호</span>
                 <span class="tour__fact-val">041-634-8707</span>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/web.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--web" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">홈페이지</span>
-                <a class="tour__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/<img src="./assets/img/tour/ext.svg" width="12" height="12" alt=""></a>
+                <a class="tour__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/</a>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/pin.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--pin" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">주소</span>
                 <span class="tour__fact-val">충청남도 홍성군 홍성읍 아문길 27</span>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/cal.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--cal" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">행사일정</span>
                 <span class="tour__fact-val">2026.08.14 (금) ~ 2026.08.15 (토)</span>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/clock.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--clock" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">이용시간</span>
                 <span class="tour__fact-val">18:00 ~ 23:00</span>
               </span>
             </div>
             <div class="tour__fact">
-              <span class="tour__fact-ico"><img src="./assets/img/tour/fee.svg" width="20" height="20" alt=""></span>
+              <span class="tour__fact-ico tour__fact-ico--fee" aria-hidden="true"></span>
               <span class="tour__fact-txt">
                 <span class="tour__fact-lab">요금</span>
                 <span class="tour__fact-val">2026-08-14</span>
@@ -1642,7 +1632,7 @@
           <button type="button" class="suggest__more" aria-hidden="true"><i></i><i></i><i></i></button>
         </div>
         <button type="button" class="suggest__next" data-action="suggest" aria-expanded="false" aria-label="추천레이어 펼치기">
-          <img src="./assets/img/icon/chip-arr.svg" width="16" height="16" alt="">
+          <img src="./assets/img/icon/chip-arr.svg" alt="">
         </button>
       </div>
     </div>
@@ -2070,111 +2060,115 @@
       <img class="flt__glass" src="./assets/img/glass-panel.png" width="360" height="680" alt="" aria-hidden="true">
       <div class="flt__head">
         <p class="flt__title" id="filterTitle">필터</p>
-        <button type="button" class="flt__close" data-action="close-filter" aria-label="필터 닫기"></button>
+        <button type="button" class="flt__close" aria-label="필터 닫기"></button>
       </div>
       <div class="flt__body">
-        <section class="flt__sec" data-filter-group="area">
+        <section class="flt__sec">
           <div class="flt__tit">
             <div class="flt__tit-l">
               <strong>지역</strong>
               <label class="flt__all">
-                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="area">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false">
                   <span>off</span>
                 </button>
                 전체선택
               </label>
             </div>
-            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="area" aria-expanded="true" aria-label="지역 접기">
+            <button type="button" class="flt__fold" aria-expanded="true" aria-label="지역 접기">
             </button>
           </div>
           <div class="flt__grid flt__grid--4">
-            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="area" data-value="서울시" aria-pressed="true"><span>서울시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" aria-pressed="false"><span>경기도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" aria-pressed="false"><span>인천시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="부산시" aria-pressed="false"><span>부산시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대전시" aria-pressed="false"><span>대전시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대구시" aria-pressed="false"><span>대구시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="울산시" aria-pressed="false"><span>울산시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="세종시" aria-pressed="false"><span>세종시</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전남광주" aria-pressed="false"><span>전남광주</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="강원도" aria-pressed="false"><span>강원도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청북도" aria-pressed="false"><span>충청북도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청남도" aria-pressed="false"><span>충청남도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상북도" aria-pressed="false"><span>경상북도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상남도" aria-pressed="false"><span>경상남도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전북도" aria-pressed="false"><span>전북도</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="제주도" aria-pressed="false"><span>제주도</span></button>
+            <button type="button" class="flt__chip is-on" aria-pressed="true"><span>서울시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>경기도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>인천시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>부산시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>대전시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>대구시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>울산시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>세종시</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>전남광주</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>강원도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>충청북도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>충청남도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>경상북도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>경상남도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>전북도</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>제주도</span></button>
           </div>
         </section>
         <hr class="flt__line">
-        <section class="flt__sec" data-filter-group="cat">
+        <section class="flt__sec">
           <div class="flt__tit">
             <div class="flt__tit-l">
               <strong>카테고리</strong>
               <label class="flt__all">
-                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cat">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false">
                   <span>off</span>
                 </button>
                 전체선택
               </label>
             </div>
-            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cat" aria-expanded="true" aria-label="카테고리 접기">
+            <button type="button" class="flt__fold" aria-expanded="true" aria-label="카테고리 접기">
             </button>
           </div>
           <div class="flt__grid flt__grid--3">
-            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cat" data-value="골재·광물" aria-pressed="true"><span>골재·광물</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="항만·항행" aria-pressed="false"><span>항만·항행</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="군사활동" aria-pressed="false"><span>군사활동</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="어업활동" aria-pressed="false"><span>어업활동</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양관광" aria-pressed="false"><span>해양관광</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양안전·관리" aria-pressed="false"><span>해양안전·관리</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양환경·생태" aria-pressed="false"><span>해양환경·생태</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수자원" aria-pressed="false"><span>해양수자원</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양에너지" aria-pressed="false"><span>해양에너지</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="기본공간정보" aria-pressed="false"><span>기본공간정보</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수산통계" aria-pressed="false"><span>해양수산통계</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양용도구역" aria-pressed="false"><span>해양용도구역</span></button>
+            <button type="button" class="flt__chip is-on" aria-pressed="true"><span>골재·광물</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>항만·항행</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>군사활동</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>어업활동</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양관광</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양안전·관리</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양환경·생태</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양수자원</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양에너지</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>기본공간정보</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양수산통계</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>해양용도구역</span></button>
           </div>
         </section>
         <hr class="flt__line">
-        <section class="flt__sec" data-filter-group="cho">
+        <section class="flt__sec">
           <div class="flt__tit">
             <div class="flt__tit-l">
               <strong>초성</strong>
               <label class="flt__all">
-                <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cho">
+                <button type="button" class="flt__switch" role="switch" aria-checked="false">
                   <span>off</span>
                 </button>
                 전체선택
               </label>
             </div>
-            <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cho" aria-expanded="true" aria-label="초성 접기">
+            <button type="button" class="flt__fold" aria-expanded="true" aria-label="초성 접기">
             </button>
           </div>
           <div class="flt__grid flt__grid--7">
-            <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cho" data-value="ㄱ" aria-pressed="true"><span>ㄱ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄴ" aria-pressed="false"><span>ㄴ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄷ" aria-pressed="false"><span>ㄷ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄹ" aria-pressed="false"><span>ㄹ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅁ" aria-pressed="false"><span>ㅁ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅂ" aria-pressed="false"><span>ㅂ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅅ" aria-pressed="false"><span>ㅅ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅇ" aria-pressed="false"><span>ㅇ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅈ" aria-pressed="false"><span>ㅈ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅊ" aria-pressed="false"><span>ㅊ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅋ" aria-pressed="false"><span>ㅋ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅌ" aria-pressed="false"><span>ㅌ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅍ" aria-pressed="false"><span>ㅍ</span></button>
-            <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅎ" aria-pressed="false"><span>ㅎ</span></button>
+            <button type="button" class="flt__chip is-on" aria-pressed="true"><span>ㄱ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㄴ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㄷ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㄹ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅁ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅂ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅅ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅇ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅈ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅊ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅋ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅌ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅍ</span></button>
+            <button type="button" class="flt__chip" aria-pressed="false"><span>ㅎ</span></button>
           </div>
         </section>
         <hr class="flt__line">
         <div class="flt__foot">
           <div class="flt__picked">
-            <button type="button" class="flt__reset" data-action="filter-reset" aria-label="선택 초기화"></button>
-            <div class="flt__tags" data-bind="filter-chips"></div>
+            <button type="button" class="flt__reset" aria-label="선택 초기화"></button>
+            <div class="flt__tags">
+              <button type="button" class="flt__tag">서울시</button>
+              <button type="button" class="flt__tag">골재·광물</button>
+              <button type="button" class="flt__tag">ㄱ</button>
+            </div>
           </div>
-          <button type="button" class="flt__apply" data-action="filter-apply">
+          <button type="button" class="flt__apply">
             <span class="flt__apply-pc">결과 보기</span>
             <span class="flt__apply-mo">필터 선택 완료</span>
           </button>
@@ -2232,76 +2226,74 @@
       </div>
     </div>
     <section class="tdetail" id="tourDetail" hidden aria-labelledby="tourDetailTitle">
-      <img class="tdetail__glass" src="./assets/img/glass-panel.png" width="1450" height="1028" alt="" aria-hidden="true">
+      <img class="tdetail__glass" src="./assets/img/glass-panel.png" alt="" aria-hidden="true">
       <header class="tdetail__head">
-        <h2 class="tdetail__title" id="tourDetailTitle" data-bind="tour-detail-title">홍성 국가유산야행</h2>
+        <h2 class="tdetail__title" id="tourDetailTitle">홍성 국가유산야행</h2>
         <div class="tdetail__acts">
-          <button type="button" class="tdetail__pill" data-action="tour-detail-route">
-            <span class="tdetail__pill-ico"><img src="./assets/img/tour/route.svg" width="16" height="16" alt=""></span>
+          <button type="button" class="tdetail__pill">
+            <span class="tdetail__pill-ico tdetail__pill-ico--route" aria-hidden="true"></span>
             길 찾기
           </button>
-          <button type="button" class="tdetail__pill" data-action="tour-detail-down">
-            <span class="tdetail__pill-ico"><img src="./assets/img/tour-detail/download.svg" width="16" height="16" alt=""></span>
+          <button type="button" class="tdetail__pill">
+            <span class="tdetail__pill-ico tdetail__pill-ico--download" aria-hidden="true"></span>
             다운로드
           </button>
-          <button type="button" class="tdetail__x" data-action="close-tour-detail" aria-label="닫기">
-            <img src="./assets/img/tour/close.svg" width="24" height="24" alt="">
-          </button>
+          <button type="button" class="tdetail__x" aria-label="닫기"></button>
         </div>
       </header>
       <div class="tdetail__grid">
         <article class="tdetail__box">
           <h3 class="tdetail__h">
-            <span class="tdetail__dot"><img src="./assets/img/tour-detail/bullet.svg" width="12" height="12" alt=""></span>
+            <span class="tdetail__dot" aria-hidden="true"></span>
             개요
           </h3>
           <div class="tdetail__body">
             <p class="tdetail__desc">홍주읍성은 조선시대 홍주목의 중심이자 홍주성 전투와 홍주의병의 역사를 간직한 홍성의 대표 국가유산이다. 밤이 되면 아름다운 야간경관으로 낮과는 또 다른 특별한 매력을 선사한다. 2026 홍성 국가유산 여행 「비밀을 품은 홍주성!」은 홍주읍성에서 펼쳐지는 국가유산 활용 축제로, 홍주읍성의 역사와 국가유산의 가치를 공연, 체험, 전시, 미디어 콘텐츠 등 다양한 프로그램을 통해 새롭게 경험할 수 있다. 특히 야행에서만 만날 수 있는 특별한 조명과 야간경관 연출은 홍주읍성의 또 다른 매력을 선사하며, 역사 체험형 공연과 국가유산 체험, 지역 먹거리 등 다채로운 콘텐츠를 통해 남녀노소 누구나 홍주읍성의 역사와 문화를 쉽고 재미있게 즐길 수 있다.</p>
             <ul class="tdetail__facts">
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/zip.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--zip" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">우편번호</span>
                   <span class="tdetail__fact-val">32228</span>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/phone.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--phone" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">전화번호</span>
                   <span class="tdetail__fact-val">041-634-8707</span>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/web.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--web" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">홈페이지</span>
-                  <a class="tdetail__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/<img src="./assets/img/tour/ext.svg" width="12" height="12" alt=""></a>
+                  <a class="tdetail__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/</a>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/pin.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--pin" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">주소</span>
                   <span class="tdetail__fact-val">충청남도 홍성군 홍성읍 아문길 27</span>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/cal.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--cal" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">행사일정</span>
                   <span class="tdetail__fact-val">2026.08.14 (금) ~ 2026.08.15 (토)</span>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/clock.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--clock" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">이용시간</span>
                   <span class="tdetail__fact-val">18:00 ~ 23:00</span>
                 </span>
               </li>
               <li class="tdetail__fact">
-                <span class="tdetail__fact-ico"><img src="./assets/img/tour/fee.svg" width="20" height="20" alt=""></span>
+                <span class="tdetail__fact-ico tdetail__fact-ico--fee" aria-hidden="true"></span>
                 <span class="tdetail__fact-txt">
                   <span class="tdetail__fact-lab">요금</span>
                   <span class="tdetail__fact-val">2026-08-14</span>
@@ -2312,54 +2304,54 @@
         </article>
         <article class="tdetail__box">
           <h3 class="tdetail__h">
-            <span class="tdetail__dot"><img src="./assets/img/tour-detail/bullet.svg" width="12" height="12" alt=""></span>
+            <span class="tdetail__dot" aria-hidden="true"></span>
             주변 관광
           </h3>
           <div class="tdetail__body">
             <div class="tdetail__seg" role="tablist" aria-label="주변 관광 거리">
-              <button type="button" class="tdetail__seg-btn is-on" data-action="tour-near-km" data-km="3" role="tab" aria-selected="true">3Km</button>
-              <button type="button" class="tdetail__seg-btn" data-action="tour-near-km" data-km="5" role="tab" aria-selected="false">5Km</button>
-              <button type="button" class="tdetail__seg-btn" data-action="tour-near-km" data-km="10" role="tab" aria-selected="false">10Km</button>
+              <button type="button" class="tdetail__seg-btn is-on" role="tab" aria-selected="true">3Km</button>
+              <button type="button" class="tdetail__seg-btn" role="tab" aria-selected="false">5Km</button>
+              <button type="button" class="tdetail__seg-btn" role="tab" aria-selected="false">10Km</button>
             </div>
             <div class="tdetail__near">
-              <button type="button" class="tdetail__card" data-action="tour-item" data-tour-id="tour-fest-1" data-pin="03">
+              <button type="button" class="tdetail__card">
                 <span class="tdetail__card-txt">
                   <span class="poi__badge">축제/공연/행사</span>
                   <span class="tdetail__card-name">홍성 국가유산 야행</span>
                   <span class="tdetail__card-addr">충청남도 홍성군 홍성읍 아문길 27</span>
                 </span>
-                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-1.png" width="100" height="70" alt=""></span>
+                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-1.png" alt=""></span>
               </button>
-              <button type="button" class="tdetail__card" data-action="tour-item" data-tour-id="tour-shop-1" data-pin="06">
+              <button type="button" class="tdetail__card">
                 <span class="tdetail__card-txt">
                   <span class="poi__badge">쇼핑</span>
                   <span class="tdetail__card-name">유리알유희</span>
                   <span class="tdetail__card-addr">강원특벽자치도 강릉시 창해로 351-2 (강문동)</span>
                 </span>
-                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-2.png" width="100" height="70" alt=""></span>
+                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-2.png" alt=""></span>
               </button>
-              <button type="button" class="tdetail__card" data-action="tour-item" data-tour-id="tour-fest-2" data-pin="03">
+              <button type="button" class="tdetail__card">
                 <span class="tdetail__card-txt">
                   <span class="poi__badge">축제/공연/행사</span>
                   <span class="tdetail__card-name">삼길포 우럭축제</span>
                   <span class="tdetail__card-addr">충청남도 서산시 대산읍 삼길포1로 72-2</span>
                 </span>
-                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-3.png" width="100" height="70" alt=""></span>
+                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-3.png" alt=""></span>
               </button>
-              <button type="button" class="tdetail__card" data-action="tour-item" data-tour-id="tour-fest-3" data-pin="03">
+              <button type="button" class="tdetail__card">
                 <span class="tdetail__card-txt">
                   <span class="poi__badge">축제/공연/행사</span>
                   <span class="tdetail__card-name">시흥월곶포구축제</span>
                   <span class="tdetail__card-addr">경기도 시흥시 월곶해안로 188 (월곶동)</span>
                 </span>
-                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-4.png" width="100" height="70" alt=""></span>
+                <span class="tdetail__card-thum"><img src="./assets/img/tour-detail/near-4.png" alt=""></span>
               </button>
             </div>
           </div>
         </article>
         <article class="tdetail__box">
           <h3 class="tdetail__h">
-            <span class="tdetail__dot"><img src="./assets/img/tour-detail/bullet.svg" width="12" height="12" alt=""></span>
+            <span class="tdetail__dot" aria-hidden="true"></span>
             해양예보도
           </h3>
           <div class="tdetail__body">
@@ -2368,7 +2360,7 @@
                 <p class="tdetail__lab">지역</p>
                 <label class="tdetail__sel">
                   <span class="sr-only">지역</span>
-                  <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="area" aria-label="지역">
+                  <select class="tdetail__sel-el" aria-label="지역">
                     <option value="all" selected>전국</option>
                     <option value="west">서해</option>
                     <option value="south">남해</option>
@@ -2382,7 +2374,7 @@
                 <div class="tdetail__sels">
                   <label class="tdetail__sel">
                     <span class="sr-only">날짜</span>
-                    <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="date" aria-label="날짜">
+                    <select class="tdetail__sel-el" aria-label="날짜">
                       <option value="2026-08-05" selected>2026-08-05</option>
                       <option value="2026-08-06">2026-08-06</option>
                       <option value="2026-08-07">2026-08-07</option>
@@ -2390,7 +2382,7 @@
                   </label>
                   <label class="tdetail__sel">
                     <span class="sr-only">시간</span>
-                    <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="hour" aria-label="시간">
+                    <select class="tdetail__sel-el" aria-label="시간">
                       <option value="9">09</option>
                       <option value="12">12</option>
                       <option value="15" selected>15</option>
@@ -2402,15 +2394,15 @@
             </div>
             <div class="tdetail__result">
               <p class="tdetail__sub">조회결과</p>
-              <div class="tdetail__map" data-bind="tour-forecast">
-                <img src="./assets/img/tour-detail/forecast.png" width="634" height="498" alt="내일의 바다 해황예보도">
+              <div class="tdetail__map">
+                <img src="./assets/img/tour-detail/forecast.png" alt="내일의 바다 해황예보도">
               </div>
             </div>
           </div>
         </article>
         <article class="tdetail__box">
           <h3 class="tdetail__h">
-            <span class="tdetail__dot"><img src="./assets/img/tour-detail/bullet.svg" width="12" height="12" alt=""></span>
+            <span class="tdetail__dot" aria-hidden="true"></span>
             해양예보지수
           </h3>
           <div class="tdetail__body">
@@ -2419,7 +2411,7 @@
                 <p class="tdetail__lab">추천활동</p>
                 <label class="tdetail__sel">
                   <span class="sr-only">추천활동</span>
-                  <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="act" aria-label="추천활동">
+                  <select class="tdetail__sel-el" aria-label="추천활동">
                     <option value="fishing" selected>바다낚시(갯바위)</option>
                     <option value="surfing">서핑</option>
                     <option value="diving">스킨스쿠버</option>
@@ -2430,7 +2422,7 @@
                 <p class="tdetail__lab">위치</p>
                 <label class="tdetail__sel">
                   <span class="sr-only">위치</span>
-                  <select class="tdetail__sel-el" data-action="tour-detail-sel" data-sel="pos" aria-label="위치">
+                  <select class="tdetail__sel-el" aria-label="위치">
                     <option value="gimnyeong" selected>김녕</option>
                     <option value="seogwipo">서귀포</option>
                     <option value="hallim">한림</option>
@@ -2460,7 +2452,7 @@
                       <td>2026-08-21</td>
                       <td>오전</td>
                       <td>농어</td>
-                      <td><span class="tdetail__st tdetail__st--good"><img src="./assets/img/tour-detail/dot-good.svg" width="8" height="8" alt="">좋음</span></td>
+                      <td><span class="tdetail__st tdetail__st--good">좋음</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2471,7 +2463,7 @@
                       <td>2026-08-24</td>
                       <td>오후</td>
                       <td>농어</td>
-                      <td><span class="tdetail__st tdetail__st--good"><img src="./assets/img/tour-detail/dot-good.svg" width="8" height="8" alt="">좋음</span></td>
+                      <td><span class="tdetail__st tdetail__st--good">좋음</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2482,7 +2474,7 @@
                       <td>2026-08-05</td>
                       <td>오전</td>
                       <td>농어</td>
-                      <td><span class="tdetail__st tdetail__st--bad"><img src="./assets/img/tour-detail/dot-bad.svg" width="8" height="8" alt="">매우나쁨</span></td>
+                      <td><span class="tdetail__st tdetail__st--bad">매우나쁨</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2493,7 +2485,7 @@
                       <td>2026-08-05</td>
                       <td>오전</td>
                       <td>기타어종</td>
-                      <td><span class="tdetail__st tdetail__st--warn"><img src="./assets/img/tour-detail/dot-warn.svg" width="8" height="8" alt="">나쁨</span></td>
+                      <td><span class="tdetail__st tdetail__st--warn">나쁨</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2504,7 +2496,7 @@
                       <td>2026-08-21</td>
                       <td>오전</td>
                       <td>농어</td>
-                      <td><span class="tdetail__st tdetail__st--mid"><img src="./assets/img/tour-detail/dot-mid.svg" width="8" height="8" alt="">보통</span></td>
+                      <td><span class="tdetail__st tdetail__st--mid">보통</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2515,7 +2507,7 @@
                       <td>2026-08-24</td>
                       <td>오후</td>
                       <td>농어</td>
-                      <td><span class="tdetail__st tdetail__st--good"><img src="./assets/img/tour-detail/dot-good.svg" width="8" height="8" alt="">좋음</span></td>
+                      <td><span class="tdetail__st tdetail__st--good">좋음</span></td>
                       <td>0.8-0.8</td>
                       <td>8.4-8.6</td>
                       <td>28.1-28.3</td>
@@ -2604,7 +2596,7 @@
           <span>건</span>
         </p>
       </div>
-    </section>
+    </section> 
     <section class="eval" id="evalPanel" hidden aria-labelledby="evalTitle">
       <header class="eval__head">
         <h2 class="eval__title" id="evalTitle">격자별 특성평가 결과 조회</h2>
@@ -2963,6 +2955,46 @@
         </div>
       </div>
     </nav>
+  </div>
+  <div class="login" id="loginModal" hidden data-dimmed="true">
+    <div class="login__dim" data-action="close-login"></div>
+    <section class="login__box" role="dialog" aria-modal="true" aria-labelledby="loginTitle" tabindex="-1">
+      <header class="login__head">
+        <h2 class="login__title" id="loginTitle">로그인</h2>
+        <button type="button" class="login__x" data-action="close-login" aria-label="닫기"></button>
+      </header>
+      <form class="login__body" action="#">
+        <div class="login__brand">
+          <span class="login__symbol" aria-hidden="true">해양수산부 해양수산공간정보플랫폼</span>
+        </div>
+        <label class="login__field">
+          <span class="login__lab">아이디</span>
+          <input class="login__input" id="loginId" name="login-id" type="text" placeholder="아이디를 입력하세요" autocomplete="username" data-bind="login-id">
+        </label>
+        <label class="login__field">
+          <span class="login__lab">비밀번호</span>
+          <span class="login__pw">
+            <input class="login__input" id="loginPw" name="login-pw" type="password" placeholder="비밀번호를 입력하세요" autocomplete="current-password" data-bind="login-pw">
+            <button type="button" class="login__eye" data-action="login-pw" aria-label="비밀번호 표시" aria-pressed="false"></button>
+          </span>
+        </label>
+        <label class="login__save">
+          <span class="chk">
+            <input class="chk__input" type="checkbox" name="login-save" data-bind="login-save">
+            <span class="chk__box" aria-hidden="true"></span>
+          </span>
+          <span class="login__save-txt">아이디 저장</span>
+        </label>
+        <button type="submit" class="login__submit" data-action="login-submit">로그인</button>
+        <p class="login__links">
+          <button type="button" class="login__link login__link--on" data-action="login-find-id">아이디 찾기</button>
+          <span class="login__div" aria-hidden="true"></span>
+          <button type="button" class="login__link" data-action="login-find-pw">비밀번호 찾기</button>
+          <span class="login__div" aria-hidden="true"></span>
+          <button type="button" class="login__link" data-action="login-signup">회원가입</button>
+        </p>
+      </form>
+    </section>
   </div>
   <div class="dlg" id="metaModal" hidden data-dimmed="true">
     <div class="dlg__dim" data-action="close-modal" hidden></div>

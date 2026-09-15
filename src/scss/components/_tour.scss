@@ -443,19 +443,19 @@
     white-space: nowrap;
     cursor: pointer;
 
-    &[data-action='tour-all']::before,
-    &[data-action='tour-route']::before {
+    &--all::before,
+    &--route::before {
       content: '';
       width: 16px;
       height: 16px;
       background: center / contain no-repeat;
     }
 
-    &[data-action='tour-all']::before {
+    &--all::before {
       background-image: url('../assets/img/tour/all.svg');
     }
 
-    &[data-action='tour-route']::before {
+    &--route::before {
       background-image: url('../assets/img/tour/route.svg');
     }
   }
@@ -633,14 +633,14 @@
     color: $gray-95;
     text-decoration: none;
     word-break: break-all;
+  }
 
-    &::after {
-      content: '';
-      flex-shrink: 0;
-      width: 12px;
-      height: 12px;
-      background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
-    }
+  a.tour__fact-val::after {
+    content: '';
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
   }
 }
 

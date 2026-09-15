@@ -1,106 +1,93 @@
-{{!--
-  관광정보 상세. Figma 129:71139
-  MapUI.openTourOverlay() / closeTourOverlay()
---}}
+{{!-- 관광정보 상세 --}}
 <aside class="tour tour--over" id="tourOverlay" hidden aria-label="관광정보 상세">
-  <img class="tour__glass" src="./src/assets/img/glass-panel.png" width="360" height="800" alt="" aria-hidden="true">
+  <img class="tour__glass" src="./src/assets/img/glass-panel.png" alt="" aria-hidden="true">
   <div class="tour__hero">
-    <img class="tour__hero-img" src="./src/assets/img/tour/hero.png" width="360" height="180" alt="">
+    <img class="tour__hero-img" src="./src/assets/img/tour/hero.png" alt="">
     <div class="tour__bar">
-      <button type="button" class="tour__back" data-action="close-tour-overlay" aria-label="목록으로">
-        <img src="./src/assets/img/tour/back.svg" width="12" height="12" alt="">
-      </button>
-      <p class="tour__bar-name" data-bind="tour-title">홍성 국가유산 야행</p>
-      <button type="button" class="tour__x" data-action="close-tour-overlay" aria-label="상세 닫기">
-        <img src="./src/assets/img/tour/close.svg" width="24" height="24" alt="">
-      </button>
+      <button type="button" class="tour__back" aria-label="목록으로"></button>
+      <p class="tour__bar-name">홍성 국가유산 야행</p>
+      <button type="button" class="tour__x" aria-label="상세 닫기"></button>
     </div>
     <div class="tour__hero-acts">
-      <button type="button" class="tour__pill" data-action="tour-all">
-        <img src="./src/assets/img/tour/all.svg" width="16" height="16" alt="">
-        전체보기
-      </button>
-      <button type="button" class="tour__pill" data-action="tour-route">
-        <img src="./src/assets/img/tour/route.svg" width="16" height="16" alt="">
-        길 찾기
-      </button>
+      <button type="button" class="tour__pill tour__pill--all">전체보기</button>
+      <button type="button" class="tour__pill tour__pill--route">길 찾기</button>
     </div>
   </div>
   <div class="tour__over-body">
     <div class="tour__info">
       <div class="tour__tabs" role="tablist" aria-label="관광정보 상세">
-        <button type="button" class="tour__tab is-on" role="tab" aria-selected="true" data-action="tour-tab" data-tab="overview">개요</button>
-        <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="index">해양예보지수</button>
-        <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="forecast">해황예보도</button>
-        <button type="button" class="tour__tab" role="tab" aria-selected="false" data-action="tour-tab" data-tab="near">주변관광</button>
+        <button type="button" class="tour__tab is-on" role="tab" aria-selected="true">개요</button>
+        <button type="button" class="tour__tab" role="tab" aria-selected="false">해양예보지수</button>
+        <button type="button" class="tour__tab" role="tab" aria-selected="false">해황예보도</button>
+        <button type="button" class="tour__tab" role="tab" aria-selected="false">주변관광</button>
       </div>
-      <div class="tour__pane is-on" id="tourPaneOverview" role="tabpanel" data-pane="overview">
+      <div class="tour__pane is-on" id="tourPaneOverview" role="tabpanel">
         <p class="tour__desc">홍주읍성은 조선시대 홍주목의 중심이자 홍주성 전투와 홍주의병의 역사를 간직한 홍성의 대표 국가유산이다. 밤이 되면 아름다운 야간경관으로 낮과는 또 다른 특별한 매력을 선사한다. 2026 홍성 국가유산 여행 「비밀을 품은 홍주성!」은 홍주읍성에서 펼쳐지는 국가유산 활용 축제로, 홍주읍성의 역사와 국가유산의 가치를 공연, 체험, 전시, 미디어 콘텐츠 등 다양한 프로그램을 통해 새롭게 경험할 수 있다. 특히 야행에서만 만날 수 있는 특별한 조명과 야간경관 연출은 홍주읍성의 또 다른 매력을 선사하며, 역사 체험형 공연과 국가유산 체험, 지역 먹거리 등 다채로운 콘텐츠를 통해 남녀노소 누구나 홍주읍성의 역사와 문화를 쉽고 재미있게 즐길 수 있다.</p>
       </div>
-      <div class="tour__pane" id="tourPaneIndex" role="tabpanel" data-pane="index" hidden>
+      <div class="tour__pane" id="tourPaneIndex" role="tabpanel" hidden>
         <p class="tour__desc">해양예보지수 화면. 개발에서 지수를 붙인다.</p>
       </div>
-      <div class="tour__pane" id="tourPaneForecast" role="tabpanel" data-pane="forecast" hidden>
+      <div class="tour__pane" id="tourPaneForecast" role="tabpanel" hidden>
         <p class="tour__desc">해황예보도 화면. 개발에서 예보도를 붙인다.</p>
       </div>
-      <div class="tour__pane" id="tourPaneNear" role="tabpanel" data-pane="near" hidden>
+      <div class="tour__pane" id="tourPaneNear" role="tabpanel" hidden>
         <div class="poi__list">
-          <button type="button" class="poi__item is-on" data-action="tour-item" data-tour-id="tour-course-1" data-pin="02">
-            <span class="poi__mark"><img src="./src/assets/img/poi/hotel.svg" width="9" height="12" alt=""></span>
+          <button type="button" class="poi__item is-on">
+            <span class="poi__mark poi__mark--hotel" aria-hidden="true"></span>
             <span class="poi__name">홍주성 천년여행길</span>
           </button>
-          <button type="button" class="poi__item" data-action="tour-item" data-tour-id="tour-shop-1" data-pin="06">
-            <span class="poi__mark"><img src="./src/assets/img/poi/safety.svg" width="12" height="11" alt=""></span>
+          <button type="button" class="poi__item">
+            <span class="poi__mark poi__mark--safety" aria-hidden="true"></span>
             <span class="poi__name">유리알유희</span>
           </button>
         </div>
       </div>
     </div>
-    <div class="tour__facts" data-bind="tour-facts">
+    <div class="tour__facts">
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/zip.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--zip" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">우편번호</span>
           <span class="tour__fact-val">32228</span>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/phone.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--phone" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">전화번호</span>
           <span class="tour__fact-val">041-634-8707</span>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/web.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--web" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">홈페이지</span>
-          <a class="tour__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/<img src="./src/assets/img/tour/ext.svg" width="12" height="12" alt=""></a>
+          <a class="tour__fact-val" href="https://hongju.or.kr/" target="_blank" rel="noopener noreferrer">https://hongju.or.kr/</a>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/pin.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--pin" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">주소</span>
           <span class="tour__fact-val">충청남도 홍성군 홍성읍 아문길 27</span>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/cal.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--cal" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">행사일정</span>
           <span class="tour__fact-val">2026.08.14 (금) ~ 2026.08.15 (토)</span>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/clock.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--clock" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">이용시간</span>
           <span class="tour__fact-val">18:00 ~ 23:00</span>
         </span>
       </div>
       <div class="tour__fact">
-        <span class="tour__fact-ico"><img src="./src/assets/img/tour/fee.svg" width="20" height="20" alt=""></span>
+        <span class="tour__fact-ico tour__fact-ico--fee" aria-hidden="true"></span>
         <span class="tour__fact-txt">
           <span class="tour__fact-lab">요금</span>
           <span class="tour__fact-val">2026-08-14</span>

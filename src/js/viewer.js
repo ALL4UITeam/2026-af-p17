@@ -4,6 +4,7 @@ const PAGES = [
     items: [
       { id: 'g0', name: '컴포넌트 가이드', file: 'guide.html', ready: true, width: 1280, label: 'PC' },
       { id: '01', name: '기본 화면', file: 'map.html', ready: true, width: 1280, label: 'PC' },
+      { id: '01n', name: '로그인', file: 'map-login.html', ready: true, width: 1280, label: 'PC' },
       { id: '01k', name: '레이어 리스트', file: 'map-lyr.html', ready: true, width: 1280, label: 'PC' },
       { id: '01s', name: '추천레이어 펼침', file: 'map-suggest.html', ready: true, width: 1280, label: 'PC' },
       { id: '01t', name: '관광정보 목록', file: 'map-tour.html', ready: true, width: 1280, label: 'PC' },

@@ -243,14 +243,14 @@
     line-height: 1.5;
     letter-spacing: -0.42px;
     color: $gray-95;
+  }
 
-    &::after {
-      content: '';
-      flex-shrink: 0;
-      width: 12px;
-      height: 12px;
-      background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
-    }
+  a.tdetail__fact-val::after {
+    content: '';
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
   }
 
   &__seg {

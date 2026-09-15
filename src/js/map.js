@@ -37,6 +37,7 @@
  * - map:spatial       { kind: 'op' | 'an' }
  * - map:suggest       { open? , name? }
  * - map:user
+ * - map:login         { open?, action?, id?, remember? }
  * - map:layer-reset | map:layer-remove | map:layer-set
  * - map:eval          { open, tab? }
  * - map:eval-tab      { tab: 'all' | 'valid' }
@@ -928,6 +929,40 @@ function closeTourLegend() {
   emit('map:legend', { open: false, tab: 'tour' })
 }
 
+function openLogin(opts = {}) {
+  const el = document.getElementById('loginModal')
+  if (!el) return
+  const dimmed = opts.dimmed ?? el.dataset.dimmed !== 'false'
+  el.dataset.dimmed = dimmed ? 'true' : 'false'
+  const dim = el.querySelector('.login__dim')
+  if (dim) dim.hidden = !dimmed
+  el.hidden = false
+  el.querySelector('[data-bind="login-id"]')?.focus()
+  emit('map:login', { open: true, dimmed })
+}
+
+function closeLogin() {
+  const el = document.getElementById('loginModal')
+  if (!el || el.hidden) return
+  el.hidden = true
+  emit('map:login', { open: false })
+}
+
+function toggleLoginPw(btn) {
+  const input = document.getElementById('loginPw')
+  if (!input) return
+  const show = input.type === 'password'
+  input.type = show ? 'text' : 'password'
+  btn.setAttribute('aria-pressed', show ? 'true' : 'false')
+  btn.setAttribute('aria-label', show ? '비밀번호 숨기기' : '비밀번호 표시')
+}
+
+function submitLogin() {
+  const id = document.querySelector('[data-bind="login-id"]')?.value || ''
+  const remember = !!document.querySelector('[data-bind="login-save"]')?.checked
+  emit('map:login', { action: 'submit', id, remember })
+}
+
 function closeModal(id) {
   const el = id
     ? document.getElementById(id)
@@ -1642,6 +1677,15 @@ function onClick(event) {
     emit('map:info', { id: actionEl.dataset.layerId })
   }
   if (action === 'close-modal') closeModal(actionEl.closest('.dlg')?.id)
+  if (action === 'close-login') closeLogin()
+  if (action === 'login-pw') toggleLoginPw(actionEl)
+  if (action === 'login-submit') {
+    event.preventDefault()
+    submitLogin()
+  }
+  if (action === 'login-find-id' || action === 'login-find-pw' || action === 'login-signup') {
+    emit('map:login', { action })
+  }
   if (action === 'modal-tab') onModalTab(actionEl)
   if (action === 'modal-acc') setModalTab(actionEl.dataset.tab)
   if (action === 'fav-layer') {
@@ -1894,6 +1938,7 @@ function bootScreen() {
   if (screen === 'cluster') openClusters()
   const legendTab = { legend: 'grade', 'legend-use': 'use', 'legend-mgmt': 'mgmt' }[screen]
   if (legendTab) openLegend(legendTab)
+  if (screen === 'login') openLogin()
   if (screen === 'legend-tour') openTourLegend()
 }
 
@@ -1912,6 +1957,8 @@ window.MapUI = {
   closeAreaInfo,
   openModal,
   closeModal,
+  openLogin,
+  closeLogin,
   setModalTab,
   openAttr,
   closeAttr,
