@@ -186,6 +186,16 @@
       opacity: 0.8;
       pointer-events: none;
     }
+    &[aria-expanded="false"] {
+      .lyr-list__cat-ico {
+        background-image: url('../assets/img/icon/chev-down.svg');
+      }
+    }
+    &[aria-expanded="true"] {
+      .lyr-list__cat-ico {
+        background-image: url('../assets/img/icon/chev-up.svg');
+      }
+    }
   }
 
   &__cat-txt,
@@ -207,15 +217,14 @@
     align-items: center;
     gap: 10px;
   }
+  
 
   &__cat-ico {
     width: 16px;
     height: 16px;
-    background: url('../assets/img/icon/chev-up.svg') center / 16px 16px no-repeat;
-
-    &--down {
-      background-image: url('../assets/img/icon/chev-down.svg');
-    }
+    background-repeat: no-repeat;
+    background-position: center;
+    //background: url('../assets/img/icon/chev-up.svg') center / 16px 16px no-repeat;
   }
 
   &__cat.is-empty {
@@ -240,6 +249,9 @@
     flex-direction: column;
     gap: 6px;
     width: 100%;
+    &[hidden] {
+      display: none;
+    }
   }
 
   &__row {

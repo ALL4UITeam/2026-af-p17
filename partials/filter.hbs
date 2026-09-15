@@ -3,9 +3,7 @@
   <img class="flt__glass" src="./src/assets/img/glass-panel.png" width="360" height="680" alt="" aria-hidden="true">
   <div class="flt__head">
     <p class="flt__title" id="filterTitle">필터</p>
-    <button type="button" class="flt__close" data-action="close-filter" aria-label="필터 닫기">
-      <img src="./src/assets/img/attr/close.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="flt__close" data-action="close-filter" aria-label="필터 닫기"></button>
   </div>
   <div class="flt__body">
     <section class="flt__sec" data-filter-group="area">
@@ -15,32 +13,30 @@
           <label class="flt__all">
             <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="area">
               <span>off</span>
-              <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
             </button>
             전체선택
           </label>
         </div>
         <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="area" aria-expanded="true" aria-label="지역 접기">
-          <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
         </button>
       </div>
       <div class="flt__grid flt__grid--4">
-        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="area" data-value="서울시" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>서울시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경기도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경기도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="인천시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>인천시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="부산시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>부산시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대전시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>대전시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대구시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>대구시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="울산시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>울산시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="세종시" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>세종시</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전남광주" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>전남광주</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="강원도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>강원도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>충청북도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청남도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>충청남도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경상북도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상남도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>경상남도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전북도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>전북도</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="제주도" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>제주도</span></button>
+        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="area" data-value="서울시" aria-pressed="true"><span>서울시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" aria-pressed="false"><span>경기도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" aria-pressed="false"><span>인천시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="부산시" aria-pressed="false"><span>부산시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대전시" aria-pressed="false"><span>대전시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="대구시" aria-pressed="false"><span>대구시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="울산시" aria-pressed="false"><span>울산시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="세종시" aria-pressed="false"><span>세종시</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전남광주" aria-pressed="false"><span>전남광주</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="강원도" aria-pressed="false"><span>강원도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청북도" aria-pressed="false"><span>충청북도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="충청남도" aria-pressed="false"><span>충청남도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상북도" aria-pressed="false"><span>경상북도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="경상남도" aria-pressed="false"><span>경상남도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="전북도" aria-pressed="false"><span>전북도</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="area" data-value="제주도" aria-pressed="false"><span>제주도</span></button>
       </div>
     </section>
     <hr class="flt__line">
@@ -51,28 +47,26 @@
           <label class="flt__all">
             <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cat">
               <span>off</span>
-              <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
             </button>
             전체선택
           </label>
         </div>
         <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cat" aria-expanded="true" aria-label="카테고리 접기">
-          <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
         </button>
       </div>
       <div class="flt__grid flt__grid--3">
-        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cat" data-value="골재·광물" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>골재·광물</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="항만·항행" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>항만·항행</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="군사활동" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>군사활동</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="어업활동" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>어업활동</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양관광" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양관광</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양안전·관리" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양안전·관리</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양환경·생태" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양환경·생태</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수자원" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양수자원</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양에너지" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양에너지</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="기본공간정보" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>기본공간정보</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수산통계" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양수산통계</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양용도구역" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>해양용도구역</span></button>
+        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cat" data-value="골재·광물" aria-pressed="true"><span>골재·광물</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="항만·항행" aria-pressed="false"><span>항만·항행</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="군사활동" aria-pressed="false"><span>군사활동</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="어업활동" aria-pressed="false"><span>어업활동</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양관광" aria-pressed="false"><span>해양관광</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양안전·관리" aria-pressed="false"><span>해양안전·관리</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양환경·생태" aria-pressed="false"><span>해양환경·생태</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수자원" aria-pressed="false"><span>해양수자원</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양에너지" aria-pressed="false"><span>해양에너지</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="기본공간정보" aria-pressed="false"><span>기본공간정보</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양수산통계" aria-pressed="false"><span>해양수산통계</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cat" data-value="해양용도구역" aria-pressed="false"><span>해양용도구역</span></button>
       </div>
     </section>
     <hr class="flt__line">
@@ -83,39 +77,34 @@
           <label class="flt__all">
             <button type="button" class="flt__switch" role="switch" aria-checked="false" data-action="filter-all" data-filter-group="cho">
               <span>off</span>
-              <img src="./src/assets/img/layer/knob.svg" width="16" height="16" alt="">
             </button>
             전체선택
           </label>
         </div>
         <button type="button" class="flt__fold" data-action="filter-fold" data-filter-group="cho" aria-expanded="true" aria-label="초성 접기">
-          <img src="./src/assets/img/icon/chev-down.svg" width="12" height="12" alt="">
         </button>
       </div>
       <div class="flt__grid flt__grid--7">
-        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cho" data-value="ㄱ" aria-pressed="true"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄱ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄴ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄴ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄷ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄷ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄹ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㄹ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅁ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅁ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅂ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅂ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅅ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅅ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅇ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅇ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅈ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅈ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅊ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅊ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅋ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅋ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅌ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅌ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅍ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅍ</span></button>
-        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅎ" aria-pressed="false"><img src="./src/assets/img/filter/check.svg" width="11" height="7" alt=""><span>ㅎ</span></button>
+        <button type="button" class="flt__chip is-on" data-action="filter-chip" data-filter-group="cho" data-value="ㄱ" aria-pressed="true"><span>ㄱ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄴ" aria-pressed="false"><span>ㄴ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄷ" aria-pressed="false"><span>ㄷ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㄹ" aria-pressed="false"><span>ㄹ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅁ" aria-pressed="false"><span>ㅁ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅂ" aria-pressed="false"><span>ㅂ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅅ" aria-pressed="false"><span>ㅅ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅇ" aria-pressed="false"><span>ㅇ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅈ" aria-pressed="false"><span>ㅈ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅊ" aria-pressed="false"><span>ㅊ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅋ" aria-pressed="false"><span>ㅋ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅌ" aria-pressed="false"><span>ㅌ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅍ" aria-pressed="false"><span>ㅍ</span></button>
+        <button type="button" class="flt__chip" data-action="filter-chip" data-filter-group="cho" data-value="ㅎ" aria-pressed="false"><span>ㅎ</span></button>
       </div>
     </section>
     <hr class="flt__line">
     <div class="flt__foot">
       <div class="flt__picked">
-        <button type="button" class="flt__reset" data-action="filter-reset" aria-label="선택 초기화">
-          <img class="flt__reset-pc" src="./src/assets/img/filter/reset.svg" width="16" height="16" alt="">
-          <img class="flt__reset-mo" src="./src/assets/img/filter/reset.svg" width="16" height="16" alt="">
-        </button>
+        <button type="button" class="flt__reset" data-action="filter-reset" aria-label="선택 초기화"></button>
         <div class="flt__tags" data-bind="filter-chips"></div>
       </div>
       <button type="button" class="flt__apply" data-action="filter-apply">

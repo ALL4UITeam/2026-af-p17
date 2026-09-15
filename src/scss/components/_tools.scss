@@ -159,10 +159,16 @@
     background: $gray-0;
     cursor: pointer;
 
-    img {
-      width: 12px;
-      height: 12px;
-      pointer-events: none;
+    &[data-dir='in'] {
+      background:
+        url('../assets/img/icon/plus-12.svg') center / 12px 12px no-repeat,
+        $gray-0;
+    }
+
+    &[data-dir='out'] {
+      background:
+        url('../assets/img/icon/minus-12.svg') center / 12px 12px no-repeat,
+        $gray-0;
     }
   }
 
@@ -183,18 +189,16 @@
   &__ticks {
     position: absolute;
     top: 2px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     width: 5px;
-
+    height: 118px;
     pointer-events: none;
-
-    img {
-      display: block;
-      width: 5px;
-      height: 1px;
-    }
+    background: repeating-linear-gradient(
+      to bottom,
+      #aaa 0 1px,
+      transparent 1px 13px,
+      #555 13px 14px,
+      transparent 14px 26px
+    );
 
     &--l {
       left: 11px;

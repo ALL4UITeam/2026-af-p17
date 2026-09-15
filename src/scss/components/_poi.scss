@@ -176,10 +176,20 @@
     cursor: pointer;
     white-space: nowrap;
 
-    img {
-      display: block;
+    &--info::before,
+    &--route::before {
+      content: '';
       width: 16px;
       height: 16px;
+      background: center / contain no-repeat;
+    }
+
+    &--info::before {
+      background-image: url('../assets/img/poi/info.svg');
+    }
+
+    &--route::before {
+      background-image: url('../assets/img/poi/route.svg');
     }
   }
 
@@ -223,10 +233,18 @@
     width: 24px;
     height: 24px;
     border-radius: 80px;
-    background: $gray-0;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
 
-    img {
-      display: block;
+    &--hotel {
+      background-image: url('../assets/img/poi/hotel.svg');
+      background-size: 9px 12px;
+    }
+
+    &--safety {
+      background-image: url('../assets/img/poi/safety.svg');
+      background-size: 12px 11px;
     }
   }
 

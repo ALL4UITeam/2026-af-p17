@@ -11,3 +11,13 @@
     height: 51px;
   }
 }
+
+
+.poi-count {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}

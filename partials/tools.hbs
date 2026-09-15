@@ -27,9 +27,7 @@
     </div>
   </div>
   <div class="tools__zoom">
-    <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="in" aria-label="확대">
-      <img src="./src/assets/img/icon/plus-12.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="in" aria-label="확대"></button>
     <div
       class="tools__rail"
       role="slider"
@@ -40,37 +38,13 @@
       aria-valuenow="5"
       aria-valuetext="레벨 5"
     >
-      <span class="tools__ticks tools__ticks--l">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-      </span>
-      <span class="tools__ticks tools__ticks--r">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-l.svg" width="5" height="1" alt="">
-        <img src="./src/assets/img/tool/tick-s.svg" width="5" height="1" alt="">
-      </span>
+      <span class="tools__ticks tools__ticks--l" aria-hidden="true"></span>
+      <span class="tools__ticks tools__ticks--r" aria-hidden="true"></span>
       <span class="tools__rail-bg"></span>
       <span class="tools__rail-on"></span>
       <span class="tools__knob"></span>
     </div>
     <span class="tools__lv" data-bind="zoom-level">Lv.5</span>
-    <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="out" aria-label="축소">
-      <img src="./src/assets/img/icon/minus-12.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="tools__zoom-btn" data-action="zoom" data-dir="out" aria-label="축소"></button>
   </div>
 </aside>

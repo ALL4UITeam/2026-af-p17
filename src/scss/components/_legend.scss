@@ -22,7 +22,7 @@
     display: none;
   }
 
-  &.is-min &__fold img {
+  &.is-min &__fold::before {
     transform: rotate(180deg);
   }
 
@@ -92,17 +92,23 @@
     height: 20px;
     flex-shrink: 0;
     background: none;
+  }
 
-    img {
-      width: 8px;
-      height: 8px;
-    }
+  &__x {
+    background: url('../assets/img/legend/tour/close.svg') center / 8px 8px no-repeat;
   }
 
   &__fold {
     border: 1px solid #c2dbff;
     border-radius: 4px;
     background: $gray-0;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: url('../assets/img/legend/chev.svg') center / contain no-repeat;
+    }
   }
 
   &__body {

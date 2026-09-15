@@ -14,14 +14,9 @@
 
   &__flag {
     width: 24px;
-    height: 24px;
-    overflow: hidden;
-
-    img {
-      width: 24px;
-      height: 16px;
-      margin-top: 4px;
-    }
+    height: 16px;
+    margin-top: 4px;
+    background: url('../assets/img/icon/flag.svg') center / contain no-repeat;
   }
 
   &__txt {

@@ -50,9 +50,11 @@
     background: $coord-bg;
     white-space: nowrap;
 
-    img {
+    &::after {
+      content: '';
       width: 12px;
       height: 12px;
+      background: url('../assets/img/icon/chevron-right.svg') center / contain no-repeat;
       transform: rotate(90deg);
     }
   }
@@ -99,11 +101,7 @@
   &__more {
     width: 11px;
     height: 11px;
-
-    img {
-      width: 11px;
-      height: 11px;
-    }
+    background: url('../assets/img/icon/status-more.svg') center / contain no-repeat;
   }
 }
 
@@ -214,22 +212,16 @@
     height: 32px;
     border: 1px solid $gray-60;
     border-radius: 4px;
-    background: $gray-0;
+    background:
+      url('../assets/img/coord/locate.svg') center / 24px 24px no-repeat,
+      $gray-0;
     cursor: pointer;
-
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
 
     &--search {
       border-color: $primary-60;
-
-      img {
-        width: 16px;
-        height: 16px;
-      }
+      background:
+        url('../assets/img/coord/search.svg') center / 16px 16px no-repeat,
+        $gray-0;
     }
   }
 

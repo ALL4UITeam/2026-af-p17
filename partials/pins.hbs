@@ -53,19 +53,19 @@
       <div class="poi__list">
         <button type="button" class="poi__item is-on">
           <span class="poi__mark">
-            <img src="./src/assets/img/poi/hotel.svg" width="9" height="12" alt="">
+            <img src="./src/assets/img/poi/hotel.svg" alt="">
           </span>
           <span class="poi__name">송 호텔</span>
         </button>
         <button type="button" class="poi__item">
           <span class="poi__mark">
-            <img src="./src/assets/img/poi/safety.svg" width="12" height="11" alt="">
+            <img src="./src/assets/img/poi/safety.svg" alt="">
           </span>
           <span class="poi__name">메디팜 정약국</span>
         </button>
         <button type="button" class="poi__item">
           <span class="poi__mark">
-            <img src="./src/assets/img/poi/safety.svg" width="12" height="11" alt="">
+            <img src="./src/assets/img/poi/safety.svg" alt="">
           </span>
           <span class="poi__name">보원당약국</span>
         </button>
@@ -74,10 +74,20 @@
     <span class="poi__tail" aria-hidden="true"></span>
   </div>
 </div>
-<button type="button" class="pin-btn is-on" id="poiStagePin" hidden aria-label="선택된 관광 핀" style="left:50%;top:58%">
-  <img class="pin pin--off" src="./src/assets/img/pin/pin-02.svg" width="24" height="24" alt="">
-  <img class="pin pin--on" src="./src/assets/img/pin/pin-02-on.svg" width="36" height="51" alt="">
-</button>
+<span class="poi-count" id="poiStageCount" hidden aria-label="선택된 관광 핀" style="left:50%;top:54%">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M11.8896 0.833984C18.0003 0.83422 22.9441 5.8186 22.9443 11.9561C22.9443 18.0937 18.0004 23.0789 11.8896 23.0791C5.7787 23.0791 0.833984 18.0939 0.833984 11.9561C0.834205 5.81845 5.77883 0.833984 11.8896 0.833984Z" fill="url(#paint1_linear_421_32956)"/>
+    <path d="M11.8896 0.833984C18.0003 0.83422 22.9441 5.8186 22.9443 11.9561C22.9443 18.0937 18.0004 23.0789 11.8896 23.0791C5.7787 23.0791 0.833984 18.0939 0.833984 11.9561C0.834205 5.81845 5.77883 0.833984 11.8896 0.833984Z" stroke="white" stroke-width="1.66667"/>
+
+    <text x="11.89" y="10" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" fill="white" font-family="sans-serif">3</text>
+    <defs>
+      <linearGradient id="paint1_linear_421_32956" x1="1.66699" y1="1.66699" x2="25.8813" y2="6.40803" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#327BF8"/>
+        <stop offset="1" stop-color="#3066BD"/>
+      </linearGradient>
+    </defs>
+  </svg>
+</span>
 {{!-- 마리나 핀 · POI. 목록을 닫지 않고 지도 위에 같이 연다. data-action: marina-pin --}}
 <div class="pins" id="marinaPins" hidden aria-label="마리나 핀">
   {{#each marinaPlaces}}

@@ -1204,7 +1204,7 @@ function syncFilterTags() {
   box.innerHTML = [...document.querySelectorAll('.flt__chip.is-on')]
     .map(
       (el) =>
-        `<button type="button" class="flt__tag" data-action="filter-chip" data-filter-group="${el.dataset.filterGroup}" data-value="${el.dataset.value}">${el.dataset.value}<img src="./src/assets/img/filter/chip-x.svg" width="12" height="12" alt=""></button>`,
+        `<button type="button" class="flt__tag" data-action="filter-chip" data-filter-group="${el.dataset.filterGroup}" data-value="${el.dataset.value}">${el.dataset.value}</button>`,
     )
     .join('')
 }

@@ -68,13 +68,8 @@
     justify-content: center;
     width: 24px;
     height: 24px;
+    background: url('../assets/img/tour/close.svg') center / 24px 24px no-repeat;
     cursor: pointer;
-
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
   }
 
   &__body {
@@ -123,11 +118,12 @@
     text-align: left;
     cursor: pointer;
 
-    img {
-      display: block;
+    &::after {
+      content: '';
+      flex-shrink: 0;
       width: 9px;
       height: 5px;
-      flex-shrink: 0;
+      background: url('../assets/img/tour/select.svg') center / contain no-repeat;
     }
   }
 
@@ -207,14 +203,10 @@
     height: 40px;
     border: 1px solid $primary-60;
     border-radius: 6px;
-    background: $gray-0;
+    background:
+      url('../assets/img/tour/search.svg') center / 16px 16px no-repeat,
+      $gray-0;
     cursor: pointer;
-
-    img {
-      display: block;
-      width: 16px;
-      height: 16px;
-    }
   }
 
   &__list {
@@ -385,7 +377,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 64px;
+    //height: 64px;
     padding: 12px 16px 0;
     background: linear-gradient(180deg, $primary-80 20%, rgba(14, 56, 142, 0) 100%);
   }
@@ -397,15 +389,11 @@
     width: 24px;
     height: 24px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.3);
+    background:
+      url('../assets/img/tour/back.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.3);
     cursor: pointer;
     flex-shrink: 0;
-
-    img {
-      display: block;
-      width: 12px;
-      height: 12px;
-    }
   }
 
   &__bar-name {
@@ -424,12 +412,7 @@
     height: 24px;
     flex-shrink: 0;
     cursor: pointer;
-
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
+    background: url('../assets/img/tour/close.svg') center / 24px 24px no-repeat;
   }
 
   &__hero-acts {
@@ -460,10 +443,20 @@
     white-space: nowrap;
     cursor: pointer;
 
-    img {
-      display: block;
+    &[data-action='tour-all']::before,
+    &[data-action='tour-route']::before {
+      content: '';
       width: 16px;
       height: 16px;
+      background: center / contain no-repeat;
+    }
+
+    &[data-action='tour-all']::before {
+      background-image: url('../assets/img/tour/all.svg');
+    }
+
+    &[data-action='tour-route']::before {
+      background-image: url('../assets/img/tour/route.svg');
     }
   }
 
@@ -533,9 +526,9 @@
 
     &:nth-child(4) {
       width: 75px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.39px;
+      //font-size: 13px;
+      //font-weight: 600;
+      //letter-spacing: -0.39px;
     }
 
     &.is-on {
@@ -601,13 +594,18 @@
     width: 36px;
     height: 36px;
     border-radius: 40px;
-    background: $gray-0;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
 
-    img {
-      display: block;
-      width: 20px;
-      height: 20px;
-    }
+    &--zip { background-image: url('../assets/img/tour/zip.svg'); }
+    &--phone { background-image: url('../assets/img/tour/phone.svg'); }
+    &--web { background-image: url('../assets/img/tour/web.svg'); }
+    &--pin { background-image: url('../assets/img/tour/pin.svg'); }
+    &--cal { background-image: url('../assets/img/tour/cal.svg'); }
+    &--clock { background-image: url('../assets/img/tour/clock.svg'); }
+    &--fee { background-image: url('../assets/img/tour/fee.svg'); }
   }
 
   &__fact-txt {
@@ -636,11 +634,12 @@
     text-decoration: none;
     word-break: break-all;
 
-    img {
-      display: block;
+    &::after {
+      content: '';
+      flex-shrink: 0;
       width: 12px;
       height: 12px;
-      flex-shrink: 0;
+      background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
     }
   }
 }
@@ -789,13 +788,14 @@
     height: 24px;
     padding: 0;
     border: 0;
-    background: none;
     cursor: pointer;
 
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
+    &[data-action='marina-loc'] {
+      background: url('../assets/img/marina/location.svg') center / 24px 24px no-repeat;
+    }
+
+    &[data-action='marina-info'] {
+      background: url('../assets/img/marina/info.svg') center / 24px 24px no-repeat;
     }
   }
 }

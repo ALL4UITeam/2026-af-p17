@@ -20,26 +20,26 @@
         <label class="tree__d4-left">
           <span class="chk">
             <input class="chk__input" type="checkbox" name="layerGroup" value="GRP_{{id}}" data-action="toggle-layer" data-layer-id="GRP_{{id}}" data-layer-name="{{d4}}">
-            <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+            <span class="chk__box" aria-hidden="true"></span>
           </span>
           <span class="tree__d4-txt">{{d4}}</span>
         </label>
         <button type="button" class="tree__d4-right" data-action="toggle" data-toggle="branch" data-group-id="{{id}}-leaf" aria-expanded="false" aria-controls="leaves-{{id}}">
           <span class="count">1</span>
           <span class="tree__d4-ico" aria-hidden="true">
-            <img class="ico-open" src="./src/assets/img/icon/row-minus.svg" width="18" height="18" alt="">
-            <img class="ico-close" src="./src/assets/img/icon/row-plus.svg" width="18" height="18" alt="">
+            <span class="ico-open"></span>
+            <span class="ico-close"></span>
           </span>
         </button>
       </div>
       <div class="tree__leaves" id="leaves-{{id}}" hidden>
         <div class="tree__d5">
           <div class="tree__d5-left">
-            <span class="tree__line" aria-hidden="true"><img src="./src/assets/img/tree/line-end.svg" width="40" height="40" alt=""></span>
+            <span class="tree__line tree__line--end" aria-hidden="true"></span>
             <div class="tree__d5-txt">
               <label class="chk">
                 <input class="chk__input" type="checkbox" name="layer" value="LYR_{{id}}" data-action="toggle-layer" data-layer-id="LYR_{{id}}" data-layer-name="{{leaf}}" data-parent-id="GRP_{{id}}">
-                <span class="chk__box" aria-hidden="true"><img src="./src/assets/img/icon/check.svg" width="16" height="16" alt=""></span>
+                <span class="chk__box" aria-hidden="true"></span>
               </label>
               <p class="tree__leaf"><span class="lyr-mark" aria-hidden="true"></span>{{leaf}}</p>
             </div>

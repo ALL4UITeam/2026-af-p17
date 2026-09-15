@@ -41,11 +41,7 @@
   .mo-mast__flag {
     width: 20px;
     height: 13px;
-
-    img {
-      width: 20px;
-      height: 13px;
-    }
+    background: url('../assets/img/mo/flag.svg') center / contain no-repeat;
   }
 
   .mo-mast__txt {
@@ -106,8 +102,8 @@
     background: url('../assets/img/mo/menu.svg') center / 16px 12px no-repeat;
   }
 
-  .mo-bar__ico img {
-    width: 16px;
+  .mo-bar__ico[data-action='mo-user'] {
+    background: url('../assets/img/mo/user.svg') center / 16px 16px no-repeat;
   }
 
   .mo-bar__brand {
@@ -151,11 +147,7 @@
     height: 46px;
     margin-right: 5px;
     flex-shrink: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
+    background: url('../assets/img/mo/list.svg') center / contain no-repeat;
   }
 
   .mo-search__field {
@@ -203,12 +195,9 @@
     align-self: stretch;
     margin: -2px -2px -2px 0;
     border-radius: 0 12px 12px 0;
-    background: $primary-70;
-
-    img {
-      width: 16px;
-      height: 16px;
-    }
+    background:
+      url('../assets/img/mo/search.svg') center / 16px 16px no-repeat,
+      $primary-70;
   }
 
   .mo-search__filter {
@@ -218,13 +207,10 @@
     width: 46px;
     height: 46px;
     border-radius: 8px;
-    background: $primary-90;
+    background:
+      url('../assets/img/mo/filter.svg') center / 24px 24px no-repeat,
+      $primary-90;
     flex-shrink: 0;
-
-    img {
-      width: 24px;
-      height: 24px;
-    }
   }
 
   .mo-suggest {
@@ -505,15 +491,15 @@
 
   .mo-tools {
     position: absolute;
-    top: 179px;
-    right: 0;
+    bottom: 60px;
+    right: 10px;
     z-index: 15;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 46px;
     padding: 10px 0;
-    border-radius: 12px 0 0 12px;
+    border-radius: 12px;
     overflow: hidden;
   }
 
@@ -559,12 +545,28 @@
     background: rgba(255, 255, 255, 0.7);
 
     &[aria-pressed='true'] {
-      background: #fff;
+      background-color: #fff;
     }
 
-    img {
-      width: 16px;
-      height: 16px;
+    &[data-tool='layer'] {
+      background-image: url('../assets/img/mo/layer.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    &[data-tool='basemap'] {
+      background-image: url('../assets/img/mo/basemap.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    &[data-tool='fullmap'] {
+      background-image: url('../assets/img/mo/fullmap.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
     }
   }
 
@@ -591,9 +593,16 @@
     height: 26px;
     background: rgba(255, 255, 255, 0.7);
 
-    img {
-      width: 12px;
-      height: 12px;
+    &[data-dir='in'] {
+      background:
+        url('../assets/img/mo/plus.svg') center / 12px 12px no-repeat,
+        rgba(255, 255, 255, 0.7);
+    }
+
+    &[data-dir='out'] {
+      background:
+        url('../assets/img/mo/minus.svg') center / 12px 12px no-repeat,
+        rgba(255, 255, 255, 0.7);
     }
   }
 
@@ -629,13 +638,10 @@
     width: 18px;
     height: 18px;
     border-radius: 12px;
-    background: #1d2d4c;
+    background:
+      url('../assets/img/mo/sheet-up.svg') center / 8px 8px no-repeat,
+      #1d2d4c;
     box-shadow: 0 1px 1px #fff;
-
-    img {
-      width: 8px;
-      height: 8px;
-    }
   }
 
   .mo-sheet__txt {
@@ -804,12 +810,9 @@
     height: 24px;
     border: 1px solid $gray-0;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.6);
-
-    img {
-      width: 12px;
-      height: 12px;
-    }
+    background:
+      url('../assets/img/icon/chev-up.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.6);
   }
 
   .mo-peek__card {
@@ -862,14 +865,16 @@
     background: $gray-0;
   }
 
-  .mo-peek__right img {
+  .mo-peek__arr {
     width: 16px;
     height: 16px;
+    background: url('../assets/img/icon/chev-down-w.svg') center / contain no-repeat;
   }
 
-  .mo-acc__right img {
+  .mo-acc__arr {
     width: 16px;
     height: 16px;
+    background: url('../assets/img/icon/chev-up-w.svg') center / contain no-repeat;
   }
 
   /* Figma 112:45511 open */
@@ -925,12 +930,9 @@
     height: 24px;
     border: 1px solid $gray-0;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.6);
-
-    img {
-      width: 12px;
-      height: 12px;
-    }
+    background:
+      url('../assets/img/icon/chev-up.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.6);
   }
 
   .mo-acc__head {
@@ -1020,19 +1022,12 @@
   }
 
   .flt__tags,
-  .flt__reset-pc,
   .flt__apply-pc {
     display: none;
   }
 
-  .flt__reset-mo,
   .flt__apply-mo {
     display: block;
-  }
-
-  .flt__reset-mo {
-    width: 16px;
-    height: 16px;
   }
 
   .flt__foot {

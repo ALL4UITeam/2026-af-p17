@@ -7,31 +7,20 @@
 <section class="eval" id="evalPanel" hidden aria-labelledby="evalTitle">
   <header class="eval__head">
     <h2 class="eval__title" id="evalTitle">격자별 특성평가 결과 조회</h2>
-    <button type="button" class="eval__close" data-action="close-eval" aria-label="닫기">
-      <img src="./src/assets/img/eval/close.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="eval__close" data-action="close-eval" aria-label="닫기"></button>
   </header>
   <div class="eval__body">
     <div class="eval__bar">
       <div class="eval__tabs" role="tablist" aria-label="특성평가 보기">
-        <button type="button" class="eval__tab is-on" data-action="eval-tab" data-tab="all" role="tab" aria-selected="true">
-          특성 전체보기
-          <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
-        </button>
-        <button type="button" class="eval__tab eval__tab--fix" data-action="eval-tab" data-tab="valid" role="tab" aria-selected="false">
-          유효값만 보기
-          <img src="./src/assets/img/modal/tab-on.svg" width="14" height="14" alt="">
-        </button>
+        <button type="button" class="eval__tab is-on" data-action="eval-tab" data-tab="all" role="tab" aria-selected="true">특성 전체보기</button>
+        <button type="button" class="eval__tab eval__tab--fix" data-action="eval-tab" data-tab="valid" role="tab" aria-selected="false">유효값만 보기</button>
       </div>
-      <button type="button" class="eval__cta" data-action="eval-criteria">
-        특성평가 산정기준
-        <img src="./src/assets/img/eval/arrow.svg" width="16" height="16" alt="">
-      </button>
+      <button type="button" class="eval__cta" data-action="eval-criteria">특성평가 산정기준</button>
     </div>
     <div class="eval__cols">
       <div class="eval__chart" data-bind="eval-chart">
         <div class="eval__radar">
-          <img src="./src/assets/img/eval/radar.png" width="453" height="434" alt="격자별 특성평가 레이더 차트">
+          <img src="./src/assets/img/eval/radar.png" alt="격자별 특성평가 레이더 차트">
         </div>
       </div>
       <div class="eval__box">

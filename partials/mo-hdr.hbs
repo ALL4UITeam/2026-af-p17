@@ -1,9 +1,7 @@
 {{!-- 모바일 헤더. PC에서는 hide-mo 로 숨김. --}}
 <header class="mo-hdr">
   <div class="mo-mast">
-    <span class="mo-mast__flag" aria-hidden="true">
-      <img src="./src/assets/img/mo/flag.svg" width="20" height="13" alt="">
-    </span>
+    <span class="mo-mast__flag" aria-hidden="true"></span>
     <p class="mo-mast__txt">이 누리집은 대한민국 공식 전자정부 누리집입니다.</p>
   </div>
   <div class="mo-bar">
@@ -14,24 +12,16 @@
           <img src="./src/assets/img/mo/emblem.svg" alt="해양수산공간정보플랫폼">
         </span>
       </div>
-      <button type="button" class="mo-bar__ico" data-action="mo-user" aria-label="나의 메뉴">
-        <img src="./src/assets/img/mo/user.svg" alt="">
-      </button>
+      <button type="button" class="mo-bar__ico" data-action="mo-user" aria-label="나의 메뉴"></button>
     </div>
     <form class="mo-search" action="#" method="get" role="search" onsubmit="return false;">
-      <button type="button" class="mo-search__list" data-action="mo-sheet" aria-label="공간정보 목록">
-        <img src="./src/assets/img/mo/list.svg" alt="">
-      </button>
+      <button type="button" class="mo-search__list" data-action="mo-sheet" aria-label="공간정보 목록"></button>
       <div class="mo-search__field">
         <label class="sr-only" for="moKeyword">지명, 해역명, 구역명 검색</label>
         <input class="mo-search__input" id="moKeyword" name="q" type="search" placeholder="지명, 해역명, 구역명 검색" data-bind="keyword">
-        <button type="button" class="mo-search__go" data-action="search" data-target="moKeyword" aria-label="검색">
-          <img src="./src/assets/img/mo/search.svg" alt="">
-        </button>
+        <button type="button" class="mo-search__go" data-action="search" data-target="moKeyword" aria-label="검색"></button>
       </div>
-      <button type="button" class="mo-search__filter" data-action="filter" aria-expanded="false" aria-controls="filterPop" aria-label="필터">
-        <img src="./src/assets/img/mo/filter.svg" alt="">
-      </button>
+      <button type="button" class="mo-search__filter" data-action="filter" aria-expanded="false" aria-controls="filterPop" aria-label="필터"></button>
     </form>
   </div>
 </header>

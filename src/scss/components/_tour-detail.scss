@@ -92,15 +92,17 @@
   }
 
   &__pill-ico {
-    display: flex;
+    display: block;
     width: 16px;
     height: 16px;
-    overflow: clip;
+    background: center / contain no-repeat;
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
+    &--route {
+      background-image: url('../assets/img/tour/route.svg');
+    }
+
+    &--download {
+      background-image: url('../assets/img/tour-detail/download.svg');
     }
   }
 
@@ -111,12 +113,7 @@
     width: 24px;
     height: 24px;
     padding: 0;
-
-    img {
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
+    background: url('../assets/img/tour/close.svg') center / 24px 24px no-repeat;
   }
 
   &__grid {
@@ -157,18 +154,10 @@
   }
 
   &__dot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     width: 12px;
     height: 12px;
-    overflow: clip;
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    background: url('../assets/img/tour-detail/bullet.svg') center / contain no-repeat;
   }
 
   &__body {
@@ -218,13 +207,18 @@
     width: 36px;
     height: 36px;
     border-radius: 40px;
-    background: $gray-0;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
 
-    img {
-      display: block;
-      width: 20px;
-      height: 20px;
-    }
+    &--zip { background-image: url('../assets/img/tour/zip.svg'); }
+    &--phone { background-image: url('../assets/img/tour/phone.svg'); }
+    &--web { background-image: url('../assets/img/tour/web.svg'); }
+    &--pin { background-image: url('../assets/img/tour/pin.svg'); }
+    &--cal { background-image: url('../assets/img/tour/cal.svg'); }
+    &--clock { background-image: url('../assets/img/tour/clock.svg'); }
+    &--fee { background-image: url('../assets/img/tour/fee.svg'); }
   }
 
   &__fact-txt {
@@ -250,9 +244,12 @@
     letter-spacing: -0.42px;
     color: $gray-95;
 
-    img {
+    &::after {
+      content: '';
+      flex-shrink: 0;
       width: 12px;
       height: 12px;
+      background: url('../assets/img/tour/ext.svg') center / contain no-repeat;
     }
   }
 
@@ -505,30 +502,48 @@
     line-height: 1.5;
     white-space: nowrap;
 
-    img {
+    &::before {
+      content: '';
       width: 8px;
       height: 8px;
+      background: center / contain no-repeat;
     }
   }
 
   &__st--good {
     color: #1b8743;
     background: #e6f5ea;
+
+    &::before {
+      background-image: url('../assets/img/tour-detail/dot-good.svg');
+    }
   }
 
   &__st--bad {
     color: #c92a2a;
     background: #fdeeed;
+
+    &::before {
+      background-image: url('../assets/img/tour-detail/dot-bad.svg');
+    }
   }
 
   &__st--warn {
     color: #d97706;
     background: #fff6e6;
+
+    &::before {
+      background-image: url('../assets/img/tour-detail/dot-warn.svg');
+    }
   }
 
   &__st--mid {
     color: #0284c7;
     background: #e6f7ff;
+
+    &::before {
+      background-image: url('../assets/img/tour-detail/dot-mid.svg');
+    }
   }
 }
 

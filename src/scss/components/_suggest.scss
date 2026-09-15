@@ -31,9 +31,11 @@
     text-shadow: 0 1px 2px #fff;
     white-space: nowrap;
 
-    img {
+    &::before {
+      content: '';
       width: 20px;
       height: 20px;
+      background: url('../assets/img/icon/suggest.svg') center / contain no-repeat;
     }
   }
 
@@ -62,9 +64,11 @@
     background: $gray-0;
     white-space: nowrap;
 
-    img {
+    &::after {
+      content: '';
       width: 16px;
       height: 16px;
+      background: url('../assets/img/icon/chip-x.svg') center / contain no-repeat;
     }
   }
 
@@ -103,17 +107,12 @@
     overflow: hidden;
     line-height: 0;
     border-radius: 50%;
-    background: $primary-60;
-
-    img {
-      width: 16px;
-      height: 16px;
-      max-width: 16px;
-      max-height: 16px;
-    }
+    background:
+      url('../assets/img/icon/chip-arr.svg') center / 16px 16px no-repeat,
+      $primary-60;
   }
 
-  &.is-open &__next img {
+  &.is-open &__next {
     transform: rotate(180deg);
   }
 }

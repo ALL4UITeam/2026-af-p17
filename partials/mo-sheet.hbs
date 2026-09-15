@@ -5,45 +5,39 @@
   open: depth1 헤드 + PC와 동일한 tree (2·3·4·5뎁스)
 --}}
 <button type="button" class="mo-sheet" data-action="mo-sheet" aria-expanded="false" aria-controls="moPeek">
-  <span class="mo-sheet__arr" aria-hidden="true">
-    <img src="./src/assets/img/mo/sheet-up.svg" width="8" height="8" alt="">
-  </span>
+  <span class="mo-sheet__arr" aria-hidden="true"></span>
   <span class="mo-sheet__txt" data-bind="mo-sheet-txt">공간정보 목록을 보려면 클릭하세요.</span>
 </button>
 
 <div class="mo-peek" id="moPeek" hidden>
   <div class="mo-peek__top">
-    <button type="button" class="mo-peek__fold" data-action="mo-sheet" aria-label="목록 접기">
-      <img src="./src/assets/img/icon/chev-up.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="mo-peek__fold" data-action="mo-sheet" aria-label="목록 접기"></button>
   </div>
   <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="mof">
     <span class="mo-peek__name">해양수산정보 분류체계</span>
     <span class="mo-peek__right">
       <span class="count">6</span>
-      <img src="./src/assets/img/icon/chev-down-w.svg" width="16" height="16" alt="">
+      <span class="mo-peek__arr" aria-hidden="true"></span>
     </span>
   </button>
   <button type="button" class="mo-peek__card" data-action="mo-expand" data-group="theme">
     <span class="mo-peek__name">해양공간 주제정보</span>
     <span class="mo-peek__right">
       <span class="count">4</span>
-      <img src="./src/assets/img/icon/chev-down-w.svg" width="16" height="16" alt="">
+      <span class="mo-peek__arr" aria-hidden="true"></span>
     </span>
   </button>
 </div>
 
 <section class="mo-acc" id="moAcc" hidden aria-label="공간정보 목록">
   <div class="mo-acc__top">
-    <button type="button" class="mo-acc__fold" data-action="mo-collapse" aria-label="목록 접기">
-      <img src="./src/assets/img/icon/chev-up.svg" width="12" height="12" alt="">
-    </button>
+    <button type="button" class="mo-acc__fold" data-action="mo-collapse" aria-label="목록 접기"></button>
   </div>
   <button type="button" class="mo-acc__head" data-action="mo-collapse">
     <span class="mo-acc__title" data-bind="mo-acc-title">해양수산정보 분류체계</span>
     <span class="mo-acc__right">
       <span class="count" data-bind="mo-acc-count">6</span>
-      <img src="./src/assets/img/icon/chev-up-w.svg" width="16" height="16" alt="">
+      <span class="mo-acc__arr" aria-hidden="true"></span>
     </span>
   </button>
   {{!-- PC panelList 의 .tree 를 open 시 여기로 옮김 (동일 2·3·4·5뎁스) --}}
