@@ -289,7 +289,6 @@
       border-right: 2px solid $primary-70;
       border-radius: 0 8px 8px 0;
     }
-
     .w-110 {
       width: 110px;
       min-width: 110px;
@@ -325,4 +324,19 @@
   .app:not(.is-panel-off) .attr {
     left: 460px;
   }
+}
+
+.attr__table tbody tr:hover:not(.is-on):not(.is-pick) td {
+  background: #f3f9ff;
+  border-top: 2px solid #407ad0;
+  border-bottom: 2px solid #407ad0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+.attr__table tbody tr:hover:not(.is-on):not(.is-pick) td:first-child {
+  border-left: 2px solid #407ad0;
+  border-radius: 8px 0 0 8px;
+}
+.attr__table tbody tr:hover:not(.is-on):not(.is-pick) td:last-child {
+  border-right: 2px solid #407ad0;
+  border-radius: 0 8px 8px 0;
 }
