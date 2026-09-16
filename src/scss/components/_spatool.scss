@@ -16,9 +16,6 @@ body[data-screen='spatial-stat'],
 body[data-screen='spatial-stat-find'] {
   .spboard {
     display: flex;
-    left: 908px;
-    right: auto;
-    width: 920px;
   }
 }
 
@@ -823,7 +820,8 @@ body[data-screen='spatial-meta'] .spatool__body {
 .spboard {
   position: absolute;
   top: 42px;
-  left: 908px;
+  right: 85px;
+  left: auto;
   z-index: 12;
   display: none;
   flex-direction: column;

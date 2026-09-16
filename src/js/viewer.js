@@ -37,30 +37,30 @@ const PAGES = [
   {
     title: '내부망 · PC',
     items: [
-      { id: 'i01', name: '내부망_나의 지도', file: 'map-mymap.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i01b', name: '내부망_나의 지도 · 확장', file: 'map-mymap-detail.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i01c', name: '내부망_나의 지도 · 미설정', file: 'map-mymap-empty.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i01d', name: '내부망_나의 지도 · 생성 모달', file: 'map-mymap-create.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02', name: '내부망_공간분석', file: 'map-spatial.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02b', name: '내부망_공간분석 · 레이어 활성화', file: 'map-spatial-on.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02c', name: '내부망_공간분석 · 레이어 추가', file: 'map-spatial-add.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02d', name: '내부망_공간분석 · 레이어 추가 · 개요', file: 'map-spatial-add-info.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02e', name: '내부망_공간분석 · 레이어 관리', file: 'map-spatial-mgr.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02f', name: '내부망_공간분석 · 레이어 권한 설정', file: 'map-spatial-perm.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02g', name: '내부망_공간분석 · 선택된 레이어', file: 'map-spatial-pick.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i02h', name: '내부망_공간분석 · 격자 정보', file: 'map-spatial-info.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03', name: '내부망_공간분석 · 공간연산', file: 'map-spatial-op.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03b', name: '내부망_공간분석 · 공간연산 · 일반화', file: 'map-spatial-op-diss.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03c', name: '내부망_공간분석 · 공간연산 · 통합', file: 'map-spatial-op-union.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03d', name: '내부망_공간분석 · 공간분석', file: 'map-spatial-an.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03e', name: '내부망_공간분석 · 편집', file: 'map-spatial-edit.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03f', name: '내부망_공간분석 · 편집 · 스타일', file: 'map-spatial-edit-style.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03g', name: '내부망_공간분석 · 편집 · 필터', file: 'map-spatial-edit-filter.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03h', name: '내부망_공간분석 · 속성정보', file: 'map-spatial-attr.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03i', name: '내부망_공간분석 · 속성정보 · 통계분석', file: 'map-spatial-stat.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03j', name: '내부망_공간분석 · 속성정보 · 검색', file: 'map-spatial-stat-find.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03k', name: '내부망_공간분석 · 정보보기', file: 'map-spatial-meta.html', ready: true, width: 1920, label: 'PC' },
-      { id: 'i03l', name: '내부망_공간분석 · 레이어 조인', file: 'map-spatial-join.html', ready: true, width: 1920, label: 'PC' },
+      { id: 'i01', name: '내부망_나의 지도', file: 'map-mymap.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i01b', name: '내부망_나의 지도 · 확장', file: 'map-mymap-detail.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i01c', name: '내부망_나의 지도 · 미설정', file: 'map-mymap-empty.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i01d', name: '내부망_나의 지도 · 생성 모달', file: 'map-mymap-create.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02', name: '내부망_공간분석', file: 'map-spatial.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02b', name: '내부망_공간분석 · 레이어 활성화', file: 'map-spatial-on.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02c', name: '내부망_공간분석 · 레이어 추가', file: 'map-spatial-add.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02d', name: '내부망_공간분석 · 레이어 추가 · 개요', file: 'map-spatial-add-info.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02e', name: '내부망_공간분석 · 레이어 관리', file: 'map-spatial-mgr.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02f', name: '내부망_공간분석 · 레이어 권한 설정', file: 'map-spatial-perm.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02g', name: '내부망_공간분석 · 선택된 레이어', file: 'map-spatial-pick.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i02h', name: '내부망_공간분석 · 격자 정보', file: 'map-spatial-info.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03', name: '내부망_공간분석 · 공간연산', file: 'map-spatial-op.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03b', name: '내부망_공간분석 · 공간연산 · 일반화', file: 'map-spatial-op-diss.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03c', name: '내부망_공간분석 · 공간연산 · 통합', file: 'map-spatial-op-union.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03d', name: '내부망_공간분석 · 공간분석', file: 'map-spatial-an.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03e', name: '내부망_공간분석 · 편집', file: 'map-spatial-edit.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03f', name: '내부망_공간분석 · 편집 · 스타일', file: 'map-spatial-edit-style.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03g', name: '내부망_공간분석 · 편집 · 필터', file: 'map-spatial-edit-filter.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03h', name: '내부망_공간분석 · 속성정보', file: 'map-spatial-attr.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03i', name: '내부망_공간분석 · 속성정보 · 통계분석', file: 'map-spatial-stat.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03j', name: '내부망_공간분석 · 속성정보 · 검색', file: 'map-spatial-stat-find.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03k', name: '내부망_공간분석 · 정보보기', file: 'map-spatial-meta.html', ready: true, width: 1580, height: 1167, label: 'PC' },
+      { id: 'i03l', name: '내부망_공간분석 · 레이어 조인', file: 'map-spatial-join.html', ready: true, width: 1580, height: 1167, label: 'PC' },
     ],
   },
   {
@@ -103,16 +103,19 @@ function srcOf(file) {
 }
 
 function applyFrame(file) {
-  const item = findItem(file) || { width: 1580, label: 'PC' }
+  const item = findItem(file) || { width: 1580, height: 1167, label: 'PC' }
   frame.style.setProperty('--frame-width', `${item.width}px`)
   if (item.width <= 400) {
     frame.style.height = '768px'
     frame.style.maxHeight = '768px'
+  } else if (item.height) {
+    frame.style.height = `${item.height}px`
+    frame.style.maxHeight = `${item.height}px`
   } else {
     frame.style.height = 'calc(100vh - 104px)'
     frame.style.maxHeight = 'calc(100vh - 104px)'
   }
-  const height = Math.round(frame.getBoundingClientRect().height)
+  const height = item.height || Math.round(frame.getBoundingClientRect().height)
   sizeLabel.textContent = `${item.label} · ${item.width} × ${height || '—'}`
 }
 
