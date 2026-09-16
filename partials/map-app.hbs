@@ -10,8 +10,10 @@
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <link rel="stylesheet" href="./src/scss/main.scss">
+  {{#unless internal}}
   <!-- 외부망 모바일 전용. 내부망 페이지에는 넣지 않는다. -->
   <link rel="stylesheet" href="./src/scss/map-mo.scss">
+  {{/unless}}
 </head>
 <body{{#if screen}} data-screen="{{screen}}"{{/if}}>
   {{!-- KRDS: 본문·패널·도구 스킵. 포커스 시 노출 --}}
@@ -27,7 +29,11 @@
       <h1 class="sr-only">해양수산공간정보플랫폼 지도</h1>
       <picture class="stage__pic">
         <source media="(max-width: 767px)" srcset="./src/assets/img/mo/map-bg.png">
+        {{#if spatialOn}}
+        <img class="stage__map" src="./src/assets/img/spatial/map-on.png" alt="">
+        {{else}}
         <img class="stage__map" src="./src/assets/img/map-bg.png" alt="">
+        {{/if}}
       </picture>
       {{> cluster}}
       {{> pins}}
@@ -36,6 +42,10 @@
     <div class="app__left">
       {{> gnb}}
       {{> panel}}
+      {{> mymap}}
+      {{> spatial}}
+      {{> lyrmgr}}
+      {{> spatool}}
       {{> tour-list}}
       {{> marina-list}}
       {{> tour-overlay}}
@@ -51,6 +61,7 @@
     {{> status}}
     {{> tour-detail}}
     {{> attr}}
+    {{> spboard}}
     {{> eval}}
     {{> mo-suggest}}
     {{> mo-tools}}
@@ -59,8 +70,11 @@
   </div>
   {{> login}}
   {{> modal}}
+  {{> spatial-add}}
+  {{> spjoin}}
   {{!-- 상태 안내. 개발 연동 시 announce 대신 이벤트를 구독하면 된다. --}}
   <div id="liveStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  {{!-- 내부망도 추천레이어·우측 툴 등 기존 지도 UI 이벤트는 그대로 쓴다. --}}
   <script type="module" src="./src/js/map.js"></script>
 </body>
 </html>

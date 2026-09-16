@@ -1,0 +1,742 @@
+@use '../base/variables' as *;
+
+body[data-screen^='mymap'] {
+  .panel {
+    display: none;
+  }
+
+  .mymap {
+    display: flex;
+  }
+}
+
+.mymap {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  width: 360px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(180deg, rgba(33, 117, 182, 0.3) 0%, rgba(161, 197, 225, 0.3) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.3;
+  }
+
+  &__head,
+  &__body,
+  &__foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    flex: 1;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #1d2d4c;
+  }
+
+  &__head-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+
+    .count {
+      width: 42px;
+      border: 0;
+    }
+  }
+
+  &__more {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background:
+      url('../assets/img/mymap/ico-more.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.3);
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 12px 16px 70px;
+  }
+
+  &__list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include overlay-scroll-gutter;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 20px 0;
+    border: 1px solid $gray-0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  &__info-ico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    background: $gray-0;
+  }
+
+  &__info-ico::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('../assets/img/mymap/ico-empty.svg') center / 40px 40px no-repeat;
+  }
+
+  &__info-tit {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $primary-80;
+    text-align: center;
+  }
+
+  &__info-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+    text-align: center;
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background: $gray-0;
+    box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__make {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 64px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-0;
+    background: $primary-70;
+  }
+
+  &__make::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url('../assets/img/mymap/ico-plus.svg') center / 16px 16px no-repeat;
+  }
+}
+
+.mymap-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 185px;
+  overflow: hidden;
+  border: 1px solid $gray-0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+
+  &__fig {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    background-color: $gray-0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &--coast {
+      background-image: url('../assets/img/mymap/thumb-coast.png');
+    }
+
+    &--datum {
+      background-image: url('../assets/img/mymap/thumb-datum.png');
+    }
+
+    &--share {
+      background-image: url('../assets/img/mymap/thumb-share.png');
+    }
+
+    &--empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background-image: none;
+    }
+  }
+
+  &__ph {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: url('../assets/img/mymap/ico-image.svg') center / 60px 60px no-repeat;
+  }
+
+  &__ph-txt {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $gray-30;
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 0 16px;
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-95;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__acts {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid $gray-0;
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+  }
+
+  &__btn--find {
+    background-color: $primary-60;
+    background-image: url('../assets/img/mymap/ico-search.svg');
+  }
+
+  &__btn--edit {
+    background-color: #319fb5;
+    background-image: url('../assets/img/mymap/ico-write.svg');
+  }
+}
+
+.mymap-view {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(180deg, rgba(33, 117, 182, 0.3) 0%, rgba(161, 197, 225, 0.3) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.4;
+  }
+
+  &__head,
+  &__body,
+  &__foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    height: 64px;
+    padding: 12px 16px 0;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(180deg, $primary-80 20%, rgba(14, 56, 142, 0) 100%);
+  }
+
+  &__title {
+    flex: 1;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 40px;
+    color: $gray-0;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 8px;
+    padding: 0;
+    background: url('../assets/img/mymap/ico-close.svg') center / 24px 24px no-repeat;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+    padding: 0 16px 80px;
+    @include overlay-scroll;
+  }
+
+  &__fig {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    background: $gray-0;
+  }
+
+  &__ph {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: url('../assets/img/mymap/ico-noimage.svg') center / 60px 60px no-repeat;
+  }
+
+  &__ph-txt {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $gray-20;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__info-tit {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-95;
+  }
+
+  &__dl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid $gray-0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    dt {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.42px;
+      color: $gray-60;
+    }
+
+    dd {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: -0.42px;
+      color: $gray-95;
+    }
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background: $gray-0;
+    box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__go {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 64px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-0;
+    background: $primary-70;
+  }
+
+  &__go::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url('../assets/img/mymap/ico-go.svg') center / 16px 16px no-repeat;
+  }
+}
+
+.dlg--mymap {
+  .dlg__dim {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .dlg__box {
+    width: 760px;
+    height: auto;
+    max-height: calc(100vh - 48px);
+  }
+
+  .dlg__body {
+    gap: 0;
+    align-items: stretch;
+    padding: 16px;
+  }
+}
+
+.mymap-form {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 8px;
+  background: $gray-0;
+
+  th,
+  td {
+    vertical-align: middle;
+    border-bottom: 1px solid $gray-20;
+  }
+
+  tr:last-child th,
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  th {
+    width: 130px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-80;
+    text-align: left;
+    background: #f3f9ff;
+  }
+
+  td {
+    padding: 10px 16px;
+  }
+
+  &__input,
+  &__area {
+    width: 100%;
+    padding: 6px 10px 6px 16px;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: $gray-70;
+    background: $gray-0;
+
+    &::placeholder {
+      color: $gray-70;
+    }
+  }
+
+  &__input {
+    height: 32px;
+  }
+
+  &__area {
+    height: 100px;
+    resize: none;
+  }
+
+  &__radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-70;
+    cursor: pointer;
+
+    .radio {
+      width: 18px;
+      height: 18px;
+    }
+
+    .radio__input,
+    .radio__box {
+      width: 18px;
+      height: 18px;
+    }
+
+    .radio__box {
+      border-color: #6b778e;
+      border-radius: 9px;
+    }
+
+    .radio__input:checked + .radio__box {
+      border-color: $primary-80;
+      background: $primary-80 url('../assets/img/icon/check.svg') center / 12px 12px no-repeat;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 78px;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 6px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  &__btn--cancel {
+    border: 1px solid $primary-50;
+    color: $primary-80;
+    background: $primary-5;
+  }
+
+  &__btn--ok {
+    color: $gray-0;
+    background: $primary-70;
+  }
+}
+
+.mymap-picks {
+  display: grid;
+  grid-template-columns: repeat(4, 130px);
+  gap: 12px;
+}
+
+.mymap-pick {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+  overflow: hidden;
+  border: 2px solid #e6e8ea;
+  border-radius: 16px;
+  background: $gray-0;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &__thumb {
+    display: block;
+    flex-shrink: 0;
+    width: 100%;
+    height: 80px;
+    background-color: $gray-0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &--hat {
+      background-image: url('../assets/img/mymap/sel-hat.png');
+    }
+
+    &--coast {
+      background-image: url('../assets/img/mymap/sel-coast.png');
+    }
+
+    &--datum {
+      background-image: url('../assets/img/mymap/sel-datum.png');
+    }
+
+    &--eng {
+      background-image: url('../assets/img/mymap/sel-eng.png');
+    }
+
+    &--enc {
+      background-image: url('../assets/img/mymap/sel-enc.png');
+    }
+
+    &--msl {
+      background-image: url('../assets/img/mymap/sel-msl.png');
+    }
+
+    &--sat {
+      background-image: url('../assets/img/mymap/sel-sat.png');
+    }
+  }
+
+  &__dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-top: 12px;
+    border: 1px solid $primary-30;
+    border-radius: 10px;
+    background: $primary-5;
+  }
+
+  &__name {
+    padding: 4px 0 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-80;
+    text-align: center;
+  }
+
+  &:has(:checked) {
+    border-color: $primary-70;
+    background: $primary-5;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &:has(:checked) &__dot {
+    border-color: $primary-70;
+    background: $primary-70 url('../assets/img/mymap/ico-check.svg') center / 12px 12px no-repeat;
+  }
+
+  &:has(:checked) &__name {
+    font-weight: 700;
+    color: $primary-80;
+  }
+
+  &__input:focus-visible + &__thumb {
+    outline: 2px solid $primary-60;
+    outline-offset: 2px;
+  }
+}

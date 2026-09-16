@@ -215,6 +215,22 @@ function setBasemapTool(on) {
   })
 }
 
+function syncSpatoolSlide(range) {
+  const min = Number(range.min) || 0
+  const max = Number(range.max) || 100
+  const val = Number(range.value)
+  const pct = max === min ? 0 : ((val - min) / (max - min)) * 100
+  range.style.setProperty('--pct', `${pct}%`)
+  const label = range.nextElementSibling
+  if (label?.classList.contains('spatool-slide__val')) {
+    label.textContent = `${val}${label.dataset.unit || ''}`
+  }
+}
+
+function bindSpatoolSlides() {
+  document.querySelectorAll('.spatool-slide__bar').forEach(syncSpatoolSlide)
+}
+
 function syncBasemapOpacity(value) {
   const pct = Math.max(0, Math.min(100, Number(value) || 0))
   document.querySelectorAll('[data-bind="basemap-opacity"]').forEach((el) => {
@@ -1881,6 +1897,9 @@ document.addEventListener('input', (event) => {
     if (pct) pct.textContent = String(range.value)
     emit('map:layer-opacity', { id: range.dataset.layerId, opacity: Number(range.value) })
   }
+  if (event.target.matches?.('.spatool-slide__bar')) {
+    syncSpatoolSlide(event.target)
+  }
 })
 document.addEventListener('click', onSkipClick)
 document.addEventListener('keydown', onKey)
@@ -1890,6 +1909,7 @@ bindZoomRail()
 syncZoomUi()
 syncFilterTags()
 bootScreen()
+bindSpatoolSlides()
 syncMapChromePos()
 if (typeof ResizeObserver === 'function') {
   const leftCol = document.querySelector('.app__left')

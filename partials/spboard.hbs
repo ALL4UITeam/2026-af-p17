@@ -1,0 +1,117 @@
+{{!--
+  속성정보 보드. Figma 216:42770 테이블 / 311:49717 검색 / 311:50606 통계분석
+--}}
+<section class="spboard" id="spboardPanel" aria-label="{{spboardTitle}}">
+  <header class="spboard__head">
+    <h2 class="spboard__title">{{spboardTitle}}</h2>
+    <div class="spboard__acts">
+      <button type="button">전체선택</button>
+      <button type="button">선택해제</button>
+      <button type="button"{{#if spboardFind}} class="is-on"{{/if}}>검색</button>
+      <button type="button" class="spboard__stat{{#if spboardStat}} is-on{{/if}}">통계분석</button>
+      <button type="button" class="spboard__close" aria-label="닫기"></button>
+    </div>
+  </header>
+  <div class="spboard__body">
+    {{#if spboardStat}}
+    <aside class="spboard-side">
+      <div class="spboard-side__top">
+        <div class="spatool-fld">
+          <p class="spatool-fld__lab">기준필드</p>
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="격자번호">
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="격자아이디">
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="레이어명">
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="레이어분류 설명">
+        </div>
+        <div class="spatool-fld">
+          <p class="spatool-fld__lab">대상필드</p>
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="Cont-text">
+          <input class="spatool-fld__input spatool-fld__input--lg" type="text" value="Cont-text">
+        </div>
+      </div>
+      <div class="spboard-side__bot">
+        <div class="spboard-side__an">
+          <span>분석</span>
+          <div class="spatool-sel spatool-sel--lg">
+            <select class="spatool-sel__el" aria-label="분석">
+              <option selected>합계</option>
+            </select>
+          </div>
+        </div>
+        <button type="button" class="spboard-side__run">적용하기</button>
+      </div>
+    </aside>
+    <div class="spboard-main">
+      <div class="spboard-chart">
+        <div class="spboard-chart__tabs" role="tablist">
+          <button type="button" class="is-on" role="tab">막대</button>
+          <button type="button" role="tab">가로막대</button>
+          <button type="button" role="tab">도넛</button>
+          <button type="button" role="tab">선</button>
+          <button type="button" role="tab">파이</button>
+          <button type="button" role="tab">폴라</button>
+          <button type="button" role="tab">레이더</button>
+        </div>
+        <div class="spboard-chart__view">data field</div>
+        <div class="spboard-chart__btns">
+          <button type="button">통계저장</button>
+          <button type="button">CSV다운로드</button>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="spboard-main">
+      <div class="spboard-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="spboard-table__gutter"></th>
+              {{#each spboardCols}}
+              <th class="spboard-table__col--{{key}}">
+                <span class="spboard-table__h">{{name}}{{#if type}} <i>{{type}}</i>{{/if}}</span>
+                {{#if ../spboardFind}}
+                <div class="spboard-table__filt">
+                  <div class="spatool-sel spatool-sel--find">
+                    <select class="spatool-sel__el" aria-label="{{name}} 조건">
+                      <option selected>포함</option>
+                    </select>
+                  </div>
+                  <input class="spboard-table__q" type="search" placeholder="Search" aria-label="{{name}} 검색">
+                </div>
+                {{/if}}
+              </th>
+              {{/each}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each spboardRows}}
+            <tr>
+              <td class="spboard-table__gutter"></td>
+              <td>{{id}}</td>
+              <td>{{grid}}</td>
+              <td>{{gid}}</td>
+              <td>{{name}}</td>
+              <td>{{desc}}</td>
+              <td>{{geom}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  <footer class="spboard__foot">
+    <div class="spboard__chips">
+      <button type="button" class="spboard__chip">(개방)울산-특</button>
+      <button type="button" class="spboard__chip is-on">(개방)강원-특</button>
+    </div>
+    <div class="spboard__foot-right">
+      <p class="spboard__count"><b>82</b> / 338건</p>
+      <div class="spboard__foot-btns">
+        <button type="button">전체선택</button>
+        <button type="button">선택해제</button>
+      </div>
+    </div>
+  </footer>
+</section>

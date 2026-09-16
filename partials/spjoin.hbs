@@ -1,0 +1,92 @@
+{{!--
+  레이어 조인. Figma 242:24008 / 헤더 242:24009
+--}}
+<div class="dlg dlg--spjoin" id="spjoinModal"{{#unless spjoin}} hidden{{/unless}} data-dimmed="true">
+  <div class="dlg__dim" aria-hidden="true"></div>
+  <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="spjoinTitle" tabindex="-1">
+    <header class="dlg__head">
+      <h2 class="dlg__title" id="spjoinTitle">레이어 조인</h2>
+      <button type="button" class="dlg__close" aria-label="닫기"></button>
+    </header>
+    <div class="dlg__body spjoin">
+      <div class="spjoin-up">
+        <div class="spjoin-up__meta">
+          <div class="spjoin-up__row">
+            <span>업로드 타입</span>
+            <b>-</b>
+          </div>
+          <div class="spjoin-up__row">
+            <span>업로드 목록</span>
+            <b>-</b>
+          </div>
+          <div class="spjoin-up__row">
+            <span>업로드 사이즈</span>
+            <b>NaN undefined</b>
+          </div>
+        </div>
+        <div class="spjoin-drop">
+          <div class="spjoin-drop__area">
+            <div class="spjoin-drop__msg">
+              <span class="spjoin-drop__ico" aria-hidden="true"></span>
+              <p>클릭 또는 파일을 끌어다 놓으세요.</p>
+            </div>
+            <button type="button" class="spjoin-drop__btn">파일 추가</button>
+          </div>
+          <ul class="spjoin-up__note">
+            <li>업로드 최대용량은 <u>300MB</u> 입니다.</li>
+            <li>업로드 가능한 파일 형식: Shapefile(ZIP), CSV, XLSX</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spjoin-map">
+        <div class="spjoin-map__cols">
+          <div class="spjoin-map__head">
+            <h3>레이어 컬럼 설정</h3>
+            <p class="spjoin-map__hint">조인 컬럼을 선택하세요.</p>
+          </div>
+          <div class="spjoin-map__board">
+            <table class="spjoin-map__table">
+              <thead>
+                <tr>
+                  <th>격자번호</th>
+                  <th>격자아이디</th>
+                  <th>레이어명</th>
+                  <th>레이어분류설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>MSP_GR3_G1E14_L</td>
+                  <td>GR3_G1E14_L</td>
+                  <td>강원격자</td>
+                  <td>특성평가격자</td>
+                </tr>
+                <tr>
+                  <td>MSP_GR3_G1E14_M</td>
+                  <td>GR3_G1E14_M</td>
+                  <td>강원격자</td>
+                  <td>특성평가격자</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="spjoin-map__form">
+          <h3 class="spjoin-map__sub">레이어 설정</h3>
+          <div class="spjoin-map__fields">
+            <label class="spjoin-map__fld">
+              <span>레이어명</span>
+              <input class="spatool-fld__input spatool-fld__input--lg" type="text" placeholder="레이어명을 입력하세요">
+            </label>
+            <span class="spjoin-map__line" aria-hidden="true"></span>
+            <label class="spjoin-map__fld spjoin-map__fld--area">
+              <span>설명</span>
+              <textarea class="spjoin-map__area" placeholder="설명을 입력하세요"></textarea>
+            </label>
+          </div>
+        </div>
+        <button type="button" class="spjoin-map__run">업로드</button>
+      </div>
+    </div>
+  </section>
+</div>

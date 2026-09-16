@@ -1,0 +1,58 @@
+{{!--
+  공간분석. Figma 230:59270 / 249:30509
+  - spatial: 기본 / spatial-on: 레이어 활성화
+  스크립트 없음. 화면 파일 data-screen 으로 상태만 연다.
+--}}
+<section class="spatial" id="spatialPanel" aria-label="공간분석">
+  <header class="spatial__head">
+    <button type="button" class="spatial__back" aria-label="뒤로"></button>
+    <h2 class="spatial__title">해안선</h2>
+    <button type="button" class="spatial__save">저장</button>
+  </header>
+  <div class="spatial__body">
+    <div class="spatial__sub">
+      <h3 class="spatial__sub-tit">레이어 목록</h3>
+      <button type="button" class="spatial__more" aria-label="목록 옵션"></button>
+    </div>
+    <ul class="spatial__list">
+      {{#each spatialLayers}}
+      <li>
+        <article class="spatial-lyr{{#if on}} is-on{{/if}}">
+          <div class="spatial-lyr__left">
+            <span class="spatial-lyr__align" aria-hidden="true"></span>
+            <div class="spatial-lyr__meta">
+              <label class="chk">
+                <input class="chk__input" type="checkbox"{{#if on}} checked{{/if}}>
+                <span class="chk__box" aria-hidden="true"></span>
+              </label>
+              <div class="spatial-lyr__txt">
+                <span class="spatial-lyr__swatch{{#if mark}} spatial-lyr__swatch--{{mark}}{{/if}}" aria-hidden="true"></span>
+                <p class="spatial-lyr__name">{{#if open}}(<strong>개방</strong>) {{/if}}{{name}}</p>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="spatial-lyr__anal">분석</button>
+        </article>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{#unless lyrmenu}}
+  <div class="spatial__foot">
+    <button type="button" class="spatial__add">{{#if spatialAddLong}}레이어 추가하기{{else}}레이어 추가{{/if}}</button>
+  </div>
+  {{/unless}}
+  {{#if lyrmenu}}
+  <nav class="lyrmenu" aria-label="레이어 분석 메뉴">
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'op'}} is-on{{/ifeq}}">공간연산</button>
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'an'}} is-on{{/ifeq}}">공간분석</button>
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'edit'}} is-on{{/ifeq}}">편집</button>
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'attr'}} is-on{{/ifeq}}">속성정보</button>
+    <button type="button" class="lyrmenu__item">위치이동</button>
+    <button type="button" class="lyrmenu__item">다운로드</button>
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'join'}} is-on{{/ifeq}}">레이어조인</button>
+    <button type="button" class="lyrmenu__item{{#ifeq lyrmenu 'info'}} is-on{{/ifeq}}">정보보기</button>
+    <button type="button" class="lyrmenu__item">삭제</button>
+  </nav>
+  {{/if}}
+</section>

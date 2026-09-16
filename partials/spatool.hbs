@@ -1,0 +1,265 @@
+{{!--
+  레이어 분석 도구 패널. Figma 216:42613 외 공간연산/분석/편집/정보보기
+  스크립트 없음. data-screen · spatool 플래그로 상태만 연다.
+--}}
+<section class="spatool" id="spatoolPanel" aria-label="{{spatoolTitle}}">
+  <header class="spatool__head">
+    <h2 class="spatool__title">{{spatoolTitle}}</h2>
+    <button type="button" class="spatool__close" aria-label="닫기"></button>
+  </header>
+  <div class="spatool__body">
+    {{#unless spatoolMeta}}
+    <div class="spatool-base">
+      <p class="spatool-fld__lab">기준 레이어</p>
+      <div class="spatool-base__row">
+        <button type="button" class="spatool-sel">
+          <span class="spatool-sel__swatch" aria-hidden="true"></span>
+          <span class="spatool-sel__txt spatool-sel__txt--val">{{#if spatoolLayer}}{{spatoolLayer}}{{else}}(개방) 강원-특성평가격자{{/if}}</span>
+        </button>
+        <button type="button" class="spatool-base__ok">확인</button>
+      </div>
+    </div>
+    {{/unless}}
+
+    {{#if spatoolOp}}
+    <div class="spatool-card">
+      <div class="spatool-ops">
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--clip{{#ifeq spatoolOp 'clip'}} is-on{{/ifeq}}">자르기</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--buf">버퍼</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--cross">교차</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--union{{#ifeq spatoolOp 'union'}} is-on{{/ifeq}}">통합</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--merge">병합</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--diss{{#ifeq spatoolOp 'diss'}} is-on{{/ifeq}}">일반화</button>
+      </div>
+
+      {{#ifeq spatoolOp 'clip'}}
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">대상 레이어</p>
+        <div class="spatool-sel">
+          <select class="spatool-sel__el" aria-label="대상 레이어">
+            <option selected>(개방) 강원-특성평가격자</option>
+          </select>
+        </div>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">저장 이름</p>
+        <input class="spatool-fld__input" type="text" value="(개방) 강원-특성평가격자_중심점_CI">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">소스 레이어</p>
+        <div class="spatool-sel">
+          <select class="spatool-sel__el" aria-label="소스 레이어">
+            <option selected>레이어 선택</option>
+          </select>
+        </div>
+      </div>
+      {{/ifeq}}
+
+      {{#ifeq spatoolOp 'diss'}}
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">저장 이름</p>
+        <input class="spatool-fld__input" type="text" value="군사활동구역(기능구)_Dissolve">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">일반화 필드</p>
+        <ul class="spatool-checks">
+          {{#each spatoolFields}}
+          <li>
+            <label class="spatool-checks__item">
+              <span class="chk">
+                <input class="chk__input" type="checkbox">
+                <span class="chk__box" aria-hidden="true"></span>
+              </span>
+              <span>{{this}}</span>
+            </label>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">통계 필드</p>
+        <ul class="spatool-stats">
+          {{#each spatoolFields}}
+          <li class="spatool-stats__row">
+            <span>{{this}}</span>
+            <button type="button" class="spatool-sel spatool-sel--sm"><span class="spatool-sel__txt spatool-sel__txt--ph">미반영</span></button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+      {{/ifeq}}
+
+      {{#ifeq spatoolOp 'union'}}
+      <div class="spatool-empty">
+        <span class="spatool-empty__ico" aria-hidden="true"></span>
+        <p class="spatool-empty__tit">폴리곤 레이어를 선택해주세요</p>
+        <p class="spatool-empty__desc">공간연산 통합은 폴리곤 레이어만<br>사용 가능합니다.</p>
+      </div>
+      {{/ifeq}}
+    </div>
+    {{/if}}
+
+    {{#if spatoolAn}}
+    <div class="spatool-card">
+      <div class="spatool-ops spatool-ops--an">
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--den">밀도분석</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--clu">군집분석</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--dist">분포분석</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--pat">패턴분석</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--idw is-on">보간법</button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">보간종류</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">interpolation IDW</span></button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">대상 필드</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">선택</span></button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">거리지수</p>
+        <input class="spatool-fld__input" type="text" value="2">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">출력셀크기(m)</p>
+        <input class="spatool-fld__input" type="text" value="DEFAULT_VALUE">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">검색반격유형</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">variable</span></button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">포인트수</p>
+        <input class="spatool-fld__input" type="text" value="12">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">최대거리(m)</p>
+        <input class="spatool-fld__input" type="text" value="DEFAULT_VALUE">
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">저장 이름</p>
+        <input class="spatool-fld__input" type="text" value="(개방) 강원-특성평가격자_중심점_CI">
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if spatoolEdit}}
+    <div class="spatool-card">
+      <div class="spatool-tabs" role="tablist">
+        <button type="button" class="spatool-tabs__btn spatool-tabs__btn--set{{#ifeq spatoolEdit 'set'}} is-on{{/ifeq}}" role="tab">설정</button>
+        <button type="button" class="spatool-tabs__btn spatool-tabs__btn--style{{#ifeq spatoolEdit 'style'}} is-on{{/ifeq}}" role="tab">스타일</button>
+        <button type="button" class="spatool-tabs__btn spatool-tabs__btn--filter{{#ifeq spatoolEdit 'filter'}} is-on{{/ifeq}}" role="tab">필터</button>
+      </div>
+
+      {{#ifeq spatoolEdit 'set'}}
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">최소레벨</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">interpolation IDW</span></button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">최대레벨</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">선택</span></button>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">레이어명</p>
+        <input class="spatool-fld__input" type="text" value="(개방) 강원-특성평가격자_중심점_CI">
+      </div>
+      {{/ifeq}}
+
+      {{#ifeq spatoolEdit 'style'}}
+      <div class="spatool-ops spatool-ops--sty">
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--simple is-on">단순 심볼</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--step">단계 구분</button>
+        <button type="button" class="spatool-ops__btn spatool-ops__btn--uniq">고유 값</button>
+      </div>
+      <div class="spatool-slide">
+        <p class="spatool-fld__lab">심볼 크기</p>
+        <div class="spatool-slide__row">
+          <input class="spatool-slide__bar" type="range" min="0" max="20" value="8">
+          <span class="spatool-slide__val" data-unit="px">8px</span>
+        </div>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">채움 색상</p>
+        <div class="spatool-color">
+          <span class="spatool-color__chip" aria-hidden="true"></span>
+          <input class="spatool-color__hex" type="text" value="#8ffaaa">
+        </div>
+      </div>
+      <div class="spatool-slide">
+        <p class="spatool-fld__lab">채움 불투명도</p>
+        <div class="spatool-slide__row">
+          <input class="spatool-slide__bar" type="range" min="0" max="100" value="50">
+          <span class="spatool-slide__val" data-unit="%">50%</span>
+        </div>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">외곽선 색상</p>
+        <div class="spatool-color">
+          <span class="spatool-color__chip" aria-hidden="true"></span>
+          <input class="spatool-color__hex" type="text" value="#8ffaaa">
+        </div>
+      </div>
+      <div class="spatool-slide">
+        <p class="spatool-fld__lab">외곽선 불투명도</p>
+        <div class="spatool-slide__row">
+          <input class="spatool-slide__bar" type="range" min="0" max="100" value="100">
+          <span class="spatool-slide__val" data-unit="%">100%</span>
+        </div>
+      </div>
+      <div class="spatool-slide">
+        <p class="spatool-fld__lab">외곽선 두께</p>
+        <div class="spatool-slide__row">
+          <input class="spatool-slide__bar" type="range" min="0" max="20" value="8">
+          <span class="spatool-slide__val" data-unit="px">8px</span>
+        </div>
+      </div>
+      <div class="spatool-fld">
+        <p class="spatool-fld__lab">라벨필드</p>
+        <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">선택</span></button>
+      </div>
+      {{/ifeq}}
+
+      {{#ifeq spatoolEdit 'filter'}}
+      <div class="spatool-filter">
+        <div class="spatool-filter__top">
+          <div class="spatool-filter__logic">
+            <button type="button" class="is-on">AND</button>
+            <button type="button">OR</button>
+          </div>
+          <div class="spatool-filter__adds">
+            <button type="button" class="spatool-filter__add">그룹추가</button>
+            <button type="button" class="spatool-filter__add">조건추가</button>
+          </div>
+        </div>
+        <div class="spatool-filter__row">
+          <span class="spatool-filter__line" aria-hidden="true">
+            <img src="./src/assets/img/spatool/filter-line.svg" width="49" height="48" alt="">
+          </span>
+          <div class="spatool-filter__box">
+            <button type="button" class="spatool-sel"><span class="spatool-sel__txt spatool-sel__txt--ph">.....</span></button>
+            <button type="button" class="spatool-filter__x" aria-label="삭제"></button>
+          </div>
+        </div>
+      </div>
+      {{/ifeq}}
+    </div>
+    {{/if}}
+
+    {{#if spatoolMeta}}
+    <ul class="spatool-meta">
+      {{#each spatoolMeta}}
+      <li>
+        <p class="spatool-meta__lab">{{label}}</p>
+        <p class="spatool-meta__val">{{value}}</p>
+      </li>
+      {{/each}}
+    </ul>
+    {{/if}}
+    {{#unless spatoolMeta}}
+    <div class="spatool__foot">
+      <button type="button" class="spatool__run">{{spatoolRun}}</button>
+    </div>
+    {{/unless}}
+  </div>
+</section>

@@ -1,0 +1,144 @@
+{{!--
+  나의 지도. Figma 216:42521
+  - mymap: 목록 / mymap-empty: 미설정 / mymap-detail: 확장 / mymap-create: 생성 모달
+  스크립트 없음. 화면 파일 data-screen 으로 상태만 연다.
+--}}
+<section class="mymap" id="myMapPanel" aria-label="나의 지도">
+  <div class="mymap__body">
+    <header class="mymap__head">
+      <h2 class="mymap__title">나의 지도</h2>
+      <div class="mymap__head-right">
+        <span class="count is-on">{{#if mymapEmpty}}-{{else}}82{{/if}}</span>
+        <button type="button" class="mymap__more" aria-label="목록 옵션"></button>
+      </div>
+    </header>
+    {{#if mymapEmpty}}
+    <div class="mymap__info">
+      <span class="mymap__info-ico" aria-hidden="true"></span>
+      <p class="mymap__info-tit">나의 지도를 추가해주세요</p>
+      <p class="mymap__info-desc">‘나의 지도 만들기’ 버튼을 눌러<br>지도를 생성해보세요.</p>
+    </div>
+    {{else}}
+    <ul class="mymap__list">
+      {{#each myMaps}}
+      <li>
+        <article class="mymap-card{{#if on}} is-on{{/if}}">
+          {{#if empty}}
+          <div class="mymap-card__fig mymap-card__fig--empty">
+            <span class="mymap-card__ph" aria-hidden="true"></span>
+            <p class="mymap-card__ph-txt">이미지 준비중</p>
+          </div>
+          {{else}}
+          <div class="mymap-card__fig mymap-card__fig--{{thumb}}" role="img" aria-label="{{name}}"></div>
+          {{/if}}
+          <div class="mymap-card__bar">
+            <p class="mymap-card__name">{{name}}</p>
+            <div class="mymap-card__acts">
+              <button type="button" class="mymap-card__btn mymap-card__btn--find" aria-label="{{name}} 조회"></button>
+              <button type="button" class="mymap-card__btn mymap-card__btn--edit" aria-label="{{name}} 수정"></button>
+            </div>
+          </div>
+        </article>
+      </li>
+      {{/each}}
+    </ul>
+    {{/if}}
+  </div>
+
+  <div class="mymap__foot">
+    <button type="button" class="mymap__make">나의 지도 만들기</button>
+  </div>
+</section>
+
+<aside class="mymap-view" id="myMapView"{{#unless mymapDetail}} hidden{{/unless}} aria-label="해안선 상세">
+  <header class="mymap-view__head">
+    <h2 class="mymap-view__title">해안선</h2>
+    <button type="button" class="mymap-view__close" aria-label="닫기"></button>
+  </header>
+  <div class="mymap-view__body">
+    <div class="mymap-view__fig">
+      <span class="mymap-view__ph" aria-hidden="true"></span>
+      <p class="mymap-view__ph-txt">No Image</p>
+    </div>
+    <div class="mymap-view__info">
+      <h3 class="mymap-view__info-tit">상세정보</h3>
+      <dl class="mymap-view__dl">
+        <div class="mymap-view__row">
+          <dt>작성자</dt>
+          <dd>fosdUser1</dd>
+        </div>
+        <div class="mymap-view__row">
+          <dt>생성일</dt>
+          <dd>2025-02-15</dd>
+        </div>
+        <div class="mymap-view__row">
+          <dt>레이어 설명</dt>
+          <dd>해안선 관련 나의 지도입니다.<br>해안선 관련 나의 지도입니다.<br>해안선 관련 나의 지도입니다.</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  <div class="mymap-view__foot">
+    <button type="button" class="mymap-view__go">지도 바로가기</button>
+  </div>
+</aside>
+
+<div class="dlg dlg--mymap" id="myMapModal"{{#unless mymapCreate}} hidden{{/unless}} data-dimmed="true">
+  <div class="dlg__dim" aria-hidden="true"></div>
+  <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="myMapModalTitle" tabindex="-1">
+    <header class="dlg__head">
+      <h2 class="dlg__title" id="myMapModalTitle">나의 지도 만들기</h2>
+      <button type="button" class="dlg__close" aria-label="닫기"></button>
+    </header>
+    <div class="dlg__body">
+      <table class="mymap-form">
+        <caption class="sr-only">나의 지도 등록</caption>
+        <tbody>
+          <tr>
+            <th scope="row"><label for="myMapName">맵 문서명</label></th>
+            <td>
+              <input class="mymap-form__input" id="myMapName" name="map-name" type="text" placeholder="맵 문서명을 입력하세요.">
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="myMapDesc">맵 문서 설명</label></th>
+            <td>
+              <textarea class="mymap-form__area" id="myMapDesc" name="map-desc" placeholder="맵 문서 설명을 입력하세요."></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">공개권한</th>
+            <td>
+              <label class="mymap-form__radio">
+                <span class="radio">
+                  <input class="radio__input" type="radio" name="map-open" value="private">
+                  <span class="radio__box" aria-hidden="true"></span>
+                </span>
+                비공개
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">배경 레이어</th>
+            <td>
+              <div class="mymap-picks" role="radiogroup" aria-label="배경 레이어">
+                {{#each myMapLayers}}
+                <label class="mymap-pick">
+                  <input class="mymap-pick__input" type="radio" name="map-bg" value="{{id}}"{{#if on}} checked{{/if}}>
+                  <span class="mymap-pick__thumb mymap-pick__thumb--{{id}}" aria-hidden="true"></span>
+                  <span class="mymap-pick__dot" aria-hidden="true"></span>
+                  <span class="mymap-pick__name">{{name}}</span>
+                </label>
+                {{/each}}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mymap-form__btns">
+        <button type="button" class="mymap-form__btn mymap-form__btn--cancel">취소</button>
+        <button type="button" class="mymap-form__btn mymap-form__btn--ok">등록</button>
+      </div>
+    </div>
+  </section>
+</div>

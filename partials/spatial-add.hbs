@@ -1,0 +1,103 @@
+{{!--
+  공간분석 · 레이어 추가. Figma 216:43779 / 230:60308
+  - spatial-add: 모달 / spatial-add-info: 개요 패널
+  스크립트 없음. 화면 파일 data-screen 으로 상태만 연다.
+--}}
+<div class="dlg dlg--lyradd" id="lyraddModal"{{#unless lyradd}} hidden{{/unless}} data-dimmed="true">
+  <div class="dlg__dim" aria-hidden="true"></div>
+  <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="lyraddTitle" tabindex="-1">
+    <header class="dlg__head">
+      <h2 class="dlg__title" id="lyraddTitle">레이어 추가</h2>
+      <button type="button" class="dlg__close" aria-label="닫기"></button>
+    </header>
+    <div class="dlg__body lyradd">
+      <div class="lyradd__main">
+        <div class="lyradd__pane">
+          <div class="lyradd__select">
+            <div class="lyradd-col">
+              <div class="lyradd-tabs" role="tablist" aria-label="레이어 구분">
+                <button type="button" class="lyradd-tabs__btn" role="tab" aria-selected="false">제공처</button>
+                <button type="button" class="lyradd-tabs__btn" role="tab" aria-selected="false">분류</button>
+                <button type="button" class="lyradd-tabs__btn is-on" role="tab" aria-selected="true">유형</button>
+              </div>
+              <ul class="lyradd-nav">
+                <li>
+                  <button type="button" class="lyradd-nav__btn is-on">사용자레이어</button>
+                </li>
+                <li>
+                  <button type="button" class="lyradd-nav__btn">공유레이어</button>
+                </li>
+              </ul>
+            </div>
+            <div class="lyradd-col lyradd-col--list">
+              <div class="lyradd-tabs" role="tablist" aria-label="도형 유형">
+                <button type="button" class="lyradd-tabs__btn is-on" role="tab" aria-selected="true">전체</button>
+                <button type="button" class="lyradd-tabs__btn" role="tab" aria-selected="false">점</button>
+                <button type="button" class="lyradd-tabs__btn" role="tab" aria-selected="false">선</button>
+                <button type="button" class="lyradd-tabs__btn" role="tab" aria-selected="false">면</button>
+              </div>
+              <div class="lyradd-search">
+                <input class="lyradd-search__input" type="search" placeholder="검색어를 입력하세요" aria-label="레이어 검색">
+                <button type="button" class="lyradd-search__btn" aria-label="검색"></button>
+              </div>
+              <ul class="lyradd-list">
+                {{#each lyraddList}}
+                <li>
+                  <div class="lyradd-row{{#if on}} is-on{{/if}}">
+                    <label class="chk">
+                      <input class="chk__input" type="checkbox"{{#if on}} checked{{/if}}>
+                      <span class="chk__box" aria-hidden="true"></span>
+                    </label>
+                    <span class="lyradd-row__gnmap">
+                      <span class="lyradd-mark lyradd-mark--{{mark}}" aria-hidden="true"></span>
+                    </span>
+                    <p class="lyradd-row__name">{{name}}</p>
+                    <button type="button" class="lyradd-row__q{{#if q}} is-on{{/if}}" aria-label="레이어 정보"></button>
+                  </div>
+                </li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+          {{#if lyraddInfo}}
+          <aside class="lyradd-info" aria-label="레이어 개요">
+            <div class="lyradd-info__con">
+              <div class="lyradd-mini" role="tablist" aria-label="레이어 정보">
+                <button type="button" class="lyradd-mini__btn is-on" role="tab" aria-selected="true">개요</button>
+                <button type="button" class="lyradd-mini__btn" role="tab" aria-selected="false">상세정보</button>
+              </div>
+              <dl class="lyradd-meta">
+                {{#each lyraddMeta}}
+                <div class="lyradd-meta__item">
+                  <dt>{{label}}</dt>
+                  <dd>{{value}}</dd>
+                </div>
+                {{/each}}
+              </dl>
+            </div>
+          </aside>
+          {{/if}}
+        </div>
+      </div>
+      <div class="lyradd-pick">
+        <div class="lyradd-tabs lyradd-tabs--pick" role="tablist">
+          <button type="button" class="lyradd-tabs__btn is-on" role="tab" aria-selected="true">선택 레이어</button>
+        </div>
+        <ul class="lyradd-list lyradd-list--pick">
+          {{#each lyraddPicked}}
+          <li>
+            <div class="lyradd-row is-on">
+              <span class="lyradd-row__gnmap">
+                <span class="lyradd-mark lyradd-mark--{{mark}}" aria-hidden="true"></span>
+              </span>
+              <p class="lyradd-row__name">{{name}}</p>
+              <button type="button" class="lyradd-row__x" aria-label="선택 해제"></button>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+        <button type="button" class="lyradd-pick__add">선택 레이어 추가</button>
+      </div>
+    </div>
+  </section>
+</div>

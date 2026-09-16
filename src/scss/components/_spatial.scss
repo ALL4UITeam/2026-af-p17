@@ -1,0 +1,301 @@
+@use '../base/variables' as *;
+
+body[data-screen^='spatial'] {
+  .panel {
+    display: none;
+  }
+
+  .spatial {
+    display: flex;
+  }
+}
+
+.spatial:has(.lyrmenu) {
+  .spatial__body {
+    padding-bottom: 0;
+  }
+}
+
+.spatial {
+  position: relative;
+  display: none;
+  flex-shrink: 0;
+  flex-direction: column;
+  width: 360px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(180deg, rgba(33, 117, 182, 0.3) 0%, rgba(161, 197, 225, 0.3) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.3;
+  }
+
+  &__head,
+  &__body,
+  &__foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    height: 64px;
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 20%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  &__back {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 100px;
+    background:
+      url('../assets/img/spatial/ico-back.svg') center / 12px 12px no-repeat,
+      rgba(86, 146, 223, 0.3);
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #1d2d4c;
+  }
+
+  &__save {
+    flex-shrink: 0;
+    height: 24px;
+    padding: 0 10px;
+    border: 1px solid #206579;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+    background: #267f96;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 16px 70px;
+  }
+
+  &__sub {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    border-top: 1px solid $gray-0;
+  }
+
+  &__sub-tit {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #1d2d4c;
+  }
+
+  &__more {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background:
+      url('../assets/img/spatial/ico-gear.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.3);
+  }
+
+  &__list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include overlay-scroll-gutter;
+
+    > li {
+      flex-shrink: 0;
+      width: 100%;
+    }
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background: $gray-0;
+    box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 64px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-0;
+    background: $primary-70;
+  }
+
+  &__add::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url('../assets/img/spatial/ico-plus.svg') center / 16px 16px no-repeat;
+  }
+}
+
+.spatial-lyr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $gray-0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+
+  &.is-on {
+    gap: 8px;
+    border-color: transparent;
+    background: $gray-0;
+    box-shadow: 2px 3px 5px rgba(15, 23, 42, 0.2);
+  }
+
+  &__left {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  &__meta {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  &__txt {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  &__align {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: url('../assets/img/spatial/ico-align.svg') center / 24px 24px no-repeat;
+  }
+
+  &__swatch {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    border-radius: 2px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 14px;
+      height: 14px;
+      margin: 1px;
+      background: #ef0060;
+    }
+
+    &--blue::before {
+      background: #0028ef;
+    }
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-80;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &.is-on &__name {
+    font-weight: 700;
+  }
+
+  &__anal {
+    flex-shrink: 0;
+    height: 24px;
+    padding: 0 10px;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-80;
+    background: $gray-0;
+  }
+
+  &.is-on &__anal {
+    border-color: $primary-70;
+    color: $gray-0;
+    background: $primary-70;
+  }
+}

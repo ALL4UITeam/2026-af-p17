@@ -5,13 +5,13 @@
     </a>
     <ul class="gnb__list">
       <li>
-        <a class="gnb__item is-active" href="./map.html" data-action="panel-gnb" aria-current="page">
+        <a class="gnb__item{{#ifeq gnbActive 'research'}}{{else}} is-active{{/ifeq}}" href="./map.html" data-action="panel-gnb"{{#ifeq gnbActive 'research'}}{{else}} aria-current="page"{{/ifeq}}>
           <span class="gnb__ico gnb__ico--map" aria-hidden="true"></span>
           <span class="gnb__label">해양공간<br>정보지도</span>
         </a>
       </li>
       <li>
-        <a class="gnb__item" href="#none">
+        <a class="gnb__item{{#ifeq gnbActive 'research'}} is-active{{/ifeq}}" href="#none"{{#ifeq gnbActive 'research'}} aria-current="page"{{/ifeq}}>
           <span class="gnb__ico gnb__ico--research" aria-hidden="true"></span>
           <span class="gnb__label">연구분석<br>서비스</span>
         </a>

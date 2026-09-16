@@ -64,3 +64,10 @@ $coord-bg: #f8fafc;
   -webkit-overflow-scrolling: touch;
   @include scrollbar-look;
 }
+
+/** 패널 목록처럼 스크롤을 콘텐츠에서 떼고 좌우 여백 안에 둔다 */
+@mixin overlay-scroll-gutter($x: 16px) {
+  margin-inline: -$x;
+  padding-inline: $x;
+  @include overlay-scroll;
+}

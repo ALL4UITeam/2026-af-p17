@@ -1,0 +1,116 @@
+{{!--
+  공간분석 · 레이어 관리. Figma 261:36248 / 277:41294 / 216:42580 / 216:43685
+  - spatial-mgr: 관리 패널 / spatial-perm: 권한 설정
+  - spatial-pick: 선택된 레이어 / spatial-info: 격자 정보
+  스크립트 없음. 화면 파일 data-screen 으로 상태만 연다.
+--}}
+<section class="lyrmgr" id="lyrmgrPanel" aria-label="레이어 관리">
+  <header class="lyrmgr__head">
+    <h2 class="lyrmgr__title">레이어 관리</h2>
+    <button type="button" class="lyrmgr__close" aria-label="닫기"></button>
+  </header>
+  <div class="lyrmgr__body">
+    <div class="lyrmgr-search">
+      <input class="lyrmgr-search__input" type="search" value="내용입력" aria-label="레이어 검색">
+      <button type="button" class="lyrmgr-search__btn" aria-label="검색"></button>
+    </div>
+    <div class="lyrmgr-tabs" role="tablist" aria-label="도형 유형">
+      <button type="button" class="lyrmgr-tabs__btn is-on" role="tab" aria-selected="true">전체</button>
+      <button type="button" class="lyrmgr-tabs__btn" role="tab" aria-selected="false">Polygon</button>
+      <button type="button" class="lyrmgr-tabs__btn" role="tab" aria-selected="false">Line</button>
+      <button type="button" class="lyrmgr-tabs__btn" role="tab" aria-selected="false">Point</button>
+      <button type="button" class="lyrmgr-tabs__btn" role="tab" aria-selected="false">My</button>
+    </div>
+    <ul class="lyrmgr-list">
+      {{#each lyrmgrList}}
+      <li>
+        <article class="lyrmgr-card">
+          <span class="lyrmgr-card__swatch{{#if mark}} lyrmgr-card__swatch--{{mark}}{{/if}}" aria-hidden="true"></span>
+          <p class="lyrmgr-card__name">{{name}}</p>
+          <div class="lyrmgr-card__acts">
+            {{#if share}}
+            <button type="button" class="lyrmgr-card__act lyrmgr-card__act--share" aria-label="공유"></button>
+            {{/if}}
+            <button type="button" class="lyrmgr-card__act lyrmgr-card__act--plus" aria-label="추가"></button>
+            <button type="button" class="lyrmgr-card__act lyrmgr-card__act--x" aria-label="삭제"></button>
+          </div>
+        </article>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="lyrmgr-perm" role="dialog" aria-labelledby="lyrmgrPermTitle">
+      <header class="lyrmgr-perm__head">
+        <h3 class="lyrmgr-perm__title" id="lyrmgrPermTitle">레이어 권한 설정</h3>
+        <button type="button" class="lyrmgr-perm__close" aria-label="닫기"></button>
+      </header>
+      <div class="lyrmgr-perm__body">
+        <div class="lyrmgr-perm__box">
+          <label class="lyrmgr-perm__opt">
+            <span class="radio">
+              <input class="radio__input" type="radio" name="lyrmgrPerm" checked>
+              <span class="radio__box" aria-hidden="true"></span>
+            </span>
+            <span class="lyrmgr-perm__lbl">전체공개</span>
+          </label>
+          <label class="lyrmgr-perm__opt">
+            <span class="radio">
+              <input class="radio__input" type="radio" name="lyrmgrPerm">
+              <span class="radio__box" aria-hidden="true"></span>
+            </span>
+            <span class="lyrmgr-perm__lbl">비공개</span>
+          </label>
+        </div>
+        <div class="lyrmgr-perm__btns">
+          <button type="button" class="lyrmgr-perm__cancel">취소</button>
+          <button type="button" class="lyrmgr-perm__ok">적용</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="lyrmgr__usage">
+    <span>사용용량</span>
+    <strong>4MB</strong>
+    <span>/ 300 MB</span>
+  </p>
+  <div class="lyrmgr__foot">
+    <button type="button" class="lyrmgr__load">레이어 불러오기</button>
+  </div>
+</section>
+
+<div class="lyr-pick" role="dialog" aria-labelledby="lyrPickTitle">
+  <div class="lyr-pick__card">
+    <header class="lyr-pick__head">
+      <h2 class="lyr-pick__title" id="lyrPickTitle">선택 된 레이어 선택</h2>
+      <button type="button" class="lyr-pick__x" aria-label="닫기"></button>
+    </header>
+    <ul class="lyr-pick__list">
+      {{#each lyrPick}}
+      <li>
+        <button type="button" class="lyr-pick__item{{#if on}} is-on{{/if}}">
+          <span class="lyr-pick__name">{{name}}</span>
+          <span class="lyr-pick__cnt">{{count}}</span>
+        </button>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <span class="lyr-pick__arrow" aria-hidden="true"></span>
+</div>
+
+<div class="lyr-tip" role="dialog" aria-labelledby="lyrTipTitle">
+  <div class="lyr-tip__card">
+    <header class="lyr-tip__head">
+      <h2 class="lyr-tip__title" id="lyrTipTitle">{{lyrTip.title}}</h2>
+      <button type="button" class="lyr-tip__x" aria-label="닫기"></button>
+    </header>
+    <dl class="lyr-tip__list">
+      {{#each lyrTip.fields}}
+      <div class="lyr-tip__item">
+        <dt>{{label}}</dt>
+        <dd>{{value}}</dd>
+      </div>
+      {{/each}}
+    </dl>
+  </div>
+  <span class="lyr-tip__arrow" aria-hidden="true"></span>
+</div>

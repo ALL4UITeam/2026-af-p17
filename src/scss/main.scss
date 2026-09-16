@@ -23,6 +23,11 @@
 @use 'components/poi';
 @use 'components/tour';
 @use 'components/tour-detail';
+@use 'components/mymap';
+@use 'components/spatial';
+@use 'components/lyradd';
+@use 'components/lyrmgr';
+@use 'components/spatool';
 @use 'pages/map';
 @use 'pages/guide';
 @use 'pc/hide-mo';

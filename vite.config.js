@@ -104,6 +104,30 @@ const MAP_SCREENS = {
   'map-mo-modal.html': 'modal',
   'map-mo-attr.html': 'mo-attr',
   'map-login.html': 'login',
+  'map-mymap.html': 'mymap',
+  'map-mymap-detail.html': 'mymap-detail',
+  'map-mymap-empty.html': 'mymap-empty',
+  'map-mymap-create.html': 'mymap-create',
+  'map-spatial.html': 'spatial',
+  'map-spatial-on.html': 'spatial-on',
+  'map-spatial-add.html': 'spatial-add',
+  'map-spatial-add-info.html': 'spatial-add-info',
+  'map-spatial-mgr.html': 'spatial-mgr',
+  'map-spatial-perm.html': 'spatial-perm',
+  'map-spatial-pick.html': 'spatial-pick',
+  'map-spatial-info.html': 'spatial-info',
+  'map-spatial-op.html': 'spatial-op',
+  'map-spatial-op-diss.html': 'spatial-op-diss',
+  'map-spatial-op-union.html': 'spatial-op-union',
+  'map-spatial-an.html': 'spatial-an',
+  'map-spatial-edit.html': 'spatial-edit',
+  'map-spatial-edit-style.html': 'spatial-edit-style',
+  'map-spatial-edit-filter.html': 'spatial-edit-filter',
+  'map-spatial-attr.html': 'spatial-attr',
+  'map-spatial-meta.html': 'spatial-meta',
+  'map-spatial-join.html': 'spatial-join',
+  'map-spatial-stat.html': 'spatial-stat',
+  'map-spatial-stat-find.html': 'spatial-stat-find',
 }
 
 const mapBase = {
@@ -179,6 +203,22 @@ const mapBase = {
       '안전관리특성평가',
     ],
     treeCatCount: 8,
+    myMaps: [
+      { id: 'coast', name: '해안선', thumb: 'coast', on: true },
+      { id: 'datum', name: '기본수준면', thumb: 'datum' },
+      { id: 'intake', name: '취수해역 경계', empty: true },
+      { id: 'share', name: '해양수산정보 공동활용체계', thumb: 'share' },
+      { id: 'yacht', name: '요트와 여객항로', thumb: 'coast' },
+    ],
+    myMapLayers: [
+      { id: 'hat', name: '약최고고조면', on: true },
+      { id: 'coast', name: '해안선' },
+      { id: 'datum', name: '기본수준면' },
+      { id: 'eng', name: '영문주기' },
+      { id: 'enc', name: '전자해도' },
+      { id: 'msl', name: '평균해수면' },
+      { id: 'sat', name: '영상맵' },
+    ],
 }
 
 const pageData = {
@@ -345,6 +385,309 @@ for (const [file, screen] of Object.entries(MAP_SCREENS)) {
   pageData[`/${file}`] = { ...mapBase, screen }
 }
 
+const MYMAP_PAGES = {
+  'map-mymap.html': { internal: true, gnbActive: 'research' },
+  'map-mymap-detail.html': { internal: true, gnbActive: 'research', mymapDetail: true },
+  'map-mymap-empty.html': { internal: true, gnbActive: 'research', mymapEmpty: true },
+  'map-mymap-create.html': {
+    internal: true,
+    gnbActive: 'research',
+    mymapDetail: true,
+    mymapCreate: true,
+  },
+}
+for (const [file, extra] of Object.entries(MYMAP_PAGES)) {
+  Object.assign(pageData[`/${file}`], extra)
+}
+
+const SPATIAL_LAYERS = [
+  { id: 'gangwon', name: '강원 - 특성평가격자', open: true },
+  { id: 'gyeonggi', name: '경기-특성평가격자', open: true, mark: 'blue' },
+  { id: 'protect', name: '어업자원 보호수역' },
+  { id: 'ranch', name: '바다목장' },
+]
+const LYRADD_LIST = [
+  { id: 'protect', name: '(개방) 수산자원보호구역', mark: 'dot', on: true, q: true },
+  { id: 'gangwon', name: '(개방) 강원-특성평가격자', mark: 'circle', on: true, q: true },
+  { id: 'gyeonggi', name: '(개방) 경기-특성평가격자', mark: 'poly' },
+  { id: 'gyeongbuk', name: '(개방) 경북-특성평가격자', mark: 'poly' },
+  { id: 'ulsan', name: '(개방) 울산-특성평가격자', mark: 'poly' },
+  { id: 'erosion', name: '(개방) 연안침식백서_모형', mark: 'line' },
+  { id: 'ulsan2', name: '(개방) 울산-특성평가격자', mark: 'poly' },
+]
+const LYRADD_PICKED = [
+  { name: '(개방) 강원-특성평가격자', mark: 'dot' },
+  { name: '(개방) 경기-특성평가격자', mark: 'poly' },
+]
+const LYRADD_META = [
+  { label: '명칭', value: '(개방)강원-특성평가격자' },
+  { label: '영문', value: 'optn_kw_grid' },
+  { label: '분류', value: '해양생태' },
+  { label: '생산(관리)기관', value: '해양수산부(해양공간정보체계)' },
+  { label: '생성(업데이트) 시점', value: '2021-09-16 09:49:33' },
+  { label: '레이어 설명', value: '강원 특성평가격자입니다.' },
+]
+const SPATIAL_LAYERS_ON = SPATIAL_LAYERS.map((layer, i) => (i < 2 ? { ...layer, on: true } : layer))
+const SPATIAL_LAYERS_PICK = [
+  { id: 'gw1', name: '강원 - 특성평가격자', open: true, on: true },
+  { id: 'gw2', name: '강원 - 특성평가격자', open: true, on: true },
+  { id: 'gw3', name: '강원 - 특성평가격자', open: true, on: true },
+  { id: 'gw4', name: '강원 - 특성평가격자', open: true, on: true },
+  { id: 'gyeonggi', name: '경기-특성평가격자', open: true, mark: 'blue' },
+  { id: 'protect', name: '어업자원 보호수역' },
+  { id: 'ranch', name: '바다목장' },
+]
+const LYRMGR_LIST = [
+  { name: '영해테스트', mark: 'dot' },
+  { name: '(개방) 강원-특성평가격자' },
+  { name: '(개방) 경기-특성평가격자' },
+  { name: '어업자원 보호수역', mark: 'dot' },
+  { name: '(개방) 울산-특성평가격자', share: true },
+  { name: '(개방) 경북-특성평가격자', mark: 'line', share: true },
+  { name: '(개방) 인천-특성평가격자', mark: 'line', share: true },
+]
+const LYR_PICK = [
+  { name: '(개방) 강원-특성평가격자', count: '769', on: true },
+  { name: '(개방) 강원-특성평가격자', count: '769' },
+  { name: '(개방) 강원-특성평가격자', count: '769' },
+]
+const TOOL_BASE = {
+  internal: true,
+  gnbActive: 'research',
+  spatialOn: true,
+  spatialAddLong: true,
+  spatialLayers: SPATIAL_LAYERS_ON,
+}
+const SPATOOL_FIELDS = [
+  'rd_key',
+  'coast_part',
+  'landsea',
+  'area',
+  'region',
+  'project',
+  'r_region',
+  '기능_용도',
+  'grid_id',
+  'gid',
+  'name',
+  'geom',
+]
+const SPATOOL_META = [
+  { label: '명칭', value: '(개방)울산-특성평가격자_중심점' },
+  { label: '분류', value: '-' },
+  { label: '생산(관리)기관', value: '-' },
+  { label: '생성(업데이트)시점', value: '-' },
+  { label: '레이어 설명', value: '-' },
+]
+const SPBOARD_COLS = [
+  { key: 'id', name: 'ID', type: 'INT' },
+  { key: 'grid', name: '격자번호', type: 'TEXT' },
+  { key: 'gid', name: '격자아이디', type: 'TEXT' },
+  { key: 'name', name: '레이어명', type: 'TEXT' },
+  { key: 'desc', name: '레이어분류설명', type: 'TEXT' },
+  { key: 'geom', name: 'GEOMETRY' },
+]
+const SPBOARD_ROWS = [
+  ['G1E14_L', 492],
+  ['G1E14_M', 493],
+  ['G1E14_R', 501],
+  ['G1E14_S', 502],
+  ['G1E14_T', 503],
+  ['G1E23_P', 504],
+  ['G1E23_Q', 505],
+  ['G1E23_R', 506],
+  ['G1E23_L', 507],
+  ['G1E23_X', 508],
+  ['G1E23_T', 509],
+  ['G1E14_X', 510],
+  ['G1E14_Y', 511],
+  ['G1E23_U', 512],
+  ['G1E23_V', 513],
+  ['G1E23_W', 514],
+  ['G1E23_X', 515],
+  ['G1E23_Y', 516],
+  ['G1E32_D', 517],
+  ['G1E32_E', 518],
+  ['G1E41_A', 519],
+  ['G1E41_B', 520],
+  ['G1E41_C', 521],
+  ['G1E41_D', 522],
+  ['G1E32_J', 523],
+  ['G1E42_A', 524],
+  ['G1E42_B', 525],
+  ['G1E42_C', 526],
+  ['G1E42_D', 527],
+  ['G1E42_E', 528],
+  ['G1E32_I', 529],
+  ['G1E32_J', 530],
+  ['G1E41_F', 531],
+  ['G1E41_G', 532],
+  ['G1E41_H', 533],
+  ['G1E41_I', 534],
+  ['G1E41_J', 535],
+  ['G1E41_L', 536],
+].map(([code, id]) => ({
+  id,
+  grid: `MSP_GR3_${code}`,
+  gid: `GR3_${code}`,
+  name: '강원격자',
+  desc: '특성평가격자',
+  geom: 'GEOM',
+}))
+const SPBOARD_BASE = {
+  ...TOOL_BASE,
+  lyrmenu: 'attr',
+  spboardTitle: '속성정보',
+  spboardCols: SPBOARD_COLS,
+  spboardRows: SPBOARD_ROWS,
+}
+const LYR_TIP = {
+  title: '(개방) 경기 특성평가격자',
+  fields: [
+    { label: '권역명', value: '경남권' },
+    { label: '지역명', value: '통영시' },
+    { label: '마리니항 명', value: '죽림요트계류시설' },
+    { label: '운영주체', value: '통영시' },
+  ],
+}
+const SPATIAL_PAGES = {
+  'map-spatial.html': { internal: true, gnbActive: 'research', spatialLayers: SPATIAL_LAYERS },
+  'map-spatial-on.html': {
+    internal: true,
+    gnbActive: 'research',
+    spatialOn: true,
+    spatialLayers: SPATIAL_LAYERS_ON,
+  },
+  'map-spatial-add.html': {
+    internal: true,
+    gnbActive: 'research',
+    lyradd: true,
+    spatialLayers: SPATIAL_LAYERS,
+    lyraddList: LYRADD_LIST,
+    lyraddPicked: LYRADD_PICKED,
+  },
+  'map-spatial-add-info.html': {
+    internal: true,
+    gnbActive: 'research',
+    lyradd: true,
+    lyraddInfo: true,
+    spatialLayers: SPATIAL_LAYERS.map((layer, i) => (i === 0 ? { ...layer, on: true } : layer)),
+    lyraddList: LYRADD_LIST.map((layer, i) =>
+      i === 0 ? layer : { ...layer, on: false, q: false },
+    ),
+    lyraddPicked: LYRADD_PICKED,
+    lyraddMeta: LYRADD_META,
+  },
+  'map-spatial-mgr.html': {
+    internal: true,
+    gnbActive: 'research',
+    spatialOn: true,
+    spatialAddLong: true,
+    spatialLayers: SPATIAL_LAYERS_ON,
+    lyrmgrList: LYRMGR_LIST,
+  },
+  'map-spatial-perm.html': {
+    internal: true,
+    gnbActive: 'research',
+    spatialOn: true,
+    spatialAddLong: true,
+    spatialLayers: SPATIAL_LAYERS_ON,
+    lyrmgrList: LYRMGR_LIST,
+  },
+  'map-spatial-pick.html': {
+    internal: true,
+    gnbActive: 'research',
+    spatialOn: true,
+    spatialAddLong: true,
+    spatialLayers: SPATIAL_LAYERS_PICK,
+    lyrPick: LYR_PICK,
+  },
+  'map-spatial-info.html': {
+    internal: true,
+    gnbActive: 'research',
+    spatialOn: true,
+    spatialAddLong: true,
+    spatialLayers: SPATIAL_LAYERS_PICK,
+    lyrTip: LYR_TIP,
+  },
+  'map-spatial-op.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'op',
+    spatoolTitle: '공간연산',
+    spatoolRun: '연산하기',
+    spatoolOp: 'clip',
+  },
+  'map-spatial-op-diss.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'op',
+    spatoolTitle: '공간연산',
+    spatoolRun: '연산하기',
+    spatoolOp: 'diss',
+    spatoolFields: SPATOOL_FIELDS,
+  },
+  'map-spatial-op-union.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'op',
+    spatoolTitle: '공간연산',
+    spatoolRun: '연산하기',
+    spatoolOp: 'union',
+    spatoolLayer: '군사활동구역(기능구)',
+  },
+  'map-spatial-an.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'an',
+    spatoolTitle: '공간분석',
+    spatoolRun: '분석하기',
+    spatoolAn: true,
+  },
+  'map-spatial-edit.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'edit',
+    spatoolTitle: '편집',
+    spatoolRun: '적용하기',
+    spatoolEdit: 'set',
+  },
+  'map-spatial-edit-style.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'edit',
+    spatoolTitle: '편집',
+    spatoolRun: '적용하기',
+    spatoolEdit: 'style',
+  },
+  'map-spatial-edit-filter.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'edit',
+    spatoolTitle: '편집',
+    spatoolRun: '적용하기',
+    spatoolEdit: 'filter',
+  },
+  'map-spatial-attr.html': {
+    ...SPBOARD_BASE,
+  },
+  'map-spatial-meta.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'info',
+    spatoolTitle: '정보보기',
+    spatoolMeta: SPATOOL_META,
+  },
+  'map-spatial-join.html': {
+    ...TOOL_BASE,
+    lyrmenu: 'join',
+    spjoin: true,
+  },
+  'map-spatial-stat.html': {
+    ...SPBOARD_BASE,
+    spboardStat: true,
+  },
+  'map-spatial-stat-find.html': {
+    ...SPBOARD_BASE,
+    spboardFind: true,
+  },
+}
+for (const [file, extra] of Object.entries(SPATIAL_PAGES)) {
+  Object.assign(pageData[`/${file}`], extra)
+}
+
 function mapInputs() {
   const entries = {
     map: path.resolve(__dirname, 'map.html'),
@@ -472,6 +815,7 @@ export default defineConfig({
           )
         }
         if (/^map/i.test(file) && /\.html$/i.test(file)) {
+          if (/^map-mymap/i.test(file) || /^map-spatial/i.test(file)) return html
           if (html.includes('./assets/map-mo.css')) return html
           // map.css 는 map.js 번들이 붙임. 모바일만 추가 주입.
           return html.replace(

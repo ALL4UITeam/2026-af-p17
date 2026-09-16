@@ -1,0 +1,667 @@
+@use '../base/variables' as *;
+
+body[data-screen='spatial-mgr'],
+body[data-screen='spatial-perm'] {
+  .lyrmgr {
+    display: flex;
+  }
+}
+
+body[data-screen='spatial-perm'] {
+  .lyrmgr-perm {
+    display: flex;
+  }
+}
+
+body[data-screen='spatial-pick'] {
+  .lyr-pick {
+    display: flex;
+  }
+}
+
+body[data-screen='spatial-info'] {
+  .lyr-tip {
+    display: flex;
+  }
+}
+
+.lyrmgr {
+  position: relative;
+  display: none;
+  flex-shrink: 0;
+  flex-direction: column;
+  width: 360px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 16px;
+    background-image:
+      linear-gradient(180deg, rgba(33, 117, 182, 0.3) 0%, rgba(161, 197, 225, 0.3) 100%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 16px;
+    background: url('../assets/img/glass-panel.png') center / cover no-repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &__head,
+  &__body,
+  &__usage,
+  &__foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: 64px;
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(180deg, $primary-80 20%, rgba(14, 56, 142, 0) 100%);
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: url('../assets/img/lyrmgr/ico-close.svg') center / 24px 24px no-repeat;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+    padding: 0 16px 113px;
+  }
+
+  &__usage {
+    position: absolute;
+    right: 0;
+    bottom: 70px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    height: 23px;
+    margin: 0;
+    padding: 0 16px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-60;
+    white-space: nowrap;
+
+    strong {
+      font-weight: 700;
+      color: $primary-80;
+    }
+  }
+
+  &__foot {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background: $gray-0;
+    box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__load {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 64px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid $primary-50;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $primary-80;
+    background: $primary-5;
+  }
+
+  &__load::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: url('../assets/img/lyrmgr/ico-load.svg') center / 16px 16px no-repeat;
+  }
+}
+
+.lyrmgr-search {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  width: 328px;
+  padding: 12px;
+  border: 1px solid $gray-0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-80;
+    background: $gray-0;
+  }
+
+  &__btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid $primary-60;
+    border-radius: 6px;
+    background: $gray-0 url('../assets/img/lyrmgr/ico-search.svg') center / 17.5px 17.5px no-repeat;
+  }
+}
+
+.lyrmgr-tabs {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  width: 100%;
+
+  &__btn {
+    flex: 1;
+    min-width: 0;
+    height: auto;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #444;
+    white-space: nowrap;
+  }
+
+  &__btn.is-on {
+    border-bottom: 2px solid $primary-70;
+    font-weight: 700;
+    color: $primary-70;
+  }
+}
+
+.lyrmgr-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  @include overlay-scroll-gutter;
+
+  > li {
+    flex-shrink: 0;
+    width: 100%;
+  }
+}
+
+.lyrmgr-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 328px;
+  padding: 12px;
+  border: 1px solid $gray-0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+
+  &__swatch {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    border-radius: 2px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 14px;
+      height: 14px;
+      margin: 1px;
+      background: #ef0060;
+    }
+
+    &--dot,
+    &--line {
+      border-radius: 0;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &--dot {
+      background-image: url('../assets/img/lyradd/mark-dot.svg');
+    }
+
+    &--line {
+      background-image: url('../assets/img/lyradd/mark-poly.svg');
+    }
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-80;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__acts {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__act {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    background-color: $gray-0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+  }
+
+  &__act--plus {
+    background-image: url('../assets/img/lyrmgr/ico-plus.svg');
+  }
+
+  &__act--x {
+    background-image: url('../assets/img/lyrmgr/ico-x.svg');
+  }
+
+  &__act--share {
+    background-image: url('../assets/img/lyrmgr/ico-share.svg');
+  }
+}
+
+.lyrmgr-perm {
+  position: absolute;
+  top: 413px;
+  left: 59px;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  width: 230px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+
+  &__head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 16px;
+    background: $primary-80;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+    white-space: nowrap;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background:
+      url('../assets/img/lyrmgr/ico-perm-x.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.1);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: $gray-0;
+  }
+
+  &__opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &__lbl {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-80;
+    white-space: nowrap;
+  }
+
+  &__opt:has(.radio__input:checked) &__lbl {
+    font-weight: 700;
+    color: $primary-80;
+  }
+
+  .radio__input:checked + .radio__box {
+    border-color: $primary-80;
+    background-color: $primary-80;
+    background-image: url('../assets/img/lyrmgr/ico-radio-on.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12.6px 12px;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__cancel,
+  &__ok {
+    min-width: 60px;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  &__cancel {
+    border: 1px solid $gray-60;
+    color: $gray-95;
+    background: transparent;
+  }
+
+  &__ok {
+    color: $gray-0;
+    background: $primary-70;
+  }
+}
+
+.lyr-pick {
+  position: fixed;
+  top: 177px;
+  left: 1408px;
+  z-index: 22;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  filter: drop-shadow(0 0 7.5px rgba(0, 0, 0, 0.2));
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  &__x {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 20px;
+    background: #e6e8ea url('../assets/img/lyrmgr/ico-pop-x.svg') center / 12px 12px no-repeat;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    width: 248px;
+    padding: 10px 16px;
+    border: 1px solid #e6e8ea;
+    border-radius: 16px;
+    background: $gray-0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+
+  &__item.is-on {
+    border: 2px solid #23aed6;
+    background: $primary-5;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  &__name {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-60;
+    white-space: nowrap;
+  }
+
+  &__item.is-on &__name {
+    font-weight: 700;
+    color: $primary-80;
+  }
+
+  &__cnt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 18px;
+    border: 1px solid $gray-20;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-60;
+    background: $gray-0;
+  }
+
+  &__item.is-on &__cnt {
+    height: 20px;
+  }
+
+  &__arrow {
+    display: block;
+    width: 20px;
+    height: 12px;
+    background: url('../assets/img/lyrmgr/ico-arrow.svg') center / 20px 12px no-repeat;
+  }
+}
+
+.lyr-tip {
+  position: fixed;
+  top: 298px;
+  left: 632px;
+  z-index: 22;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  filter: drop-shadow(0 0 7.5px rgba(0, 0, 0, 0.2));
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  &__x {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 20px;
+    background: #e6e8ea url('../assets/img/lyrmgr/ico-pop-x.svg') center / 12px 12px no-repeat;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid $gray-0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    height: 43px;
+  }
+
+  &__item dt {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-60;
+  }
+
+  &__item dd {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-90;
+    white-space: nowrap;
+  }
+
+  &__arrow {
+    display: block;
+    width: 20px;
+    height: 12px;
+    background: url('../assets/img/lyrmgr/ico-arrow.svg') center / 20px 12px no-repeat;
+  }
+}
