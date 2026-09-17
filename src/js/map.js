@@ -11,14 +11,14 @@
  *
  * 데이터 훅
  * | 속성 | 의미 |
- * | data-action | tab, toggle, toggle-layer, search, filter, filter-chip, filter-all, filter-fold, filter-reset, filter-apply, close-filter, tool, zoom … |
+ * | data-action | tab, toggle, toggle-layer, search, filter, inq-tab, spquery-sw, spquery-fold, spquery-graph, spquery-reset, spquery-draw, spquery-mini, spquery-file-del … |
  * | data-dimmed | 모달 딤 여부. MapUI.openModal(id, { dimmed, tab }) |
  * | data-layer-id | 레이어/그룹 ID. 개발 연동 키 |
  * | data-layer-name | 화면 표시명 |
  * | data-parent-id | 상위 그룹 ID |
  * | data-group-id | 트리 접기/펼치기 대상 |
- * | data-tab | list | fav |
- * | data-tool | layer | basemap | fullmap | dist | area | print |
+ * | data-tab | list | fav | circle | grid | region | file | zone |
+ * | data-tool | spquery | layer | basemap | fullmap | dist | area | print |
  * | data-bind | 값이 바뀌는 자리 (keyword, zoom-level, active-layers) |
  *
  * 커스텀 이벤트 (document)
@@ -185,6 +185,7 @@ function syncPickedCount() {
 
 function openLayerList() {
   closeBasemap()
+  closeSpquery()
   if (MO_MQ.matches) {
     closeFilter()
     setMoDock('close')
@@ -243,6 +244,7 @@ function openBasemap() {
   const el = document.getElementById('basemapPop')
   if (!el) return
   closeLayerList()
+  closeSpquery()
   el.hidden = false
   setBasemapTool(true)
   syncBasemapOpacity(el.querySelector('[data-bind="basemap-opacity"]')?.value || 70)
@@ -255,6 +257,31 @@ function closeBasemap() {
   el.hidden = true
   setBasemapTool(false)
   emit('map:basemap', { open: false })
+}
+
+function setSpqueryTool(on) {
+  document.querySelectorAll('[data-action="tool"][data-tool="spquery"]').forEach((btn) => {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false')
+    btn.closest('.tools__item')?.classList.toggle('is-active', on)
+  })
+}
+
+function openSpquery() {
+  const el = document.getElementById('spqueryPanel')
+  if (!el) return
+  closeLayerList()
+  closeBasemap()
+  el.classList.add('is-open')
+  setSpqueryTool(true)
+  emit('map:spquery', { open: true })
+}
+
+function closeSpquery() {
+  const el = document.getElementById('spqueryPanel')
+  if (!el) return
+  el.classList.remove('is-open')
+  setSpqueryTool(false)
+  emit('map:spquery', { open: false })
 }
 
 function setAreaTool(on) {
@@ -1403,7 +1430,10 @@ function onPrint() {
 function onTool(btn) {
   const tool = btn.dataset.tool
   const on = btn.getAttribute('aria-pressed') !== 'true'
-  if (tool === 'layer') {
+  if (tool === 'spquery') {
+    if (on) openSpquery()
+    else closeSpquery()
+  } else if (tool === 'layer') {
     if (on) openLayerList()
     else closeLayerList()
   } else if (tool === 'basemap') {
@@ -1575,6 +1605,79 @@ function onLyrOpac(btn) {
   }
 }
 
+function setInqTab(btn) {
+  const tab = btn.dataset.tab
+  const list = btn.closest('.inq')
+  if (!list || !tab) return
+  list.querySelectorAll('.inq__tab').forEach((el) => {
+    const on = el === btn
+    el.classList.toggle('is-on', on)
+    el.setAttribute('aria-selected', on ? 'true' : 'false')
+  })
+  const root = btn.closest('.spquery') || document.getElementById('spqueryPanel')
+  if (root) {
+    root.dataset.tab = tab
+    root.querySelectorAll('.spquery-pane').forEach((pane) => {
+      pane.classList.toggle('is-on', pane.dataset.pane === tab)
+    })
+  }
+  emit('map:inq-tab', { tab })
+}
+
+function onSpquerySwitch(btn) {
+  const on = !btn.classList.contains('is-on')
+  btn.classList.toggle('is-on', on)
+  btn.setAttribute('aria-checked', on ? 'true' : 'false')
+  const label = btn.querySelector('span')
+  if (label) label.textContent = on ? 'on' : 'off'
+  emit('map:spquery-sw', { on })
+}
+
+function onSpqueryFold(btn) {
+  const sec = btn.closest('.spquery-sec')
+  if (!sec) return
+  const fold = !sec.classList.contains('is-fold')
+  sec.classList.toggle('is-fold', fold)
+  btn.setAttribute('aria-expanded', fold ? 'false' : 'true')
+  btn.setAttribute('aria-label', fold ? '조회대상 펼치기' : '조회대상 접기')
+}
+
+function fillSpquery() {
+  const root = document.getElementById('spqueryPanel')
+  if (!root) return
+  const empty = root.querySelector('.spquery-empty')
+  const tbl = root.querySelector('.spquery-tbl')
+  if (empty) empty.hidden = true
+  if (tbl) tbl.hidden = false
+  emit('map:spquery', { action: 'draw' })
+}
+
+function resetSpquery() {
+  const root = document.getElementById('spqueryPanel')
+  if (!root) return
+  const empty = root.querySelector('.spquery-empty')
+  const tbl = root.querySelector('.spquery-tbl')
+  if (empty) empty.hidden = false
+  if (tbl) tbl.hidden = true
+  emit('map:spquery', { action: 'reset' })
+}
+
+function onSpqueryMini(btn) {
+  const list = btn.closest('.spquery-mini')
+  if (!list) return
+  list.querySelectorAll('.spquery-mini__btn').forEach((el) => {
+    el.classList.toggle('is-on', el === btn)
+  })
+  emit('map:spquery', { action: 'zone', name: btn.textContent.trim() })
+}
+
+function onSpqueryFileDel(btn) {
+  const box = btn.closest('.spquery-file__box')
+  const name = box?.querySelector('.spquery-file__name')
+  if (name) name.textContent = ''
+  emit('map:spquery', { action: 'file-del' })
+}
+
 function onClick(event) {
   const actionEl = event.target.closest('[data-action]')
   const insideCoord = event.target.closest('#coordPop')
@@ -1635,6 +1738,7 @@ function onClick(event) {
     }
   }
   if (action === 'close-lyr-list' || action === 'close-mo-picked') closeLayerList()
+  if (action === 'close-spquery') closeSpquery()
   if (action === 'attr-layer') openAttr({ title: actionEl.dataset.layerName || '' })
   if (action === 'close-basemap') closeBasemap()
   if (action === 'basemap-pick') pickBasemap(actionEl.dataset.map)
@@ -1720,6 +1824,14 @@ function onClick(event) {
     emit('map:layer-remove', { id: actionEl.dataset.layerId })
   }
   if (action === 'lyr-set') emit('map:layer-set', { id: actionEl.dataset.layerId })
+  if (action === 'inq-tab') setInqTab(actionEl)
+  if (action === 'spquery-sw') onSpquerySwitch(actionEl)
+  if (action === 'spquery-fold') onSpqueryFold(actionEl)
+  if (action === 'spquery-graph') openModal('queryStatModal', { dimmed: true })
+  if (action === 'spquery-reset') resetSpquery()
+  if (action === 'spquery-draw') fillSpquery()
+  if (action === 'spquery-mini') onSpqueryMini(actionEl)
+  if (action === 'spquery-file-del') onSpqueryFileDel(actionEl)
   if (action === 'spatial-op') emit('map:spatial', { kind: 'op' })
   if (action === 'spatial-an') emit('map:spatial', { kind: 'an' })
   if (action === 'mo-menu') setMoMenu(document.getElementById('moMenu')?.hidden !== false)
@@ -1973,10 +2085,13 @@ window.MapUI = {
   closeLayerList,
   openBasemap,
   closeBasemap,
+  openSpquery,
+  closeSpquery,
   openAreaInfo,
   closeAreaInfo,
   openModal,
   closeModal,
+  setInqTab,
   openLogin,
   closeLogin,
   setModalTab,

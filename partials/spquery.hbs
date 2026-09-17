@@ -1,0 +1,193 @@
+{{!--
+  공간조회. 우측 툴 data-tool="spquery" 확장 UI. 지도 공통.
+  탭은 .inq · data-action="inq-tab"
+--}}
+<section class="spquery" id="spqueryPanel" aria-label="공간조회" data-tab="circle">
+  <header class="spquery__head">
+    <h2 class="spquery__title">공간조회</h2>
+    <button type="button" class="spquery__close" data-action="close-spquery" aria-label="닫기"></button>
+  </header>
+  <div class="spquery__body">
+    <div class="inq" role="tablist" aria-label="조회 방식">
+      <button type="button" class="inq__tab is-on" role="tab" id="inqTab-circle" aria-selected="true" aria-controls="inqPane-circle" data-action="inq-tab" data-tab="circle">
+        <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+        원형조회
+      </button>
+      <button type="button" class="inq__tab" role="tab" id="inqTab-grid" aria-selected="false" aria-controls="inqPane-grid" data-action="inq-tab" data-tab="grid">
+        <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+        격자조회
+      </button>
+      <button type="button" class="inq__tab" role="tab" id="inqTab-region" aria-selected="false" aria-controls="inqPane-region" data-action="inq-tab" data-tab="region">
+        <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+        지역조회
+      </button>
+      <button type="button" class="inq__tab" role="tab" id="inqTab-file" aria-selected="false" aria-controls="inqPane-file" data-action="inq-tab" data-tab="file">
+        <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+        파일조회
+      </button>
+      <button type="button" class="inq__tab" role="tab" id="inqTab-zone" aria-selected="false" aria-controls="inqPane-zone" data-action="inq-tab" data-tab="zone">
+        <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+        영역조회
+      </button>
+    </div>
+
+    <div class="spquery-pane is-on" id="inqPane-circle" role="tabpanel" data-pane="circle" aria-labelledby="inqTab-circle">
+      <p class="spquery-desc">지도 위에 원형을 그려 조회 영역을 설정하세요.</p>
+      <button type="button" class="spquery-draw" data-action="spquery-draw">원형 그리기</button>
+    </div>
+    <div class="spquery-pane" id="inqPane-grid" role="tabpanel" data-pane="grid" aria-labelledby="inqTab-grid">
+      <p class="spquery-desc">지도에서 격자를 선택해 조회 영역을 설정하세요.</p>
+      <button type="button" class="spquery-draw" data-action="spquery-draw">격자 선택하기</button>
+    </div>
+    <div class="spquery-pane" id="inqPane-region" role="tabpanel" data-pane="region" aria-labelledby="inqTab-region">
+      <p class="spquery-desc">행정구역을 선택해 조회 영역을 설정하세요.</p>
+      <div class="spquery-sels">
+        <div class="spatool-sel">
+          <select class="spatool-sel__el" aria-label="시·도">
+            <option selected>충남</option>
+            <option>서울</option>
+            <option>경기</option>
+          </select>
+        </div>
+        <span class="spquery-sels__dash" aria-hidden="true">-</span>
+        <div class="spatool-sel">
+          <select class="spatool-sel__el" aria-label="시·군·구">
+            <option selected>태안군</option>
+            <option>보령시</option>
+            <option>서산시</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="spquery-pane" id="inqPane-file" role="tabpanel" data-pane="file" aria-labelledby="inqTab-file">
+      <p class="spquery-desc">공간 파일을 첨부해 조회 영역을 설정하세요.</p>
+      <div class="spquery-file">
+        <div class="spquery-file__box">
+          <span class="spquery-file__name">공간연산 [zip]</span>
+          <button type="button" class="spquery-file__del" data-action="spquery-file-del">
+            삭제
+            <img src="./src/assets/img/spquery/file-x.svg" width="14" height="14" alt="">
+          </button>
+        </div>
+        <button type="button" class="spquery-file__add">파일 첨부</button>
+      </div>
+    </div>
+    <div class="spquery-pane" id="inqPane-zone" role="tabpanel" data-pane="zone" aria-labelledby="inqTab-zone">
+      <p class="spquery-desc">해양 공간경계 기준을 설정하세요.</p>
+      <div class="spquery-mini" role="tablist" aria-label="공간경계">
+        <button type="button" class="spquery-mini__btn" data-action="spquery-mini">바닷가</button>
+        <button type="button" class="spquery-mini__btn is-on" data-action="spquery-mini">영해</button>
+        <button type="button" class="spquery-mini__btn" data-action="spquery-mini">EEZ</button>
+      </div>
+    </div>
+
+    <section class="spquery-sec">
+      <div class="spquery-sec__head">
+        <div class="spquery-sec__left">
+          <h3 class="spquery-sec__tit">조회대상</h3>
+          <span class="spquery-count">82</span>
+        </div>
+        <button type="button" class="spquery-fold" data-action="spquery-fold" aria-expanded="true" aria-controls="spqueryList" aria-label="조회대상 접기"></button>
+      </div>
+      <ul class="spquery-list" id="spqueryList">
+        <li class="spquery-row">
+          <button type="button" class="spquery-sw is-on" role="switch" aria-checked="true" data-action="spquery-sw"><span>on</span></button>
+          <span class="spquery-mark" aria-hidden="true"></span>
+          <span class="spquery-row__name">해일위험지구</span>
+        </li>
+        <li class="spquery-row">
+          <button type="button" class="spquery-sw" role="switch" aria-checked="false" data-action="spquery-sw"><span>off</span></button>
+          <span class="spquery-mark" aria-hidden="true"></span>
+          <span class="spquery-row__name">통항분리수역</span>
+        </li>
+        <li class="spquery-row">
+          <button type="button" class="spquery-sw" role="switch" aria-checked="false" data-action="spquery-sw"><span>off</span></button>
+          <span class="spquery-mark" aria-hidden="true"></span>
+          <span class="spquery-row__name">추천항로연결항로</span>
+        </li>
+        <li class="spquery-row">
+          <button type="button" class="spquery-sw" role="switch" aria-checked="false" data-action="spquery-sw"><span>off</span></button>
+          <span class="spquery-mark" aria-hidden="true"></span>
+          <span class="spquery-row__name">추천항로전체항로</span>
+        </li>
+        <li class="spquery-row">
+          <button type="button" class="spquery-sw" role="switch" aria-checked="false" data-action="spquery-sw"><span>off</span></button>
+          <span class="spquery-mark" aria-hidden="true"></span>
+          <span class="spquery-row__name">묘박지</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="spquery-sec">
+      <div class="spquery-sec__head">
+        <h3 class="spquery-sec__tit">검색결과</h3>
+        <div class="spquery-acts">
+          <button type="button" class="spquery-sbtn" data-action="spquery-graph">
+            <img src="./src/assets/img/spquery/graph.svg" width="8" height="8" alt="">
+            그래프보기
+          </button>
+          <button type="button" class="spquery-sbtn" data-action="spquery-reset">
+            <img src="./src/assets/img/spquery/reset.svg" width="8" height="8" alt="">
+            초기화
+          </button>
+        </div>
+      </div>
+      <div class="spquery-empty">
+        <span class="spquery-empty__ico" aria-hidden="true">
+          <img class="spquery-empty__frame" src="./src/assets/img/spquery/empty-frame.svg" width="32" height="32" alt="">
+          <img class="spquery-empty__pin" src="./src/assets/img/spquery/empty-pin.svg" width="16" height="16" alt="">
+          <img class="spquery-empty__scan" src="./src/assets/img/spquery/empty-scan.svg" width="15" height="15" alt="">
+        </span>
+        <p class="spquery-empty__tit">조회 영역을 설정해주세요.</p>
+        <p class="spquery-empty__desc">지도에서 조회할 영역을 그리면 검색 결과가 표시됩니다.</p>
+      </div>
+      <div class="spquery-tbl" hidden>
+        <div class="spquery-tbl__head">
+          <span>데이터명</span>
+          <span>값(단위)</span>
+        </div>
+        <ul class="spquery-tbl__body">
+          <li>
+            <span><span class="spquery-mark" aria-hidden="true"></span>추천항로연결항로</span>
+            <span>77.5(km)</span>
+          </li>
+          <li>
+            <span>
+              <img class="spquery-mark spquery-mark--circle" src="./src/assets/img/spquery/mark-circle.svg" width="14" height="14" alt="">
+              추천항로연결항로
+            </span>
+            <span>249.6(km)</span>
+          </li>
+          <li>
+            <span>
+              <img class="spquery-mark spquery-mark--circle" src="./src/assets/img/spquery/mark-circle.svg" width="14" height="14" alt="">
+              추천항로연결항로
+            </span>
+            <span>249.6(km)</span>
+          </li>
+          <li>
+            <span>
+              <img class="spquery-mark spquery-mark--line" src="./src/assets/img/spquery/mark-line.svg" width="14" height="14" alt="">
+              묘박지
+            </span>
+            <span>29(건)</span>
+          </li>
+          <li>
+            <span>
+              <img class="spquery-mark spquery-mark--line spquery-mark--lg" src="./src/assets/img/spquery/mark-line.svg" width="16" height="16" alt="">
+              묘박지
+            </span>
+            <span>29(건)</span>
+          </li>
+          <li>
+            <span>
+              <img class="spquery-mark spquery-mark--circle" src="./src/assets/img/spquery/mark-circle.svg" width="14" height="14" alt="">
+              묘박지
+            </span>
+            <span>29(건)</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</section>

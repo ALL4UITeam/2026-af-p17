@@ -1,0 +1,94 @@
+{{!--
+  공간조회 데이터 분포 통계. Figma 365:44565
+  MapUI.openModal('queryStatModal', { dimmed: true })
+--}}
+<div class="dlg dlg--chart" id="queryStatModal" hidden data-dimmed="true">
+  <div class="dlg__dim" data-action="close-modal" hidden></div>
+  <section class="dlg__box" role="dialog" aria-modal="true" aria-labelledby="queryStatTitle" tabindex="-1">
+    <header class="dlg__head">
+      <h2 class="dlg__title" id="queryStatTitle">데이터 분포 통계</h2>
+      <button type="button" class="dlg__close" data-action="close-modal" aria-label="닫기"></button>
+    </header>
+    <div class="dlg__body">
+      <ul class="spstat-legend">
+        <li>
+          <img src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="">
+          선택 격자 당 분포 평균
+        </li>
+        <li>
+          <img src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="">
+          전국 격자 당 분포 평균
+        </li>
+      </ul>
+
+      <section class="spstat-sec">
+        <h3 class="spstat-sec__tit">폴리곤 : 면적(km<sup>2</sup>)</h3>
+        <div class="spstat-box">
+          <div class="spstat-labs">
+            <p>시운전금지해역</p>
+          </div>
+          <div class="spstat-plot" style="--n: 10">
+            <div class="spstat-bar" style="--w: 91.85%; --t: 36px">
+              <span>4,594.1</span>
+            </div>
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="" style="left: 1.2%; top: 47px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="" style="left: 6.7%; top: 47px">
+            <ol class="spstat-axis">
+              <li>0</li><li>500</li><li>1000</li><li>1500</li><li>2000</li><li>2500</li><li>3000</li><li>3500</li><li>4000</li><li>4500</li><li>3.25</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="spstat-sec">
+        <h3 class="spstat-sec__tit">라인 : 길이(km)</h3>
+        <div class="spstat-box">
+          <div class="spstat-labs">
+            <p>와류</p>
+            <p>추천항로접속항로</p>
+          </div>
+          <div class="spstat-plot" style="--n: 15">
+            <div class="spstat-bar" style="--w: 91.85%; --t: 14px">
+              <span>1.4</span>
+            </div>
+            <div class="spstat-bar" style="--w: 46.5%; --t: 59px">
+              <span>0.7</span>
+            </div>
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="" style="left: 1.2%; top: 25px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="" style="left: 6.3%; top: 25px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="" style="left: 1.2%; top: 70px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="" style="left: 3.8%; top: 70px">
+            <ol class="spstat-axis">
+              <li>0</li><li>0.1</li><li>0.2</li><li>0.3</li><li>0.4</li><li>0.5</li><li>0.6</li><li>0.7</li><li>0.8</li><li>0.9</li><li>1</li><li>1.1</li><li>1.2</li><li>1.3</li><li>1.4</li><li>1.5</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="spstat-sec">
+        <h3 class="spstat-sec__tit">포인트 : 건수(건)</h3>
+        <div class="spstat-box">
+          <div class="spstat-labs">
+            <p>묘박지</p>
+            <p>해일위험지구</p>
+          </div>
+          <div class="spstat-plot" style="--n: 13">
+            <div class="spstat-bar" style="--w: 91.85%; --t: 14px">
+              <span>3.0</span>
+            </div>
+            <div class="spstat-bar" style="--w: 31%; --t: 59px">
+              <span>1.0</span>
+            </div>
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="" style="left: 1.2%; top: 25px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="" style="left: 6.7%; top: 25px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-sel.svg" width="10" height="10" alt="" style="left: 1.2%; top: 70px">
+            <img class="spstat-dot" src="./src/assets/img/spquery/dot-avg.svg" width="10" height="10" alt="" style="left: 2.7%; top: 70px">
+            <ol class="spstat-axis">
+              <li>0</li><li>0.25</li><li>0.5</li><li>0.75</li><li>1</li><li>1.25</li><li>1.5</li><li>1.75</li><li>2</li><li>2.25</li><li>2.5</li><li>2.75</li><li>3</li><li>3.25</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>

@@ -240,16 +240,31 @@
       <section class="g-sec" id="inq">
         <div class="g-sec__head">
           <h2 class="g-sec__ti">조회 탭</h2>
-          <span class="g-sec__meta">.inq__tab · 높이 32</span>
+          <span class="g-sec__meta">.inq__tab · 높이 32 · 원형/격자/지역/파일/영역</span>
         </div>
-        <p class="g-sec__desc">원형/격자 조회. 활성 탭만 체크 아이콘과 위·옆 보더.</p>
+        <p class="g-sec__desc">공간조회 공통 탭. 활성 탭만 체크 아이콘과 위·옆 보더. 클릭하면 탭이 바뀐다.</p>
         <div class="g-play" style="background:#fff">
           <div class="inq" role="tablist" aria-label="조회 방식">
-            <button type="button" class="inq__tab is-on" role="tab" data-action="inq-tab">
+            <button type="button" class="inq__tab is-on" role="tab" data-action="inq-tab" data-tab="circle">
               <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
               원형조회
             </button>
-            <button type="button" class="inq__tab" role="tab" data-action="inq-tab">격자조회</button>
+            <button type="button" class="inq__tab" role="tab" data-action="inq-tab" data-tab="grid">
+              <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+              격자조회
+            </button>
+            <button type="button" class="inq__tab" role="tab" data-action="inq-tab" data-tab="region">
+              <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+              지역조회
+            </button>
+            <button type="button" class="inq__tab" role="tab" data-action="inq-tab" data-tab="file">
+              <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+              파일조회
+            </button>
+            <button type="button" class="inq__tab" role="tab" data-action="inq-tab" data-tab="zone">
+              <img src="./src/assets/img/form/inq-check.svg" width="12" height="12" alt="">
+              영역조회
+            </button>
           </div>
         </div>
         <div class="g-code">

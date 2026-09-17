@@ -1,0 +1,757 @@
+@use '../base/variables' as *;
+
+.spquery {
+  position: absolute;
+  top: 42px;
+  right: 85px;
+  z-index: 12;
+  display: none;
+  flex-direction: column;
+  width: 360px;
+  max-height: calc(100% - 52px);
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  &.is-open {
+    display: flex;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 16px;
+    pointer-events: none;
+    background-image:
+      linear-gradient(143deg, rgba(216, 235, 240, 0.4) 1.38%, rgba(152, 216, 236, 0.4) 94.13%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
+  }
+
+  &__head,
+  &__body {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__head {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 8px;
+    height: 46px;
+    padding: 10px 16px;
+    border-radius: 16px 16px 0 0;
+    background: $primary-80;
+  }
+
+  &__title {
+    flex: 1;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-0;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background:
+      url('../assets/img/modal/close.svg') center / 12px 12px no-repeat,
+      rgba(255, 255, 255, 0.1);
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+    padding: 16px;
+    @include overlay-scroll;
+  }
+}
+
+.spquery-pane {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+
+  &.is-on {
+    display: flex;
+  }
+}
+
+.spquery-desc {
+  margin: 0;
+  padding-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: $gray-80;
+}
+
+.spquery-draw {
+  width: 100%;
+  height: 40px;
+  border: 1px solid $primary-50;
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: $primary-80;
+  background: $primary-5;
+}
+
+.spquery-sels {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+
+  .spatool-sel {
+    flex: 1;
+    width: auto;
+  }
+
+  &__dash {
+    flex-shrink: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-80;
+  }
+}
+
+.spquery-file {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+
+  &__box {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    height: 32px;
+    padding: 0 10px 0 12px;
+    overflow: hidden;
+    border: 1px solid $gray-20;
+    border-radius: 4px;
+    background: $gray-0;
+  }
+
+  &__name {
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__del {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    line-height: 1.2;
+    color: $gray-80;
+    background: none;
+
+    img {
+      display: block;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__add {
+    flex-shrink: 0;
+    min-width: 60px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid $primary-50;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: $primary-80;
+    background: $primary-5;
+  }
+}
+
+.spquery-mini {
+  display: flex;
+  gap: 1px;
+  width: 100%;
+  height: 24px;
+  padding: 0;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.1);
+
+  &__btn {
+    flex: 1;
+    min-width: 0;
+    height: 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.39px;
+    color: $gray-50;
+    background: transparent;
+  }
+
+  &__btn.is-on {
+    border: 1px solid #e6e8ea;
+    font-weight: 600;
+    color: $gray-80;
+    background: $gray-0;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.spquery-sec {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__tit {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-95;
+  }
+}
+
+.spquery-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $gray-0;
+  background: $primary-70;
+}
+
+.spquery-fold {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid $gray-0;
+  border-radius: 4px;
+  background:
+    url('../assets/img/icon/chev-down.svg') center / 12px 12px no-repeat,
+    rgba(255, 255, 255, 0.6);
+}
+
+.spquery-sec.is-fold .spquery-fold {
+  transform: rotate(-180deg);
+}
+
+.spquery-sec.is-fold .spquery-list {
+  display: none;
+}
+
+.spquery-acts {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.spquery-sbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 60px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid $gray-0;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: $gray-80;
+  background: rgba(255, 255, 255, 0.6);
+
+  img {
+    display: block;
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.spquery-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 198px;
+  padding: 4px 12px;
+  overflow: auto;
+  border: 1px solid $primary-40;
+  border-radius: 8px;
+  background: $gray-0;
+  @include overlay-scroll;
+}
+
+.spquery-row {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+
+  &__name {
+    font-size: 15px;
+    line-height: 1.5;
+    color: $gray-60;
+    white-space: nowrap;
+  }
+}
+
+.spquery-sw {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 36px;
+  height: 18px;
+  padding: 1px;
+  border-radius: 12px;
+  background: $gray-40;
+
+  span {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1;
+    color: $gray-0;
+  }
+
+  &::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: $gray-0;
+  }
+
+  &.is-on {
+    justify-content: flex-end;
+    background: $primary-70;
+
+    span {
+      right: auto;
+      left: 5px;
+    }
+  }
+}
+
+.spquery-mark {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 2px;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: 1px;
+    background: #ef0060;
+  }
+
+  &--circle,
+  &--line {
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &--circle {
+    background-image: url('../assets/img/spquery/mark-circle.svg');
+  }
+
+  &--line {
+    background-image: url('../assets/img/spquery/mark-line.svg');
+  }
+
+  &--lime::before {
+    background: #a9b500;
+  }
+}
+
+.spquery-tbl {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-80;
+    text-align: center;
+    background: #f3f9ff;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    span:first-child {
+      flex: 1;
+    }
+
+    span:last-child {
+      flex-shrink: 0;
+      width: 130px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      height: 36px;
+      border-bottom: 1px solid #f3f9ff;
+    }
+
+    li > span {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #475569;
+      white-space: nowrap;
+    }
+
+    li > span:first-child {
+      flex: 1 0 0;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    li > span:last-child {
+      flex-shrink: 0;
+      justify-content: flex-end;
+      width: 130px;
+    }
+
+    .spquery-mark {
+      flex: none;
+      width: 14px;
+      height: 14px;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 2px;
+      background: #ef0060;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    img.spquery-mark {
+      display: block;
+      background: none;
+      border-radius: 0;
+    }
+
+    .spquery-mark--lg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.spquery-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 20px 0;
+  border: 1px solid $gray-0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__ico {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 100px;
+    background: $gray-0;
+  }
+
+  &__frame {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 0;
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__pin {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    z-index: 1;
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  &__scan {
+    position: absolute;
+    top: 26px;
+    left: 20px;
+    z-index: 2;
+    display: block;
+    width: 15px;
+    height: 15px;
+  }
+
+  &__tit {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $primary-80;
+    text-align: center;
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: $gray-60;
+    text-align: center;
+  }
+}
+
+.dlg--chart {
+  .dlg__dim {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .dlg__box {
+    width: 1000px;
+    height: auto;
+    max-height: calc(100vh - 48px);
+    background: $gray-0;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .dlg__head {
+    justify-content: space-between;
+  }
+
+  .dlg__body {
+    align-items: flex-end;
+    gap: 16px;
+    padding: 16px;
+    overflow: auto;
+    @include overlay-scroll;
+  }
+
+  .spstat-sec {
+    width: 100%;
+  }
+}
+
+.spstat-legend {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  width: 100%;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: $gray-80;
+  }
+
+  img {
+    display: block;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.spstat-sec {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__tit {
+    margin: 0;
+    padding-bottom: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $gray-95;
+
+    sup {
+      font-size: 11px;
+    }
+  }
+}
+
+.spstat-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  overflow: hidden;
+  border: 1px solid $gray-20;
+  border-radius: 12px;
+  background: $gray-0;
+}
+
+.spstat-labs {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 24px;
+  width: 83px;
+  padding-bottom: 17px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000;
+  text-align: right;
+
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 21px;
+    margin: 0;
+  }
+}
+
+.spstat-plot {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 120px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(100% / var(--n, 10) - 1px),
+    #e6e8ea calc(100% / var(--n, 10) - 1px),
+    #e6e8ea calc(100% / var(--n, 10))
+  );
+  background-position: 0 0;
+  background-size: 100% 103px;
+  background-repeat: no-repeat;
+}
+
+.spstat-bar {
+  position: absolute;
+  top: var(--t, 36px);
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: var(--w, 90%);
+  height: 32px;
+  padding-right: 12px;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #000;
+  background: #bbd7e9;
+}
+
+.spstat-dot {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+}
+
+.spstat-axis {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 1.2;
+  color: $gray-60;
+}

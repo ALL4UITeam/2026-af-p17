@@ -66,6 +66,10 @@
     background-size: 16px 16px;
     cursor: pointer;
 
+    &[data-tool='spquery'] {
+      background-image: url('../assets/img/tool/spquery.svg');
+    }
+
     &[data-tool='layer'] {
       background-image: url('../assets/img/tool/layer.svg');
     }
@@ -92,6 +96,11 @@
   &__item:hover &__btn,
   &__item.is-active &__btn {
     background-color: $primary-60;
+  }
+
+  &__item:hover &__btn[data-tool='spquery'],
+  &__item.is-active &__btn[data-tool='spquery'] {
+    background-image: url('../assets/img/tool/spquery-on.svg');
   }
 
   &__item:hover &__btn[data-tool='layer'],
